@@ -1,0 +1,36 @@
+@prefix om-owl:  <http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sens-obs:  <http://knoesis.wright.edu/ssw/> .
+@prefix owl-time:  <http://www.w3.org/2006/time#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix weather:  <http://knoesis.wright.edu/ssw/ont/weather.owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+sens-obs:Observation_WindSpeed_1
+      a       weather:WindObservation ;
+      om-owl:result sens-obs:MeasureData_WindSpeed_1 ;
+      om-owl:samplingTime sens-obs:Instant_1 .
+      
+sens-obs:MeasureData_WindSpeed_1
+      a       om-owl:MeasureData ;
+      om-owl:floatValue "3.0"^^xsd:float .
+      
+sens-obs:Instant_1
+      a       owl-time:Instant ;
+      owl-time:inXSDDateTime
+              "18-10-2005T22:30:00^^http://www.w3.org/2001/XMLSchema#dateTime" .
+              
+sens-obs:Observation_WindGust_2
+      a       weather:WindObservation ;
+      om-owl:result sens-obs:MeasureData_WindGust_2 ;
+      om-owl:samplingTime sens-obs:Instant_2 .
+      
+sens-obs:MeasureData_WindGust_2
+      a       om-owl:MeasureData ;
+      om-owl:floatValue "0.0"^^xsd:float .
+      
+sens-obs:Instant_2
+      a       owl-time:Instant ;
+      owl-time:inXSDDateTime
+              "18-10-2005T07:30:00^^http://www.w3.org/2001/XMLSchema#dateTime" .

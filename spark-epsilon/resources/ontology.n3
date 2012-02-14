@@ -1,0 +1,42 @@
+@prefix : <http://example.org/ns/family-ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:hasSpouse rdfs:domain :Person ;
+           rdfs:range :Person .
+
+:Man rdfs:subClassOf :Person .
+
+:Woman rdfs:subClassOf :Person .
+
+:hasHusband rdfs:subPropertyOf :hasSpouse ;
+            rdfs:range :Man .
+
+:hasWife rdfs:subPropertyOf :hasSpouse ;
+         rdfs:range :Woman .
+
+:Parent rdfs:subClassOf :Person .
+
+:Father rdfs:subClassOf :Parent ,
+                        :Man .
+
+:Mother rdfs:subClassOf :Parent ,
+                        :Woman .
+
+:hasChild rdfs:domain :Parent ;
+          rdfs:range :Person .
+
+:hasSon rdfs:subPropertyOf :hasChild ;
+        rdfs:range :Man .
+
+:hasDaughter rdfs:subPropertyOf :hasChild ;
+             rdfs:range :Woman .
+
+:hasParent rdfs:domain :Person ;
+           rdfs:range :Parent .
+
+:hasFather rdfs:subPropertyOf :hasParent ;
+           rdfs:range :Father .
+
+:hasMother rdfs:subPropertyOf :hasParent ;
+           rdfs:range :Mother .

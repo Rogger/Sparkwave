@@ -1,0 +1,12 @@
+?x http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product ?product
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/vendor ?vendor
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/price ?price
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/validFrom ?from
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/validTo ?to
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/deliveryDays ?delivery
+?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/offerWebpage ?webpage
+?x http://purl.org/dc/elements/1.1/publisher ?publisher
+?x http://purl.org/dc/elements/1.1/date	?date
+?product http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType2
+TIMEWINDOW (100)

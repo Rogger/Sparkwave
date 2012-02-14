@@ -1,0 +1,22 @@
+@prefix weather: <http://knoesis.wright.edu/ssw/ont/weather.owl#> .
+@prefix sensor: <http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+weather:WindObservation a owl:Class .
+
+sensor:result a owl:ObjectProperty .
+
+sensor:samplingTime a owl:ObjectProperty .
+
+sensor:MeasureData a owl:Class .
+
+sensor:floatValue a owl:DatatypeProperty .
+
+time:Instant a owl:Class .
+
+time:inXSDDateTime a owl:DatatypeProperty .
+
+

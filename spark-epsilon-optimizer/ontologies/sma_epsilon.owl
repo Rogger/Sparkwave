@@ -1,0 +1,84 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sma: <http://socialmedia.example.org/ns#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix fb: <http://facebook.example.org/ns#> .
+@prefix twd: <http://tweeter.example.org/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+foaf:Agent a owl:Class .
+
+sioc:UserAccount a owl:Class .
+
+twd:TwitterUser a owl:Class;
+	rdfs:subClassOf sioc:UserAccount .
+	
+fb:FacebookUser a owl:Class;
+	rdfs:subClassOf sioc:UserAccount .
+	
+sioc:Post a owl:Class .
+
+twd:Tweet a owl:Class;
+	rdfs:subClassOf sioc:Post .
+	
+fb:StatusUpdate a owl:Class;
+	rdfs:subClassOf sioc:Post .
+
+geo:SpatialThing a owl:Class .
+
+foaf:acount a owl:ObjectProperty;
+    rdfs:domain foaf:Agent;
+    rdfs:range sioc:UserAccount .
+    
+sioc:account_of a owl:ObjectProperty;
+    owl:inverseOf foaf:acount .
+
+sioc:creator_of a owl:ObjectProperty;
+    rdfs:domain sioc:UserAccount;
+    rdfs:range sioc:Post .
+    
+sioc:has_creator a owl:ObjectProperty;
+    owl:inverseOf sioc:creator_of .
+    
+twd:post a owl:ObjectProperty ;
+    rdfs:subPropertyOf sioc:creator_of;
+    rdfs:domain twd:TwitterUser;
+    rdfs:range twd:Tweet .
+    
+fb:update a owl:ObjectProperty ;
+    rdfs:subPropertyOf sioc:creator_of;
+    rdfs:domain fb:FacebookUser;
+    rdfs:range fb:StatusUpdate .
+    
+sma:references a owl:ObjectProperty ;
+    rdfs:domain sioc:Post;
+    rdfs:range geo:SpatialThing .
+    
+sma:talksAbout a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:references.
+	
+sma:associatedTo a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:references.
+
+twd:twittedFrom a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:associatedTo ;
+    rdfs:domain twd:Tweet;
+    rdfs:range geo:SpatialThing .
+    
+twd:talksAbout a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:references ;
+    rdfs:domain twd:Tweet;
+    rdfs:range geo:SpatialThing .
+
+fb:location a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:references ;
+    rdfs:domain fb:StatusUpdate;
+    rdfs:range geo:SpatialThing .
+    
+fb:mentions a owl:ObjectProperty ;
+	rdfs:subPropertyOf sma:talksAbout ;
+    rdfs:domain fb:StatusUpdate;
+    rdfs:range geo:SpatialThing .

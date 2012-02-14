@@ -1,0 +1,14 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sma: <http://socialmedia.example.org/ns#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix fb: <http://facebook.example.org/ns#> .
+@prefix twd: <http://tweeter.example.org/ns#> .
+
+twd:Tweet a owl:Class .
+fb:StatusUpdate a owl:Class .
+
+sma:talksAbout a owl:ObjectProperty .
+sioc:creator_of a owl:ObjectProperty .
+sioc:account_of a owl:ObjectProperty .
+twd:talksAbout a owl:ObjectProperty .
+

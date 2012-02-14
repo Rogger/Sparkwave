@@ -1,0 +1,8 @@
+?x http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://knoesis.wright.edu/ssw/ont/weather.owl#WindObservation
+?x http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#result ?y
+?x http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#samplingTime ?z
+?y http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#MeasureData
+?y http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#floatValue ?floatValue
+?z http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.w3.org/2006/time#Instant
+?z http://www.w3.org/2006/time#inXSDDateTime ?instant
+TIMEWINDOW (100)

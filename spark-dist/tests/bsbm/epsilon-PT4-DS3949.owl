@@ -1,0 +1,2658 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/> .
+@prefix bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/> .
+@prefix : <http://www.semanticweb.org/owl/owlapi/turtle#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1390
+
+bsbm-inst:ProductType1390 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1391
+
+bsbm-inst:ProductType1391 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1392
+
+bsbm-inst:ProductType1392 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1393
+
+bsbm-inst:ProductType1393 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1394
+
+bsbm-inst:ProductType1394 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1395
+
+bsbm-inst:ProductType1395 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1396
+
+bsbm-inst:ProductType1396 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1397
+
+bsbm-inst:ProductType1397 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1398
+
+bsbm-inst:ProductType1398 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1399
+
+bsbm-inst:ProductType1399 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1400
+
+bsbm-inst:ProductType1400 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1401
+
+bsbm-inst:ProductType1401 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1402
+
+bsbm-inst:ProductType1402 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1403
+
+bsbm-inst:ProductType1403 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1404
+
+bsbm-inst:ProductType1404 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1405
+
+bsbm-inst:ProductType1405 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1406
+
+bsbm-inst:ProductType1406 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1407
+
+bsbm-inst:ProductType1407 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1408
+
+bsbm-inst:ProductType1408 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1409
+
+bsbm-inst:ProductType1409 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1410
+
+bsbm-inst:ProductType1410 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1411
+
+bsbm-inst:ProductType1411 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1412
+
+bsbm-inst:ProductType1412 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1413
+
+bsbm-inst:ProductType1413 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1414
+
+bsbm-inst:ProductType1414 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1415
+
+bsbm-inst:ProductType1415 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1416
+
+bsbm-inst:ProductType1416 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1417
+
+bsbm-inst:ProductType1417 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1418
+
+bsbm-inst:ProductType1418 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1419
+
+bsbm-inst:ProductType1419 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1420
+
+bsbm-inst:ProductType1420 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1421
+
+bsbm-inst:ProductType1421 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1422
+
+bsbm-inst:ProductType1422 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1423
+
+bsbm-inst:ProductType1423 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1424
+
+bsbm-inst:ProductType1424 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1425
+
+bsbm-inst:ProductType1425 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1426
+
+bsbm-inst:ProductType1426 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1427
+
+bsbm-inst:ProductType1427 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1428
+
+bsbm-inst:ProductType1428 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1429
+
+bsbm-inst:ProductType1429 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1430
+
+bsbm-inst:ProductType1430 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1431
+
+bsbm-inst:ProductType1431 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1432
+
+bsbm-inst:ProductType1432 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1433
+
+bsbm-inst:ProductType1433 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1434
+
+bsbm-inst:ProductType1434 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1435
+
+bsbm-inst:ProductType1435 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1436
+
+bsbm-inst:ProductType1436 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1437
+
+bsbm-inst:ProductType1437 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1438
+
+bsbm-inst:ProductType1438 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1439
+
+bsbm-inst:ProductType1439 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1440
+
+bsbm-inst:ProductType1440 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1441
+
+bsbm-inst:ProductType1441 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1442
+
+bsbm-inst:ProductType1442 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1443
+
+bsbm-inst:ProductType1443 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1444
+
+bsbm-inst:ProductType1444 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1445
+
+bsbm-inst:ProductType1445 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1446
+
+bsbm-inst:ProductType1446 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1447
+
+bsbm-inst:ProductType1447 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1448
+
+bsbm-inst:ProductType1448 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1449
+
+bsbm-inst:ProductType1449 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1450
+
+bsbm-inst:ProductType1450 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1451
+
+bsbm-inst:ProductType1451 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1452
+
+bsbm-inst:ProductType1452 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1453
+
+bsbm-inst:ProductType1453 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1454
+
+bsbm-inst:ProductType1454 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1455
+
+bsbm-inst:ProductType1455 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1456
+
+bsbm-inst:ProductType1456 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1457
+
+bsbm-inst:ProductType1457 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1458
+
+bsbm-inst:ProductType1458 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1459
+
+bsbm-inst:ProductType1459 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1460
+
+bsbm-inst:ProductType1460 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1461
+
+bsbm-inst:ProductType1461 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1462
+
+bsbm-inst:ProductType1462 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1463
+
+bsbm-inst:ProductType1463 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1464
+
+bsbm-inst:ProductType1464 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1465
+
+bsbm-inst:ProductType1465 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1466
+
+bsbm-inst:ProductType1466 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1467
+
+bsbm-inst:ProductType1467 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1468
+
+bsbm-inst:ProductType1468 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1469
+
+bsbm-inst:ProductType1469 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1470
+
+bsbm-inst:ProductType1470 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1471
+
+bsbm-inst:ProductType1471 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1472
+
+bsbm-inst:ProductType1472 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1473
+
+bsbm-inst:ProductType1473 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1474
+
+bsbm-inst:ProductType1474 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1475
+
+bsbm-inst:ProductType1475 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1476
+
+bsbm-inst:ProductType1476 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1477
+
+bsbm-inst:ProductType1477 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1478
+
+bsbm-inst:ProductType1478 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1479
+
+bsbm-inst:ProductType1479 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1480
+
+bsbm-inst:ProductType1480 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1481
+
+bsbm-inst:ProductType1481 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1482
+
+bsbm-inst:ProductType1482 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1483
+
+bsbm-inst:ProductType1483 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1484
+
+bsbm-inst:ProductType1484 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1485
+
+bsbm-inst:ProductType1485 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1486
+
+bsbm-inst:ProductType1486 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1487
+
+bsbm-inst:ProductType1487 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1488
+
+bsbm-inst:ProductType1488 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1489
+
+bsbm-inst:ProductType1489 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1490
+
+bsbm-inst:ProductType1490 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1491
+
+bsbm-inst:ProductType1491 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1492
+
+bsbm-inst:ProductType1492 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1493
+
+bsbm-inst:ProductType1493 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1494
+
+bsbm-inst:ProductType1494 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1495
+
+bsbm-inst:ProductType1495 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1496
+
+bsbm-inst:ProductType1496 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1497
+
+bsbm-inst:ProductType1497 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1498
+
+bsbm-inst:ProductType1498 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1499
+
+bsbm-inst:ProductType1499 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1500
+
+bsbm-inst:ProductType1500 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1501
+
+bsbm-inst:ProductType1501 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1502
+
+bsbm-inst:ProductType1502 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1503
+
+bsbm-inst:ProductType1503 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1504
+
+bsbm-inst:ProductType1504 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1505
+
+bsbm-inst:ProductType1505 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1506
+
+bsbm-inst:ProductType1506 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1507
+
+bsbm-inst:ProductType1507 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1508
+
+bsbm-inst:ProductType1508 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1509
+
+bsbm-inst:ProductType1509 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1510
+
+bsbm-inst:ProductType1510 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1511
+
+bsbm-inst:ProductType1511 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1512
+
+bsbm-inst:ProductType1512 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1513
+
+bsbm-inst:ProductType1513 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1514
+
+bsbm-inst:ProductType1514 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1515
+
+bsbm-inst:ProductType1515 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1516
+
+bsbm-inst:ProductType1516 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1517
+
+bsbm-inst:ProductType1517 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1518
+
+bsbm-inst:ProductType1518 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1519
+
+bsbm-inst:ProductType1519 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1520
+
+bsbm-inst:ProductType1520 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1521
+
+bsbm-inst:ProductType1521 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1522
+
+bsbm-inst:ProductType1522 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1523
+
+bsbm-inst:ProductType1523 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1524
+
+bsbm-inst:ProductType1524 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1525
+
+bsbm-inst:ProductType1525 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1526
+
+bsbm-inst:ProductType1526 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1527
+
+bsbm-inst:ProductType1527 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1528
+
+bsbm-inst:ProductType1528 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1529
+
+bsbm-inst:ProductType1529 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1530
+
+bsbm-inst:ProductType1530 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1531
+
+bsbm-inst:ProductType1531 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1532
+
+bsbm-inst:ProductType1532 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1533
+
+bsbm-inst:ProductType1533 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1534
+
+bsbm-inst:ProductType1534 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1535
+
+bsbm-inst:ProductType1535 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1536
+
+bsbm-inst:ProductType1536 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1537
+
+bsbm-inst:ProductType1537 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1538
+
+bsbm-inst:ProductType1538 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1539
+
+bsbm-inst:ProductType1539 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1540
+
+bsbm-inst:ProductType1540 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1541
+
+bsbm-inst:ProductType1541 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1542
+
+bsbm-inst:ProductType1542 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1543
+
+bsbm-inst:ProductType1543 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1544
+
+bsbm-inst:ProductType1544 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1545
+
+bsbm-inst:ProductType1545 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1546
+
+bsbm-inst:ProductType1546 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1547
+
+bsbm-inst:ProductType1547 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1548
+
+bsbm-inst:ProductType1548 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1549
+
+bsbm-inst:ProductType1549 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1550
+
+bsbm-inst:ProductType1550 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1551
+
+bsbm-inst:ProductType1551 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1552
+
+bsbm-inst:ProductType1552 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1553
+
+bsbm-inst:ProductType1553 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1554
+
+bsbm-inst:ProductType1554 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1555
+
+bsbm-inst:ProductType1555 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1556
+
+bsbm-inst:ProductType1556 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1557
+
+bsbm-inst:ProductType1557 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1558
+
+bsbm-inst:ProductType1558 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1559
+
+bsbm-inst:ProductType1559 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1560
+
+bsbm-inst:ProductType1560 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1561
+
+bsbm-inst:ProductType1561 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1562
+
+bsbm-inst:ProductType1562 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1563
+
+bsbm-inst:ProductType1563 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1564
+
+bsbm-inst:ProductType1564 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1565
+
+bsbm-inst:ProductType1565 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1566
+
+bsbm-inst:ProductType1566 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1567
+
+bsbm-inst:ProductType1567 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1568
+
+bsbm-inst:ProductType1568 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1569
+
+bsbm-inst:ProductType1569 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1570
+
+bsbm-inst:ProductType1570 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1571
+
+bsbm-inst:ProductType1571 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1572
+
+bsbm-inst:ProductType1572 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1573
+
+bsbm-inst:ProductType1573 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1574
+
+bsbm-inst:ProductType1574 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1575
+
+bsbm-inst:ProductType1575 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1576
+
+bsbm-inst:ProductType1576 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1577
+
+bsbm-inst:ProductType1577 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1578
+
+bsbm-inst:ProductType1578 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1579
+
+bsbm-inst:ProductType1579 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1580
+
+bsbm-inst:ProductType1580 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1581
+
+bsbm-inst:ProductType1581 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1582
+
+bsbm-inst:ProductType1582 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1583
+
+bsbm-inst:ProductType1583 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1584
+
+bsbm-inst:ProductType1584 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1585
+
+bsbm-inst:ProductType1585 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1586
+
+bsbm-inst:ProductType1586 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1587
+
+bsbm-inst:ProductType1587 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1588
+
+bsbm-inst:ProductType1588 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1589
+
+bsbm-inst:ProductType1589 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1590
+
+bsbm-inst:ProductType1590 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1591
+
+bsbm-inst:ProductType1591 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1592
+
+bsbm-inst:ProductType1592 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1593
+
+bsbm-inst:ProductType1593 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1594
+
+bsbm-inst:ProductType1594 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1595
+
+bsbm-inst:ProductType1595 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1596
+
+bsbm-inst:ProductType1596 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1597
+
+bsbm-inst:ProductType1597 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1598
+
+bsbm-inst:ProductType1598 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1599
+
+bsbm-inst:ProductType1599 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1600
+
+bsbm-inst:ProductType1600 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1601
+
+bsbm-inst:ProductType1601 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1602
+
+bsbm-inst:ProductType1602 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1603
+
+bsbm-inst:ProductType1603 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1604
+
+bsbm-inst:ProductType1604 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1605
+
+bsbm-inst:ProductType1605 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1606
+
+bsbm-inst:ProductType1606 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1607
+
+bsbm-inst:ProductType1607 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1608
+
+bsbm-inst:ProductType1608 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1609
+
+bsbm-inst:ProductType1609 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1610
+
+bsbm-inst:ProductType1610 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1611
+
+bsbm-inst:ProductType1611 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1612
+
+bsbm-inst:ProductType1612 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1613
+
+bsbm-inst:ProductType1613 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1614
+
+bsbm-inst:ProductType1614 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1615
+
+bsbm-inst:ProductType1615 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1616
+
+bsbm-inst:ProductType1616 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1617
+
+bsbm-inst:ProductType1617 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1618
+
+bsbm-inst:ProductType1618 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1619
+
+bsbm-inst:ProductType1619 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1620
+
+bsbm-inst:ProductType1620 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1621
+
+bsbm-inst:ProductType1621 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1622
+
+bsbm-inst:ProductType1622 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1623
+
+bsbm-inst:ProductType1623 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1624
+
+bsbm-inst:ProductType1624 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1625
+
+bsbm-inst:ProductType1625 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1626
+
+bsbm-inst:ProductType1626 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1627
+
+bsbm-inst:ProductType1627 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1628
+
+bsbm-inst:ProductType1628 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1629
+
+bsbm-inst:ProductType1629 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1630
+
+bsbm-inst:ProductType1630 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1631
+
+bsbm-inst:ProductType1631 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1632
+
+bsbm-inst:ProductType1632 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1633
+
+bsbm-inst:ProductType1633 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1634
+
+bsbm-inst:ProductType1634 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1635
+
+bsbm-inst:ProductType1635 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1636
+
+bsbm-inst:ProductType1636 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1637
+
+bsbm-inst:ProductType1637 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1638
+
+bsbm-inst:ProductType1638 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1639
+
+bsbm-inst:ProductType1639 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1640
+
+bsbm-inst:ProductType1640 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1641
+
+bsbm-inst:ProductType1641 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1642
+
+bsbm-inst:ProductType1642 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1643
+
+bsbm-inst:ProductType1643 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1644
+
+bsbm-inst:ProductType1644 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType1645
+
+bsbm-inst:ProductType1645 rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType238
+
+bsbm-inst:ProductType238 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType239
+
+bsbm-inst:ProductType239 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType240
+
+bsbm-inst:ProductType240 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType241
+
+bsbm-inst:ProductType241 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType242
+
+bsbm-inst:ProductType242 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType243
+
+bsbm-inst:ProductType243 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType244
+
+bsbm-inst:ProductType244 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType245
+
+bsbm-inst:ProductType245 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType246
+
+bsbm-inst:ProductType246 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType247
+
+bsbm-inst:ProductType247 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType248
+
+bsbm-inst:ProductType248 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType249
+
+bsbm-inst:ProductType249 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType250
+
+bsbm-inst:ProductType250 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType251
+
+bsbm-inst:ProductType251 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType252
+
+bsbm-inst:ProductType252 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType253
+
+bsbm-inst:ProductType253 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType254
+
+bsbm-inst:ProductType254 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType255
+
+bsbm-inst:ProductType255 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType256
+
+bsbm-inst:ProductType256 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType257
+
+bsbm-inst:ProductType257 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType258
+
+bsbm-inst:ProductType258 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType259
+
+bsbm-inst:ProductType259 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType260
+
+bsbm-inst:ProductType260 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType261
+
+bsbm-inst:ProductType261 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType262
+
+bsbm-inst:ProductType262 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType263
+
+bsbm-inst:ProductType263 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType264
+
+bsbm-inst:ProductType264 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType265
+
+bsbm-inst:ProductType265 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType266
+
+bsbm-inst:ProductType266 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType267
+
+bsbm-inst:ProductType267 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType268
+
+bsbm-inst:ProductType268 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType269
+
+bsbm-inst:ProductType269 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType270
+
+bsbm-inst:ProductType270 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType271
+
+bsbm-inst:ProductType271 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType272
+
+bsbm-inst:ProductType272 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType273
+
+bsbm-inst:ProductType273 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType274
+
+bsbm-inst:ProductType274 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType275
+
+bsbm-inst:ProductType275 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType276
+
+bsbm-inst:ProductType276 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType277
+
+bsbm-inst:ProductType277 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType278
+
+bsbm-inst:ProductType278 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType279
+
+bsbm-inst:ProductType279 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType280
+
+bsbm-inst:ProductType280 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType281
+
+bsbm-inst:ProductType281 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType282
+
+bsbm-inst:ProductType282 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType283
+
+bsbm-inst:ProductType283 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType284
+
+bsbm-inst:ProductType284 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType285
+
+bsbm-inst:ProductType285 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType286
+
+bsbm-inst:ProductType286 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType287
+
+bsbm-inst:ProductType287 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType288
+
+bsbm-inst:ProductType288 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType289
+
+bsbm-inst:ProductType289 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType290
+
+bsbm-inst:ProductType290 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType291
+
+bsbm-inst:ProductType291 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType292
+
+bsbm-inst:ProductType292 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType293
+
+bsbm-inst:ProductType293 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType294
+
+bsbm-inst:ProductType294 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType295
+
+bsbm-inst:ProductType295 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType296
+
+bsbm-inst:ProductType296 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType297
+
+bsbm-inst:ProductType297 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType298
+
+bsbm-inst:ProductType298 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType299
+
+bsbm-inst:ProductType299 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType30
+
+bsbm-inst:ProductType30 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType300
+
+bsbm-inst:ProductType300 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType301
+
+bsbm-inst:ProductType301 rdf:type owl:Class ;
+                         
+                         rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType31
+
+bsbm-inst:ProductType31 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType32
+
+bsbm-inst:ProductType32 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType33
+
+bsbm-inst:ProductType33 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType34
+
+bsbm-inst:ProductType34 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType35
+
+bsbm-inst:ProductType35 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType36
+
+bsbm-inst:ProductType36 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType37
+
+bsbm-inst:ProductType37 rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf bsbm-inst:ProductType4 .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType4
+
+bsbm-inst:ProductType4 rdf:type owl:Class .
+
+
+
+###  http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer
+
+bsbm:Offer rdf:type owl:Class .
+
+
+
+
+###  Generated by the OWL API (version 3.2.4.1806) http://owlapi.sourceforge.net
+

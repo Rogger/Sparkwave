@@ -1,0 +1,2197 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/> .
+@prefix bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/> .
+
+bsbm-inst:ProductType1 a owl:Class .
+
+bsbm-inst:ProductType2 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType3 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType4 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType5 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType6 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType7 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType8 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType9 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType10 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType11 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType1 .
+
+bsbm-inst:ProductType12 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType13 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType14 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType15 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType16 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType17 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType18 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType19 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType2 .
+
+bsbm-inst:ProductType20 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType21 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType22 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType23 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType24 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType25 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType26 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType27 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType3 .
+
+bsbm-inst:ProductType28 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType29 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType30 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType31 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType32 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType33 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType34 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType35 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType4 .
+
+bsbm-inst:ProductType36 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType37 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType38 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType39 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType40 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType41 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType42 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType43 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType5 .
+
+bsbm-inst:ProductType44 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType45 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType46 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType47 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType48 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType49 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType50 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType51 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType6 .
+
+bsbm-inst:ProductType52 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType53 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType54 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType55 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType56 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType57 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType58 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType59 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType7 .
+
+bsbm-inst:ProductType60 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType61 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType62 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType63 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType64 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType65 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType66 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType67 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType8 .
+
+bsbm-inst:ProductType68 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType69 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType70 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType71 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType72 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType73 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType74 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType75 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType9 .
+
+bsbm-inst:ProductType76 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType77 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType78 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType79 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType80 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType81 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType82 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType83 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType10 .
+
+bsbm-inst:ProductType84 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType85 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType86 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType87 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType88 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType89 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType90 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType91 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType11 .
+
+bsbm-inst:ProductType92 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType93 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType94 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType95 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType96 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType97 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType98 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType99 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType12 .
+
+bsbm-inst:ProductType100 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType101 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType102 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType103 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType104 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType105 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType106 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType107 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType13 .
+
+bsbm-inst:ProductType108 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType109 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType110 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType111 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType112 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType113 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType114 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType115 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType14 .
+
+bsbm-inst:ProductType116 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType117 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType118 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType119 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType120 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType121 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType122 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType123 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType15 .
+
+bsbm-inst:ProductType124 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType125 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType126 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType127 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType128 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType129 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType130 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType131 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType16 .
+
+bsbm-inst:ProductType132 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType133 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType134 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType135 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType136 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType137 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType138 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType139 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType17 .
+
+bsbm-inst:ProductType140 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType141 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType142 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType143 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType144 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType145 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType146 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType147 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType18 .
+
+bsbm-inst:ProductType148 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType149 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType150 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType151 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType152 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType153 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType154 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType155 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType19 .
+
+bsbm-inst:ProductType156 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType157 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType158 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType159 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType160 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType161 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType162 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType163 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType20 .
+
+bsbm-inst:ProductType164 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType165 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType166 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType167 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType168 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType169 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType170 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType171 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType21 .
+
+bsbm-inst:ProductType172 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType173 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType174 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType175 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType176 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType177 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType178 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType179 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType22 .
+
+bsbm-inst:ProductType180 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType181 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType182 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType183 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType184 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType185 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType186 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType187 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType23 .
+
+bsbm-inst:ProductType188 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType189 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType190 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType191 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType192 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType193 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType194 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType195 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType24 .
+
+bsbm-inst:ProductType196 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType197 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType198 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType199 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType200 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType201 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType202 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType203 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType25 .
+
+bsbm-inst:ProductType204 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType205 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType206 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType207 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType208 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType209 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType210 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType211 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType26 .
+
+bsbm-inst:ProductType212 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType213 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType214 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType215 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType216 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType217 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType218 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType219 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType27 .
+
+bsbm-inst:ProductType220 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType221 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType222 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType223 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType224 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType225 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType226 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType227 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType28 .
+
+bsbm-inst:ProductType228 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType229 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType230 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType231 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType232 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType233 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType234 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType235 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType29 .
+
+bsbm-inst:ProductType236 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType237 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType238 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType239 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType240 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType241 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType242 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType243 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType30 .
+
+bsbm-inst:ProductType244 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType245 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType246 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType247 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType248 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType249 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType250 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType251 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType31 .
+
+bsbm-inst:ProductType252 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType253 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType254 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType255 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType256 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType257 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType258 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType259 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType32 .
+
+bsbm-inst:ProductType260 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType261 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType262 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType263 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType264 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType265 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType266 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType267 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType33 .
+
+bsbm-inst:ProductType268 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType269 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType270 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType271 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType272 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType273 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType274 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType275 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType34 .
+
+bsbm-inst:ProductType276 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType277 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType278 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType279 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType280 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType281 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType282 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType283 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType35 .
+
+bsbm-inst:ProductType284 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType285 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType286 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType287 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType288 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType289 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType290 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType291 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType36 .
+
+bsbm-inst:ProductType292 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType293 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType294 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType295 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType296 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType297 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType298 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType299 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType37 .
+
+bsbm-inst:ProductType300 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType301 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType302 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType303 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType304 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType305 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType306 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType307 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType38 .
+
+bsbm-inst:ProductType308 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType309 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType310 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType311 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType312 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType313 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType314 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType315 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType39 .
+
+bsbm-inst:ProductType316 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType317 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType318 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType319 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType320 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType321 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType322 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType323 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType40 .
+
+bsbm-inst:ProductType324 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType325 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType326 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType327 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType328 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType329 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType330 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType331 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType41 .
+
+bsbm-inst:ProductType332 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType333 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType334 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType335 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType336 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType337 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType338 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType339 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType42 .
+
+bsbm-inst:ProductType340 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType341 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType342 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType343 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType344 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType345 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType346 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType347 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType43 .
+
+bsbm-inst:ProductType348 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType349 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType350 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType351 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType352 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType353 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType354 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType355 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType44 .
+
+bsbm-inst:ProductType356 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType357 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType358 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType359 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType360 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType361 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType362 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType363 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType45 .
+
+bsbm-inst:ProductType364 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType365 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType366 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType367 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType368 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType369 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType370 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType371 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType46 .
+
+bsbm-inst:ProductType372 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType373 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType374 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType375 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType376 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType377 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType378 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType379 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType47 .
+
+bsbm-inst:ProductType380 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType381 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType382 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType383 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType384 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType385 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType386 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType387 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType48 .
+
+bsbm-inst:ProductType388 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType389 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType390 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType391 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType392 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType393 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType394 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType395 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType49 .
+
+bsbm-inst:ProductType396 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType397 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType398 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType399 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType400 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType401 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType402 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType403 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType50 .
+
+bsbm-inst:ProductType404 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType405 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType406 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType407 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType408 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType409 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType410 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType411 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType51 .
+
+bsbm-inst:ProductType412 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType413 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType414 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType415 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType416 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType417 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType418 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType419 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType52 .
+
+bsbm-inst:ProductType420 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType421 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType422 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType423 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType424 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType425 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType426 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType427 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType53 .
+
+bsbm-inst:ProductType428 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType429 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType430 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType431 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType432 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType433 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType434 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType435 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType54 .
+
+bsbm-inst:ProductType436 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType437 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType438 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType439 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType440 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType441 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType442 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType443 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType55 .
+
+bsbm-inst:ProductType444 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType445 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType446 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType447 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType448 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType449 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType450 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType451 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType56 .
+
+bsbm-inst:ProductType452 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType453 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType454 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType455 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType456 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType457 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType458 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType459 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType57 .
+
+bsbm-inst:ProductType460 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType461 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType462 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType463 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType464 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType465 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType466 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType467 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType58 .
+
+bsbm-inst:ProductType468 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType469 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType470 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType471 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType472 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType473 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType474 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType475 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType59 .
+
+bsbm-inst:ProductType476 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType477 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType478 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType479 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType480 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType481 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType482 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType483 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType60 .
+
+bsbm-inst:ProductType484 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType485 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType486 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType487 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType488 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType489 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType490 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType491 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType61 .
+
+bsbm-inst:ProductType492 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType493 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType494 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType495 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType496 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType497 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType498 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType499 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType62 .
+
+bsbm-inst:ProductType500 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType501 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType502 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType503 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType504 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType505 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType506 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType507 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType63 .
+
+bsbm-inst:ProductType508 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType509 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType510 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType511 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType512 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType513 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType514 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType515 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType64 .
+
+bsbm-inst:ProductType516 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType517 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType518 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType519 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType520 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType521 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType522 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType523 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType65 .
+
+bsbm-inst:ProductType524 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType525 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType526 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType527 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType528 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType529 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType530 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType531 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType66 .
+
+bsbm-inst:ProductType532 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType533 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType534 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType535 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType536 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType537 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType538 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType539 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType67 .
+
+bsbm-inst:ProductType540 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType541 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType542 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType543 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType544 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType545 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType546 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType547 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType68 .
+
+bsbm-inst:ProductType548 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType549 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType550 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType551 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType552 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType553 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType554 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType555 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType69 .
+
+bsbm-inst:ProductType556 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType557 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType558 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType559 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType560 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType561 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType562 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType563 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType70 .
+
+bsbm-inst:ProductType564 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType565 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType566 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType567 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType568 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType569 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType570 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType571 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType71 .
+
+bsbm-inst:ProductType572 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType573 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType574 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType575 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType576 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType577 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType578 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType579 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType72 .
+
+bsbm-inst:ProductType580 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType581 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType582 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType583 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType584 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType585 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType586 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType587 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType73 .
+
+bsbm-inst:ProductType588 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType589 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType590 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType591 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType592 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType593 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType594 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType595 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType74 .
+
+bsbm-inst:ProductType596 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType597 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType598 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType599 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType600 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType601 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType602 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType603 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType75 .
+
+bsbm-inst:ProductType604 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType605 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType606 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType607 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType608 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType609 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType610 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType611 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType76 .
+
+bsbm-inst:ProductType612 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType613 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType614 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType615 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType616 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType617 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType618 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType619 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType77 .
+
+bsbm-inst:ProductType620 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType621 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType622 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType623 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType624 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType625 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType626 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType627 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType78 .
+
+bsbm-inst:ProductType628 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType629 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType630 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType631 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType632 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType633 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType634 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType635 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType79 .
+
+bsbm-inst:ProductType636 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType637 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType638 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType639 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType640 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType641 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType642 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType643 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType80 .
+
+bsbm-inst:ProductType644 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType645 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType646 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType647 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType648 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType649 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType650 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType651 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType81 .
+
+bsbm-inst:ProductType652 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType653 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType654 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType655 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType656 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType657 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType658 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType659 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType82 .
+
+bsbm-inst:ProductType660 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType661 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType662 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType663 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType664 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType665 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType666 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType667 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType83 .
+
+bsbm-inst:ProductType668 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType669 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType670 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType671 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType672 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType673 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType674 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType675 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType84 .
+
+bsbm-inst:ProductType676 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType677 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType678 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType679 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType680 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType681 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType682 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType683 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType85 .
+
+bsbm-inst:ProductType684 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType685 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType686 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType687 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType688 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType689 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType690 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType691 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType86 .
+
+bsbm-inst:ProductType692 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType693 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType694 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType695 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType696 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType697 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType698 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType699 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType87 .
+
+bsbm-inst:ProductType700 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType701 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType702 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType703 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType704 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType705 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType706 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType707 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType88 .
+
+bsbm-inst:ProductType708 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType709 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType710 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType711 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType712 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType713 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType714 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType715 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType89 .
+
+bsbm-inst:ProductType716 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType717 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType718 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType719 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType720 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType721 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType722 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType723 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType90 .
+
+bsbm-inst:ProductType724 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType725 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType726 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType727 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType728 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType729 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType730 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .
+
+bsbm-inst:ProductType731 a owl:Class ;
+	rdfs:subClassOf bsbm-inst:ProductType91 .

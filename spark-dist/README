@@ -1,0 +1,8 @@
+To start SparkWeave network execute the following command:
+
+$ sh spark.sh $PWD/tests/bsbm/pattern-PT1-TW100.tpg $PWD/tests/bsbm/epsilon-PT1-DS329.owl 200 
+
+To start SparkWeave streamer execute the following command:
+
+$ sh spark-streamer.sh /tmp/sparkweave.sock $PWD/tests/bsbm/offers-trunc100.nt
+

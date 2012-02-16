@@ -184,10 +184,10 @@ public class SparkWeaveNetwork{
 	public static void main(String args[]){
 		
 		if (args.length != 3){
-			System.out.println("SparkWeaveNetwork expects 4 parameters:");
-			System.out.println(" <pattern_file> - a file holding pattern description");
-			System.out.println(" <epsilon_ontology_file> - a file holding epsilon network ontology");
-			System.out.println(" <gc_delay> - garbage collection delay time");
+			System.out.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 3 parameters:");
+			System.out.println(" <pattern_file> - name of the file holding triple pattern definition.");
+			System.out.println(" <epsilon_ontology_file> - name of the file holding ontology.");
+			System.out.println(" <gc_session_delay> - the time interval between garbage collection sessions in [ms].");
 			System.exit(0);
 		}
 		

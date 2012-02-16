@@ -120,9 +120,9 @@ public class SparkStreamer {
 	
 	public static void main(String args[]){
 		if (args.length != 2){
-			System.out.println("SparkStreamer enables streaming of triples. The streamer expects to receive two arguments:");
-			System.out.println(" <unix_domain_socket_path> - name of the socket at which SparkWeave network expects triples.");
-			System.out.println(" <triples_file_name> - name of the file holding triples which are going to be streamed.");
+			System.out.println("SparkStreamer sends a stream of triples to a localhost at the designated port. The streamer expects to receive following arguments:");
+			System.out.println(" <port> - the local port at which Sparkweave instance listens for upcoming triples.");
+			System.out.println(" <triple_file_name> - name of the file in N-TRIPLES format holding triples to be streamed.");
 			System.exit(0);
 		}
 		

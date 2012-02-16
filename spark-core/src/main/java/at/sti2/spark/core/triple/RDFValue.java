@@ -21,14 +21,4 @@ import java.io.Serializable;
 public abstract class RDFValue implements Serializable{
 
 	private static final long serialVersionUID = -1475028196092911565L;
-
-	protected long binValue = 0L;
-	
-	public long getBinValue() {
-		return binValue;
-	}
-
-	public boolean equals(RDFValue value){
-		return binValue == value.getBinValue();
-	}
 }

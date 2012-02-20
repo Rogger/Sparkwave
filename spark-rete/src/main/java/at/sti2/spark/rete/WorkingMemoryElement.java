@@ -21,12 +21,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 
 public class WorkingMemoryElement {
 
-	private StreamedTriple triple = null;
+	private Triple triple = null;
 	
 	//Added for retracting purposes
 	private List <AlphaMemory> alphaMems = null;
@@ -38,17 +38,17 @@ public class WorkingMemoryElement {
 		tokens = Collections.synchronizedList(new ArrayList <Token> ());
 	}
 	
-	public WorkingMemoryElement(StreamedTriple triple){
+	public WorkingMemoryElement(Triple triple){
 		this.triple = triple;
 		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
 		tokens = Collections.synchronizedList(new ArrayList <Token> ());
 	}
 	
-	public StreamedTriple getStreamedTriple() {
+	public Triple getTriple() {
 		return triple;
 	}
 
-	public void setStreamedTriple(StreamedTriple triple) {
+	public void setStreamedTriple(Triple triple) {
 		this.triple = triple;
 	}
 

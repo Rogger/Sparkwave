@@ -18,4 +18,4 @@ set classpath=%classpath%;%UserProfile%\.m2\repository\xerces\xercesImpl\2.7.1\x
 set classpath=%classpath%;%UserProfile%\.m2\repository\com\hp\hpl\jena\iri\0.8\iri-0.8.jar
 set classpath=%classpath%;%UserProfile%\.m2\repository\com\ibm\icu\icu4j\3.4.4\icu4j-3.4.4.jar
 
-java -cp %classpath% -Xmx2048M at.sti2.spark.network.SparkWeaveNetwork %1 %2 %3
+java -cp %classpath% -Xmx2048M at.sti2.spark.network.SparkWeaveNetwork %1 %2 %3 %4

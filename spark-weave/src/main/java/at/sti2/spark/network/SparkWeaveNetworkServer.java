@@ -1,12 +1,8 @@
 package at.sti2.spark.network;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import org.newsclub.net.unix.AFUNIXServerSocket;
-import org.newsclub.net.unix.AFUNIXSocketAddress;
 
 public class SparkWeaveNetworkServer extends Thread{
 

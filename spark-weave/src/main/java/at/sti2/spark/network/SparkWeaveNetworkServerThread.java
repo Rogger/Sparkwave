@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.Date;
 import java.util.StringTokenizer;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -39,7 +39,7 @@ public class SparkWeaveNetworkServerThread extends Thread{
 			
 			while ((tripleLine = streamReader.readLine()) != null) {
 				
-				StreamedTriple sTriple = new StreamedTriple(parseTriple(tripleLine), (new Date()).getTime(), 0l);
+				Triple sTriple = new Triple(parseTriple(tripleLine), (new Date()).getTime(), false, 0l);
 				sparkWeaveNetwork.activateNetwork(sTriple);
 //				tripleCounter++;				
 //				if (tripleCounter%1000 == 0){
@@ -59,6 +59,8 @@ public class SparkWeaveNetworkServerThread extends Thread{
 			
 			StringBuffer timeBuffer = new StringBuffer();
 			timeBuffer.append("Processing took ");
+			timeBuffer.append((endProcessingTime - startProcessingTime)/1000*60);
+			timeBuffer.append(" min ");			
 			timeBuffer.append((endProcessingTime - startProcessingTime)/1000);
 			timeBuffer.append(" s ");
 			timeBuffer.append((endProcessingTime - startProcessingTime)%1000);

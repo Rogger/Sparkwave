@@ -1,15 +1,18 @@
 package at.sti2.spark.network;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
+import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.epsilon.network.ClassNode;
 import at.sti2.spark.epsilon.network.PropertyNode;
 import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
+import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.language.query.SparkPatternParser;
 import at.sti2.spark.network.gc.SparkWeaveGarbageCollector;
 import at.sti2.spark.rete.RETENetwork;
@@ -40,7 +43,7 @@ public class SparkWeaveNetwork{
 		this.gcSessionDelay = gcSessionDelay;	
 	}
 	
-	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String gcSessionDelay) {
+	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String instancesFileName, String gcSessionDelay) {
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
@@ -56,6 +59,38 @@ public class SparkWeaveNetwork{
 		
 		//Start SparkWeaveNetworkServerInstance
 		(new SparkWeaveNetworkServer(sparkWeaveNetwork)).start();
+		
+		//If there are static instances to be added
+		if (!instancesFileName.toLowerCase().equals("null")){
+			
+			//Opening the instances file
+			File instancesFile = new File(instancesFileName);
+			NTripleStreamReader streamReader = new NTripleStreamReader(instancesFile);
+			streamReader.openFile();
+			
+			
+			String tripleLine = null;
+			System.out.println("Background knowledge network showering started...");
+			long startProcessingTime = (new Date()).getTime();
+			while ((tripleLine = streamReader.nextTripleLine()) != null){
+				RDFTriple rdfTriple = streamReader.parseTriple(tripleLine);
+				Triple sTriple = new Triple(rdfTriple, 0l, true, 0l);
+				sparkWeaveNetwork.activateNetwork(sTriple);
+			}
+			long endProcessingTime = new Date().getTime();
+			streamReader.closeFile();
+			
+			StringBuffer timeBuffer = new StringBuffer();
+			timeBuffer.append("Showering took ");
+			timeBuffer.append((endProcessingTime - startProcessingTime)/1000*60);
+			timeBuffer.append(" min ");
+			timeBuffer.append((endProcessingTime - startProcessingTime)/1000);
+			timeBuffer.append(" s ");
+			timeBuffer.append((endProcessingTime - startProcessingTime)%1000);
+			timeBuffer.append(" ms.");
+			
+			System.out.println(timeBuffer.toString());			
+		}
 	}
 
 	public void buildNetwork(){
@@ -172,7 +207,7 @@ public class SparkWeaveNetwork{
 		return triplePatternGraph.getTimeWindowLength();
 	}
 	
-	public void activateNetwork(StreamedTriple streamedTriple){
+	public void activateNetwork(Triple streamedTriple){
 		lastTimestamp = streamedTriple.getTimestamp();
 		epsilonNetwork.activate(streamedTriple);
 	}
@@ -183,14 +218,15 @@ public class SparkWeaveNetwork{
 	
 	public static void main(String args[]){
 		
-		if (args.length != 3){
-			System.out.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 3 parameters:");
+		if (args.length != 4){
+			System.out.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 4 parameters:");
 			System.out.println(" <pattern_file> - name of the file holding triple pattern definition.");
 			System.out.println(" <epsilon_ontology_file> - name of the file holding ontology.");
+			System.out.println(" <static_instances_file> - name of the file holding static instances.");
 			System.out.println(" <gc_session_delay> - the time interval between garbage collection sessions in [ms].");
 			System.exit(0);
 		}
 		
-		new SparkWeaveNetwork(args[0], args[1], args[2]);
+		new SparkWeaveNetwork(args[0], args[1], args[2], args[3]);
 	}
 }

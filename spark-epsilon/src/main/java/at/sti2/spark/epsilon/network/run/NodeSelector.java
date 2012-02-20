@@ -17,7 +17,7 @@ package at.sti2.spark.epsilon.network.run;
 
 import java.util.HashMap;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.epsilon.network.Node;
@@ -44,9 +44,9 @@ public class NodeSelector {
 	 * 
 	 * The method makes an examination of the triple whether it is rdf:type or a pure property triple.
 	 */
-	public Node lookup(StreamedTriple streamedTriple){
+	public Node lookup(Triple streamedTriple){
 		
-		RDFTriple rdfTriple = streamedTriple.getTriple();
+		RDFTriple rdfTriple = streamedTriple.getRDFTriple();
 		
 		String key = ((RDFURIReference)rdfTriple.getPredicate()).toString();
 		

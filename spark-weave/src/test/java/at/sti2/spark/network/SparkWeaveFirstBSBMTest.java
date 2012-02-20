@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
@@ -129,7 +129,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		logger.info("Processing " + triples.size() + " triples.");
 		
 		for (RDFTriple triple : triples){
-			StreamedTriple sTriple = new StreamedTriple(triple, (new Date()).getTime(), 0l);
+			Triple sTriple = new Triple(triple, (new Date()).getTime(), false, 0l);
 			sparkWeaveNetwork.activateNetwork(sTriple);
 		}
 		

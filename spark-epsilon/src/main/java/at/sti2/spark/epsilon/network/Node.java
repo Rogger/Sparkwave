@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaNode;
@@ -71,7 +71,7 @@ public abstract class Node {
 		}
 	}
 	
-	public boolean hasToken(StreamedTriple streamedTriple, LinkType linkType){
+	public boolean hasToken(Triple streamedTriple, LinkType linkType){
 		synchronized(tokens){
 			if (tokens.contains(new Token(streamedTriple, this, linkType)))
 				return true;
@@ -79,7 +79,7 @@ public abstract class Node {
 		}		
 	}
 	
-	public Token putToken(StreamedTriple streamedTriple, LinkType linkType){
+	public Token putToken(Triple streamedTriple, LinkType linkType){
 		Token token = new Token(streamedTriple, this, linkType);
 		synchronized(tokens){
 			tokens.add(token);
@@ -95,8 +95,8 @@ public abstract class Node {
 		this.uri = uri;
 	}
 
-	public abstract void activate(StreamedTriple triple,  List <Token> tokenNodes, LinkType linkType);
+	public abstract void activate(Triple triple,  List <Token> tokenNodes, LinkType linkType);
 	
-	public abstract void activateEntry(StreamedTriple triple, List <Token> tokenNodes);
+	public abstract void activateEntry(Triple triple, List <Token> tokenNodes);
 	
 }

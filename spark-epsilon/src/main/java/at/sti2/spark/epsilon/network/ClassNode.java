@@ -1,9 +1,8 @@
 package at.sti2.spark.epsilon.network;
 
-import java.net.URI;
 import java.util.List;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.epsilon.network.run.Token;
@@ -14,14 +13,12 @@ public class ClassNode extends Node {
 	private static String rdfType = "www.w3.org/1999/02/22-rdf-syntax-ns#type";
 	
 	@Override
-	public void activateEntry(StreamedTriple triple, List <Token> tokenNodes) {
+	public void activateEntry(Triple triple, List <Token> tokenNodes) {
 		activate(triple, tokenNodes, LinkType.LINK_S);
 	}
 	
 	@Override
-	public void activate(StreamedTriple triple, List <Token> tokenNodes, LinkType linkType) {
-		
-		URI subjectValue = null;
+	public void activate(Triple triple, List <Token> tokenNodes, LinkType linkType) {
 		
 		//Check for previous activation
 		if (hasToken(triple, linkType))
@@ -32,18 +29,19 @@ public class ClassNode extends Node {
 				
 		if (linkType.equals(Node.LinkType.LINK_S))
 			activeTriple = new RDFTriple(
-				(RDFURIReference)triple.getTriple().getSubject(),
+				(RDFURIReference)triple.getRDFTriple().getSubject(),
 				new RDFURIReference(rdfType),
 				new RDFURIReference(getUri()));
 		else
 			activeTriple = new RDFTriple(
-				(RDFURIReference)triple.getTriple().getObject(),
+				(RDFURIReference)triple.getRDFTriple().getObject(),
 				new RDFURIReference(rdfType),
 				new RDFURIReference(getUri()));			
 		
-		StreamedTriple activeStreamedTriple = new StreamedTriple(
+		Triple activeStreamedTriple = new Triple(
 				activeTriple,
 				triple.getTimestamp(),
+				triple.isPermanent(),
 				triple.getContext());
 		
 		activateAlphaNodes(new WorkingMemoryElement(activeStreamedTriple));

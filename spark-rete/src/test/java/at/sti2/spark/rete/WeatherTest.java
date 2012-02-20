@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
@@ -198,12 +198,10 @@ public class WeatherTest extends TestCase {
 		
 		logger.info("Processing " + triples.size() + " triples.");
 		
-		int counter = 1;
-		
 		for (RDFTriple wmeTriple : triples){
 			
 			WorkingMemoryElement wme = new WorkingMemoryElement();
-			wme.setStreamedTriple(new StreamedTriple(wmeTriple, 0l, 0l));
+			wme.setStreamedTriple(new Triple(wmeTriple, 0l, false, 0l));
 			reteNetwork.getWorkingMemory().addWorkingMemoryElement(wme);
 		}
 		

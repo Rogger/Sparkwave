@@ -11,7 +11,7 @@ public class ConstantSubjectTestAlphaNode extends ValueTestAlphaNode {
 
 	public void testActivation(WorkingMemoryElement wme) {
 		
-		if (!((RDFURIReference)wme.getStreamedTriple().getTriple().getSubject()).getValue().toString().equals(testValue))
+		if (!((RDFURIReference)wme.getTriple().getRDFTriple().getSubject()).getValue().toString().equals(testValue))
 			return;
 		
 		activate(wme);

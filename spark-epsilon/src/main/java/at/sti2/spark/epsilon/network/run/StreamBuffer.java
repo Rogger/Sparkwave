@@ -19,7 +19,8 @@ package at.sti2.spark.epsilon.network.run;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
-import at.sti2.spark.core.stream.StreamedTriple;
+
+import at.sti2.spark.core.stream.Triple;
 
 /**
  * StreamBuffer holds the received triples to be picked up by the WorkerThreads and processed through the network
@@ -31,16 +32,16 @@ public class StreamBuffer {
 	
 	static Logger logger = Logger.getLogger(StreamBuffer.class);
 
-	private LinkedBlockingQueue<StreamedTriple> streamTripleQueue = null;
+	private LinkedBlockingQueue<Triple> streamTripleQueue = null;
 	
 	public StreamBuffer(){
-		streamTripleQueue = new LinkedBlockingQueue<StreamedTriple> ();
+		streamTripleQueue = new LinkedBlockingQueue<Triple> ();
 		logger.info("StreamBuffer instance created.");
 	}
 	
-	public StreamedTriple take(){
+	public Triple take(){
 		
-		StreamedTriple triple = null;
+		Triple triple = null;
 		try {
 			triple = streamTripleQueue.take();
 		} catch (InterruptedException e) {
@@ -49,7 +50,7 @@ public class StreamBuffer {
 		return triple;
 	}
 	
-	public void put(StreamedTriple streamedTriple){
+	public void put(Triple streamedTriple){
 		try {
 			streamTripleQueue.put(streamedTriple);
 		} catch (InterruptedException e) {

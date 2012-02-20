@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.Network;
 import at.sti2.spark.epsilon.network.Node;
 import at.sti2.spark.rete.WorkingMemoryElement;
@@ -37,15 +37,15 @@ public class EpsilonNetwork {
 	private AlphaNode rootAlphaNode = null;
 	
 	//Added for garbage collection purposes
-	private List <StreamedTriple> processedTriples = null;
+	private List <Triple> processedTriples = null;
 	
-	private Hashtable <StreamedTriple, List<Token>> gcTokens = null;
+	private Hashtable <Triple, List<Token>> gcTokens = null;
 	
 	public EpsilonNetwork(){
 		nodeSelector = new NodeSelector();
 		network = new Network();
-		processedTriples = Collections.synchronizedList(new ArrayList<StreamedTriple>());
-		gcTokens = new Hashtable <StreamedTriple, List<Token>> ();
+		processedTriples = Collections.synchronizedList(new ArrayList<Triple>());
+		gcTokens = new Hashtable <Triple, List<Token>> ();
 	}
 	
 	public void setRootAlphaNode(AlphaNode rootAlphaNode){
@@ -60,19 +60,19 @@ public class EpsilonNetwork {
 		return network;
 	}
 	
-    public List <StreamedTriple> getProcessedTriples(){
+    public List <Triple> getProcessedTriples(){
     	return processedTriples;
     }
     
-    public List<Token> getTokenNodesByStreamedTriple(StreamedTriple streamedTriple){
+    public List<Token> getTokenNodesByStreamedTriple(Triple streamedTriple){
     	return gcTokens.get(streamedTriple);
     }
     
-    public void removeListByStreamedTriple(StreamedTriple streamedTriple){
+    public void removeListByStreamedTriple(Triple streamedTriple){
     	gcTokens.remove(streamedTriple);
     }
 
-	public void activate(StreamedTriple triple){
+	public void activate(Triple triple){
 		
 		//Selecting a node to put the triple inside of it
 		Node entryNode = nodeSelector.lookup(triple);

@@ -41,7 +41,6 @@ public class AlphaMemory {
 		//Add it to the list
 		addItem(wme);
 		
-		//TODO This should go at the head
 		wme.addAlphaMemory(this);
 		
 		for (RETENode reteNode : successors)
@@ -79,11 +78,11 @@ public class AlphaMemory {
 		synchronized(items){
 			for (WorkingMemoryElement item : items){
 				buffer.append('\n');
-				buffer.append(item.getStreamedTriple().getTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
+				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
 				buffer.append(" ");
-				buffer.append(item.getStreamedTriple().getTriple().getLexicalValueOfField(RDFTriple.Field.PREDICATE));
+				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.PREDICATE));
 				buffer.append(" ");
-				buffer.append(item.getStreamedTriple().getTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
+				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
 			}
 		}
 		

@@ -1,23 +1,47 @@
 package at.sti2.spark.streamer;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.Date;
-
-import org.newsclub.net.unix.AFUNIXSocket;
-import org.newsclub.net.unix.AFUNIXSocketAddress;
 
 import at.sti2.spark.streamer.file.NTripleStreamReader;
 
 public class SparkStreamer {
 
-	private String unixDomainSocketPath = null;
 	private String triplesFileName = null;
-	private AFUNIXSocket sock = null;
 	
-	public SparkStreamer(String unixDomainSocketPath, String triplesFileName) {
-		this.unixDomainSocketPath = unixDomainSocketPath;
+	private int port = 0;
+	private Socket sock = null;
+	
+//	private AFUNIXSocket sock = null;
+//	private String unixDomainSocketPath = null;
+	
+	
+	/**
+	 * UNIX Domain Socket constructor
+	 * @param unixDomainSocketPath
+	 * @param triplesFileName
+	 */
+//	public SparkStreamer(String unixDomainSocketPath, String triplesFileName) {
+//		this.unixDomainSocketPath = unixDomainSocketPath;
+//		this.triplesFileName = triplesFileName;
+//		
+//		//Connect to the socket
+//		connect();
+//		
+//		//Stream file
+//		stream();
+//		
+//	}
+	
+	/**
+	 * TCP/IP constructor
+	 * @param unixDomainSocketPath
+	 * @param triplesFileName
+	 */
+	public SparkStreamer(String port, String triplesFileName) {
+		this.port = Integer.parseInt(port);
 		this.triplesFileName = triplesFileName;
 		
 		//Connect to the socket
@@ -29,10 +53,9 @@ public class SparkStreamer {
 	}
 	
 	private void connect(){
-		File socketFile = new File(unixDomainSocketPath);
+		
 		try {
-			sock = AFUNIXSocket.newInstance();
-			sock.connect(new AFUNIXSocketAddress(socketFile));
+			sock = new Socket ("localhost", port);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to server.");
             System.out.flush();
@@ -97,9 +120,9 @@ public class SparkStreamer {
 	
 	public static void main(String args[]){
 		if (args.length != 2){
-			System.out.println("SparkStreamer enables streaming of triples. The streamer expects to receive two arguments:");
-			System.out.println(" <unix_domain_socket_path> - name of the socket at which SparkWeave network expects triples.");
-			System.out.println(" <triples_file_name> - name of the file holding triples which are going to be streamed.");
+			System.out.println("SparkStreamer sends a stream of triples to a localhost at the designated port. The streamer expects to receive following arguments:");
+			System.out.println(" <port> - the local port at which Sparkweave instance listens for upcoming triples.");
+			System.out.println(" <triple_file_name> - name of the file in N-TRIPLES format holding triples to be streamed.");
 			System.exit(0);
 		}
 		

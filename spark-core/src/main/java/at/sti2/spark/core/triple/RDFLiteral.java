@@ -20,10 +20,6 @@ public class RDFLiteral extends RDFValue {
 	
 	private static final long serialVersionUID = 4244499579141058280L;
 	
-	public enum RDFLiteralTypes {
-		
-	}
-	
 	private String value;
 	private RDFURIReference datatypeURI;
 	private String languageTag;
@@ -33,19 +29,6 @@ public class RDFLiteral extends RDFValue {
 		this.value = value;
 		this.datatypeURI = datatypeURI;
 		this.languageTag = languageTag;
-	}
-	
-	private void setBinaryValue(){
-		
-		//Mark that the value is encoded
-		long value = 0x1000000000000000L;
-		
-		//Determine the type and encode it inside of the value
-		
-		//Take the value and encode it inside of the value
-		
-		//Store the value at RDFValue level
-		binValue = value;
 	}
 	
 	public String getValue() {

@@ -2,12 +2,22 @@ package at.sti2.spark.network.gc;
 
 import java.util.Iterator;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
 import at.sti2.spark.network.SparkWeaveNetwork;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 
+/**
+ * Sparkweave Garbage Collector implementation
+ * 
+ * v0.1 - Cleans Epsilon and Rete networks from WME/triples which are staled
+ * v0.2 - Tests to see if triples are permanent. In case they are permanent they are not touched.
+ * 
+ * 
+ * @author skomazec
+ *
+ */
 public class SparkWeaveGarbageCollector extends Thread {
 
 	private SparkWeaveNetwork sparkWeaveNetwork = null;
@@ -22,9 +32,11 @@ public class SparkWeaveGarbageCollector extends Thread {
 		
 		while(true){
 			
-			//GC sleeps for given amount of time
+			/**
+			 * GC sleeps for given amount of ms
+			 */
 			try {
-				this.currentThread().sleep(gcSessionDelay);
+				Thread.sleep(gcSessionDelay);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -37,9 +49,9 @@ public class SparkWeaveGarbageCollector extends Thread {
 				
 //				System.out.println("Number of processed triples before gc " + sparkWeaveNetwork.getEpsilonNetwork().getProcessedTriples().size());
 				
-				for (Iterator <StreamedTriple> ptIter = sparkWeaveNetwork.getEpsilonNetwork().getProcessedTriples().iterator(); ptIter.hasNext(); ){
+				for (Iterator <Triple> ptIter = sparkWeaveNetwork.getEpsilonNetwork().getProcessedTriples().iterator(); ptIter.hasNext(); ){
 					
-					StreamedTriple processedTriple = ptIter.next();
+					Triple processedTriple = ptIter.next();
 					
 					for (Token token : sparkWeaveNetwork.getEpsilonNetwork().getTokenNodesByStreamedTriple(processedTriple))
 						token.removeTokenFromNode();
@@ -70,7 +82,7 @@ public class SparkWeaveGarbageCollector extends Thread {
 				
 						WorkingMemoryElement wme = wmeIterator.next();
 						
-						if (wme.getStreamedTriple().getTimestamp() < gcThresholdTimestamp){
+						if ((!wme.getTriple().isPermanent()) && wme.getTriple().getTimestamp() < gcThresholdTimestamp){
 							
 							/**
 							 * Here we need to delete all references to the WME:
@@ -79,6 +91,8 @@ public class SparkWeaveGarbageCollector extends Thread {
 							 *  3. WorkingMemory list of all WMEs
 							 */
 							wme.remove();
+							
+							//Removing the 
 							wmeIterator.remove();
 						}
 					}

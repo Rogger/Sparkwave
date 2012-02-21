@@ -12,7 +12,7 @@ public class ConstantPredicateTestAlphaNode extends ValueTestAlphaNode {
 	@Override
 	public void testActivation(WorkingMemoryElement wme) {
 		
-		if (!((RDFURIReference)wme.getStreamedTriple().getTriple().getPredicate()).getValue().toString().equals(testValue))
+		if (!((RDFURIReference)wme.getTriple().getRDFTriple().getPredicate()).getValue().toString().equals(testValue))
 			return;
 		
 		activate(wme);

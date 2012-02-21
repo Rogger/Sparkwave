@@ -66,10 +66,6 @@ public class N3FileInput {
 		//List the statements in the Model
 		StmtIterator iter = model.listStatements();
 		
-		long statementCount = 0;
-		
-		Date startTime = new Date();
-		
 		while (iter.hasNext()) {
 			
 		    Statement stmt      = iter.nextStatement();  // get next statement

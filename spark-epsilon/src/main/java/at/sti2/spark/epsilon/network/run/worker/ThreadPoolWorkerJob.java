@@ -1,6 +1,6 @@
 package at.sti2.spark.epsilon.network.run.worker;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.NodeSelector;
 
 /**
@@ -11,17 +11,17 @@ import at.sti2.spark.epsilon.network.run.NodeSelector;
  */
 public class ThreadPoolWorkerJob {
 
-	private StreamedTriple triple;
+	private Triple triple;
 	private NodeSelector nodeSelector;
 	
-	public ThreadPoolWorkerJob(StreamedTriple triple, NodeSelector nodeSelector) {
+	public ThreadPoolWorkerJob(Triple triple, NodeSelector nodeSelector) {
 		this.triple = triple;
 		this.nodeSelector = nodeSelector;
 	}
-	public StreamedTriple getTriple() {
+	public Triple getTriple() {
 		return triple;
 	}
-	public void setTriple(StreamedTriple triple) {
+	public void setTriple(Triple triple) {
 		this.triple = triple;
 	}
 	public NodeSelector getNodeSelector() {

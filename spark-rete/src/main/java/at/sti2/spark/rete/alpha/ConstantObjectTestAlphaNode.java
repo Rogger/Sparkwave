@@ -16,10 +16,10 @@ public class ConstantObjectTestAlphaNode extends ValueTestAlphaNode {
 		String lexicalNodeValue = null;
 		
 		//TODO This can be further optimized by realizing from ontology/pattern if expected value is URI or literal
-		if (wme.getStreamedTriple().getTriple().getObject() instanceof RDFURIReference)
-			lexicalNodeValue = ((RDFURIReference)wme.getStreamedTriple().getTriple().getObject()).getValue().toString();
-		else if (wme.getStreamedTriple().getTriple().getObject() instanceof RDFLiteral)
-			lexicalNodeValue = ((RDFLiteral)wme.getStreamedTriple().getTriple().getObject()).getValue();
+		if (wme.getTriple().getRDFTriple().getObject() instanceof RDFURIReference)
+			lexicalNodeValue = ((RDFURIReference)wme.getTriple().getRDFTriple().getObject()).getValue().toString();
+		else if (wme.getTriple().getRDFTriple().getObject() instanceof RDFLiteral)
+			lexicalNodeValue = ((RDFLiteral)wme.getTriple().getRDFTriple().getObject()).getValue();
 
 		if (!lexicalNodeValue.equals(testValue))
 			return;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, University of Innsbruck, Austria.
+ * Copyright (c) 2012, University of Innsbruck, Austria.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,40 +19,61 @@ import java.io.Serializable;
 
 import at.sti2.spark.core.triple.RDFTriple;
 
-public class StreamedTriple implements Serializable{
+public class Triple implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
-	private static final long serialVersionUID = 3421595263951329008L;
+	protected RDFTriple triple = null;
 	
-	private RDFTriple triple = null;
 	private long timestamp = 0l;
+	
+	private boolean permanent = false;
 	
 	/**
 	 * Hashed context value (e.g., stream identifier)
 	 */
-	private long context =0l;
+	protected long context = 0l;
 	
-	public StreamedTriple(RDFTriple triple, long timestamp, long context) {
+	public Triple(RDFTriple triple, long timestamp, boolean permanent, long context) {
 		this.triple = triple;
-		this.timestamp = timestamp;
 		this.context = context;
+		this.timestamp = timestamp;
+		this.permanent = permanent;
 	}
-	public RDFTriple getTriple() {
+	
+	public Triple(RDFTriple triple, long timestamp, long context) {
+		this.triple = triple;
+		this.context = context;
+		this.timestamp = timestamp;
+		permanent = false;
+	}
+	
+	public RDFTriple getRDFTriple() {
 		return triple;
 	}
-	public void setTriple(RDFTriple triple) {
+	public void setRDFTriple(RDFTriple triple) {
 		this.triple = triple;
-	}
-	public long getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
 	}
 	public long getContext() {
 		return context;
 	}
 	public void setContext(long context) {
 		this.context = context;
+	}
+	
+	public long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
+	public boolean isPermanent() {
+		return permanent;
+	}
+	
+	public void setPermanent(boolean permanent) {
+		this.permanent = permanent;
 	}
 	
 	public String toString(){
@@ -63,4 +84,5 @@ public class StreamedTriple implements Serializable{
 		buffer.append(triple.toString());
 		return buffer.toString();
 	}
+
 }

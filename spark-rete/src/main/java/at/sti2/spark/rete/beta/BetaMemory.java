@@ -92,15 +92,15 @@ public class BetaMemory extends RETENode {
 			newToken.setStartTime(parentToken.getStartTime());
 			newToken.setEndTime(parentToken.getEndTime());
 			
-			if (wme.getStreamedTriple().getTimestamp()<newToken.getStartTime())
-				newToken.setStartTime(wme.getStreamedTriple().getTimestamp());
-			else if (wme.getStreamedTriple().getTimestamp()>newToken.getEndTime())
-				newToken.setEndTime(wme.getStreamedTriple().getTimestamp());
+			if (wme.getTriple().getTimestamp()<newToken.getStartTime())
+				newToken.setStartTime(wme.getTriple().getTimestamp());
+			else if (wme.getTriple().getTimestamp()>newToken.getEndTime())
+				newToken.setEndTime(wme.getTriple().getTimestamp());
 		} else {
 			//Token without parent is token at dummy (root) beta memory
 			//It will have start and end time as streamed triple
-			newToken.setStartTime(wme.getStreamedTriple().getTimestamp());
-			newToken.setEndTime(wme.getStreamedTriple().getTimestamp());
+			newToken.setStartTime(wme.getTriple().getTimestamp());
+			newToken.setEndTime(wme.getTriple().getTimestamp());
 		}
 		
 		return newToken;

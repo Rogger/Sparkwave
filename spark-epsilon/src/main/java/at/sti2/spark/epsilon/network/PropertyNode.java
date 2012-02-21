@@ -2,7 +2,7 @@ package at.sti2.spark.epsilon.network;
 
 import java.util.List;
 
-import at.sti2.spark.core.stream.StreamedTriple;
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.epsilon.network.run.Token;
@@ -11,12 +11,12 @@ import at.sti2.spark.rete.WorkingMemoryElement;
 public class PropertyNode extends Node {
 
 	@Override
-	public void activateEntry(StreamedTriple triple, List <Token> tokenNodes) {
+	public void activateEntry(Triple triple, List <Token> tokenNodes) {
 		activate(triple, tokenNodes, LinkType.LINK_SO);
 	}
 	
 	@Override
-	public void activate(StreamedTriple triple, List <Token> tokenNodes, LinkType linkType) {
+	public void activate(Triple triple, List <Token> tokenNodes, LinkType linkType) {
 		
 		//Check for previous activation
 		if (hasToken(triple, linkType))
@@ -26,18 +26,19 @@ public class PropertyNode extends Node {
 		
 		if (linkType.equals(Node.LinkType.LINK_SO))
 			activeTriple = new RDFTriple(
-					triple.getTriple().getSubject(),
+					triple.getRDFTriple().getSubject(),
 					new RDFURIReference(getUri()),
-					triple.getTriple().getObject());
+					triple.getRDFTriple().getObject());
 		else
 			activeTriple = new RDFTriple(
-					triple.getTriple().getObject(),
+					triple.getRDFTriple().getObject(),
 					new RDFURIReference(getUri()),
-					triple.getTriple().getSubject());
+					triple.getRDFTriple().getSubject());
 		
-		StreamedTriple activeStreamedTriple = new StreamedTriple(
+		Triple activeStreamedTriple = new Triple(
 				activeTriple,
 				triple.getTimestamp(),
+				triple.isPermanent(),
 				triple.getContext());
 		
 		activateAlphaNodes(new WorkingMemoryElement(activeStreamedTriple));

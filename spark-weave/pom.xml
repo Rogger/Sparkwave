@@ -4,7 +4,7 @@
 	<artifactId>spark-weave</artifactId>
 	<packaging>jar</packaging>
 	<name>spark-weave</name>
-	
+
 	<parent>
 		<groupId>spark</groupId>
 		<artifactId>spark-dist</artifactId>
@@ -21,17 +21,57 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
+				<version>2.4</version>
 				<executions>
 					<execution>
+						<phase>package</phase>
 						<goals>
-							<goal>test-jar</goal>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib</classpathPrefix>
+							<mainClass>at.sti2.spark.network.SparkWeaveNetwork</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.dstovall</groupId>
+				<artifactId>onejar-maven-plugin</artifactId>
+				<version>1.4.4</version>
+				<executions>
+					<execution>
+						<configuration>
+							<!-- Optional -->
+							<!-- <onejarVersion>0.97</onejarVersion> -->
+							<!-- Optional, default is false -->
+							<!-- <attachToBuild>true</attachToBuild> -->
+							<!-- Optional, default is "onejar" -->
+							<!-- <classifier>onejar</classifier> -->
+						</configuration>
+						<id>distribution</id>
+						<goals>
+							<goal>one-jar</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>onejar-maven-plugin.googlecode.com</id>
+			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 		<dependency>

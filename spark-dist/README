@@ -1,0 +1,22 @@
+COMPILE
+=======
+
+Prerequisite:
+jdk6+
+maven 2.2.x or 3.x
+
+
+1) mvn clean install package -Dmaven.test.skip=true
+
+
+RUN
+===
+
+To start SparkWeave network execute the following command:
+
+$ sh spark.sh $PWD/tests/bsbm/pattern-PT1-TW100.tpg $PWD/tests/bsbm/epsilon-PT1-DS329.owl dist 200 
+
+To start SparkWeave streamer execute the following command:
+
+$ sh spark-streamer.sh 8080 $PWD/tests/bsbm/offers-trunc100.nt
+

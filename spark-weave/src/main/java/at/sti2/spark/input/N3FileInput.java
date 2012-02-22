@@ -18,7 +18,6 @@ package at.sti2.spark.input;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import at.sti2.spark.core.triple.RDFLiteral;

@@ -64,24 +64,23 @@ public class NetworkBuilder {
 		EpsilonNetwork epsilonNetwork = new EpsilonNetwork();
 		
 		try {
-
-//			inStream = new FileInputStream(file);
-//			OntModel ontModelInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RULE_INF);
-//			ontModelInf.read(inStream, null, "TURTLE");
 			
-			inStream = new FileInputStream(file);
-			OntModel ontModelNoInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
-			ontModelNoInf.read(inStream, null, "TURTLE");
-
-			//Building network
-			buildClassNodes(ontModelNoInf, epsilonNetwork);
-			addSubClassLinks(ontModelNoInf, epsilonNetwork);
-			buildPropertyNodes(ontModelNoInf, epsilonNetwork);
-			addSubPropertyLinks(ontModelNoInf, epsilonNetwork);
-			addDomainLinks(ontModelNoInf, epsilonNetwork);
-			addRangeLinks(ontModelNoInf, epsilonNetwork);
-			addInverseOfLinks(ontModelNoInf, epsilonNetwork);
-			addSymmetricOfLinks(ontModelNoInf, epsilonNetwork);
+			if (file.exists()) {
+			
+				inStream = new FileInputStream(file);
+				OntModel ontModelNoInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+				ontModelNoInf.read(inStream, null, "TURTLE");
+	
+				//Building network
+				buildClassNodes(ontModelNoInf, epsilonNetwork);
+				addSubClassLinks(ontModelNoInf, epsilonNetwork);
+				buildPropertyNodes(ontModelNoInf, epsilonNetwork);
+				addSubPropertyLinks(ontModelNoInf, epsilonNetwork);
+				addDomainLinks(ontModelNoInf, epsilonNetwork);
+				addRangeLinks(ontModelNoInf, epsilonNetwork);
+				addInverseOfLinks(ontModelNoInf, epsilonNetwork);
+				addSymmetricOfLinks(ontModelNoInf, epsilonNetwork);
+			}
 		    
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

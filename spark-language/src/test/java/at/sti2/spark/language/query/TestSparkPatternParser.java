@@ -19,7 +19,21 @@ import junit.framework.TestCase;
 
 public class TestSparkPatternParser extends TestCase {
 
-	public void testSparkPatternParser(){
+	public void testParserPT2TW100(){
+		
+		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
+		parser.parse();
+		assertTrue(true);
+	}
+	
+	public void testParserQuery1(){
+		
+		SparkPatternParser parser = new SparkPatternParser("./resources/query1.tpg");
+		parser.parse();
+		assertTrue(true);
+	}
+	
+	public void testParserTest(){
 		
 		SparkPatternParser parser = new SparkPatternParser("./resources/test.tpg");
 		parser.parse();

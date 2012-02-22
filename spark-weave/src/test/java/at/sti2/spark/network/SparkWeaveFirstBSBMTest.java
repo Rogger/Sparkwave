@@ -28,7 +28,7 @@ import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
-import at.sti2.spark.rete.N3FileInput;
+import at.sti2.spark.input.N3FileInput;
 import at.sti2.spark.rete.condition.TripleCondition;
 import at.sti2.spark.rete.condition.TripleConstantTest;
 import at.sti2.spark.rete.condition.TriplePatternGraph;

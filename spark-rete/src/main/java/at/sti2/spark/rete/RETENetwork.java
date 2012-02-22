@@ -448,7 +448,7 @@ public class RETENetwork {
 	
 	public String getBetaMemoryLevels(){
 		StringBuffer bufferLevels = new StringBuffer();
-		bufferLevels.append("BM ");
+		bufferLevels.append("BM MEM ALLOC ");
 		getBetaMemoryLevel(betaMemory, bufferLevels);
 		return bufferLevels.toString();
 	}

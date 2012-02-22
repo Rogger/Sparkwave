@@ -89,49 +89,106 @@ public class SparkWeaveNetworkServerThread extends Thread{
 		}
 	}
 	
+	/**
+	 * Method to parse triple in N-Triple format.
+	 * 
+	 * Note: StringTokenizer is not really helpful because lexical form in literals can have blank spaces. 
+	 * 
+	 * @param tripleLine
+	 * @return
+	 */
 	private RDFTriple parseTriple(String tripleLine){
 		
-		StringTokenizer tokenizer = new StringTokenizer(tripleLine);
+		char tripleChars[] = tripleLine.toCharArray();
+		int currentPos = 0; 
 		
-		String subject = tokenizer.nextToken();
-		String predicate = tokenizer.nextToken();
-		String object = tokenizer.nextToken();
+		//----------------------------------------------
+		//Parse subject RDF node
+		//----------------------------------------------
+		while (tripleChars[currentPos]!='<')
+			currentPos++;
 		
-		RDFURIReference tripSubject = new RDFURIReference(subject.substring(subject.indexOf('<') + 1, subject.indexOf('>')));
-		RDFURIReference tripPredicate = new RDFURIReference(predicate.substring(predicate.indexOf('<') + 1, predicate.indexOf('>')));
+		//Move one place beyond '<'
+		currentPos++;
 		
-		RDFValue tripObject = null;
-		
-		if (object.startsWith("\"")){
-			
-			//This is literal
-			String lexicalForm = null;
-	    	String languageTag = null;
-	    	RDFURIReference datatypeURI = null;
-	    	
-	    	//Extract language tag
-	    	//TODO Extract properly language tag
-//	    	if (!object.asLiteral().getLanguage().equals(""))
-//	    		languageTag = object.asLiteral().getLanguage();
-	    	
-	    	//Extract lexical form
-	    	StringTokenizer literalTokenizer = new StringTokenizer(object, "^^");
-	    	
-	    	lexicalForm = literalTokenizer.nextToken();
-	    	lexicalForm = lexicalForm.substring(lexicalForm.indexOf('\"') + 1, lexicalForm.lastIndexOf('\"'));
-	    	
-	    	//Extract datatypeURI
-	    	String datatypeToken = literalTokenizer.nextToken();
-	    	if (datatypeToken != null)
-	    		datatypeURI = new RDFURIReference(datatypeToken.substring(datatypeToken.indexOf('<') + 1, datatypeToken.indexOf('>')));
-	    	
-	    	tripObject = new RDFLiteral(lexicalForm, datatypeURI, languageTag);
-			
-		}else{
-			//Is is URL
-			tripObject = new RDFURIReference(object.substring(object.indexOf('<') + 1, object.indexOf('>')));
+		//Copy URI value
+		StringBuffer buffer = new StringBuffer();
+		while (tripleChars[currentPos]!='>'){
+			buffer.append(tripleChars[currentPos]);
+			currentPos++;
 		}
+		RDFURIReference tripSubject = new RDFURIReference(buffer.toString());
 		
+		//----------------------------------------------
+		//Parse predicate RDF node
+		//----------------------------------------------		
+		while (tripleChars[currentPos]!='<')
+			currentPos++;
+		
+		//Move one place beyond '<'
+		currentPos++;
+		buffer = new StringBuffer();
+		while (tripleChars[currentPos]!='>'){
+			buffer.append(tripleChars[currentPos]);
+			currentPos++;
+		}
+		RDFURIReference tripPredicate = new RDFURIReference(buffer.toString());
+		
+		//----------------------------------------------
+		//Parse object RDF node
+		//----------------------------------------------		
+		//Move one place beyond '>'
+		currentPos++;
+		RDFValue tripObject = null;
+		String lexicalForm = null;
+    	String languageTag = null;
+    	RDFURIReference datatypeURI = null;
+		
+		//Search while character under scope is != ' '
+		while ((tripleChars[currentPos]!='<') && (tripleChars[currentPos]!='"'))
+			currentPos++;
+		
+		//The character indicates literal value
+		if (tripleChars[currentPos]=='"'){
+		
+			//Move one character place beyond "
+			currentPos++;
+			
+			buffer = new StringBuffer();
+			while (tripleChars[currentPos]!='"'){
+				buffer.append(tripleChars[currentPos]);
+				currentPos++;
+			}
+			lexicalForm = buffer.toString();
+			
+			//Search for the beginning of datatype uri
+			while (tripleChars[currentPos]!='<')
+				currentPos++;
+			
+			//Move one character place beyond <
+			currentPos++;
+			
+			buffer = new StringBuffer();
+			while (tripleChars[currentPos]!='>'){
+				buffer.append(tripleChars[currentPos]);
+				currentPos++;
+			}
+			
+			datatypeURI = new RDFURIReference(buffer.toString());
+			
+			tripObject = new RDFLiteral(lexicalForm, datatypeURI, languageTag);
+		//The character is '<' and we have another URL
+		}else{
+			//Move one place beyond '<'
+			currentPos++;
+			buffer = new StringBuffer();
+			while (tripleChars[currentPos]!='>'){
+				buffer.append(tripleChars[currentPos]);
+				currentPos++;
+			}
+			tripObject = new RDFURIReference(buffer.toString());
+		}
+			
 		return new RDFTriple(tripSubject, tripPredicate, tripObject);
 	}
 }

@@ -73,19 +73,19 @@ public class ProductionNode extends RETENode {
 		addItem(newToken);
 		matchCounter++;
 		
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("We have " + (++matchCounter) + " match:\n");
-//		Token printToken = newToken;
-//		
-//		while (printToken != null){
-//			buffer.append(printToken.getWme().getStreamedTriple().toString());
-//			buffer.append('\n');
-//			printToken = printToken.getParent();
-//		}
-//		
-//		buffer.append("Time interval [" + newToken.getTimeInterval() + "] ms.");
-//		
-//		System.out.println(buffer.toString());
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("We have " + (matchCounter) + " match:\n");
+		Token printToken = newToken;
+		
+		while (printToken != null){
+			buffer.append(printToken.getWme().getTriple().toString());
+			buffer.append('\n');
+			printToken = printToken.getParent();
+		}
+		
+		buffer.append("Time interval [" + newToken.getTimeInterval() + "] ms.");
+		
+		System.out.println(buffer.toString());
 		
 		//removeResult(newToken);
 	}

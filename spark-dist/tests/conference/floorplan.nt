@@ -1,0 +1,172 @@
+<http://deri.org/floorplan/G021> <http://deri.org/floorplan/name> "Location G021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G021> <http://deri.org/floorplan/desc> "Description of location G021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/J019> .
+<http://deri.org/floorplan/G021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H011> .
+<http://deri.org/floorplan/G016> <http://deri.org/floorplan/name> "Location G016"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G016> <http://deri.org/floorplan/desc> "Description of location G016"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G016> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F011> .
+<http://deri.org/floorplan/G016> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I001> .
+<http://deri.org/floorplan/G016> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G022> .
+<http://deri.org/floorplan/I005> <http://deri.org/floorplan/name> "Location I005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I005> <http://deri.org/floorplan/desc> "Description of location I005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I014> .
+<http://deri.org/floorplan/I005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F011> .
+<http://deri.org/floorplan/I005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E021> .
+<http://deri.org/floorplan/F017> <http://deri.org/floorplan/name> "Location F017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F017> <http://deri.org/floorplan/desc> "Description of location F017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F012> .
+<http://deri.org/floorplan/F017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G002> .
+<http://deri.org/floorplan/F017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C012> .
+<http://deri.org/floorplan/H016> <http://deri.org/floorplan/name> "Location H016"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H016> <http://deri.org/floorplan/desc> "Description of location H016"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H016> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H017> .
+<http://deri.org/floorplan/F011> <http://deri.org/floorplan/name> "Location F011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F011> <http://deri.org/floorplan/desc> "Description of location F011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I005> .
+<http://deri.org/floorplan/F011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G016> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/name> "Location D001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/desc> "Description of location D001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C006> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F012> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D005> .
+<http://deri.org/floorplan/D001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E021> .
+<http://deri.org/floorplan/C023> <http://deri.org/floorplan/name> "Location C023"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C023> <http://deri.org/floorplan/desc> "Description of location C023"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C023> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C005> .
+<http://deri.org/floorplan/C023> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C150> .
+<http://deri.org/floorplan/D005> <http://deri.org/floorplan/name> "Location D005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D005> <http://deri.org/floorplan/desc> "Description of location D005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F012> .
+<http://deri.org/floorplan/D005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D015> .
+<http://deri.org/floorplan/D005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D001> .
+<http://deri.org/floorplan/I001> <http://deri.org/floorplan/name> "Location I001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I001> <http://deri.org/floorplan/desc> "Description of location I001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I014> .
+<http://deri.org/floorplan/I001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H019> .
+<http://deri.org/floorplan/I001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G016> .
+<http://deri.org/floorplan/E006> <http://deri.org/floorplan/name> "Location E006"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E006> <http://deri.org/floorplan/desc> "Description of location E006"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D003> .
+<http://deri.org/floorplan/E006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F002> .
+<http://deri.org/floorplan/E006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E017> .
+<http://deri.org/floorplan/D015> <http://deri.org/floorplan/name> "Location D015"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D015> <http://deri.org/floorplan/desc> "Description of location D015"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D015> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F012> .
+<http://deri.org/floorplan/D015> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D005> .
+<http://deri.org/floorplan/C150> <http://deri.org/floorplan/name> "Location C150"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C150> <http://deri.org/floorplan/desc> "Description of location C150"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C150> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C005> .
+<http://deri.org/floorplan/C150> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E021> .
+<http://deri.org/floorplan/C150> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C023> .
+<http://deri.org/floorplan/D011> <http://deri.org/floorplan/name> "Location D011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D011> <http://deri.org/floorplan/desc> "Description of location D011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D003> .
+<http://deri.org/floorplan/D011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D021> .
+<http://deri.org/floorplan/D011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D010> .
+<http://deri.org/floorplan/H019> <http://deri.org/floorplan/name> "Location H019"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H019> <http://deri.org/floorplan/desc> "Description of location H019"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H019> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H017> .
+<http://deri.org/floorplan/H019> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I001> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/name> "Location D003"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/desc> "Description of location D003"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D011> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E006> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D010> .
+<http://deri.org/floorplan/D003> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E017> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/name> "Location C006"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/desc> "Description of location C006"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/B001> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C012> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C015> .
+<http://deri.org/floorplan/C006> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D001> .
+<http://deri.org/floorplan/H011> <http://deri.org/floorplan/name> "Location H011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H011> <http://deri.org/floorplan/desc> "Description of location H011"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H017> .
+<http://deri.org/floorplan/H011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G021> .
+<http://deri.org/floorplan/H011> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/J013> .
+<http://deri.org/floorplan/B007> <http://deri.org/floorplan/name> "Location B007"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/B007> <http://deri.org/floorplan/desc> "Description of location B007"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/B007> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/B001> .
+<http://deri.org/floorplan/B007> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C015> .
+<http://deri.org/floorplan/C015> <http://deri.org/floorplan/name> "Location C015"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C015> <http://deri.org/floorplan/desc> "Description of location C015"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C015> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C006> .
+<http://deri.org/floorplan/C015> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C012> .
+<http://deri.org/floorplan/C015> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/B007> .
+<http://deri.org/floorplan/G022> <http://deri.org/floorplan/name> "Location G022"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G022> <http://deri.org/floorplan/desc> "Description of location G022"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G022> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H017> .
+<http://deri.org/floorplan/G022> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G016> .
+<http://deri.org/floorplan/J019> <http://deri.org/floorplan/name> "Location J019"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/J019> <http://deri.org/floorplan/desc> "Description of location J019"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/J019> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/B001> .
+<http://deri.org/floorplan/J019> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G021> .
+<http://deri.org/floorplan/J019> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/J013> .
+<http://deri.org/floorplan/F002> <http://deri.org/floorplan/name> "Location F002"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F002> <http://deri.org/floorplan/desc> "Description of location F002"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F002> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E006> .
+<http://deri.org/floorplan/F002> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E021> .
+<http://deri.org/floorplan/E013> <http://deri.org/floorplan/name> "Location E013"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E013> <http://deri.org/floorplan/desc> "Description of location E013"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E013> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E017> .
+<http://deri.org/floorplan/D010> <http://deri.org/floorplan/name> "Location D010"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D010> <http://deri.org/floorplan/desc> "Description of location D010"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D010> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D003> .
+<http://deri.org/floorplan/D010> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D011> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/name> "Location H017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/desc> "Description of location H017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H019> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H016> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G022> .
+<http://deri.org/floorplan/H017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H011> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/name> "Location C012"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/desc> "Description of location C012"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C006> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/G002> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F017> .
+<http://deri.org/floorplan/C012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C015> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/name> "Location F012"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/desc> "Description of location F012"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F017> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D015> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D005> .
+<http://deri.org/floorplan/F012> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D001> .
+<http://deri.org/floorplan/E017> <http://deri.org/floorplan/name> "Location E017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E017> <http://deri.org/floorplan/desc> "Description of location E017"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D003> .
+<http://deri.org/floorplan/E017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E006> .
+<http://deri.org/floorplan/E017> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/E013> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/name> "Location E021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/desc> "Description of location E021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C150> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I005> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F002> .
+<http://deri.org/floorplan/E021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D001> .
+<http://deri.org/floorplan/J013> <http://deri.org/floorplan/name> "Location J013"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/J013> <http://deri.org/floorplan/desc> "Description of location J013"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/J013> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/J019> .
+<http://deri.org/floorplan/J013> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/H011> .
+<http://deri.org/floorplan/C007> <http://deri.org/floorplan/name> "Location C007"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C007> <http://deri.org/floorplan/desc> "Description of location C007"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C007> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D021> .
+<http://deri.org/floorplan/C005> <http://deri.org/floorplan/name> "Location C005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C005> <http://deri.org/floorplan/desc> "Description of location C005"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/C005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C150> .
+<http://deri.org/floorplan/C005> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C023> .
+<http://deri.org/floorplan/D021> <http://deri.org/floorplan/name> "Location D021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D021> <http://deri.org/floorplan/desc> "Description of location D021"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/D021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/D011> .
+<http://deri.org/floorplan/D021> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C007> .
+<http://deri.org/floorplan/G002> <http://deri.org/floorplan/name> "Location G002"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G002> <http://deri.org/floorplan/desc> "Description of location G002"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/G002> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/F017> .
+<http://deri.org/floorplan/G002> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C012> .
+<http://deri.org/floorplan/I014> <http://deri.org/floorplan/name> "Location I014"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I014> <http://deri.org/floorplan/desc> "Description of location I014"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/I014> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I005> .
+<http://deri.org/floorplan/I014> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/I001> .
+<http://deri.org/floorplan/B001> <http://deri.org/floorplan/name> "Location B001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/B001> <http://deri.org/floorplan/desc> "Description of location B001"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://deri.org/floorplan/B001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/C006> .
+<http://deri.org/floorplan/B001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/J019> .
+<http://deri.org/floorplan/B001> <http://deri.org/floorplan/connected> <http://deri.org/floorplan/B007> .

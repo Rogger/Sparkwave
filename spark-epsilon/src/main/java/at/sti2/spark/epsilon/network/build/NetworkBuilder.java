@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2012, University of Innsbruck, Austria.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * You should have received a copy of the GNU Lesser General Public License along
+ * with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package at.sti2.spark.epsilon.network.build;
 
 import java.io.File;
@@ -49,24 +64,23 @@ public class NetworkBuilder {
 		EpsilonNetwork epsilonNetwork = new EpsilonNetwork();
 		
 		try {
-
-//			inStream = new FileInputStream(file);
-//			OntModel ontModelInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RULE_INF);
-//			ontModelInf.read(inStream, null, "TURTLE");
 			
-			inStream = new FileInputStream(file);
-			OntModel ontModelNoInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
-			ontModelNoInf.read(inStream, null, "TURTLE");
-
-			//Building network
-			buildClassNodes(ontModelNoInf, epsilonNetwork);
-			addSubClassLinks(ontModelNoInf, epsilonNetwork);
-			buildPropertyNodes(ontModelNoInf, epsilonNetwork);
-			addSubPropertyLinks(ontModelNoInf, epsilonNetwork);
-			addDomainLinks(ontModelNoInf, epsilonNetwork);
-			addRangeLinks(ontModelNoInf, epsilonNetwork);
-			addInverseOfLinks(ontModelNoInf, epsilonNetwork);
-			addSymmetricOfLinks(ontModelNoInf, epsilonNetwork);
+			if (file.exists()) {
+			
+				inStream = new FileInputStream(file);
+				OntModel ontModelNoInf = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+				ontModelNoInf.read(inStream, null, "TURTLE");
+	
+				//Building network
+				buildClassNodes(ontModelNoInf, epsilonNetwork);
+				addSubClassLinks(ontModelNoInf, epsilonNetwork);
+				buildPropertyNodes(ontModelNoInf, epsilonNetwork);
+				addSubPropertyLinks(ontModelNoInf, epsilonNetwork);
+				addDomainLinks(ontModelNoInf, epsilonNetwork);
+				addRangeLinks(ontModelNoInf, epsilonNetwork);
+				addInverseOfLinks(ontModelNoInf, epsilonNetwork);
+				addSymmetricOfLinks(ontModelNoInf, epsilonNetwork);
+			}
 		    
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

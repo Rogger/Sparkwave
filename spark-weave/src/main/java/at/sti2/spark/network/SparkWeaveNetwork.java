@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2012, University of Innsbruck, Austria.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ * You should have received a copy of the GNU Lesser General Public License along
+ * with this library; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package at.sti2.spark.network;
 
 import java.io.File;
@@ -132,66 +147,68 @@ public class SparkWeaveNetwork{
 	
 	private void bindNetworks(){
 		
-		WorkingMemory workingMemory = reteNetwork.getWorkingMemory();
+		if (epsilonOntology.exists()){
 		
-		/**
-		 * Connecting epsilon property nodes to alpha predicate nodes 
-		 */
-		
-		List<AlphaNode> predicateAlphaNodes = workingMemory.getPropertyAlphaNodesWithoutRDFType();
-		logger.debug("Found predicate alpha nodes:" + predicateAlphaNodes);
-		
-		for (AlphaNode predicateAlphaNode : predicateAlphaNodes){
-			logger.debug("Connecting predicate alpha node " + predicateAlphaNode + " to corresponding epsilon node.");
-			PropertyNode propertyNode = epsilonNetwork.getNetwork().getPropertyNodeByURI(((ValueTestAlphaNode)predicateAlphaNode).getTestValue());
-			//If the node exists in the epsilon network add binding
-			if (propertyNode != null)
-				propertyNode.addAlphaNode(predicateAlphaNode);
-		}
-		
-		/**
-		 * Connecting all epsilon property nodes to all first children alpha nodes which are not predicate nodes 
-		 */
-		List<AlphaNode> rootChildAlphaNodes = workingMemory.getRootChildrenAlphaNodesWithoutPropertyAN();
-		logger.debug("Found property alpha nodes:" + rootChildAlphaNodes);
-		if (!rootChildAlphaNodes.isEmpty())
-			for (PropertyNode propertyNode : epsilonNetwork.getNetwork().getPropertyNodes())
-				for (AlphaNode alphaNode : rootChildAlphaNodes)
-					propertyNode.addAlphaNode(alphaNode);
-						
-		/**
-		 * Connecting epsilon class nodes to alpha object nodes
-		 */
-		List<AlphaNode> objectAlphaNodes = workingMemory.getObjectAlphaNodesOfRDFTypePredicateAlphaNode();
-		logger.debug("Found object alpha nodes:" + objectAlphaNodes);
-		for (AlphaNode objectAlphaNode : objectAlphaNodes){
-			logger.debug("Connecting object alpha node " + objectAlphaNode + " to corresponding epsilon class node.");
-			ClassNode classNode = epsilonNetwork.getNetwork().getClassNodeByURI(((ValueTestAlphaNode)objectAlphaNode).getTestValue());
-			//If the node exists in the epsilon network add binding
-			if (classNode != null)
-				classNode.addAlphaNode(objectAlphaNode);
-		}
-		
-		/**
-		 * Connecting all epsilon class nodes to all first children of alpha rdf:type nodes which are not object nodes 
-		 */
-		List<AlphaNode> rdfTypeChildAlphaNodes = workingMemory.getRDFTypeChildrenAlphaNodesWithoutObjectAN();
-		logger.debug("Found subject alpha nodes:" + rdfTypeChildAlphaNodes);
-		if (!rdfTypeChildAlphaNodes.isEmpty())
-			for (ClassNode classNode : epsilonNetwork.getNetwork().getClassNodes())
-				for (AlphaNode alphaNode : rdfTypeChildAlphaNodes)
-					classNode.addAlphaNode(alphaNode);
-						
-		/**
-		 * Connecting all epsilon class nodes to all first children alpha nodes which are not predicate nodes 
-		 */
-		rootChildAlphaNodes = workingMemory.getRootChildrenAlphaNodesWithoutPropertyAN();
-		logger.debug("Found alpha nodes:" + rootChildAlphaNodes);
-		if (!rootChildAlphaNodes.isEmpty())
-			for (ClassNode classNode : epsilonNetwork.getNetwork().getClassNodes())
-				for (AlphaNode alphaNode : rootChildAlphaNodes)
-					classNode.addAlphaNode(alphaNode);
-						
+			WorkingMemory workingMemory = reteNetwork.getWorkingMemory();
+			
+			/**
+			 * Connecting epsilon property nodes to alpha predicate nodes 
+			 */
+			
+			List<AlphaNode> predicateAlphaNodes = workingMemory.getPropertyAlphaNodesWithoutRDFType();
+			logger.debug("Found predicate alpha nodes:" + predicateAlphaNodes);
+			
+			for (AlphaNode predicateAlphaNode : predicateAlphaNodes){
+				logger.debug("Connecting predicate alpha node " + predicateAlphaNode + " to corresponding epsilon node.");
+				PropertyNode propertyNode = epsilonNetwork.getNetwork().getPropertyNodeByURI(((ValueTestAlphaNode)predicateAlphaNode).getTestValue());
+				//If the node exists in the epsilon network add binding
+				if (propertyNode != null)
+					propertyNode.addAlphaNode(predicateAlphaNode);
+			}
+			
+			/**
+			 * Connecting all epsilon property nodes to all first children alpha nodes which are not predicate nodes 
+			 */
+			List<AlphaNode> rootChildAlphaNodes = workingMemory.getRootChildrenAlphaNodesWithoutPropertyAN();
+			logger.debug("Found property alpha nodes:" + rootChildAlphaNodes);
+			if (!rootChildAlphaNodes.isEmpty())
+				for (PropertyNode propertyNode : epsilonNetwork.getNetwork().getPropertyNodes())
+					for (AlphaNode alphaNode : rootChildAlphaNodes)
+						propertyNode.addAlphaNode(alphaNode);
+							
+			/**
+			 * Connecting epsilon class nodes to alpha object nodes
+			 */
+			List<AlphaNode> objectAlphaNodes = workingMemory.getObjectAlphaNodesOfRDFTypePredicateAlphaNode();
+			logger.debug("Found object alpha nodes:" + objectAlphaNodes);
+			for (AlphaNode objectAlphaNode : objectAlphaNodes){
+				logger.debug("Connecting object alpha node " + objectAlphaNode + " to corresponding epsilon class node.");
+				ClassNode classNode = epsilonNetwork.getNetwork().getClassNodeByURI(((ValueTestAlphaNode)objectAlphaNode).getTestValue());
+				//If the node exists in the epsilon network add binding
+				if (classNode != null)
+					classNode.addAlphaNode(objectAlphaNode);
+			}
+			
+			/**
+			 * Connecting all epsilon class nodes to all first children of alpha rdf:type nodes which are not object nodes 
+			 */
+			List<AlphaNode> rdfTypeChildAlphaNodes = workingMemory.getRDFTypeChildrenAlphaNodesWithoutObjectAN();
+			logger.debug("Found subject alpha nodes:" + rdfTypeChildAlphaNodes);
+			if (!rdfTypeChildAlphaNodes.isEmpty())
+				for (ClassNode classNode : epsilonNetwork.getNetwork().getClassNodes())
+					for (AlphaNode alphaNode : rdfTypeChildAlphaNodes)
+						classNode.addAlphaNode(alphaNode);
+							
+			/**
+			 * Connecting all epsilon class nodes to all first children alpha nodes which are not predicate nodes 
+			 */
+			rootChildAlphaNodes = workingMemory.getRootChildrenAlphaNodesWithoutPropertyAN();
+			logger.debug("Found alpha nodes:" + rootChildAlphaNodes);
+			if (!rootChildAlphaNodes.isEmpty())
+				for (ClassNode classNode : epsilonNetwork.getNetwork().getClassNodes())
+					for (AlphaNode alphaNode : rootChildAlphaNodes)
+						classNode.addAlphaNode(alphaNode);
+			}		
 		/**
 		 * Connect the epsilon entry to RETE entry for triples that are not entering RETE through epsilon
 		 */
@@ -224,11 +241,41 @@ public class SparkWeaveNetwork{
 		if (args.length != 4){
 			System.out.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 4 parameters:");
 			System.out.println(" <pattern_file> - name of the file holding triple pattern definition.");
-			System.out.println(" <epsilon_ontology_file> - name of the file holding ontology.");
-			System.out.println(" <static_instances_file> - name of the file holding static instances.");
+			System.out.println(" <epsilon_ontology_file> - name of the file holding ontology or null.");
+			System.out.println(" <static_instances_file> - name of the file holding static instances or null.");
 			System.out.println(" <gc_session_delay> - the time interval between garbage collection sessions in [ms].");
 			System.exit(0);
 		}
+		
+		//Test to see if pattern file exists
+		File file = new File(args[0]);
+		if (!file.exists()){
+			System.out.println("Triple pattern file doesn't exist!");
+			System.exit(0);
+		}
+		
+		//Test to see if epsilon ontology file exists or the value is NULL
+		file = new File(args[1]);
+		if (!file.exists())
+			if(!(args[1].toLowerCase().equals("null"))){
+				System.out.println("Epsilon ontology file doesn't exist or the value is not NULL!");
+				System.exit(0);
+		}
+		
+		//Test to see if static instances file exists or the value is NULL
+		file = new File(args[2]);
+		if (!file.exists())
+			if(!(args[2].toLowerCase().equals("null"))){
+				System.out.println("Static instances file doesn't exist or the value is not NULL!");
+				System.exit(0);
+		}
+		
+		try{
+	        Integer.parseInt(args[3]);
+	    } catch(NumberFormatException nfe) {
+	    	System.out.println("GC session delay must be a number!");
+	    	System.exit(0);
+	    }
 		
 		new SparkWeaveNetwork(args[0], args[1], args[2], args[3]);
 	}

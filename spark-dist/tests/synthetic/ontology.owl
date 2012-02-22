@@ -1,0 +1,24 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix synthetic: <http://www.example.test/synthetic#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3.org/2002/07/owl#> .
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+synthetic:A rdf:type owl:Class .
+synthetic:B rdf:type owl:Class .
+
+#################################################################
+#
+#    Properties
+#
+#################################################################
+
+synthetic:hasB rdf:type owl:ObjectProperty ;
+              rdfs:range synthetic:B ;
+              rdfs:domain synthetic:A .

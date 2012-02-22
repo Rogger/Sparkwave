@@ -1,0 +1,4 @@
+?x http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.example.test/synthetic#A
+?x http://www.example.test/synthetic#hasB ?y
+?y http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www.example.test/synthetic#B
+TIMEWINDOW (50)

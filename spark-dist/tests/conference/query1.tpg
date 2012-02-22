@@ -1,0 +1,4 @@
+?person http://deri.org/floorplan/detectedAt ?loc
+?person http://xmlns.com/foaf/0.1/name "Paul Erdoes"^^<http://www.w3.org/2001/XMLSchema#string> 
+?loc http://deri.org/floorplan/name ?locName
+TIMEWINDOW (50)

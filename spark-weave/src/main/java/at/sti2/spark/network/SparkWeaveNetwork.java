@@ -37,10 +37,13 @@ public class SparkWeaveNetwork{
 	private long gcSessionDelay = 0l;
 	
 	public SparkWeaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology, long gcSessionDelay) {
-		
+		init(triplePatternGraph,epsilonOntology,gcSessionDelay);	
+	}
+	
+	private void init(TriplePatternGraph triplePatternGraph, File epsilonOntology, long gcSessionDelay){
 		this.triplePatternGraph = triplePatternGraph;
 		this.epsilonOntology = epsilonOntology;
-		this.gcSessionDelay = gcSessionDelay;	
+		this.gcSessionDelay = gcSessionDelay;
 	}
 	
 	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String instancesFileName, String gcSessionDelay) {
@@ -51,14 +54,14 @@ public class SparkWeaveNetwork{
 		
 		File ontologyFile = new File(epsilonOntologyFileName);
 		
-		SparkWeaveNetwork sparkWeaveNetwork = new SparkWeaveNetwork(triplePatternGraph, ontologyFile, Long.parseLong(gcSessionDelay));
-		sparkWeaveNetwork.buildNetwork();
+		init(triplePatternGraph, ontologyFile, Long.parseLong(gcSessionDelay));
+		buildNetwork();
 		
 		//Print Rete network structure
-		sparkWeaveNetwork.getReteNetwork().printNetworkStructure();
+		getReteNetwork().printNetworkStructure();
 		
 		//Start SparkWeaveNetworkServerInstance
-		(new SparkWeaveNetworkServer(sparkWeaveNetwork)).start();
+		(new SparkWeaveNetworkServer(this)).start();
 		
 		//If there are static instances to be added
 		if (!instancesFileName.toLowerCase().equals("null")){
@@ -75,7 +78,7 @@ public class SparkWeaveNetwork{
 			while ((tripleLine = streamReader.nextTripleLine()) != null){
 				RDFTriple rdfTriple = streamReader.parseTriple(tripleLine);
 				Triple sTriple = new Triple(rdfTriple, 0l, true, 0l);
-				sparkWeaveNetwork.activateNetwork(sTriple);
+				activateNetwork(sTriple);
 			}
 			long endProcessingTime = new Date().getTime();
 			streamReader.closeFile();

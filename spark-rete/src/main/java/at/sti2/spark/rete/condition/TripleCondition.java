@@ -106,4 +106,17 @@ public class TripleCondition {
 	public void addConstantTest(TripleConstantTest tripleConstantTest){
 		constantTests.add(tripleConstantTest); 
 	}
+	
+	@Override
+	public String toString() {
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(conditionTriple);
+		buffer.append(' ');
+		buffer.append(constantTests.toString());
+		buffer.append('\n');
+		
+		return buffer.toString();
+	}
 }

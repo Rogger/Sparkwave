@@ -48,4 +48,15 @@ public class TripleConstantTest {
 	public void setTestField(RDFTriple.Field testField) {
 		this.testField = testField;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(testField.toString());
+		buffer.append(" ");
+		buffer.append(lexicalTestSymbol);
+		
+		return buffer.toString();
+	}
 }

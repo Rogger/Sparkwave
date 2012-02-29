@@ -176,4 +176,17 @@ public class JoinNode extends RETENode {
 	public void leftActivate(Token token, WorkingMemoryElement wme) {
 		// TODO Auto-generated method stub
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("Tests: \n");
+		for(JoinNodeTest test : tests){
+			buffer.append(test.toString());
+			buffer.append("\n");
+		}
+		
+		return buffer.toString();
+	}
 }

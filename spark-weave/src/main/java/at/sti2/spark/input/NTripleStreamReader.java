@@ -23,12 +23,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 
 public class NTripleStreamReader {
+	
+	static Logger logger = Logger.getLogger(NTripleStreamReader.class);
 
 	private File inputFile = null;
 	
@@ -61,7 +65,7 @@ public class NTripleStreamReader {
 		try {
 			reader = new BufferedReader(new FileReader(inputFile));
 		} catch (FileNotFoundException e) {
-			System.out.println("Triple file not found.");
+			logger.debug("Triple file not found.");
 			e.printStackTrace();
 		}
 	}
@@ -70,7 +74,7 @@ public class NTripleStreamReader {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			System.out.println("Problem while closing triple file.");
+			logger.debug("Problem while closing triple file.");
 			e.printStackTrace();
 		}
 	}
@@ -84,7 +88,7 @@ public class NTripleStreamReader {
 				rdfTriple = parseTriple(tripleLine);
 			
 		} catch (IOException e) {
-			System.out.println("Problem while reading triple file.");
+			logger.debug("Problem while reading triple file.");
 			e.printStackTrace();
 		}
 		
@@ -99,7 +103,7 @@ public class NTripleStreamReader {
 				return tripleLine;
 			
 		} catch (IOException e) {
-			System.out.println("Problem while reading triple file.");
+			logger.debug("Problem while reading triple file.");
 			e.printStackTrace();
 		}
 		

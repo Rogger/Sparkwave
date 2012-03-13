@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
@@ -92,11 +93,16 @@ public class BetaMemory extends RETENode {
 			newToken.setStartTime(parentToken.getStartTime());
 			newToken.setEndTime(parentToken.getEndTime());
 			
-			if(!wme.getTriple().isPermanent()){
-				if (wme.getTriple().getTimestamp()<newToken.getStartTime())
-					newToken.setStartTime(wme.getTriple().getTimestamp());
-				else if (wme.getTriple().getTimestamp()>newToken.getEndTime())
-					newToken.setEndTime(wme.getTriple().getTimestamp());
+			Triple triple = wme.getTriple();
+			long tripleTimestamp = triple.getTimestamp();
+			long tokenStartTime = newToken.getStartTime();
+			long tokenEndTime = newToken.getEndTime();
+			
+			if(!triple.isPermanent()){
+				if (tripleTimestamp<tokenStartTime)
+					newToken.setStartTime(tripleTimestamp);
+				else if (tripleTimestamp>tokenEndTime)
+					newToken.setEndTime(tripleTimestamp);
 			}
 		} else {
 			//TODO What if the first token is the static one?

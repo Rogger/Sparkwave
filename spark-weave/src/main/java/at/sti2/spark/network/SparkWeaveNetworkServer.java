@@ -19,7 +19,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
+
 public class SparkWeaveNetworkServer extends Thread{
+	
+	static Logger logger = Logger.getLogger(SparkWeaveNetworkServer.class);
 
 	private SparkWeaveNetwork sparkWeaveNetwork = null;
 	
@@ -40,12 +44,12 @@ public class SparkWeaveNetworkServer extends Thread{
 //		try {
 //			server = AFUNIXServerSocket.newInstance();
 //	        server.bind(new AFUNIXSocketAddress(socketFile));
-//	        System.out.println("Server: " + server);
+//	        logger.info("Server: " + server);
 //	        
 //	        while (!Thread.interrupted()) {
-//	            System.out.println("Waiting for connection...");
+//	            logger.info("Waiting for connection...");
 //	            Socket sock = server.accept();
-//	            System.out.println("Connected: " + sock);
+//	            logger.info("Connected: " + sock);
 //	            (new SparkWeaveNetworkServerThread(sparkWeaveNetwork, sock)).start();
 //	        }
 //	        
@@ -62,12 +66,12 @@ public class SparkWeaveNetworkServer extends Thread{
 		try {
 			//Open TCP/IP Server socket
 			ServerSocket server = new ServerSocket(8080);
-	        System.out.println("Server: " + server);
+	        logger.info("Server: " + server);
 	        
 	        while (!Thread.interrupted()) {
-	            System.out.println("Waiting for connection...");
+	        	logger.info("Waiting for connection...");
 	            Socket sock = server.accept();
-	            System.out.println("Connected: " + sock);
+	            logger.info("Connected: " + sock);
 	            (new SparkWeaveNetworkServerThread(sparkWeaveNetwork, sock)).start();
 	        }
 	        

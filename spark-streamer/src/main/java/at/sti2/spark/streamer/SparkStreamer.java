@@ -20,9 +20,13 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.streamer.file.NTripleStreamReader;
 
 public class SparkStreamer {
+	
+	static Logger logger = Logger.getLogger(SparkStreamer.class);
 
 	private String triplesFileName = null;
 	
@@ -65,6 +69,7 @@ public class SparkStreamer {
 		//Stream file
 		stream();
 		
+		System.exit(0);
 	}
 	
 	private void connect(){
@@ -72,11 +77,10 @@ public class SparkStreamer {
 		try {
 			sock = new Socket ("localhost", port);
 		} catch (IOException e) {
-			System.out.println("Cannot connect to server.");
-            System.out.flush();
+			logger.debug("Cannot connect to server.");
             System.exit(1);
 		}
-		System.out.println("Connected.");
+		logger.info("Connected.");
 	}
 	
 	private void stream(){
@@ -94,7 +98,7 @@ public class SparkStreamer {
 			
 			String tripleLine = null;
 			
-			System.out.println("Beginning of streaming.");
+			logger.info("Beginning of streaming.");
 			
 			Date startStreaming = new Date();
 			
@@ -115,9 +119,9 @@ public class SparkStreamer {
 			
 			Date endStreaming = new Date();
 			
-			System.out.println("End of streaming.");
-			System.out.println("Streamed " + tripleCounter + " triples.");
-			System.out.println("Total streaming time " + (endStreaming.getTime() - startStreaming.getTime()) + " ms.");
+			logger.info("End of streaming.");
+			logger.info("Streamed " + tripleCounter + " triples.");
+			logger.info("Total streaming time " + (endStreaming.getTime() - startStreaming.getTime()) + " ms.");
 			
 			
 			streamReader.closeFile();
@@ -125,7 +129,7 @@ public class SparkStreamer {
 			streamWriter.close();
 	        sock.close();
 	        
-	        System.out.println("Disconnected.");
+	        logger.info("Disconnected.");
 	        
 		} catch (IOException e) {
             e.printStackTrace();

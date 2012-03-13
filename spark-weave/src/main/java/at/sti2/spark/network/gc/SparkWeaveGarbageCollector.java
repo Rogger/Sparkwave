@@ -91,15 +91,15 @@ public class SparkWeaveGarbageCollector extends Thread {
 				
 				synchronized(alphaMemory.getItems()){
 				
-					buffer.append('[');
-					buffer.append(alphaMemory.getItems().size());
-					buffer.append(',');
+//					buffer.append('[');
+//					buffer.append(alphaMemory.getItems().size());
+//					buffer.append(',');
 					
 					for (Iterator <WorkingMemoryElement> wmeIterator = alphaMemory.getItems().iterator(); wmeIterator.hasNext(); ){
 				
 						WorkingMemoryElement wme = wmeIterator.next();
 						
-						if ((!wme.getTriple().isPermanent()) && wme.getTriple().getTimestamp() < gcThresholdTimestamp){
+						if (wme.getTriple().getTimestamp() < gcThresholdTimestamp){
 							
 							/**
 							 * Here we need to delete all references to the WME:
@@ -111,18 +111,20 @@ public class SparkWeaveGarbageCollector extends Thread {
 							
 							//Removing the 
 							wmeIterator.remove();
+						}else{
+							break;
 						}
 					}
 					
-					buffer.append(alphaMemory.getItems().size());
-					buffer.append(']');
-					buffer.append(' ');
+//					buffer.append(alphaMemory.getItems().size());
+//					buffer.append(']');
+//					buffer.append(' ');
 				}
 			}
 			
-			buffer.append('\n');
-			System.out.println(buffer.toString());
-			System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
+//			buffer.append('\n');
+//			System.out.println(buffer.toString());
+//			System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
 		}
 	}
 }

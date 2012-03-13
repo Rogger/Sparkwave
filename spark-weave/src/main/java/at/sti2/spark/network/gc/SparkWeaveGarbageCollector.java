@@ -15,6 +15,7 @@
  */
 package at.sti2.spark.network.gc;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import at.sti2.spark.core.stream.Triple;
@@ -82,7 +83,8 @@ public class SparkWeaveGarbageCollector extends Thread {
 			 ************************************************/
 			
 			//GC wakes up and goes through the list WorkingMemoryElements to clean them up
-			long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() - sparkWeaveNetwork.getTimeWindowLength();
+			//long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() - sparkWeaveNetwork.getTimeWindowLength();
+			long gcThresholdTimestamp = (new Date()).getTime() - sparkWeaveNetwork.getTimeWindowLength();
 			
 //			StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
 			

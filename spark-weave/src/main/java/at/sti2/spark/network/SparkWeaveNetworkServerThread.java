@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Date;
-import java.util.StringTokenizer;
+
+import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFLiteral;
@@ -29,6 +30,8 @@ import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 
 public class SparkWeaveNetworkServerThread extends Thread{
+	
+	static Logger logger = Logger.getLogger(SparkWeaveNetworkServerThread.class);
 
 	private SparkWeaveNetwork sparkWeaveNetwork = null;
 	private Socket socket = null;
@@ -58,11 +61,11 @@ public class SparkWeaveNetworkServerThread extends Thread{
 				sparkWeaveNetwork.activateNetwork(sTriple);
 //				tripleCounter++;				
 //				if (tripleCounter%1000 == 0){
-//					System.out.println(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
-//					System.out.println(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());
-//					System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
+//					logger.info(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
+//					logger.info(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());
+//					logger.info(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
 					
-//					System.out.println("Processing " + (1000/(sTriple.getTimestamp() - timepoint)) + " triples/sec.");
+//					logger.info("Processing " + (1000/(sTriple.getTimestamp() - timepoint)) + " triples/sec.");
 //					timepoint = sTriple.getTimestamp();
 //				}
 			}
@@ -73,16 +76,16 @@ public class SparkWeaveNetworkServerThread extends Thread{
 			socket.close();
 			
 			StringBuffer timeBuffer = new StringBuffer();
-			timeBuffer.append("Processing took ");
-			timeBuffer.append((endProcessingTime - startProcessingTime)/1000*60);
+			timeBuffer.append("Processing took [" + (endProcessingTime - startProcessingTime) + "ms] ");
+			timeBuffer.append((endProcessingTime - startProcessingTime)/60000);
 			timeBuffer.append(" min ");			
-			timeBuffer.append((endProcessingTime - startProcessingTime)/1000);
+			timeBuffer.append(((endProcessingTime - startProcessingTime)%60000)/1000);
 			timeBuffer.append(" s ");
 			timeBuffer.append((endProcessingTime - startProcessingTime)%1000);
 			timeBuffer.append(" ms.");
 			
-			System.out.println(timeBuffer.toString());			
-			System.out.println("Pattern has been matched " + sparkWeaveNetwork.getReteNetwork().getNumMatches() + " times.");
+			logger.info(timeBuffer.toString());			
+			logger.info("Pattern has been matched " + sparkWeaveNetwork.getReteNetwork().getNumMatches() + " times.");
 			
 		} catch (IOException e) {
 			e.printStackTrace();

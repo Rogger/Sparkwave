@@ -92,11 +92,14 @@ public class BetaMemory extends RETENode {
 			newToken.setStartTime(parentToken.getStartTime());
 			newToken.setEndTime(parentToken.getEndTime());
 			
-			if (wme.getTriple().getTimestamp()<newToken.getStartTime())
-				newToken.setStartTime(wme.getTriple().getTimestamp());
-			else if (wme.getTriple().getTimestamp()>newToken.getEndTime())
-				newToken.setEndTime(wme.getTriple().getTimestamp());
+			if(!wme.getTriple().isPermanent()){
+				if (wme.getTriple().getTimestamp()<newToken.getStartTime())
+					newToken.setStartTime(wme.getTriple().getTimestamp());
+				else if (wme.getTriple().getTimestamp()>newToken.getEndTime())
+					newToken.setEndTime(wme.getTriple().getTimestamp());
+			}
 		} else {
+			//TODO What if the first token is the static one?
 			//Token without parent is token at dummy (root) beta memory
 			//It will have start and end time as streamed triple
 			newToken.setStartTime(wme.getTriple().getTimestamp());

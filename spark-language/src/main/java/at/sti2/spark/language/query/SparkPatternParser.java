@@ -21,6 +21,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -36,6 +38,8 @@ import at.sti2.spark.rete.condition.TriplePatternGraph;
  *
  */
 public class SparkPatternParser {
+	
+	static Logger logger = Logger.getLogger(SparkPatternParser.class);
 
 	private String patternFilePath = null;
 	
@@ -72,7 +76,7 @@ public class SparkPatternParser {
 	
 	private long parseTimewindow(String timeWindowLine){
 		
-		System.out.println("Parsing " + timeWindowLine);
+		logger.info("Parsing " + timeWindowLine);
 		
 		int openBracketIndex = timeWindowLine.indexOf('(');
 		int closedBracketIndex = timeWindowLine.indexOf(')');
@@ -89,7 +93,7 @@ public class SparkPatternParser {
 	 */
 	private void parseTriplePattern(String triplePattern, TriplePatternGraph triplePatternGraph){
 		
-		System.out.println("Parsing " + triplePattern);
+		logger.info("Parsing " + triplePattern);
 		
 		char tripleChars[] = triplePattern.toCharArray();
 		int currentPos = 0; 

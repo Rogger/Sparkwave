@@ -150,7 +150,7 @@ public class WorkingMemory {
 		StringBuffer bufferLevels = new StringBuffer();
 		bufferLevels.append("AM ");
 		for (AlphaMemory alphaMemory : alphaMemories)
-			bufferLevels.append(alphaMemory.getItems().size() + " ");
+			bufferLevels.append((alphaMemory.getItems().size()+alphaMemory.getPermanentItems().size()) + " ");
 		
 		return bufferLevels.toString();
 	}

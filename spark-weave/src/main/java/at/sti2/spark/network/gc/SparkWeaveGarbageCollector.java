@@ -84,7 +84,7 @@ public class SparkWeaveGarbageCollector extends Thread {
 			
 			//GC wakes up and goes through the list WorkingMemoryElements to clean them up
 			//long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() - sparkWeaveNetwork.getTimeWindowLength();
-			long gcThresholdTimestamp = (new Date()).getTime() - sparkWeaveNetwork.getTimeWindowLength();
+			long gcThresholdTimestamp = System.currentTimeMillis() - sparkWeaveNetwork.getTimeWindowLength();
 			
 //			StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
 			
@@ -101,7 +101,7 @@ public class SparkWeaveGarbageCollector extends Thread {
 				
 						WorkingMemoryElement wme = wmeIterator.next();
 						
-						if ((!wme.getTriple().isPermanent()) && wme.getTriple().getTimestamp() < gcThresholdTimestamp){
+						if (wme.getTriple().getTimestamp() < gcThresholdTimestamp){
 							
 							/**
 							 * Here we need to delete all references to the WME:
@@ -113,6 +113,8 @@ public class SparkWeaveGarbageCollector extends Thread {
 							
 							//Removing the 
 							wmeIterator.remove();
+						}else{
+							break;
 						}
 					}
 					

@@ -1,3 +1,4 @@
+SELECT
 ?x http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer
 ?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product ?product
 ?x http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/vendor ?vendor

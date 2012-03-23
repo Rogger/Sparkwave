@@ -14,7 +14,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package at.sti2.spark.rete.condition;
+package at.sti2.spark.core.condition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,26 +27,40 @@ import java.util.List;
  */
 public class TriplePatternGraph {
 
-	private List <TripleCondition> conditions = null;
+	private List <TripleCondition> selectConditions = null;
+	private List <TripleCondition> constructConditions = null;
 
 	//The timewindow unit is ms
 	private long timeWindowLength = 0l;
 	
 	public TriplePatternGraph() {
 		super();
-		conditions = new ArrayList <TripleCondition> ();
+		selectConditions = new ArrayList <TripleCondition> ();
+		constructConditions = new ArrayList <TripleCondition> ();
 	}
 
-	public List<TripleCondition> getConditions() {
-		return conditions;
+	public List<TripleCondition> getSelectConditions() {
+		return selectConditions;
 	}
 	
-	public void addTripleCondition(TripleCondition condition) {
-		conditions.add(condition);
+	public List<TripleCondition> getConstructConditions() {
+		return constructConditions;
 	}
 	
-	public TripleCondition getConditionByIndex(int index){
-		return conditions.get(index);
+	public void addSelectTripleCondition(TripleCondition condition) {
+		selectConditions.add(condition);
+	}
+	
+	public void addConstructTripleCondition(TripleCondition condition) {
+		constructConditions.add(condition);
+	}
+	
+	public TripleCondition getSelectConditionByIndex(int index){
+		return selectConditions.get(index);
+	}
+	
+	public TripleCondition getConstructConditionByIndex(int index){
+		return constructConditions.get(index);
 	}
 	
 	public long getTimeWindowLength(){
@@ -61,7 +75,9 @@ public class TriplePatternGraph {
 		
 		StringBuffer buffer = new StringBuffer();
 		
-		for (TripleCondition condition : conditions)
+		buffer.append("SELECT\n");
+		
+		for (TripleCondition condition : selectConditions)
 			for (TripleConstantTest constantTest : condition.getConstantTests()){
 				buffer.append(constantTest.getTestField());
 				buffer.append(' ');

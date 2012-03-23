@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.epsilon.network.ClassNode;
@@ -30,11 +31,12 @@ import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.language.query.SparkPatternParser;
 import at.sti2.spark.network.gc.SparkWeaveGarbageCollector;
+import at.sti2.spark.output.SparkweaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ValueTestAlphaNode;
 import at.sti2.spark.rete.alpha.WorkingMemory;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
+import at.sti2.spark.rete.beta.ProductionNode;
 
 public class SparkWeaveNetwork{
 	
@@ -133,6 +135,15 @@ public class SparkWeaveNetwork{
 		sparkWeaveGC.start();
 		
 		logger.info("SparkWeave garbage collector started...");
+		
+		List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
+		for (ProductionNode productionNode : productionNodes){
+			SparkweaveNetworkOutputThread outputThread = new SparkweaveNetworkOutputThread(productionNode.getOutputBuffer());
+			outputThread.start();
+		}
+		
+		logger.info("SparkWeave solution threads started...");
+		
 	}
 
 	public RETENetwork getReteNetwork() {

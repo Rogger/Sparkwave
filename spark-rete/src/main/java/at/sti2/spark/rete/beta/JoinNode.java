@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
@@ -31,10 +32,12 @@ public class JoinNode extends RETENode {
 	private AlphaMemory alphaMemory = null;
 	private List <JoinNodeTest> tests = null;
 	private long timeWindowLength = 0l;
+	private TripleCondition tripleCondition = null;
 	
-	public JoinNode(long timeWindowLength){
+	public JoinNode(TripleCondition tripleCondition, long timeWindowLength){
 		tests = new ArrayList <JoinNodeTest> ();
 		this.timeWindowLength = timeWindowLength;
+		this.tripleCondition = tripleCondition;
 	}
 	
 	public AlphaMemory getAlphaMemory() {
@@ -51,6 +54,10 @@ public class JoinNode extends RETENode {
 	
 	public void addJoinNodeTest(JoinNodeTest test){
 		tests.add(test);
+	}
+
+	public TripleCondition getTripleCondition() {
+		return tripleCondition;
 	}
 
 	/**

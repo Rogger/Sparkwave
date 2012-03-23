@@ -23,13 +23,13 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.condition.TripleConstantTest;
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
-import at.sti2.spark.rete.condition.TripleCondition;
-import at.sti2.spark.rete.condition.TripleConstantTest;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
 
 /**
  * The class for parsing Spark Patterns
@@ -56,14 +56,20 @@ public class SparkPatternParser {
 		if (patternFile.exists()){			
 			 try {
 				BufferedReader in = new BufferedReader(new FileReader(patternFile));
-				String line;
-				while ((line = in.readLine())!=null){
+				String line = in.readLine();
+				
+				do {
+					if (line.startsWith("CONSTRUCT"))
+						line = parseConstructGraphPattern(triplePatternGraph, in);
+					
+					if (line.startsWith("SELECT"))
+						line = parseSelectGraphPattern(triplePatternGraph, in);
+										
 					if (line.startsWith("TIMEWINDOW")){
 						long timewindow = parseTimewindow(line);
 						triplePatternGraph.setTimeWindowLength(timewindow);
-					}else
-						parseTriplePattern(line, triplePatternGraph);					
-				}
+					}
+				} while ((line = in.readLine())!=null);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -72,6 +78,37 @@ public class SparkPatternParser {
 		}
 		
 		return triplePatternGraph;
+	}
+	
+	private String parseSelectGraphPattern(TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String line = null;
+		try {
+			//Each line should be a triple pattern until we run onto TIMEWINDOW
+			while ((line = in.readLine())!=null){
+				if (line.startsWith("TIMEWINDOW"))
+					break;
+				triplePatternGraph.addSelectTripleCondition(parseTriplePattern(line));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return line;
+	}
+	
+	private String parseConstructGraphPattern(TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String line = null;
+		try {
+			//Each line should be a triple pattern until we run onto SELECT
+			while ((line = in.readLine())!=null){
+				if (line.startsWith("SELECT"))
+					break;
+				triplePatternGraph.addConstructTripleCondition(parseTriplePattern(line));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return line;
 	}
 	
 	private long parseTimewindow(String timeWindowLine){
@@ -91,7 +128,7 @@ public class SparkPatternParser {
 	 * @param triplePattern
 	 * @param triplePatternGraph
 	 */
-	private void parseTriplePattern(String triplePattern, TriplePatternGraph triplePatternGraph){
+	private TripleCondition parseTriplePattern(String triplePattern){
 		
 		logger.info("Parsing " + triplePattern);
 		
@@ -237,6 +274,6 @@ public class SparkPatternParser {
 			tripleCondition.addConstantTest(new TripleConstantTest(buffer.toString(), RDFTriple.Field.OBJECT));
 		}
 		
-		triplePatternGraph.addTripleCondition(tripleCondition);
+		return tripleCondition;
 	}
 }

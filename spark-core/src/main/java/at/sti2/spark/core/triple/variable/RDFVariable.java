@@ -47,4 +47,9 @@ public class RDFVariable extends RDFValue{
 		
 		return ((RDFVariable)object).getVariableId().equals(variableId);
 	}
+	
+	@Override
+	public String toString(){
+		return variableId;
+	}
 }

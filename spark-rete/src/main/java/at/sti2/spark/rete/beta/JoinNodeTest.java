@@ -49,4 +49,16 @@ public class JoinNodeTest {
 	public void setArg2ConditionNumber(int arg2ConditionNumber) {
 		this.arg2ConditionNumber = arg2ConditionNumber;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(arg1Field);
+		buffer.append(" ");
+		buffer.append(arg2Field);
+		buffer.append(" ");
+		buffer.append(arg2ConditionNumber);
+		
+		return buffer.toString();
+	}
 }

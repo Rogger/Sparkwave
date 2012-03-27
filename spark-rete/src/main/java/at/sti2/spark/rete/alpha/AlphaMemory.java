@@ -28,11 +28,13 @@ public class AlphaMemory {
 	
 	//Synchronized list which holds all WMEs currently in the memory
 	private List <WorkingMemoryElement> items = null;
+	private List <WorkingMemoryElement> permanentItems = null;
 	
 	private List <RETENode> successors  = null;
 	
 	public AlphaMemory(){
 		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
+		permanentItems = new ArrayList <WorkingMemoryElement>();
 		successors  = new ArrayList <RETENode> ();
 	}
 
@@ -60,9 +62,15 @@ public class AlphaMemory {
 	}
 	
 	public void addItem(WorkingMemoryElement wme){
-		synchronized(items){
-			items.add(wme);
+		
+		if(!wme.getTriple().isPermanent()){
+			synchronized(items){
+				items.add(wme);
+			}
+		}else{
+			permanentItems.add(wme);
 		}
+		
 	}
 	
 	public void removeItem(WorkingMemoryElement wme){
@@ -71,9 +79,24 @@ public class AlphaMemory {
 		}
 	}
 	
+
+	public List<WorkingMemoryElement> getPermanentItems() {
+		return permanentItems;
+	}
+
+
 	public String toString(){
 		
 		StringBuffer buffer = new StringBuffer();
+		
+		for (WorkingMemoryElement item : permanentItems){
+			buffer.append('\n');
+			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
+			buffer.append(" ");
+			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.PREDICATE));
+			buffer.append(" ");
+			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
+		}
 		
 		synchronized(items){
 			for (WorkingMemoryElement item : items){

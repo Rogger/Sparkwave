@@ -13,28 +13,23 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.language.query;
+package at.sti2.spark.core.prefix;
 
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import junit.framework.TestCase;
+public class Prefix {
 
-public class TestSparkPatternParser extends TestCase {
-
-	public void testParserPT2TW100(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
-	}
+	private String namespace = null;
+	private String label = null;
 	
-	public void testParserPT2TW250(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW250.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
+	public String getNamespace() {
+		return namespace;
+	}
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
+	public String getLabel() {
+		return label;
+	}
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }

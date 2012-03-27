@@ -19,6 +19,8 @@ package at.sti2.spark.core.condition;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.sti2.spark.core.prefix.Prefix;
+
 /**
  * 
  * Triple pattern represents an ordered list of triple conditions
@@ -29,6 +31,7 @@ public class TriplePatternGraph {
 
 	private List <TripleCondition> selectConditions = null;
 	private List <TripleCondition> constructConditions = null;
+	private List <Prefix> prefixes = null;
 
 	//The timewindow unit is ms
 	private long timeWindowLength = 0l;
@@ -37,6 +40,7 @@ public class TriplePatternGraph {
 		super();
 		selectConditions = new ArrayList <TripleCondition> ();
 		constructConditions = new ArrayList <TripleCondition> ();
+		prefixes = new ArrayList <Prefix> ();
 	}
 
 	public List<TripleCondition> getSelectConditions() {
@@ -47,12 +51,20 @@ public class TriplePatternGraph {
 		return constructConditions;
 	}
 	
+	public List<Prefix> getPrefixes() {
+		return prefixes;
+	}
+
 	public void addSelectTripleCondition(TripleCondition condition) {
 		selectConditions.add(condition);
 	}
 	
 	public void addConstructTripleCondition(TripleCondition condition) {
 		constructConditions.add(condition);
+	}
+	
+	public void addPrefix(Prefix prefix){
+		prefixes.add(prefix);
 	}
 	
 	public TripleCondition getSelectConditionByIndex(int index){
@@ -63,6 +75,10 @@ public class TriplePatternGraph {
 		return constructConditions.get(index);
 	}
 	
+	public Prefix getPrefixByIndex(int index){
+		return prefixes.get(index);
+	}
+	
 	public long getTimeWindowLength(){
 		return timeWindowLength;
 	}
@@ -71,9 +87,31 @@ public class TriplePatternGraph {
 		this.timeWindowLength = timeWindowLength;
 	}
 	
+	public String getNamespaceByLabel(String label){
+		String namespace = null;
+		
+		for (Prefix prefix : prefixes)
+			if (prefix.getLabel().equals(label)){
+				namespace = prefix.getNamespace();
+				break;
+			}
+		
+		return namespace;
+	}
+	
 	public String toString(){
 		
 		StringBuffer buffer = new StringBuffer();
+		
+		if (prefixes.size() > 0){
+			buffer.append("PREFIXES\n");
+			for (Prefix prefix : prefixes){
+				buffer.append(prefix.getLabel());
+				buffer.append(" : ");
+				buffer.append(prefix.getNamespace());
+				buffer.append('\n');
+			}
+		}
 		
 		buffer.append("SELECT\n");
 		

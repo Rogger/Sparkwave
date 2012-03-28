@@ -67,7 +67,7 @@ public class SparkWeaveNetwork{
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
-		TriplePatternGraph triplePatternGraph = patternParser.parse();
+		triplePatternGraph = patternParser.parse();
 		
 		File ontologyFile = new File(epsilonOntologyFileName);
 		
@@ -136,13 +136,16 @@ public class SparkWeaveNetwork{
 		
 		logger.info("SparkWeave garbage collector started...");
 		
-		List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
-		for (ProductionNode productionNode : productionNodes){
-			SparkweaveNetworkOutputThread outputThread = new SparkweaveNetworkOutputThread(productionNode.getOutputBuffer());
-			outputThread.start();
+		//If there is a CONSTRUCT part start also the output thread 
+		if (triplePatternGraph.getConstructConditions().size() > 0){
+			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
+			for (ProductionNode productionNode : productionNodes){
+				SparkweaveNetworkOutputThread outputThread = new SparkweaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());
+				outputThread.start();
+			}
+			
+			logger.info("SparkWeave output thread started...");
 		}
-		
-		logger.info("SparkWeave solution threads started...");
 		
 	}
 

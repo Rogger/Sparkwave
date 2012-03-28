@@ -36,9 +36,9 @@ public class BetaMemory extends RETENode {
 	}
 	
 	public void addItem(Token token){
-		synchronized(items){
+//		synchronized(items){
 			items.add(token);
-		}
+//		}
 	}
 	
 	public void removeItem(Token token){

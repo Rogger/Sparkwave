@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, University of Innsbruck, Austria.
+ * Copyright (c) 2010, University of Innsbruck, Austria.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,28 +13,21 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.language.query;
+package at.sti2.spark.core.solution;
 
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import junit.framework.TestCase;
+import java.util.Hashtable;
 
-public class TestSparkPatternParser extends TestCase {
+import at.sti2.spark.core.triple.RDFValue;
 
-	public void testParserPT2TW100(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
+public class Match {
+
+	private Hashtable <String, RDFValue> variableBindings = new Hashtable <String, RDFValue>();
+
+	public Hashtable<String, RDFValue> getVariableBindings() {
+		return variableBindings;
 	}
-	
-	public void testParserPT2TW250(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW250.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
+
+	public void setVariableBindings(Hashtable<String, RDFValue> variableBindings) {
+		this.variableBindings = variableBindings;
 	}
 }

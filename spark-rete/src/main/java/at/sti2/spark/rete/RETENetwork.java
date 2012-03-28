@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.condition.TripleConstantTest;
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 import at.sti2.spark.rete.alpha.AlphaMemory;
@@ -34,9 +37,6 @@ import at.sti2.spark.rete.beta.BetaMemory;
 import at.sti2.spark.rete.beta.JoinNode;
 import at.sti2.spark.rete.beta.JoinNodeTest;
 import at.sti2.spark.rete.beta.ProductionNode;
-import at.sti2.spark.rete.condition.TripleCondition;
-import at.sti2.spark.rete.condition.TripleConstantTest;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
 import at.sti2.spark.rete.node.RETENode;
 
 public class RETENetwork {
@@ -68,14 +68,14 @@ public class RETENetwork {
 		
 		BetaMemory betaMemory = new BetaMemory();
 		betaMemory.setParent(parentNode);
-		//TODO Insert new at the head of the list parent.children
+
 		parentNode.getChildren().add(betaMemory);
 		betaMemory.update();
 		
 		return betaMemory;
 	}
 	
-	public RETENode buildOrShareJoinNode(RETENode parentNode, AlphaMemory alphaMemory, List <JoinNodeTest> tests, long timeWindowLength){
+	public RETENode buildOrShareJoinNode(RETENode parentNode, AlphaMemory alphaMemory, List <JoinNodeTest> tests, TripleCondition tripleCondition, long timeWindowLength){
 		
 		for (RETENode childNode : parentNode.getChildren())
 			if ((childNode instanceof JoinNode)&&
@@ -83,15 +83,13 @@ public class RETENetwork {
 			   (((JoinNode)childNode).getTests() == tests)) //TODO This is not a right way to compare lists
 				return childNode;
 		
-		JoinNode joinNode = new JoinNode(timeWindowLength);
+		JoinNode joinNode = new JoinNode(tripleCondition, timeWindowLength);
 		joinNode.setParent(parentNode);
 		
-		//TODO Insert new at the head of the list parent.children
 		parentNode.getChildren().add(joinNode);
 		joinNode.setAlphaMemory(alphaMemory);
 		joinNode.setTests(tests);
 		
-		//TODO Insert head at the list of am.successors
 		alphaMemory.getSuccessors().add(joinNode);
 		
 		return joinNode;
@@ -147,7 +145,7 @@ public class RETENetwork {
 			if (earlierCondition != null){
 				
 				JoinNodeTest test = new JoinNodeTest(
-						RDFTriple.Field.PREDICATE,
+						RDFTriple.Field.OBJECT,
 						getVariableField((RDFVariable)condition.getConditionTriple().getObject(), earlierCondition),
 						previousConditions.indexOf(earlierCondition));
 				
@@ -285,25 +283,30 @@ public class RETENetwork {
 		return field;
 	}
 	
+	/**
+	 * This method adds a triple pattern graph
+	 * 
+	 * @param triplePatternGraph
+	 */
 	public void addTriplePatternGraph(TriplePatternGraph triplePatternGraph){
 		
 		RETENode currentNode = betaMemory;
 		
 		List <TripleCondition> previousConditions = new ArrayList <TripleCondition> ();
-		List <TripleCondition> tripleConditions = triplePatternGraph.getConditions();
+		List <TripleCondition> tripleConditions = triplePatternGraph.getSelectConditions();
 		
 		//TODO Check whether there is anything to add, i.e., whether the list is empty or not
 		
 		List <JoinNodeTest> tests = getTestsFromCondition(tripleConditions.get(0), previousConditions);
 		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(0));
-		currentNode =  buildOrShareJoinNode(currentNode, alphaMemory, tests, triplePatternGraph.getTimeWindowLength());
+		currentNode =  buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleConditions.get(0), triplePatternGraph.getTimeWindowLength());
 		
 		for (int i = 1; i < tripleConditions.size(); i++){
 				currentNode = buildOrShareBetaMemoryNode(currentNode);
 				previousConditions.add(tripleConditions.get(i-1));
 				tests = getTestsFromCondition(tripleConditions.get(i), previousConditions);
 				alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(i));
-				currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, triplePatternGraph.getTimeWindowLength());
+				currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleConditions.get(i), triplePatternGraph.getTimeWindowLength());
 		}
 		
 		//Build a new production node, make it a child of current node
@@ -463,5 +466,22 @@ public class RETENetwork {
 		
 		for (RETENode childReteNode : node.getChildren())
 			getBetaMemoryLevel(childReteNode, buffer);
+	}
+	
+	/**
+	 * Extracts all production nodes from the network
+	 * @return
+	 */
+	public List <ProductionNode> getProductionNodes(){
+		List <ProductionNode> productionNodes = new ArrayList<ProductionNode>();
+		addProductionNode(betaMemory,productionNodes);
+		return productionNodes;
+	}
+	
+	private void addProductionNode(RETENode node, List <ProductionNode> productionNodes){
+		if (node instanceof ProductionNode)
+			productionNodes.add((ProductionNode)node);
+		for (RETENode childReteNode : node.getChildren())
+			addProductionNode(childReteNode, productionNodes);
 	}
 }

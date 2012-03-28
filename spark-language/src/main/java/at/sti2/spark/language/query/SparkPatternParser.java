@@ -23,13 +23,14 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.condition.TripleConstantTest;
+import at.sti2.spark.core.condition.TriplePatternGraph;
+import at.sti2.spark.core.prefix.Prefix;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
-import at.sti2.spark.rete.condition.TripleCondition;
-import at.sti2.spark.rete.condition.TripleConstantTest;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
 
 /**
  * The class for parsing Spark Patterns
@@ -56,14 +57,24 @@ public class SparkPatternParser {
 		if (patternFile.exists()){			
 			 try {
 				BufferedReader in = new BufferedReader(new FileReader(patternFile));
-				String line;
-				while ((line = in.readLine())!=null){
+				String line = in.readLine();
+				
+				do {
+					
+					if (line.toLowerCase().startsWith("@prefix"))
+						line = parsePrefixes(line, triplePatternGraph, in);
+						
+					if (line.startsWith("CONSTRUCT"))
+						line = parseConstructGraphPattern(triplePatternGraph, in);
+					
+					if (line.startsWith("SELECT"))
+						line = parseSelectGraphPattern(triplePatternGraph, in);
+										
 					if (line.startsWith("TIMEWINDOW")){
 						long timewindow = parseTimewindow(line);
 						triplePatternGraph.setTimeWindowLength(timewindow);
-					}else
-						parseTriplePattern(line, triplePatternGraph);					
-				}
+					}
+				} while ((line = in.readLine())!=null);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -72,6 +83,53 @@ public class SparkPatternParser {
 		}
 		
 		return triplePatternGraph;
+	}
+	
+	private String parsePrefixes(String line, TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String processingLine = line;
+		try {
+			triplePatternGraph.addPrefix(parsePrefix(processingLine));
+			//Each line should be a prefix description until we run onto SELECT or CONSTRUCT
+			while ((processingLine = in.readLine())!=null){
+				if (processingLine.startsWith("SELECT") || processingLine.startsWith("CONSTRUCT"))
+					break;
+				triplePatternGraph.addPrefix(parsePrefix(processingLine));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return processingLine;
+	}
+	
+	private String parseSelectGraphPattern(TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String line = null;
+		try {
+			//Each line should be a triple pattern until we run onto TIMEWINDOW
+			while ((line = in.readLine())!=null){
+				if (line.startsWith("TIMEWINDOW"))
+					break;
+				triplePatternGraph.addSelectTripleCondition(parseTriplePattern(line, triplePatternGraph));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return line;
+	}
+	
+	private String parseConstructGraphPattern(TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String line = null;
+		try {
+			//Each line should be a triple pattern until we run onto SELECT
+			while ((line = in.readLine())!=null){
+				if (line.startsWith("SELECT"))
+					break;
+				triplePatternGraph.addConstructTripleCondition(parseTriplePattern(line, triplePatternGraph));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return line;
 	}
 	
 	private long parseTimewindow(String timeWindowLine){
@@ -83,6 +141,56 @@ public class SparkPatternParser {
 		return Long.parseLong(timeWindowLine.substring(openBracketIndex+1, closedBracketIndex));
 	}
 	
+	private Prefix parsePrefix(String prefixLine){
+		
+		logger.info("Parsing " + prefixLine );
+		
+		char prefixChars[] = prefixLine.toCharArray();
+		int currentPos = 0; 
+		StringBuffer buffer;
+		
+		Prefix prefix = new Prefix();
+		
+		//Find the first character which is != white space
+		while (Character.isWhitespace(prefixChars[currentPos]))
+			currentPos++;
+		
+		//Search for the whitespace character after '@prefix'
+		while (!Character.isWhitespace(prefixChars[currentPos]))
+			currentPos++;
+		
+		//Find the first character which is != white space, which is beginning of the label description
+		while (Character.isWhitespace(prefixChars[currentPos]))
+			currentPos++;
+		
+		buffer = new StringBuffer();
+		
+		//Copy label value
+		while (!(prefixChars[currentPos]==':')){
+			buffer.append(prefixChars[currentPos]);
+			currentPos++;
+		}
+		
+		prefix.setLabel(buffer.toString());
+
+		//Search for the beginning of  uri
+		while (prefixChars[currentPos]!='<')
+			currentPos++;
+		
+		//Move one character place beyond <
+		currentPos++;
+		
+		buffer = new StringBuffer();
+		while (prefixChars[currentPos]!='>'){
+			buffer.append(prefixChars[currentPos]);
+			currentPos++;
+		}
+		
+		prefix.setNamespace(buffer.toString());
+		
+		return prefix;
+	}
+	
 	/**
 	 * Method parsing triple patterns
 	 * 
@@ -91,7 +199,7 @@ public class SparkPatternParser {
 	 * @param triplePattern
 	 * @param triplePatternGraph
 	 */
-	private void parseTriplePattern(String triplePattern, TriplePatternGraph triplePatternGraph){
+	private TripleCondition parseTriplePattern(String triplePattern, TriplePatternGraph triplePatternGraph){
 		
 		logger.info("Parsing " + triplePattern);
 		
@@ -115,7 +223,7 @@ public class SparkPatternParser {
 		//Test to see if string is variable or URI
 		if (tripleChars[currentPos]=='?'){
 			
-			//Copy URI value
+			//Copy variable name
 			buffer = new StringBuffer();
 			while (!Character.isWhitespace(tripleChars[currentPos])){
 				buffer.append(tripleChars[currentPos]);
@@ -126,12 +234,36 @@ public class SparkPatternParser {
 			
 		} else {
 			
-			//Copy URI value
 			buffer = new StringBuffer();
-			while (!Character.isWhitespace(tripleChars[currentPos])){
-				buffer.append(tripleChars[currentPos]);
+			
+			//Copy URI value
+			if (isFullURI(tripleChars, currentPos)){
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
+			}else{
+				//Extract the prefix label
+				while (tripleChars[currentPos]!=':'){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
+				
+				//Fetch namespace
+				String namespace = triplePatternGraph.getNamespaceByLabel(buffer.toString());
+				
+				buffer = new StringBuffer();
+				buffer.append(namespace);
+				
+				//Move pointer on next character
 				currentPos++;
+				
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
 			}
+			
 			
 			triple.setSubject(new RDFURIReference(buffer.toString()));
 			tripleCondition.addConstantTest(new TripleConstantTest(buffer.toString(), RDFTriple.Field.SUBJECT));
@@ -159,11 +291,34 @@ public class SparkPatternParser {
 			
 		} else {
 			
-			//Copy URI value
 			buffer = new StringBuffer();
-			while (!Character.isWhitespace(tripleChars[currentPos])){
-				buffer.append(tripleChars[currentPos]);
+			
+			//Copy URI value
+			if (isFullURI(tripleChars, currentPos)){
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
+			}else{
+				//Extract the prefix label
+				while (tripleChars[currentPos]!=':'){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
+				
+				//Fetch namespace
+				String namespace = triplePatternGraph.getNamespaceByLabel(buffer.toString());
+				
+				buffer = new StringBuffer();
+				buffer.append(namespace);
+				
+				//Move pointer on next character
 				currentPos++;
+				
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
 			}
 			
 			triple.setPredicate(new RDFURIReference(buffer.toString()));
@@ -226,17 +381,61 @@ public class SparkPatternParser {
 			
 		} else {
 			
-			//Copy URI value
 			buffer = new StringBuffer();
-			while ((currentPos!= tripleChars.length) && (!Character.isWhitespace(tripleChars[currentPos]))){
-				buffer.append(tripleChars[currentPos]);
+			
+			//Copy URI value
+			if (isFullURI(tripleChars, currentPos)){
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					if (currentPos == tripleChars.length - 1)
+						break;
+					currentPos++;
+				}
+			}else{
+				//Extract the prefix label
+				while (tripleChars[currentPos]!=':'){
+					buffer.append(tripleChars[currentPos]);
+					currentPos++;
+				}
+				
+				//Fetch namespace
+				String namespace = triplePatternGraph.getNamespaceByLabel(buffer.toString());
+				
+				buffer = new StringBuffer();
+				buffer.append(namespace);
+				
+				//Move pointer on next character
 				currentPos++;
+				
+				while (!Character.isWhitespace(tripleChars[currentPos])){
+					buffer.append(tripleChars[currentPos]);
+					if (currentPos == tripleChars.length - 1)
+						break;
+					currentPos++;
+				}
 			}
 			
 			triple.setObject(new RDFURIReference(buffer.toString()));
 			tripleCondition.addConstantTest(new TripleConstantTest(buffer.toString(), RDFTriple.Field.OBJECT));
 		}
 		
-		triplePatternGraph.addTripleCondition(tripleCondition);
+		return tripleCondition;
+	}
+	
+	private boolean isFullURI(char tripleChars[], int currentPos){
+		StringBuffer buffer = new StringBuffer();
+		
+		//Find the first character which is != white space
+		while (!Character.isWhitespace(tripleChars[currentPos])){
+			buffer.append(tripleChars[currentPos]);
+			if (currentPos == tripleChars.length - 1)
+				break;
+			currentPos++;
+		}
+		
+		if (buffer.toString().contains("://"))
+			return true;
+		else
+			return false;
 	}
 }

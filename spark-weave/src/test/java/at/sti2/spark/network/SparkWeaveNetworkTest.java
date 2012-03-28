@@ -24,14 +24,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.condition.TripleConstantTest;
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 import at.sti2.spark.input.N3FileInput;
-import at.sti2.spark.rete.condition.TripleCondition;
-import at.sti2.spark.rete.condition.TripleConstantTest;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
 
 public class SparkWeaveNetworkTest extends TestCase {
 
@@ -162,13 +162,13 @@ public class SparkWeaveNetworkTest extends TestCase {
 		// ----- BUILDING A TRIPLE GRAPH PATTERN -----
 		
 		TriplePatternGraph patternGraph = new TriplePatternGraph();
-		patternGraph.addTripleCondition(tripleCondition1);
-		patternGraph.addTripleCondition(tripleCondition2);
-		patternGraph.addTripleCondition(tripleCondition3);
+		patternGraph.addSelectTripleCondition(tripleCondition1);
+		patternGraph.addSelectTripleCondition(tripleCondition2);
+		patternGraph.addSelectTripleCondition(tripleCondition3);
 		//patternGraph.addTripleCondition(tripleCondition4);
-		patternGraph.addTripleCondition(tripleCondition5);
+		patternGraph.addSelectTripleCondition(tripleCondition5);
 		//patternGraph.addTripleCondition(tripleCondition6);
-		patternGraph.addTripleCondition(tripleCondition7);
+		patternGraph.addSelectTripleCondition(tripleCondition7);
 		
 		// --- SET TIME WINDOW ---
 		patternGraph.setTimeWindowLength(150);

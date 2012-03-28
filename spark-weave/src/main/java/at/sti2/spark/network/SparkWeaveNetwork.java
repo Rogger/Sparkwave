@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.epsilon.network.ClassNode;
@@ -30,11 +31,12 @@ import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.language.query.SparkPatternParser;
 import at.sti2.spark.network.gc.SparkWeaveGarbageCollector;
+import at.sti2.spark.output.SparkweaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ValueTestAlphaNode;
 import at.sti2.spark.rete.alpha.WorkingMemory;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
+import at.sti2.spark.rete.beta.ProductionNode;
 
 public class SparkWeaveNetwork{
 	
@@ -65,7 +67,7 @@ public class SparkWeaveNetwork{
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
-		TriplePatternGraph triplePatternGraph = patternParser.parse();
+		triplePatternGraph = patternParser.parse();
 		
 		File ontologyFile = new File(epsilonOntologyFileName);
 		
@@ -133,6 +135,18 @@ public class SparkWeaveNetwork{
 		sparkWeaveGC.start();
 		
 		logger.info("SparkWeave garbage collector started...");
+		
+		//If there is a CONSTRUCT part start also the output thread 
+		if (triplePatternGraph.getConstructConditions().size() > 0){
+			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
+			for (ProductionNode productionNode : productionNodes){
+				SparkweaveNetworkOutputThread outputThread = new SparkweaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());
+				outputThread.start();
+			}
+			
+			logger.info("SparkWeave output thread started...");
+		}
+		
 	}
 
 	public RETENetwork getReteNetwork() {

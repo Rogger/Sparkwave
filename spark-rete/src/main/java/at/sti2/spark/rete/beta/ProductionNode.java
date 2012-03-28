@@ -18,10 +18,16 @@ package at.sti2.spark.rete.beta;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.solution.Match;
+import at.sti2.spark.core.solution.OutputBuffer;
+import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.core.triple.variable.RDFVariable;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
@@ -34,8 +40,11 @@ public class ProductionNode extends RETENode {
 	
 	long matchCounter = 0;
 	
+	private OutputBuffer outputBuffer = null;
+	
 	public ProductionNode(){
 		items = Collections.synchronizedList(new ArrayList <Token> ());
+		outputBuffer = new OutputBuffer();
 	}
 	
 	public void addItem(Token token){
@@ -52,7 +61,6 @@ public class ProductionNode extends RETENode {
 	
 	@Override
 	public void rightActivate(WorkingMemoryElement wme) {
-		// TODO Auto-generated method stub
 
 	}
 	
@@ -69,9 +77,12 @@ public class ProductionNode extends RETENode {
 		
 		Token newToken = createToken(token, wme);
 		
-		//TODO Insert token at the head of items
 		addItem(newToken);
 		matchCounter++;
+		
+		Match match = new Match();
+		match.setVariableBindings(getVariableBindings(newToken));
+		outputBuffer.put(match);
 		
 //		StringBuffer buffer = new StringBuffer();
 //		buffer.append("We have " + (matchCounter) + " match:\n");
@@ -90,6 +101,10 @@ public class ProductionNode extends RETENode {
 		//removeResult(newToken);
 	}
 	
+	public OutputBuffer getOutputBuffer() {
+		return outputBuffer;
+	}
+
 	private Token createToken(Token parentToken, WorkingMemoryElement wme){
 		
 		Token newToken = new Token();
@@ -98,7 +113,6 @@ public class ProductionNode extends RETENode {
 		//Added for retraction purposes
 		newToken.setNode(this);
 		
-		//TODO Insert token at the head of parent's children
 		if (parentToken!=null){
 			parentToken.addChild(newToken);
 			
@@ -118,7 +132,6 @@ public class ProductionNode extends RETENode {
 			newToken.setEndTime(wme.getTriple().getTimestamp());
 		}
 		
-		//TODO Insert token at the head of wme tokens
 		wme.addToken(newToken);
 		
 		return newToken;
@@ -126,6 +139,41 @@ public class ProductionNode extends RETENode {
 
 	public List<Token> getItems() {
 		return items;
+	}
+	
+	private Hashtable <String, RDFValue> getVariableBindings(Token productionToken){
+		
+		Hashtable <String, RDFValue> variableBindings = new Hashtable<String, RDFValue>();
+		
+		Token tempToken = productionToken;
+		String variableId = null;
+		
+		while (tempToken != null){
+			
+			TripleCondition condition = ((JoinNode)tempToken.getNode().getParent()).getTripleCondition();
+			
+			if (condition.isVariableAtSubject()){
+				variableId = ((RDFVariable)condition.getConditionTriple().getSubject()).getVariableId();
+				if (!variableBindings.containsKey(variableId))
+					variableBindings.put(variableId, tempToken.getWme().getTriple().getRDFTriple().getSubject());
+			}
+			
+			if (condition.isVariableAtPredicate()){
+				variableId = ((RDFVariable)condition.getConditionTriple().getPredicate()).getVariableId();
+				if (!variableBindings.containsKey(variableId))
+					variableBindings.put(variableId, tempToken.getWme().getTriple().getRDFTriple().getPredicate());
+			}
+			
+			if (condition.isVariableAtObject()){
+				variableId = ((RDFVariable)condition.getConditionTriple().getObject()).getVariableId();
+				if (!variableBindings.containsKey(variableId))
+					variableBindings.put(variableId, tempToken.getWme().getTriple().getRDFTriple().getObject());
+			}
+			
+			tempToken = tempToken.getParent();
+		}
+		
+		return variableBindings;
 	}
 	
 	//The strategy for removing is to climb until the top most token while deleting WME'S from alpha mems

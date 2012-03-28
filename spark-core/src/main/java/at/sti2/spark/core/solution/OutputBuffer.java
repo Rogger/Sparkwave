@@ -13,28 +13,34 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.language.query;
+package at.sti2.spark.core.solution;
 
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import junit.framework.TestCase;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class TestSparkPatternParser extends TestCase {
+import at.sti2.spark.core.solution.Match;
 
-	public void testParserPT2TW100(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
+public class OutputBuffer {
+	
+	private Deque <Match> matches = null;
+	
+	public OutputBuffer(){
+		matches = new ArrayDeque<Match>();
 	}
 	
-	public void testParserPT2TW250(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW250.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
+	public synchronized void put(Match match){
+		matches.add(match);
+		notify();
+	}
+	
+	public synchronized Match get() throws InterruptedException {
+		while (matches.isEmpty()) {
+			try {
+				wait();
+			} catch (InterruptedException e){
+				throw e;
+			}
+		}
+		return matches.poll();
 	}
 }

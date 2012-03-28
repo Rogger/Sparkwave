@@ -14,7 +14,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package at.sti2.spark.rete.condition;
+package at.sti2.spark.core.condition;
 
 import java.util.ArrayList;
 import java.util.List;

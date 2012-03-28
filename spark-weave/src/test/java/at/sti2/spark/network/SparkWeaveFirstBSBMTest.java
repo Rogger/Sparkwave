@@ -24,14 +24,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.condition.TripleConstantTest;
+import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 import at.sti2.spark.input.N3FileInput;
-import at.sti2.spark.rete.condition.TripleCondition;
-import at.sti2.spark.rete.condition.TripleConstantTest;
-import at.sti2.spark.rete.condition.TriplePatternGraph;
 
 public class SparkWeaveFirstBSBMTest extends TestCase {
 
@@ -116,9 +116,9 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		// ----- BUILDING A TRIPLE GRAPH PATTERN -----
 		
 		TriplePatternGraph patternGraph = new TriplePatternGraph();
-		patternGraph.addTripleCondition(tripleCondition1);
-		patternGraph.addTripleCondition(tripleCondition2);
-		patternGraph.addTripleCondition(tripleCondition3);
+		patternGraph.addSelectTripleCondition(tripleCondition1);
+		patternGraph.addSelectTripleCondition(tripleCondition2);
+		patternGraph.addSelectTripleCondition(tripleCondition3);
 		
 		// --- SET TIME WINDOW ---
 		patternGraph.setTimeWindowLength(1000);

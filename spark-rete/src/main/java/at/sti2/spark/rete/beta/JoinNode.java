@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFTriple.Field;
@@ -35,10 +36,12 @@ public class JoinNode extends RETENode {
 	private AlphaMemory alphaMemory = null;
 	private List<JoinNodeTest> tests = null;
 	private long timeWindowLength = 0l;
-
-	public JoinNode(long timeWindowLength) {
-		tests = new ArrayList<JoinNodeTest>();
+	private TripleCondition tripleCondition = null;
+	
+	public JoinNode(TripleCondition tripleCondition, long timeWindowLength){
+		tests = new ArrayList <JoinNodeTest> ();
 		this.timeWindowLength = timeWindowLength;
+		this.tripleCondition = tripleCondition;
 	}
 
 	public AlphaMemory getAlphaMemory() {
@@ -55,6 +58,10 @@ public class JoinNode extends RETENode {
 
 	public void addJoinNodeTest(JoinNodeTest test) {
 		tests.add(test);
+	}
+
+	public TripleCondition getTripleCondition() {
+		return tripleCondition;
 	}
 
 	/**

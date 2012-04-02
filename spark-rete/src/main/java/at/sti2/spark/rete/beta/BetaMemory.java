@@ -20,12 +20,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
 
 public class BetaMemory extends RETENode {
+	
+	static Logger logger = Logger.getLogger(BetaMemory.class);
 
 	private List <Token> items = null;
 	
@@ -54,13 +58,17 @@ public class BetaMemory extends RETENode {
 	@Override
 	public void leftActivate(Token parentToken, WorkingMemoryElement wme){
 		
+		logger.debug("Performing leftActivate from parent token wme " + wme.toString());
+		
 		Token newToken = createToken(parentToken, wme);
 		
 		//TODO Insert token at the head of items
 		addItem(newToken);
 		
-		for (RETENode reteNode : children)
+		for (RETENode reteNode : children){
+			logger.debug("Activating child node " + reteNode.toString() + " with WME " + wme.toString());
 			reteNode.leftActivate(newToken);
+		}
 	}
 
 	@Override

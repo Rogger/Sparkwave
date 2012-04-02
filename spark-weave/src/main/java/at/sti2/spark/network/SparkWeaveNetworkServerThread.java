@@ -43,8 +43,8 @@ public class SparkWeaveNetworkServerThread extends Thread{
 	
 	public void run(){
 		
-//		long tripleCounter = 0;
-//		long timepoint = (new Date()).getTime();
+		long tripleCounter = 0;
+		long timepoint = (new Date()).getTime();
 		long startProcessingTime;
 		long endProcessingTime;
 		
@@ -59,15 +59,16 @@ public class SparkWeaveNetworkServerThread extends Thread{
 				
 				Triple sTriple = new Triple(parseTriple(tripleLine), (new Date()).getTime(), false, 0l);
 				sparkWeaveNetwork.activateNetwork(sTriple);
-//				tripleCounter++;				
+				tripleCounter++;				
 //				if (tripleCounter%1000 == 0){
 //					logger.info(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
 //					logger.info(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());
 //					logger.info(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
-					
+//					
 //					logger.info("Processing " + (1000/(sTriple.getTimestamp() - timepoint)) + " triples/sec.");
 //					timepoint = sTriple.getTimestamp();
 //				}
+				logger.info("Processed triple #" + tripleCounter);
 			}
 
 			endProcessingTime = new Date().getTime();

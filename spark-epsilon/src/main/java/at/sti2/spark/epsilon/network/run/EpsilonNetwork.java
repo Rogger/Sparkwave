@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.Network;
 import at.sti2.spark.epsilon.network.Node;
@@ -27,6 +29,8 @@ import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaNode;
 
 public class EpsilonNetwork {
+	
+	static Logger logger = Logger.getLogger(EpsilonNetwork.class);
 	
 	// The hashtable which serves as a lookup to pickup the node which is processing a triple
 	private NodeSelector nodeSelector = null;
@@ -85,7 +89,9 @@ public class EpsilonNetwork {
 				processedTriples.add(triple);
 				gcTokens.put(triple, tokenNodes);
 			}
-		}else
+		}else{
 			rootAlphaNode.activate(new WorkingMemoryElement(triple));
+			logger.debug("Activating root alpha node...");
+		}
 	}
 }

@@ -326,7 +326,7 @@ public class SparkPatternParser {
 		}		
 		
 		//--------------------------------------------------------------
-		//    Parse object pattern which may be URL or variable
+		//    Parse object pattern which may be URL, literal or variable
 		//--------------------------------------------------------------
 		
 		//Find the first character which is != white space

@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.Token;
@@ -29,6 +31,8 @@ import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.node.RETENode;
 
 public class JoinNode extends RETENode {
+	
+	static Logger logger = Logger.getLogger(JoinNode.class);
 
 	private AlphaMemory alphaMemory = null;
 	private List<JoinNodeTest> tests = null;
@@ -66,25 +70,37 @@ public class JoinNode extends RETENode {
 	 */
 	@Override
 	public void rightActivate(WorkingMemoryElement wme) {
+		
+		logger.debug("01_Right activate join node with triple " + wme.toString());
 
 		// Look into the beta memory to find any token for which tests succeed.
 		synchronized (((BetaMemory) parent).getItems()) {
-			Iterator<Token> betaMemoryTokenIter = ((BetaMemory) parent)
-					.getItems().iterator();
+			
+			logger.debug("02_Entered synchronization over beta parents.");
+			
+			Iterator<Token> betaMemoryTokenIter = ((BetaMemory) parent).getItems().iterator();
 
 			while (betaMemoryTokenIter.hasNext()) {
 
 				Token betaMemoryToken = betaMemoryTokenIter.next();
+				
+				logger.debug("Checking beta memory token " + betaMemoryToken.toString());
+				
 				Vector<Token> wmeTokenVect = getTokenVect(betaMemoryToken);
-
+				
+				logger.debug("Retrieved token vector...");
+				
 				// Check if variables have the same value
 				if (performTests(betaMemoryToken, wme, wmeTokenVect)) {
+					
+					logger.debug("Perform tests: SUCCESSFULL!");
 
 					// Check if the token and wme are falling into a window
 					if (!(wme.getTriple().isPermanent())
-							&& (!performTimeWindowTest(betaMemoryToken, wme)))
+							&& (!performTimeWindowTest(betaMemoryToken, wme))) {
 						continue;
 
+					}
 					for (RETENode reteNode : children)
 						if (reteNode instanceof BetaMemory)
 							((BetaMemory) reteNode).leftActivate(
@@ -113,6 +129,9 @@ public class JoinNode extends RETENode {
 	@Override
 	public void leftActivate(Token token) {
 		
+		logger.debug("JoinNode left activated with token " + token.toString() + " and alphaMemory " + alphaMemory.hashCode());
+		logger.debug("Alpha Memory " + alphaMemory.toString());
+		
 		Vector<Token> wmeTokenVect = getTokenVect(token);
 
 		// permanent items
@@ -125,6 +144,8 @@ public class JoinNode extends RETENode {
 
 	private void leftActivatePermanent(Token token, List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
 
+		logger.debug("Activated permanent.");
+		
 		for (WorkingMemoryElement alphaWME : listItems) {
 
 			// Check if two WME and token can be joined
@@ -141,7 +162,12 @@ public class JoinNode extends RETENode {
 	
 	private void leftActivateDynamic(Token token, List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
 
+		logger.debug("Activated dynamic.");
+		
 		synchronized (listItems) {
+			
+			logger.debug("Entered synchornized part over listItems.");
+			
 			for (WorkingMemoryElement alphaWME : listItems) {
 				
 				// Check if two WME and token can be joined

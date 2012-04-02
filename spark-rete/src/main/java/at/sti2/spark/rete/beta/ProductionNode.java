@@ -75,6 +75,8 @@ public class ProductionNode extends RETENode {
 
 	public void leftActivate(Token token, WorkingMemoryElement wme) {
 		
+		logger.debug("Performing production node leftActivate with wme " + wme.toString());
+		
 		Token newToken = createToken(token, wme);
 		
 		addItem(newToken);

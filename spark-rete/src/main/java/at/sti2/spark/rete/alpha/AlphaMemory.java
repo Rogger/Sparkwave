@@ -20,11 +20,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
 
 public class AlphaMemory {
+	
+	static Logger logger = Logger.getLogger(AlphaMemory.class);
 	
 	//Synchronized list which holds all WMEs currently in the memory
 	private List <WorkingMemoryElement> items = null;
@@ -44,6 +48,8 @@ public class AlphaMemory {
 		addItem(wme);
 		
 		wme.addAlphaMemory(this);
+		
+		logger.debug("Added WME to alpha memory.");
 		
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);

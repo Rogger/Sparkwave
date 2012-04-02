@@ -108,6 +108,13 @@ public class SparkweaveNetworkOutputThread extends Thread {
 					buffer.append(((RDFLiteral)value).getDatatypeURI());
 					buffer.append(">\n");
 				}
+			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
+				buffer.append('\"');
+				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getValue());
+				buffer.append('\"');
+				buffer.append("^^<");
+				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
+				buffer.append(">\n");
 			}
 		}
 		return buffer.toString();

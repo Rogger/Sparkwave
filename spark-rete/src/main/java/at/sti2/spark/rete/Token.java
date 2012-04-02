@@ -171,4 +171,8 @@ public class Token {
 //		if (parent != null)
 //			parent.removeChild(this);
 //	}
+	
+	public String toString(){
+		return wme.toString();
+	}
 }

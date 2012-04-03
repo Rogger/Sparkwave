@@ -133,8 +133,8 @@ public class SparkWeaveNetwork{
 		
 		SparkWeaveGarbageCollector sparkWeaveGC = new SparkWeaveGarbageCollector(this, gcSessionDelay);
 		sparkWeaveGC.start();
-		
-		logger.info("SparkWeave garbage collector started...");
+//		
+//		logger.info("SparkWeave garbage collector started...");
 		
 		//If there is a CONSTRUCT part start also the output thread 
 		if (triplePatternGraph.getConstructConditions().size() > 0){

@@ -34,14 +34,16 @@ public class WorkingMemoryElement {
 	private List <Token> tokens = null;
 
 	public WorkingMemoryElement(){
-		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
-		tokens = Collections.synchronizedList(new ArrayList <Token> ());
+//		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
+		alphaMems = new ArrayList <AlphaMemory> ();
+//		tokens = Collections.synchronizedList(new ArrayList <Token> ());
+		tokens = new ArrayList <Token> ();
 	}
 	
 	public WorkingMemoryElement(Triple triple){
 		this.triple = triple;
-		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
-		tokens = Collections.synchronizedList(new ArrayList <Token> ());
+		alphaMems = new ArrayList <AlphaMemory> ();
+		tokens = new ArrayList <Token> ();
 	}
 	
 	public Triple getTriple() {
@@ -57,27 +59,27 @@ public class WorkingMemoryElement {
 	}
 	
 	public void addAlphaMemory(AlphaMemory alphaMem){
-		synchronized(alphaMems){
+//		synchronized(alphaMems){
 			alphaMems.add(alphaMem);
-		}
+//		}
 	}
 	
 	public void removeAlphaMemory(AlphaMemory alphaMem){
-		synchronized(alphaMems){
+//		synchronized(alphaMems){
 			alphaMems.remove(alphaMem);
-		}
+//		}
 	}
 	
 	public void addToken(Token token){
-		synchronized(tokens){
+//		synchronized(tokens){
 			tokens.add(token);
-		}
+//		}
 	}
 	
 	public void removeToken(Token token){
-		synchronized(tokens){
+//		synchronized(tokens){
 			tokens.remove(token);
-		}
+//		}
 	}
 	
 	public void remove(){
@@ -96,13 +98,13 @@ public class WorkingMemoryElement {
 //		}
 		
 		//Remove all the tokens having an occurrence of WME
-		synchronized(tokens){
+//		synchronized(tokens){
 			for (Iterator <Token> tokenIterator = tokens.iterator(); tokenIterator.hasNext(); ){
 				Token tokenToDelete = tokenIterator.next();
 				tokenToDelete.deleteTokenAndDescendents();
 				tokenIterator.remove();
 			}
-		}
+//		}
 	}
 	
 	public String toString(){

@@ -37,7 +37,8 @@ public class AlphaMemory {
 	private List <RETENode> successors  = null;
 	
 	public AlphaMemory(){
-		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
+//		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
+		items = new ArrayList <WorkingMemoryElement> ();
 		permanentItems = new ArrayList <WorkingMemoryElement>();
 		successors  = new ArrayList <RETENode> ();
 	}
@@ -70,9 +71,9 @@ public class AlphaMemory {
 	public void addItem(WorkingMemoryElement wme){
 		
 		if(!wme.getTriple().isPermanent()){
-			synchronized(items){
+//			synchronized(items){
 				items.add(wme);
-			}
+//			}
 		}else{
 			permanentItems.add(wme);
 		}
@@ -80,9 +81,9 @@ public class AlphaMemory {
 	}
 	
 	public void removeItem(WorkingMemoryElement wme){
-		synchronized(items){
+//		synchronized(items){
 			items.remove(wme);
-		}
+//		}
 	}
 	
 
@@ -104,7 +105,7 @@ public class AlphaMemory {
 			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
 		}
 		
-		synchronized(items){
+//		synchronized(items){
 			for (WorkingMemoryElement item : items){
 				buffer.append('\n');
 				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
@@ -113,7 +114,7 @@ public class AlphaMemory {
 				buffer.append(" ");
 				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
 			}
-		}
+//		}
 		
 		return buffer.toString();
 	}

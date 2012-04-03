@@ -36,19 +36,20 @@ public class BetaMemory extends RETENode {
 	private boolean rootNode = false;
 	
 	public BetaMemory(){
-		items = Collections.synchronizedList(new ArrayList <Token> ());
+//		items = Collections.synchronizedList(new ArrayList <Token> ());
+		items = new ArrayList <Token> ();
 	}
 	
 	public void addItem(Token token){
-		synchronized(items){
+//		synchronized(items){
 			items.add(token);
-		}
+//		}
 	}
 	
 	public void removeItem(Token token){
-		synchronized(items){
+//		synchronized(items){
 			items.remove(token);
-		}
+//		}
 	}
 	
 	public List <Token> getItems(){

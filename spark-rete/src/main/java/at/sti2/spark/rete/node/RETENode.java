@@ -65,10 +65,10 @@ public abstract class RETENode {
 		
 		if (parent instanceof BetaMemory){
 			
-			synchronized(((BetaMemory) parent).getItems()){
+//			synchronized(((BetaMemory) parent).getItems()){
 				for (Iterator <Token> tokenIter = ((BetaMemory) parent).getItems().iterator(); tokenIter.hasNext();)
 					leftActivate(tokenIter.next());
-			}
+//			}
 			
 		} else if (parent instanceof JoinNode){
 		

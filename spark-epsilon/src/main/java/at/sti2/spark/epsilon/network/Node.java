@@ -47,7 +47,8 @@ public abstract class Node {
 		soLinks = new ArrayList <Node> ();
 		osLinks = new ArrayList <Node> ();
 		
-		tokens = Collections.synchronizedList(new ArrayList<Token>());
+//		tokens = Collections.synchronizedList(new ArrayList<Token>());
+		tokens = new ArrayList<Token>();
 		alphaNodes = new Vector<AlphaNode>();
 	}
 	

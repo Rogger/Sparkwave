@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
@@ -28,170 +29,261 @@ import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.epsilon.network.run.Token;
+import at.sti2.spark.rete.WorkingMemoryElement;
+import at.sti2.spark.rete.alpha.AlphaMemory;
 
-public class SparkWeaveNetworkServerThread extends Thread{
-	
-	static Logger logger = Logger.getLogger(SparkWeaveNetworkServerThread.class);
+public class SparkWeaveNetworkServerThread extends Thread {
+
+	static Logger logger = Logger
+			.getLogger(SparkWeaveNetworkServerThread.class);
 
 	private SparkWeaveNetwork sparkWeaveNetwork = null;
 	private Socket socket = null;
-	
-	public SparkWeaveNetworkServerThread(SparkWeaveNetwork sparkWeaveNetwork, Socket socket){
+
+	public SparkWeaveNetworkServerThread(SparkWeaveNetwork sparkWeaveNetwork,
+			Socket socket) {
 		this.sparkWeaveNetwork = sparkWeaveNetwork;
 		this.socket = socket;
 	}
-	
-	public void run(){
-		
-//		long tripleCounter = 0;
-//		long timepoint = (new Date()).getTime();
+
+	public void run() {
+
+		// long tripleCounter = 0;
+		// long timepoint = (new Date()).getTime();
 		long startProcessingTime;
 		long endProcessingTime;
-		
+
 		try {
-			BufferedReader streamReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
+			BufferedReader streamReader = new BufferedReader(
+					new InputStreamReader(socket.getInputStream()));
+
 			String tripleLine = null;
-			
+
 			startProcessingTime = (new Date()).getTime();
-			
+
 			while ((tripleLine = streamReader.readLine()) != null) {
-				
-				Triple sTriple = new Triple(parseTriple(tripleLine), (new Date()).getTime(), false, 0l);
+
+				Triple sTriple = new Triple(parseTriple(tripleLine),
+						(new Date()).getTime(), false, 0l);
 				sparkWeaveNetwork.activateNetwork(sTriple);
-//				tripleCounter++;				
-//				if (tripleCounter%1000 == 0){
-//					logger.info(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
-//					logger.info(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());
-//					logger.info(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
-					
-//					logger.info("Processing " + (1000/(sTriple.getTimestamp() - timepoint)) + " triples/sec.");
-//					timepoint = sTriple.getTimestamp();
-//				}
+				runGC();
+
+				// tripleCounter++;
+				// if (tripleCounter%1000 == 0){
+				// logger.info(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
+				// logger.info(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());
+				// logger.info(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
+
+				// logger.info("Processing " + (1000/(sTriple.getTimestamp() -
+				// timepoint)) + " triples/sec.");
+				// timepoint = sTriple.getTimestamp();
+				// }
 			}
 
 			endProcessingTime = new Date().getTime();
-			
+
 			streamReader.close();
 			socket.close();
-			
+
 			StringBuffer timeBuffer = new StringBuffer();
-			timeBuffer.append("Processing took [" + (endProcessingTime - startProcessingTime) + "ms] ");
-			timeBuffer.append((endProcessingTime - startProcessingTime)/60000);
-			timeBuffer.append(" min ");			
-			timeBuffer.append(((endProcessingTime - startProcessingTime)%60000)/1000);
+			timeBuffer.append("Processing took ["
+					+ (endProcessingTime - startProcessingTime) + "ms] ");
+			timeBuffer
+					.append((endProcessingTime - startProcessingTime) / 60000);
+			timeBuffer.append(" min ");
+			timeBuffer
+					.append(((endProcessingTime - startProcessingTime) % 60000) / 1000);
 			timeBuffer.append(" s ");
-			timeBuffer.append((endProcessingTime - startProcessingTime)%1000);
+			timeBuffer.append((endProcessingTime - startProcessingTime) % 1000);
 			timeBuffer.append(" ms.");
-			
-			logger.info(timeBuffer.toString());			
-			logger.info("Pattern has been matched " + sparkWeaveNetwork.getReteNetwork().getNumMatches() + " times.");
-			
+
+			logger.info(timeBuffer.toString());
+			logger.info("Pattern has been matched "
+					+ sparkWeaveNetwork.getReteNetwork().getNumMatches()
+					+ " times.");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method to parse triple in N-Triple format.
 	 * 
-	 * Note: StringTokenizer is not really helpful because lexical form in literals can have blank spaces. 
+	 * Note: StringTokenizer is not really helpful because lexical form in
+	 * literals can have blank spaces.
 	 * 
 	 * @param tripleLine
 	 * @return
 	 */
-	private RDFTriple parseTriple(String tripleLine){
-		
+	private RDFTriple parseTriple(String tripleLine) {
+
 		char tripleChars[] = tripleLine.toCharArray();
-		int currentPos = 0; 
-		
-		//----------------------------------------------
-		//Parse subject RDF node
-		//----------------------------------------------
-		while (tripleChars[currentPos]!='<')
+		int currentPos = 0;
+
+		// ----------------------------------------------
+		// Parse subject RDF node
+		// ----------------------------------------------
+		while (tripleChars[currentPos] != '<')
 			currentPos++;
-		
-		//Move one place beyond '<'
+
+		// Move one place beyond '<'
 		currentPos++;
-		
-		//Copy URI value
+
+		// Copy URI value
 		StringBuffer buffer = new StringBuffer();
-		while (tripleChars[currentPos]!='>'){
+		while (tripleChars[currentPos] != '>') {
 			buffer.append(tripleChars[currentPos]);
 			currentPos++;
 		}
 		RDFURIReference tripSubject = new RDFURIReference(buffer.toString());
-		
-		//----------------------------------------------
-		//Parse predicate RDF node
-		//----------------------------------------------		
-		while (tripleChars[currentPos]!='<')
+
+		// ----------------------------------------------
+		// Parse predicate RDF node
+		// ----------------------------------------------
+		while (tripleChars[currentPos] != '<')
 			currentPos++;
-		
-		//Move one place beyond '<'
+
+		// Move one place beyond '<'
 		currentPos++;
 		buffer = new StringBuffer();
-		while (tripleChars[currentPos]!='>'){
+		while (tripleChars[currentPos] != '>') {
 			buffer.append(tripleChars[currentPos]);
 			currentPos++;
 		}
 		RDFURIReference tripPredicate = new RDFURIReference(buffer.toString());
-		
-		//----------------------------------------------
-		//Parse object RDF node
-		//----------------------------------------------		
-		//Move one place beyond '>'
+
+		// ----------------------------------------------
+		// Parse object RDF node
+		// ----------------------------------------------
+		// Move one place beyond '>'
 		currentPos++;
 		RDFValue tripObject = null;
 		String lexicalForm = null;
-    	String languageTag = null;
-    	RDFURIReference datatypeURI = null;
-		
-		//Search while character under scope is != ' '
-		while ((tripleChars[currentPos]!='<') && (tripleChars[currentPos]!='"'))
+		String languageTag = null;
+		RDFURIReference datatypeURI = null;
+
+		// Search while character under scope is != ' '
+		while ((tripleChars[currentPos] != '<')
+				&& (tripleChars[currentPos] != '"'))
 			currentPos++;
-		
-		//The character indicates literal value
-		if (tripleChars[currentPos]=='"'){
-		
-			//Move one character place beyond "
+
+		// The character indicates literal value
+		if (tripleChars[currentPos] == '"') {
+
+			// Move one character place beyond "
 			currentPos++;
-			
+
 			buffer = new StringBuffer();
-			while (tripleChars[currentPos]!='"'){
+			while (tripleChars[currentPos] != '"') {
 				buffer.append(tripleChars[currentPos]);
 				currentPos++;
 			}
 			lexicalForm = buffer.toString();
-			
-			//Search for the beginning of datatype uri
-			while (tripleChars[currentPos]!='<')
+
+			// Search for the beginning of datatype uri
+			while (tripleChars[currentPos] != '<')
 				currentPos++;
-			
-			//Move one character place beyond <
+
+			// Move one character place beyond <
 			currentPos++;
-			
+
 			buffer = new StringBuffer();
-			while (tripleChars[currentPos]!='>'){
+			while (tripleChars[currentPos] != '>') {
 				buffer.append(tripleChars[currentPos]);
 				currentPos++;
 			}
-			
+
 			datatypeURI = new RDFURIReference(buffer.toString());
-			
+
 			tripObject = new RDFLiteral(lexicalForm, datatypeURI, languageTag);
-		//The character is '<' and we have another URL
-		}else{
-			//Move one place beyond '<'
+			// The character is '<' and we have another URL
+		} else {
+			// Move one place beyond '<'
 			currentPos++;
 			buffer = new StringBuffer();
-			while (tripleChars[currentPos]!='>'){
+			while (tripleChars[currentPos] != '>') {
 				buffer.append(tripleChars[currentPos]);
 				currentPos++;
 			}
 			tripObject = new RDFURIReference(buffer.toString());
 		}
-			
+
 		return new RDFTriple(tripSubject, tripPredicate, tripObject);
+	}
+
+	public void runGC() {
+
+		/************************************************
+		 * CLEANING EPSILON NETWORK
+		 ************************************************/
+
+		for (Iterator<Triple> ptIter = sparkWeaveNetwork.getEpsilonNetwork()
+				.getProcessedTriples().iterator(); ptIter.hasNext();) {
+
+			Triple processedTriple = ptIter.next();
+
+			for (Token token : sparkWeaveNetwork.getEpsilonNetwork()
+					.getTokenNodesByStreamedTriple(processedTriple))
+				token.removeTokenFromNode();
+
+			// Remove the list of tokens for given streamed triple
+			sparkWeaveNetwork.getEpsilonNetwork().removeListByStreamedTriple(
+					processedTriple);
+
+			// Remove the streamed triple from the list
+			ptIter.remove();
+		}
+
+		/************************************************
+		 * CLEANING RETE NETWORK
+		 ************************************************/
+
+		// GC wakes up and goes through the list WorkingMemoryElements to clean
+		// them up
+		// long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() -
+		// sparkWeaveNetwork.getTimeWindowLength();
+		long gcThresholdTimestamp = System.currentTimeMillis()
+				- sparkWeaveNetwork.getTimeWindowLength();
+
+		// StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
+
+		// Loop over all alpha memories in RETE and check WMEs which they hold
+		for (AlphaMemory alphaMemory : sparkWeaveNetwork.getReteNetwork()
+				.getWorkingMemory().getAlphaMemories()) {
+
+			// buffer.append('[');
+			// buffer.append(alphaMemory.getItems().size());
+			// buffer.append(',');
+
+			for (Iterator<WorkingMemoryElement> wmeIterator = alphaMemory
+					.getItems().iterator(); wmeIterator.hasNext();) {
+
+				WorkingMemoryElement wme = wmeIterator.next();
+
+				if (wme.getTriple().getTimestamp() < gcThresholdTimestamp) {
+
+					/**
+					 * Here we need to delete all references to the WME: 1.
+					 * AlphaMemory which points to this WME 2. Tokens which
+					 * point to this WME 3. WorkingMemory list of all WMEs
+					 */
+					wme.remove();
+
+					// Removing the
+					wmeIterator.remove();
+				} else {
+					break;
+				}
+			}
+
+			// buffer.append(alphaMemory.getItems().size());
+			// buffer.append(']');
+			// buffer.append(' ');
+		}
+		// buffer.append('\n');
+		// System.out.println(buffer.toString());
+		// System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
 	}
 }

@@ -27,99 +27,95 @@ import at.sti2.spark.rete.node.RETENode;
 
 public class BetaMemory extends RETENode {
 
-	private List <Token> items = null;
-	
+	private List<Token> items = null;
+
 	private boolean rootNode = false;
-	
-	public BetaMemory(){
-		items = Collections.synchronizedList(new ArrayList <Token> ());
+
+	public BetaMemory() {
+		items = new ArrayList<Token>();
 	}
-	
-	public void addItem(Token token){
-		synchronized(items){
-			items.add(token);
-		}
+
+	public void addItem(Token token) {
+		items.add(token);
 	}
-	
-	public void removeItem(Token token){
-		synchronized(items){
-			items.remove(token);
-		}
+
+	public void removeItem(Token token) {
+		items.remove(token);
 	}
-	
-	public List <Token> getItems(){
+
+	public List<Token> getItems() {
 		return items;
 	}
-	
+
 	@Override
-	public void leftActivate(Token parentToken, WorkingMemoryElement wme){
-		
+	public void leftActivate(Token parentToken, WorkingMemoryElement wme) {
+
 		Token newToken = createToken(parentToken, wme);
-		
-		//TODO Insert token at the head of items
+
+		// TODO Insert token at the head of items
 		addItem(newToken);
-		
+
 		for (RETENode reteNode : children)
 			reteNode.leftActivate(newToken);
 	}
 
 	@Override
 	public void leftActivate(Token token) {
-		
+
 	}
-	
+
 	@Override
 	public void rightActivate(WorkingMemoryElement wme) {
 		// TODO Auto-generated method stub
 	}
-	
-	private Token createToken(Token parentToken, WorkingMemoryElement wme){
-		
+
+	private Token createToken(Token parentToken, WorkingMemoryElement wme) {
+
 		Token newToken = new Token();
 		newToken.setParent(parentToken);
 		newToken.setWme(wme);
-		
-		//Added for retraction purposes
+
+		// Added for retraction purposes
 		newToken.setNode(this);
-		
-		//TODO Insert token at the head of WME tokens
+
+		// TODO Insert token at the head of WME tokens
 		wme.addToken(newToken);
-		
-		//TODO Insert token at the head of parent's children
-		if (parentToken!=null){
+
+		// TODO Insert token at the head of parent's children
+		if (parentToken != null) {
 			parentToken.addChild(newToken);
-		
-			//Insert initial time interval for the new token
+
+			// Insert initial time interval for the new token
 			newToken.setStartTime(parentToken.getStartTime());
 			newToken.setEndTime(parentToken.getEndTime());
-			
+
 			Triple triple = wme.getTriple();
 			long tripleTimestamp = triple.getTimestamp();
 			long tokenStartTime = newToken.getStartTime();
 			long tokenEndTime = newToken.getEndTime();
-			
-			if(!triple.isPermanent()){
-				if (tripleTimestamp<tokenStartTime)
+
+			if (!triple.isPermanent()) {
+				if (tripleTimestamp < tokenStartTime)
 					newToken.setStartTime(tripleTimestamp);
-				else if (tripleTimestamp>tokenEndTime)
+				else if (tripleTimestamp > tokenEndTime)
 					newToken.setEndTime(tripleTimestamp);
 			}
 		} else {
-			//TODO What if the first token is the static one?
-			//Token without parent is token at dummy (root) beta memory
-			//It will have start and end time as streamed triple
+			// TODO What if the first token is the static one?
+			// Token without parent is token at dummy (root) beta memory
+			// It will have start and end time as streamed triple
 			newToken.setStartTime(wme.getTriple().getTimestamp());
 			newToken.setEndTime(wme.getTriple().getTimestamp());
 		}
-		
+
 		return newToken;
 	}
-	
-	public void setRootNode(){
+
+	public void setRootNode() {
 		rootNode = true;
 	}
-	
-	public boolean isRootNode(){
+
+	public boolean isRootNode() {
 		return rootNode;
 	}
 }

@@ -34,9 +34,9 @@ public class JoinNode extends RETENode {
 	private List<JoinNodeTest> tests = null;
 	private long timeWindowLength = 0l;
 	private TripleCondition tripleCondition = null;
-	
-	public JoinNode(TripleCondition tripleCondition, long timeWindowLength){
-		tests = new ArrayList <JoinNodeTest> ();
+
+	public JoinNode(TripleCondition tripleCondition, long timeWindowLength) {
+		tests = new ArrayList<JoinNodeTest>();
 		this.timeWindowLength = timeWindowLength;
 		this.tripleCondition = tripleCondition;
 	}
@@ -68,32 +68,30 @@ public class JoinNode extends RETENode {
 	public void rightActivate(WorkingMemoryElement wme) {
 
 		// Look into the beta memory to find any token for which tests succeed.
-		synchronized (((BetaMemory) parent).getItems()) {
-			Iterator<Token> betaMemoryTokenIter = ((BetaMemory) parent)
-					.getItems().iterator();
+		Iterator<Token> betaMemoryTokenIter = ((BetaMemory) parent).getItems()
+				.iterator();
 
-			while (betaMemoryTokenIter.hasNext()) {
+		while (betaMemoryTokenIter.hasNext()) {
 
-				Token betaMemoryToken = betaMemoryTokenIter.next();
-				Vector<Token> wmeTokenVect = getTokenVect(betaMemoryToken);
+			Token betaMemoryToken = betaMemoryTokenIter.next();
+			Vector<Token> wmeTokenVect = getTokenVect(betaMemoryToken);
 
-				// Check if variables have the same value
-				if (performTests(betaMemoryToken, wme, wmeTokenVect)) {
+			// Check if variables have the same value
+			if (performTests(betaMemoryToken, wme, wmeTokenVect)) {
 
-					// Check if the token and wme are falling into a window
-					if (!(wme.getTriple().isPermanent())
-							&& (!performTimeWindowTest(betaMemoryToken, wme)))
-						continue;
+				// Check if the token and wme are falling into a window
+				if (!(wme.getTriple().isPermanent())
+						&& (!performTimeWindowTest(betaMemoryToken, wme)))
+					continue;
 
-					for (RETENode reteNode : children)
-						if (reteNode instanceof BetaMemory)
-							((BetaMemory) reteNode).leftActivate(
-									betaMemoryToken, wme);
-						else
-							((ProductionNode) reteNode).leftActivate(
-									betaMemoryToken, wme);
+				for (RETENode reteNode : children)
+					if (reteNode instanceof BetaMemory)
+						((BetaMemory) reteNode).leftActivate(betaMemoryToken,
+								wme);
+					else
+						((ProductionNode) reteNode).leftActivate(
+								betaMemoryToken, wme);
 
-				}
 			}
 		}
 
@@ -112,18 +110,20 @@ public class JoinNode extends RETENode {
 	 */
 	@Override
 	public void leftActivate(Token token) {
-		
+
 		Vector<Token> wmeTokenVect = getTokenVect(token);
 
 		// permanent items
-		leftActivatePermanent(token, alphaMemory.getPermanentItems(), wmeTokenVect);
+		leftActivatePermanent(token, alphaMemory.getPermanentItems(),
+				wmeTokenVect);
 
 		// dynamic items
 		leftActivateDynamic(token, alphaMemory.getItems(), wmeTokenVect);
 
 	}
 
-	private void leftActivatePermanent(Token token, List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
+	private void leftActivatePermanent(Token token,
+			List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
 
 		for (WorkingMemoryElement alphaWME : listItems) {
 
@@ -134,29 +134,30 @@ public class JoinNode extends RETENode {
 					if (reteNode instanceof BetaMemory)
 						((BetaMemory) reteNode).leftActivate(token, alphaWME);
 					else
-						((ProductionNode) reteNode).leftActivate(token,alphaWME);
+						((ProductionNode) reteNode).leftActivate(token,
+								alphaWME);
 			}
 		}
 	}
-	
-	private void leftActivateDynamic(Token token, List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
 
-		synchronized (listItems) {
-			for (WorkingMemoryElement alphaWME : listItems) {
-				
-				// Check if two WME and token can be joined
-				if (performTests(token, alphaWME, wmeTokenVect)) {
-					
-					// Check if the token and wme are falling into a window
-					if (!performTimeWindowTest(token, alphaWME))
-						continue;
-					
-					for (RETENode reteNode : children)
-						if (reteNode instanceof BetaMemory)
-							((BetaMemory) reteNode).leftActivate(token, alphaWME);
-						else
-							((ProductionNode) reteNode).leftActivate(token,alphaWME);
-				}
+	private void leftActivateDynamic(Token token,
+			List<WorkingMemoryElement> listItems, Vector<Token> wmeTokenVect) {
+
+		for (WorkingMemoryElement alphaWME : listItems) {
+
+			// Check if two WME and token can be joined
+			if (performTests(token, alphaWME, wmeTokenVect)) {
+
+				// Check if the token and wme are falling into a window
+				if (!performTimeWindowTest(token, alphaWME))
+					continue;
+
+				for (RETENode reteNode : children)
+					if (reteNode instanceof BetaMemory)
+						((BetaMemory) reteNode).leftActivate(token, alphaWME);
+					else
+						((ProductionNode) reteNode).leftActivate(token,
+								alphaWME);
 			}
 		}
 	}
@@ -170,7 +171,7 @@ public class JoinNode extends RETENode {
 		long tripleTimestamp = triple.getTimestamp();
 		long tokenStartTime = token.getStartTime();
 		long tokenEndTime = token.getEndTime();
-		
+
 		if (tripleTimestamp < tokenStartTime)
 			return (tokenEndTime - tripleTimestamp) < timeWindowLength;
 		else if (tripleTimestamp > token.getEndTime())
@@ -179,14 +180,16 @@ public class JoinNode extends RETENode {
 			return tokenEndTime - tokenStartTime < timeWindowLength;
 	}
 
-	public boolean performTests(Token token, WorkingMemoryElement wme, Vector<Token> parentTokens) {
+	public boolean performTests(Token token, WorkingMemoryElement wme,
+			Vector<Token> parentTokens) {
 
 		String lexicalValueArg1;
 		String lexicalvalueArg2;
 
 		for (JoinNodeTest test : tests) {
-			
-			lexicalValueArg1 = wme.getTriple().getRDFTriple().getLexicalValueOfField(test.getArg1Field());
+
+			lexicalValueArg1 = wme.getTriple().getRDFTriple()
+					.getLexicalValueOfField(test.getArg1Field());
 
 			// TODO Fix this for faster processing; instead of using indices
 			// maybe we can use pointers?!
@@ -195,7 +198,8 @@ public class JoinNode extends RETENode {
 
 			int index = test.getArg2ConditionNumber();
 			Token wmeToken = parentTokens.get(index);
-			lexicalvalueArg2 = wmeToken.getWme().getTriple().getRDFTriple().getLexicalValueOfField(test.getArg2Field());
+			lexicalvalueArg2 = wmeToken.getWme().getTriple().getRDFTriple()
+					.getLexicalValueOfField(test.getArg2Field());
 
 			if (!lexicalValueArg1.equals(lexicalvalueArg2))
 				return false;
@@ -208,7 +212,7 @@ public class JoinNode extends RETENode {
 		Vector<Token> tokenVect = new Vector<Token>();
 		Token currentToken = token;
 		while (currentToken != null) {
-			tokenVect.add(0,currentToken);
+			tokenVect.add(0, currentToken);
 			currentToken = currentToken.getParent();
 		}
 		return tokenVect;

@@ -27,11 +27,11 @@ import at.sti2.spark.rete.beta.JoinNode;
 
 public abstract class RETENode {
 
-	protected List <RETENode> children = null;
+	protected List<RETENode> children = null;
 	protected RETENode parent = null;
-	
-	public RETENode(){
-		children = new ArrayList <RETENode> ();
+
+	public RETENode() {
+		children = new ArrayList<RETENode>();
 	}
 
 	public RETENode(List<RETENode> children, RETENode parent) {
@@ -55,43 +55,45 @@ public abstract class RETENode {
 	public List<RETENode> getChildren() {
 		return children;
 	}
-	
-	public void addChild(RETENode child){
+
+	public void addChild(RETENode child) {
 		children.add(child);
 	}
-	
-	//TODO This should be an abstract method and the code should go to the nodes
-	public void update(){
-		
-		if (parent instanceof BetaMemory){
-			
-			synchronized(((BetaMemory) parent).getItems()){
-				for (Iterator <Token> tokenIter = ((BetaMemory) parent).getItems().iterator(); tokenIter.hasNext();)
-					leftActivate(tokenIter.next());
-			}
-			
-		} else if (parent instanceof JoinNode){
-		
-			List <RETENode> parentChildren = parent.getChildren();
-			parent.setChildren(new ArrayList <RETENode> ());
+
+	// TODO This should be an abstract method and the code should go to the
+	// nodes
+	public void update() {
+
+		if (parent instanceof BetaMemory) {
+
+			for (Iterator<Token> tokenIter = ((BetaMemory) parent).getItems()
+					.iterator(); tokenIter.hasNext();)
+				leftActivate(tokenIter.next());
+
+		} else if (parent instanceof JoinNode) {
+
+			List<RETENode> parentChildren = parent.getChildren();
+			parent.setChildren(new ArrayList<RETENode>());
 			parent.addChild(this);
-			
-			//dynamic
-			for (WorkingMemoryElement wme : ((JoinNode) parent).getAlphaMemory().getItems())
+
+			// dynamic
+			for (WorkingMemoryElement wme : ((JoinNode) parent)
+					.getAlphaMemory().getItems())
 				parent.rightActivate(wme);
-			
-			//permanent
-			for (WorkingMemoryElement wme : ((JoinNode) parent).getAlphaMemory().getPermanentItems())
+
+			// permanent
+			for (WorkingMemoryElement wme : ((JoinNode) parent)
+					.getAlphaMemory().getPermanentItems())
 				parent.rightActivate(wme);
-			
+
 			parent.setChildren(parentChildren);
 		}
-		
+
 	}
-	
+
 	public abstract void rightActivate(WorkingMemoryElement wme);
-	
+
 	public abstract void leftActivate(Token token);
-	
+
 	public abstract void leftActivate(Token token, WorkingMemoryElement wme);
 }

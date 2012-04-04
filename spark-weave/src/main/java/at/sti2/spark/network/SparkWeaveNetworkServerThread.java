@@ -49,7 +49,7 @@ public class SparkWeaveNetworkServerThread extends Thread {
 
 	public void run() {
 
-		// long tripleCounter = 0;
+		 long tripleCounter = 0;
 		// long timepoint = (new Date()).getTime();
 		long startProcessingTime;
 		long endProcessingTime;
@@ -67,9 +67,11 @@ public class SparkWeaveNetworkServerThread extends Thread {
 				Triple sTriple = new Triple(parseTriple(tripleLine),
 						(new Date()).getTime(), false, 0l);
 				sparkWeaveNetwork.activateNetwork(sTriple);
-				runGC();
 
-				// tripleCounter++;
+				tripleCounter++;
+				if(tripleCounter%2==0)
+					runGC();
+
 				// if (tripleCounter%1000 == 0){
 				// logger.info(sparkWeaveNetwork.getEpsilonNetwork().getNetwork().getEpsilonMemoryLevels());
 				// logger.info(sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemoryLevels());

@@ -85,26 +85,21 @@ public class AlphaMemory {
 
 		for (WorkingMemoryElement item : permanentItems) {
 			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.SUBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.PREDICATE));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.OBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
 		}
 
 		for (WorkingMemoryElement item : items) {
 			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.SUBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.PREDICATE));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple()
-					.getLexicalValueOfField(RDFTriple.Field.OBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+
 		}
 
 		return buffer.toString();

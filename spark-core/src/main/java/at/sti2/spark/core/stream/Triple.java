@@ -29,6 +29,8 @@ public class Triple implements Serializable{
 	
 	private boolean permanent = false;
 	
+	private boolean stopTriple = false;
+	
 	/**
 	 * Hashed context value (e.g., stream identifier)
 	 */
@@ -46,6 +48,9 @@ public class Triple implements Serializable{
 		this.context = context;
 		this.timestamp = timestamp;
 		permanent = false;
+	}
+	
+	public Triple() {
 	}
 	
 	public RDFTriple getRDFTriple() {
@@ -76,6 +81,15 @@ public class Triple implements Serializable{
 		this.permanent = permanent;
 	}
 	
+	
+	public boolean isPoisonTriple() {
+		return stopTriple;
+	}
+
+	public void setStopTriple(boolean stopTriple) {
+		this.stopTriple = stopTriple;
+	}
+
 	public String toString(){
 		StringBuffer buffer = new StringBuffer();
 		buffer.append('[');

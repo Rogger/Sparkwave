@@ -15,11 +15,20 @@
  */
 package at.sti2.spark.network;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
+
+import at.sti2.spark.core.stream.Triple;
+import at.sti2.spark.core.triple.RDFTriple;
 
 public class SparkWeaveNetworkServer extends Thread{
 	
@@ -58,6 +67,9 @@ public class SparkWeaveNetworkServer extends Thread{
 //		}
 //	}
 	
+	ExecutorService parserExecutor = Executors.newSingleThreadExecutor(); 
+	ExecutorService sparkWeaveExecutor = Executors.newSingleThreadExecutor(); 
+	
 	/**
 	 * TCP/IP Sparkweave Network Server
 	 */
@@ -72,11 +84,21 @@ public class SparkWeaveNetworkServer extends Thread{
 	        	logger.info("Waiting for connection...");
 	            Socket sock = server.accept();
 	            logger.info("Connected: " + sock);
-	            (new SparkWeaveNetworkServerThread(sparkWeaveNetwork, sock)).start();
+	            
+	            BufferedReader streamReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+	            BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(100);
+	            
+	            SparkWeaveNetworkServerThread sparkThread = new SparkWeaveNetworkServerThread(sparkWeaveNetwork, queue);
+	            ParserThread parserThread = new ParserThread(streamReader,queue,sparkThread);
+	            
+	            parserExecutor.execute(parserThread);
+	            sparkWeaveExecutor.execute(sparkThread);
+	            	            
 	        }
 	        
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
 		}
 	}
 }

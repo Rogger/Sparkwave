@@ -267,7 +267,7 @@ public class NetworkBuilder {
 		String queryStr = "PREFIX owl: <http://www.w3.org/2002/07/owl#> " +
 						  "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
                           "SELECT ?property { " +
-		                      " ?property a rdf:Property " +
+		                      " ?property a owl:ObjectProperty " +
                           " }";
 
 		Query query = QueryFactory.create(queryStr) ;

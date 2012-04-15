@@ -27,21 +27,8 @@ public class NetworkBuilderTest extends TestCase {
 
 	public void testBuilding(){
 		
-		NetworkBuilder builder = new NetworkBuilder(new File("resources/ontology.n3"));
+		NetworkBuilder builder = new NetworkBuilder(new File("resources/support_schema.owl"));
 		EpsilonNetwork epsilonNetwork = builder.buildNetwork();
-		
-		RDFTriple triple = new RDFTriple();
-		RDFURIReference subject = new RDFURIReference("http://example.org/ns/family-ontology#Srdjan");
-		RDFURIReference predicate = new RDFURIReference("http://example.org/ns/family-ontology#hasWife");
-		RDFURIReference object = new RDFURIReference("http://example.org/ns/family-ontology#Irena");
-		
-		triple.setSubject(subject);
-		triple.setPredicate(predicate);
-		triple.setObject(object);
-		
-		Triple s1Triple = new Triple(triple, 0l, false, 0l);
-		
-		epsilonNetwork.activate(s1Triple);
 		
 		assertNotNull(epsilonNetwork);
 		

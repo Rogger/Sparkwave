@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TripleConstantTest;
 import at.sti2.spark.core.condition.TriplePatternGraph;
+import at.sti2.spark.core.invoker.InvokerProperties;
 import at.sti2.spark.core.prefix.Prefix;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -63,6 +64,9 @@ public class SparkPatternParser {
 					
 					if (line.toLowerCase().startsWith("@prefix"))
 						line = parsePrefixes(line, triplePatternGraph, in);
+					
+					if (line.toLowerCase().startsWith("@invoke"))
+						line = parseInvoke(line, triplePatternGraph, in);
 						
 					if (line.startsWith("CONSTRUCT"))
 						line = parseConstructGraphPattern(triplePatternGraph, in);
@@ -91,10 +95,22 @@ public class SparkPatternParser {
 			triplePatternGraph.addPrefix(parsePrefix(processingLine));
 			//Each line should be a prefix description until we run onto SELECT or CONSTRUCT
 			while ((processingLine = in.readLine())!=null){
-				if (processingLine.startsWith("SELECT") || processingLine.startsWith("CONSTRUCT"))
+				if (processingLine.startsWith("SELECT") || processingLine.startsWith("CONSTRUCT") || processingLine.startsWith("@invoke"))
 					break;
 				triplePatternGraph.addPrefix(parsePrefix(processingLine));
 			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return processingLine;
+	}
+	
+	private String parseInvoke(String line, TriplePatternGraph triplePatternGraph, BufferedReader in){
+		String processingLine = line;
+		try {
+			InvokerProperties invokerProperties = parseInvoke(processingLine, triplePatternGraph);
+			triplePatternGraph.setInvokerProperties(invokerProperties);
+			processingLine = in.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -139,6 +155,102 @@ public class SparkPatternParser {
 		int openBracketIndex = timeWindowLine.indexOf('(');
 		int closedBracketIndex = timeWindowLine.indexOf(')');
 		return Long.parseLong(timeWindowLine.substring(openBracketIndex+1, closedBracketIndex));
+	}
+	
+	private InvokerProperties parseInvoke(String invokeLine, TriplePatternGraph triplePatternGraph){
+		
+		logger.info("Parsing " + invokeLine);
+		char invokeChars[] = invokeLine.toCharArray();
+		InvokerProperties invokerProperties = new InvokerProperties(triplePatternGraph);
+		int currentPos = 0; 
+		StringBuffer buffer;
+		String property = null;
+		String value = null;
+		
+		//Find the first character which is != white space
+		while (Character.isWhitespace(invokeChars[currentPos]))
+			currentPos++;
+		
+		//Search for the whitespace character after '@invoke'
+		while (!Character.isWhitespace(invokeChars[currentPos]))
+			currentPos++;
+		
+		//Find the first character which is != white space, which is beginning of either class or baseurl description
+		while (Character.isWhitespace(invokeChars[currentPos]))
+			currentPos++;
+		
+		buffer = new StringBuffer();
+		
+		//Copy property name value
+		while (!(invokeChars[currentPos]=='=')){
+			buffer.append(invokeChars[currentPos]);
+			currentPos++;
+		}
+		
+		property = buffer.toString();
+		
+		//Move one character place beyond '='
+		currentPos++;
+		
+		//Move one character place beyond '"'
+		currentPos++;
+		
+		buffer = new StringBuffer();
+		
+		//Copy property value
+		while (!(invokeChars[currentPos]=='"')){
+			buffer.append(invokeChars[currentPos]);
+			currentPos++;
+		}
+		
+		value = buffer.toString();
+		
+		//Write the property to the object
+		if (property.toLowerCase().equals("baseurl"))
+			invokerProperties.setInvokerBaseURL(value);
+		else if (property.toLowerCase().equals("class"))
+			invokerProperties.setInvokerClass(value);
+		
+		//Move one character place beyond '"'
+		currentPos++;
+		
+		//Find the first character which is != white space, which is beginning of either class or baseurl description
+		while (Character.isWhitespace(invokeChars[currentPos]))
+			currentPos++;
+		
+		buffer = new StringBuffer();
+		
+		//Copy property name value
+		while (!(invokeChars[currentPos]=='=')){
+			buffer.append(invokeChars[currentPos]);
+			currentPos++;
+		}
+		
+		property = buffer.toString();
+		
+		//Move one character place beyond '='
+		currentPos++;
+		
+		//Move one character place beyond '"'
+		currentPos++;
+		
+		buffer = new StringBuffer();
+		
+		//Copy property value
+		while (!(invokeChars[currentPos]=='"')){
+			buffer.append(invokeChars[currentPos]);
+			currentPos++;
+		}
+		
+		value = buffer.toString();
+		
+		//Write the property to the object
+		if (property.toLowerCase().equals("baseurl"))
+			invokerProperties.setInvokerBaseURL(value);
+		else if (property.toLowerCase().equals("class"))
+			invokerProperties.setInvokerClass(value);
+		
+		return invokerProperties;
 	}
 	
 	private Prefix parsePrefix(String prefixLine){

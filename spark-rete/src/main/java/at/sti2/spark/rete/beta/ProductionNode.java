@@ -43,20 +43,16 @@ public class ProductionNode extends RETENode {
 	private OutputBuffer outputBuffer = null;
 	
 	public ProductionNode(){
-		items = Collections.synchronizedList(new ArrayList <Token> ());
+		items = new ArrayList <Token> ();
 		outputBuffer = new OutputBuffer();
 	}
 	
 	public void addItem(Token token){
-		synchronized(items){
 			items.add(token);
-		}
 	}
 	
 	public void removeItem(Token token){
-		synchronized(items){
-			items.remove(token);
-		}
+		items.remove(token);
 	}
 	
 	@Override

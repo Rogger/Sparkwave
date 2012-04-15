@@ -27,6 +27,7 @@ import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.invoke.SparkweaveInvoker;
 
 public class SparkweaveNetworkOutputThread extends Thread {
 
@@ -42,13 +43,30 @@ public class SparkweaveNetworkOutputThread extends Thread {
 	
 	public void run(){
 		Match match = null;
-		while(true){
-			try {
-				match = outputBuffer.get();
-				System.out.println(formatMatch(match));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		SparkweaveInvoker invoker = null;
+		
+		//Instantiate invoker class
+		try {
+			invoker = (SparkweaveInvoker)Class.forName(triplePatternGraph.getInvokerProperties().getInvokerClass()).newInstance();
+			
+			while(true){
+				try {
+					match = outputBuffer.get();
+//					invoker.invoke(match, triplePatternGraph.getInvokerProperties());
+					System.out.println( formatMatch(match));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+//				} catch (SparkweaveInvokerException e) {
+//					e.printStackTrace();
+				}
 			}
+			
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
 		}
 	}
 	

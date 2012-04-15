@@ -17,7 +17,6 @@
 package at.sti2.spark.rete.alpha;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -36,21 +35,19 @@ public class AlphaMemory {
 	
 	private List <RETENode> successors  = null;
 	
-	public AlphaMemory(){
-		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
-		permanentItems = new ArrayList <WorkingMemoryElement>();
-		successors  = new ArrayList <RETENode> ();
+	public AlphaMemory() {
+		items = new ArrayList<WorkingMemoryElement>();
+		permanentItems = new ArrayList<WorkingMemoryElement>();
+		successors = new ArrayList<RETENode>();
 	}
 
-	public void activate(WorkingMemoryElement wme){
-		
-		//Add it to the list
+	public void activate(WorkingMemoryElement wme) {
+
+		// Add it to the list
 		addItem(wme);
-		
+
 		wme.addAlphaMemory(this);
-		
-		logger.debug("Added WME to alpha memory.");
-		
+
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);
 	}
@@ -62,59 +59,52 @@ public class AlphaMemory {
 	public List<RETENode> getSuccessors() {
 		return successors;
 	}
-	
-	public void addSuccesor(RETENode node){
+
+	public void addSuccesor(RETENode node) {
 		successors.add(node);
 	}
-	
-	public void addItem(WorkingMemoryElement wme){
-		
-		if(!wme.getTriple().isPermanent()){
-			synchronized(items){
-				items.add(wme);
-			}
-		}else{
+
+	public void addItem(WorkingMemoryElement wme) {
+
+		if (!wme.getTriple().isPermanent()) {
+			items.add(wme);
+		} else {
 			permanentItems.add(wme);
 		}
-		
+
 	}
-	
-	public void removeItem(WorkingMemoryElement wme){
-		synchronized(items){
-			items.remove(wme);
-		}
+
+	public void removeItem(WorkingMemoryElement wme) {
+		items.remove(wme);
 	}
-	
 
 	public List<WorkingMemoryElement> getPermanentItems() {
 		return permanentItems;
 	}
 
+	public String toString() {
 
-	public String toString(){
-		
 		StringBuffer buffer = new StringBuffer();
-		
-		for (WorkingMemoryElement item : permanentItems){
+
+		for (WorkingMemoryElement item : permanentItems) {
 			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.PREDICATE));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
 			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
 		}
-		
-		synchronized(items){
-			for (WorkingMemoryElement item : items){
-				buffer.append('\n');
-				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.SUBJECT));
-				buffer.append(" ");
-				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.PREDICATE));
-				buffer.append(" ");
-				buffer.append(item.getTriple().getRDFTriple().getLexicalValueOfField(RDFTriple.Field.OBJECT));
-			}
+
+		for (WorkingMemoryElement item : items) {
+			buffer.append('\n');
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
+			buffer.append(" ");
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
+			buffer.append(" ");
+			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+
 		}
-		
+
 		return buffer.toString();
 	}
 }

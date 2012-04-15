@@ -20,18 +20,27 @@ import junit.framework.TestCase;
 
 public class TestSparkPatternParser extends TestCase {
 
-	public void testParserPT2TW100(){
-		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
-		System.out.println(patternGraph.toString());
-		
-		assertTrue(true);
-	}
+//	public void testParserPT2TW100(){
+//		
+//		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW100.tpg");
+//		TriplePatternGraph patternGraph = parser.parse();
+//		System.out.println(patternGraph.toString());
+//		
+//		assertTrue(true);
+//	}
+//	
+//	public void testParserPT2TW250(){
+//		
+//		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW250.tpg");
+//		TriplePatternGraph patternGraph = parser.parse();
+//		System.out.println(patternGraph.toString());
+//		
+//		assertTrue(true);
+//	}
 	
-	public void testParserPT2TW250(){
+	public void testParserSupportPattern2(){
 		
-		SparkPatternParser parser = new SparkPatternParser("./resources/pattern-PT2-TW250.tpg");
+		SparkPatternParser parser = new SparkPatternParser("./resources/support_pattern2.tpg");
 		TriplePatternGraph patternGraph = parser.parse();
 		System.out.println(patternGraph.toString());
 		

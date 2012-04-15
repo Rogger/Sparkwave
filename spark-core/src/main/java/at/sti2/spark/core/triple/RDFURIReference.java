@@ -16,6 +16,9 @@
 
 package at.sti2.spark.core.triple;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class RDFURIReference extends RDFValue {
 
 	private static final long serialVersionUID = -900633337817042617L;
@@ -43,16 +46,23 @@ public class RDFURIReference extends RDFValue {
 		this.value = value;
 	}
 	
-	public boolean equals(Object uri){
+	@Override
+	public boolean equals(Object that){
 		
-		RDFURIReference object = null;
+		//reference check (fast)
+		if(this == that) return true;
+		//type check and null check
+		if(!(that instanceof RDFURIReference)) return false;
 		
-		if (!(uri instanceof RDFURIReference))
-			object = (RDFURIReference)uri;
-		else
-			return false;
-		
-		return object.getValue().equals(value);
+		RDFURIReference uri = (RDFURIReference)that;
+		return this.value.equals(uri.value);
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17,37)
+			.append(value)
+			.toHashCode();
 	}
 	
 	public String toString(){

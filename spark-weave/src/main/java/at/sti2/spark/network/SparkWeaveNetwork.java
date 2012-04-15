@@ -131,8 +131,8 @@ public class SparkWeaveNetwork{
 		
 		logger.info("SparkWeave network completed...");
 		
-		SparkWeaveGarbageCollector sparkWeaveGC = new SparkWeaveGarbageCollector(this, gcSessionDelay);
-		sparkWeaveGC.start();
+//		SparkWeaveGarbageCollector sparkWeaveGC = new SparkWeaveGarbageCollector(this, gcSessionDelay);
+//		sparkWeaveGC.start();
 		
 		logger.info("SparkWeave garbage collector started...");
 		

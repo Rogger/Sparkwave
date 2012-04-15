@@ -46,8 +46,8 @@ public class EpsilonSchemaOptimiser
 			OWLDataFactory factory = manager.getOWLDataFactory();
 			
 			// Load schema and patterns from files
-			File schemaFile = new File("ontologies/sma_epsilon.owl");
-			File patternsFile = new File("ontologies/sma_patterns.owl");
+			File schemaFile = new File("ontologies/support_schema.owl");
+			File patternsFile = new File("ontologies/support_pattern.owl");
 			OWLOntology schema = manager.loadOntologyFromOntologyDocument(schemaFile);
 			OWLOntology patterns = manager.loadOntologyFromOntologyDocument(patternsFile);
 			
@@ -565,7 +565,7 @@ public class EpsilonSchemaOptimiser
 			// Copy prefixes and from schema
 			epsilonFormat.copyPrefixesFrom(manager.getOntologyFormat(schema).asPrefixOWLOntologyFormat());
 			// Save epsilon-schema as file
-			File epsilonFile = new File("ontologies/sma_epsilon_optimized.owl");
+			File epsilonFile = new File("ontologies/support_schema_optimized.owl");
 			manager.saveOntology(epsilonSchema, epsilonFormat, IRI.create(epsilonFile.toURI()));
 			
 		} catch (Exception e)

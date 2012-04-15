@@ -64,24 +64,38 @@ public class RDFTriple implements Serializable{
 		       object.equals(((RDFTriple)triple).getObject());
 	}
 	
-	public String getLexicalValueOfField(Field field){
-		
-		String value = null;
+//	public String getLexicalValueOfField(Field field){
+//		
+//		String value = null;
+//		
+//		if (field == Field.SUBJECT){
+//			if (subject instanceof RDFURIReference)
+//				value = ((RDFURIReference)subject).getValue().toString();
+//		} else if (field == Field.PREDICATE){
+//			if (predicate instanceof RDFURIReference)
+//				value = ((RDFURIReference)predicate).getValue().toString();
+//		} else if (field == Field.OBJECT){
+//			if (object instanceof RDFLiteral)
+//				value = ((RDFLiteral)object).getValue();
+//			else if (object instanceof RDFURIReference)
+//				value = ((RDFURIReference)object).getValue().toString();
+//		}
+//		
+//		return value;
+//	}
+	
+	public RDFValue getValueOfField(Field field){
 		
 		if (field == Field.SUBJECT){
 			if (subject instanceof RDFURIReference)
-				value = ((RDFURIReference)subject).getValue().toString();
+				return subject;
 		} else if (field == Field.PREDICATE){
-			if (predicate instanceof RDFURIReference)
-				value = ((RDFURIReference)predicate).getValue().toString();
+			return predicate;
 		} else if (field == Field.OBJECT){
-			if (object instanceof RDFLiteral)
-				value = ((RDFLiteral)object).getValue();
-			else if (object instanceof RDFURIReference)
-				value = ((RDFURIReference)object).getValue().toString();
+			return object;
 		}
 		
-		return value;
+		return null;
 	}
 	
 	public String toString(){

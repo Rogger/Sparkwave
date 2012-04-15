@@ -17,7 +17,6 @@
 package at.sti2.spark.rete;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,14 +31,15 @@ public class Token {
 
 	// Added for retracting purposes
 	private RETENode node = null; // Points to the memory where this token is in
-	
-	//Synchronized list of children (both main RETE thread and GC thread are accessing it)
+
+	// Synchronized list of children (both main RETE thread and GC thread are
+	// accessing it)
 	private List<Token> children = null;
 
-	//Added for time window purposes
+	// Added for time window purposes
 	private long startTime = 0l;
 	private long endTime = 0l;
-	
+
 	public long getStartTime() {
 		return startTime;
 	}
@@ -61,16 +61,16 @@ public class Token {
 	}
 
 	public Token() {
-		children = Collections.synchronizedList( new ArrayList <Token>());
+		children = new ArrayList<Token>();
 	}
 
 	public Token(Token parent, WorkingMemoryElement wme, RETENode node) {
-		
+
 		this.parent = parent;
 		this.wme = wme;
 		this.node = node;
-		
-		children = Collections.synchronizedList( new ArrayList <Token>());
+
+		children = new ArrayList<Token>();
 	}
 
 	public Token getParent() {
@@ -97,60 +97,53 @@ public class Token {
 		this.node = node;
 	}
 
-//	public List<Token> getChildren() {
-//		return children;
-//	}
+	// public List<Token> getChildren() {
+	// return children;
+	// }
 
 	public void addChild(Token child) {
-		synchronized(children){
-			children.add(child);
-		}
+		children.add(child);
 	}
-	
-	public void removeChild(Token child){
-		synchronized(children){
-			children.remove(child);
-		}
+
+	public void removeChild(Token child) {
+		children.remove(child);
 	}
 
 	public void deleteTokenAndDescendents() {
-		
-		synchronized(children){
-			
-			for (Iterator <Token> childrenIterator = children.iterator(); childrenIterator.hasNext(); ) {
 
-				Token childToken = childrenIterator.next();
-				childToken.deleteTokenAndDescendents();
-				childrenIterator.remove();
-			}
+		for (Iterator<Token> childrenIterator = children.iterator(); childrenIterator
+				.hasNext();) {
 
-			
-			//Remove token from the list of node items
-			//TODO Beta and production node are basically the same so it should inherit the same parent
-			if (node instanceof BetaMemory){
-				((BetaMemory)node).removeItem(this);
-			}
-			else if (node instanceof ProductionNode){
-				((ProductionNode)node).removeItem(this);
-			}
-			
-			//Remove token from the list of tokens in WME
-			//THIS REMOVAL IS DONE AT THE LEVEL OF WORKING MEMORY ELEMENT
-//			wme.removeToken(this);
-//			System.out.println("Removed token from WME. "  + wme.toString());
-			
-			//Remove token from the list of parent children
-			//THIS IS NOW DONE AT THE LEVEL OF ITERATION
-//			parent.removeChild(this);
-//			System.out.println("Removed token from parent. " + wme.toString());
-			
-			//Remove pointer to parent
-			parent = null;
+			Token childToken = childrenIterator.next();
+			childToken.deleteTokenAndDescendents();
+			childrenIterator.remove();
 		}
+
+		// Remove token from the list of node items
+		// TODO Beta and production node are basically the same so it should
+		// inherit the same parent
+		if (node instanceof BetaMemory) {
+			((BetaMemory) node).removeItem(this);
+		} else if (node instanceof ProductionNode) {
+			((ProductionNode) node).removeItem(this);
+		}
+
+		// Remove token from the list of tokens in WME
+		// THIS REMOVAL IS DONE AT THE LEVEL OF WORKING MEMORY ELEMENT
+		// wme.removeToken(this);
+		// System.out.println("Removed token from WME. " + wme.toString());
+
+		// Remove token from the list of parent children
+		// THIS IS NOW DONE AT THE LEVEL OF ITERATION
+		// parent.removeChild(this);
+		// System.out.println("Removed token from parent. " + wme.toString());
+
+		// Remove pointer to parent
+		parent = null;
 	}
-	
+
 	/**
-	 * Deletes token and all its parents   
+	 * Deletes token and all its parents
 	 */
 //	public void deleteTokenAndParents(){
 //		

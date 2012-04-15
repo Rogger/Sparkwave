@@ -16,7 +16,6 @@
 package at.sti2.spark.epsilon.network.run;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class EpsilonNetwork {
 	public EpsilonNetwork(){
 		nodeSelector = new NodeSelector();
 		network = new Network();
-		processedTriples = Collections.synchronizedList(new ArrayList<Triple>());
+		processedTriples = new ArrayList<Triple>();
 		gcTokens = new Hashtable <Triple, List<Token>> ();
 	}
 	
@@ -85,13 +84,11 @@ public class EpsilonNetwork {
 		if (entryNode != null){
 			List<Token> tokenNodes = new ArrayList <Token> ();
 			entryNode.activateEntry(triple, tokenNodes);
-			synchronized(processedTriples){
-				processedTriples.add(triple);
-				gcTokens.put(triple, tokenNodes);
-			}
-		}else{
+
+			processedTriples.add(triple);
+			gcTokens.put(triple, tokenNodes);
+		}else
 			rootAlphaNode.activate(new WorkingMemoryElement(triple));
-			logger.debug("Activating root alpha node...");
-		}
+
 	}
 }

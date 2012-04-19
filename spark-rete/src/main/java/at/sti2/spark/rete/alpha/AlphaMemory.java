@@ -35,10 +35,11 @@ public class AlphaMemory {
 	
 	private List <RETENode> successors  = null;
 	
-	public AlphaMemory() {
-		items = new ArrayList<WorkingMemoryElement>();
-		permanentItems = new ArrayList<WorkingMemoryElement>();
-		successors = new ArrayList<RETENode>();
+	public AlphaMemory(){
+//		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
+		items = new ArrayList <WorkingMemoryElement> ();
+		permanentItems = new ArrayList <WorkingMemoryElement>();
+		successors  = new ArrayList <RETENode> ();
 	}
 
 	public void activate(WorkingMemoryElement wme) {
@@ -63,19 +64,23 @@ public class AlphaMemory {
 	public void addSuccesor(RETENode node) {
 		successors.add(node);
 	}
-
-	public void addItem(WorkingMemoryElement wme) {
-
-		if (!wme.getTriple().isPermanent()) {
-			items.add(wme);
-		} else {
+	
+	public void addItem(WorkingMemoryElement wme){
+		
+		if(!wme.getTriple().isPermanent()){
+//			synchronized(items){
+				items.add(wme);
+//			}
+		}else{
 			permanentItems.add(wme);
 		}
 
 	}
-
-	public void removeItem(WorkingMemoryElement wme) {
-		items.remove(wme);
+	
+	public void removeItem(WorkingMemoryElement wme){
+//		synchronized(items){
+			items.remove(wme);
+//		}
 	}
 
 	public List<WorkingMemoryElement> getPermanentItems() {
@@ -94,17 +99,18 @@ public class AlphaMemory {
 			buffer.append(" ");
 			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
 		}
-
-		for (WorkingMemoryElement item : items) {
-			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
-
-		}
-
+		
+//		synchronized(items){
+			for (WorkingMemoryElement item : items){
+				buffer.append('\n');
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
+				buffer.append(" ");
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
+				buffer.append(" ");
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+			}
+//		}
+		
 		return buffer.toString();
 	}
 }

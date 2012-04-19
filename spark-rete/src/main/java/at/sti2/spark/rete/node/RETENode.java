@@ -59,21 +59,21 @@ public abstract class RETENode {
 	public void addChild(RETENode child) {
 		children.add(child);
 	}
-
-	// TODO This should be an abstract method and the code should go to the
-	// nodes
-	public void update() {
-
-		if (parent instanceof BetaMemory) {
-
-			for (Iterator<Token> tokenIter = ((BetaMemory) parent).getItems()
-					.iterator(); tokenIter.hasNext();)
-				leftActivate(tokenIter.next());
-
-		} else if (parent instanceof JoinNode) {
-
-			List<RETENode> parentChildren = parent.getChildren();
-			parent.setChildren(new ArrayList<RETENode>());
+	
+	//TODO This should be an abstract method and the code should go to the nodes
+	public void update(){
+		
+		if (parent instanceof BetaMemory){
+			
+//			synchronized(((BetaMemory) parent).getItems()){
+				for (Iterator <Token> tokenIter = ((BetaMemory) parent).getItems().iterator(); tokenIter.hasNext();)
+					leftActivate(tokenIter.next());
+//			}
+			
+		} else if (parent instanceof JoinNode){
+		
+			List <RETENode> parentChildren = parent.getChildren();
+			parent.setChildren(new ArrayList <RETENode> ());
 			parent.addChild(this);
 
 			// dynamic

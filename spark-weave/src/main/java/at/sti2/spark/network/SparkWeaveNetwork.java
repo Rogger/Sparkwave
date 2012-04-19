@@ -30,7 +30,6 @@ import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.language.query.SparkPatternParser;
-import at.sti2.spark.network.gc.SparkWeaveGarbageCollector;
 import at.sti2.spark.output.SparkweaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
 import at.sti2.spark.rete.alpha.AlphaNode;
@@ -131,10 +130,13 @@ public class SparkWeaveNetwork{
 		
 		logger.info("SparkWeave network completed...");
 		
+
 //		SparkWeaveGarbageCollector sparkWeaveGC = new SparkWeaveGarbageCollector(this, gcSessionDelay);
 //		sparkWeaveGC.start();
-		
-		logger.info("SparkWeave garbage collector started...");
+
+//		
+//		logger.info("SparkWeave garbage collector started...");
+
 		
 		//If there is a CONSTRUCT part start also the output thread 
 		if (triplePatternGraph.getConstructConditions().size() > 0){

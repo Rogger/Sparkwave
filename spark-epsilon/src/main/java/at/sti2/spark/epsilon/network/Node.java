@@ -16,7 +16,6 @@
 package at.sti2.spark.epsilon.network;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -49,6 +48,7 @@ public abstract class Node {
 		soLinks = new ArrayList<Node>();
 		osLinks = new ArrayList<Node>();
 
+//		tokens = Collections.synchronizedList(new ArrayList<Token>());
 		tokens = new ArrayList<Token>();
 		alphaNodes = new Vector<AlphaNode>();
 	}

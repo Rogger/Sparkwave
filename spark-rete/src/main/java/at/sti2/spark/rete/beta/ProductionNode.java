@@ -23,7 +23,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
@@ -42,16 +41,21 @@ public class ProductionNode extends RETENode {
 	private OutputBuffer outputBuffer = null;
 	
 	public ProductionNode(){
+//		items = Collections.synchronizedList(new ArrayList <Token> ());
 		items = new ArrayList <Token> ();
 		outputBuffer = new OutputBuffer();
 	}
 	
 	public void addItem(Token token){
+//		synchronized(items){
 			items.add(token);
+//		}
 	}
 	
 	public void removeItem(Token token){
-		items.remove(token);
+//		synchronized(items){
+			items.remove(token);
+//		}
 	}
 	
 	@Override
@@ -75,9 +79,9 @@ public class ProductionNode extends RETENode {
 		addItem(newToken);
 		matchCounter++;
 		
-		Match match = new Match();
-		match.setVariableBindings(getVariableBindings(newToken));
-		outputBuffer.put(match);
+//		Match match = new Match();
+//		match.setVariableBindings(getVariableBindings(newToken));
+//		outputBuffer.put(match);
 		
 //		StringBuffer buffer = new StringBuffer();
 //		buffer.append("We have " + (matchCounter) + " match:\n");

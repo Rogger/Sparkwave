@@ -47,6 +47,7 @@ public class EpsilonNetwork {
 	public EpsilonNetwork(){
 		nodeSelector = new NodeSelector();
 		network = new Network();
+//		processedTriples = Collections.synchronizedList(new ArrayList<Triple>());
 		processedTriples = new ArrayList<Triple>();
 		gcTokens = new Hashtable <Triple, List<Token>> ();
 	}

@@ -78,55 +78,55 @@ public class SparkWeaveGarbageCollector extends Thread {
 				}
 			}
 			
-			/************************************************
-			 *            CLEANING RETE NETWORK
-			 ************************************************/
-			
-			//GC wakes up and goes through the list WorkingMemoryElements to clean them up
-			//long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() - sparkWeaveNetwork.getTimeWindowLength();
-			long gcThresholdTimestamp = System.currentTimeMillis() - sparkWeaveNetwork.getTimeWindowLength();
-			
-//			StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
-			
-			//Loop over all alpha memories in RETE and check WMEs which they hold
-			for (AlphaMemory alphaMemory : sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemories()){
-				
-				synchronized(alphaMemory.getItems()){
-				
-//					buffer.append('[');
-//					buffer.append(alphaMemory.getItems().size());
-//					buffer.append(',');
-					
-					for (Iterator <WorkingMemoryElement> wmeIterator = alphaMemory.getItems().iterator(); wmeIterator.hasNext(); ){
-				
-						WorkingMemoryElement wme = wmeIterator.next();
-						
-						if (wme.getTriple().getTimestamp() < gcThresholdTimestamp){
-							
-							/**
-							 * Here we need to delete all references to the WME:
-							 *  1. AlphaMemory which points to this WME
-							 *  2. Tokens which point to this WME 
-							 *  3. WorkingMemory list of all WMEs
-							 */
-							wme.remove();
-							
-							//Removing the 
-							wmeIterator.remove();
-						}else{
-							break;
-						}
-					}
-					
-//					buffer.append(alphaMemory.getItems().size());
-//					buffer.append(']');
-//					buffer.append(' ');
-				}
-			}
-			
-//			buffer.append('\n');
-//			System.out.println(buffer.toString());
-//			System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
+//			/************************************************
+//			 *            CLEANING RETE NETWORK
+//			 ************************************************/
+//			
+//			//GC wakes up and goes through the list WorkingMemoryElements to clean them up
+//			//long gcThresholdTimestamp = sparkWeaveNetwork.getLastTimestamp() - sparkWeaveNetwork.getTimeWindowLength();
+//			long gcThresholdTimestamp = System.currentTimeMillis() - sparkWeaveNetwork.getTimeWindowLength();
+//			
+////			StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
+//			
+//			//Loop over all alpha memories in RETE and check WMEs which they hold
+//			for (AlphaMemory alphaMemory : sparkWeaveNetwork.getReteNetwork().getWorkingMemory().getAlphaMemories()){
+//				
+//				synchronized(alphaMemory.getItems()){
+//				
+////					buffer.append('[');
+////					buffer.append(alphaMemory.getItems().size());
+////					buffer.append(',');
+//					
+//					for (Iterator <WorkingMemoryElement> wmeIterator = alphaMemory.getItems().iterator(); wmeIterator.hasNext(); ){
+//				
+//						WorkingMemoryElement wme = wmeIterator.next();
+//						
+//						if (wme.getTriple().getTimestamp() < gcThresholdTimestamp){
+//							
+//							/**
+//							 * Here we need to delete all references to the WME:
+//							 *  1. AlphaMemory which points to this WME
+//							 *  2. Tokens which point to this WME 
+//							 *  3. WorkingMemory list of all WMEs
+//							 */
+//							wme.remove();
+//							
+//							//Removing the 
+//							wmeIterator.remove();
+//						}else{
+//							break;
+//						}
+//					}
+//					
+////					buffer.append(alphaMemory.getItems().size());
+////					buffer.append(']');
+////					buffer.append(' ');
+//				}
+//			}
+//			
+////			buffer.append('\n');
+////			System.out.println(buffer.toString());
+////			System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
 		}
 	}
 }

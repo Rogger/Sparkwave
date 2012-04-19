@@ -251,15 +251,12 @@ public class SparkWeaveNetworkServerThread extends Thread {
 		long gcThresholdTimestamp = System.currentTimeMillis()
 				- sparkWeaveNetwork.getTimeWindowLength();
 
-		// StringBuffer buffer = new StringBuffer("AM MEM ALLOC ");
+//		 StringBuffer buffer = new StringBuffer("AM ");
 
 		// Loop over all alpha memories in RETE and check WMEs which they hold
 		for (AlphaMemory alphaMemory : sparkWeaveNetwork.getReteNetwork()
 				.getWorkingMemory().getAlphaMemories()) {
 
-			// buffer.append('[');
-			// buffer.append(alphaMemory.getItems().size());
-			// buffer.append(',');
 
 			for (Iterator<WorkingMemoryElement> wmeIterator = alphaMemory
 					.getItems().iterator(); wmeIterator.hasNext();) {
@@ -282,12 +279,15 @@ public class SparkWeaveNetworkServerThread extends Thread {
 				}
 			}
 
-			// buffer.append(alphaMemory.getItems().size());
-			// buffer.append(']');
-			// buffer.append(' ');
+//			 buffer.append('[');
+//			 buffer.append(alphaMemory.getPermanentItems().size());
+//			 buffer.append(',');
+//			 buffer.append(alphaMemory.getItems().size());
+//			 buffer.append(']');
+//			 buffer.append(' ');
 		}
-		// buffer.append('\n');
-		// System.out.println(buffer.toString());
-		// System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
+//		 buffer.append('\n');
+//		 System.out.println(buffer.toString());
+//		 System.out.println(sparkWeaveNetwork.getReteNetwork().getBetaMemoryLevels());
 	}
 }

@@ -31,7 +31,7 @@ import at.sti2.spark.invoke.SparkweaveInvoker;
 
 public class SparkweaveNetworkOutputThread extends Thread {
 
-	static Logger logger = Logger.getLogger(SparkweaveNetworkOutputThread.class);
+	static Logger log = Logger.getLogger(SparkweaveNetworkOutputThread.class);
 	
 	private OutputBuffer outputBuffer = null;
 	private TriplePatternGraph triplePatternGraph = null;
@@ -53,7 +53,7 @@ public class SparkweaveNetworkOutputThread extends Thread {
 				try {
 					match = outputBuffer.get();
 //					invoker.invoke(match, triplePatternGraph.getInvokerProperties());
-					System.out.println( formatMatch(match));
+//					System.out.println( formatMatch(match));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 //				} catch (SparkweaveInvokerException e) {

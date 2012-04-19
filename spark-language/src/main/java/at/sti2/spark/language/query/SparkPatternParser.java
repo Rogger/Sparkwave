@@ -490,6 +490,7 @@ public class SparkPatternParser {
 			datatypeURI = new RDFURIReference(buffer.toString());
 			
 			triple.setObject(new RDFLiteral(lexicalForm, datatypeURI, languageTag));
+			tripleCondition.addConstantTest(new TripleConstantTest(lexicalForm, RDFTriple.Field.OBJECT));
 			
 		} else {
 			

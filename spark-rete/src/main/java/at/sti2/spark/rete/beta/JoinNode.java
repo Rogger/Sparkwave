@@ -238,7 +238,7 @@ public class JoinNode extends RETENode {
 			int index = test.getArg2ConditionNumber();
 			Token wmeToken = parentTokens.get(index);
 			valueArg2 = wmeToken.getWme().getTriple().getRDFTriple().getValueOfField(test.getArg2Field());
-
+			
 			if (!valueArg1.equals(valueArg2))
 				return false;
 		}

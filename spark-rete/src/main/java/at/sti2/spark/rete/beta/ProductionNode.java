@@ -17,7 +17,6 @@
 package at.sti2.spark.rete.beta;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -71,8 +70,6 @@ public class ProductionNode extends RETENode {
 
 	public void leftActivate(Token token, WorkingMemoryElement wme) {
 		
-		logger.debug("Performing production node leftActivate with wme " + wme.toString());
-		
 		Token newToken = createToken(token, wme);
 		
 		addItem(newToken);
@@ -96,7 +93,6 @@ public class ProductionNode extends RETENode {
 //		
 //		System.out.println(buffer.toString());
 		
-		//removeResult(newToken);
 	}
 	
 	public OutputBuffer getOutputBuffer() {

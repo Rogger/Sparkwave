@@ -75,7 +75,7 @@ public class SparkWeaveNetwork{
 		buildNetwork();
 		
 		//Print Rete network structure
-		getReteNetwork().printNetworkStructure();
+		//getReteNetwork().printNetworkStructure();
 		
 		//Start SparkWeaveNetworkServerInstance
 		(new SparkWeaveNetworkServer(this)).start();

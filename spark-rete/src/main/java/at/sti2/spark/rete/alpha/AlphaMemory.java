@@ -17,25 +17,29 @@
 package at.sti2.spark.rete.alpha;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
 
 public class AlphaMemory {
-
-	// Synchronized list which holds all WMEs currently in the memory
-	private List<WorkingMemoryElement> items = null;
-	private List<WorkingMemoryElement> permanentItems = null;
-
-	private List<RETENode> successors = null;
-
-	public AlphaMemory() {
-		items = new ArrayList<WorkingMemoryElement>();
-		permanentItems = new ArrayList<WorkingMemoryElement>();
-		successors = new ArrayList<RETENode>();
+	
+	static Logger logger = Logger.getLogger(AlphaMemory.class);
+	
+	//Synchronized list which holds all WMEs currently in the memory
+	private List <WorkingMemoryElement> items = null;
+	private List <WorkingMemoryElement> permanentItems = null;
+	
+	private List <RETENode> successors  = null;
+	
+	public AlphaMemory(){
+//		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
+		items = new ArrayList <WorkingMemoryElement> ();
+		permanentItems = new ArrayList <WorkingMemoryElement>();
+		successors  = new ArrayList <RETENode> ();
 	}
 
 	public void activate(WorkingMemoryElement wme) {
@@ -60,19 +64,23 @@ public class AlphaMemory {
 	public void addSuccesor(RETENode node) {
 		successors.add(node);
 	}
-
-	public void addItem(WorkingMemoryElement wme) {
-
-		if (!wme.getTriple().isPermanent()) {
-			items.add(wme);
-		} else {
+	
+	public void addItem(WorkingMemoryElement wme){
+		
+		if(!wme.getTriple().isPermanent()){
+//			synchronized(items){
+				items.add(wme);
+//			}
+		}else{
 			permanentItems.add(wme);
 		}
 
 	}
-
-	public void removeItem(WorkingMemoryElement wme) {
-		items.remove(wme);
+	
+	public void removeItem(WorkingMemoryElement wme){
+//		synchronized(items){
+			items.remove(wme);
+//		}
 	}
 
 	public List<WorkingMemoryElement> getPermanentItems() {
@@ -91,17 +99,18 @@ public class AlphaMemory {
 			buffer.append(" ");
 			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
 		}
-
-		for (WorkingMemoryElement item : items) {
-			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
-
-		}
-
+		
+//		synchronized(items){
+			for (WorkingMemoryElement item : items){
+				buffer.append('\n');
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
+				buffer.append(" ");
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
+				buffer.append(" ");
+				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+			}
+//		}
+		
 		return buffer.toString();
 	}
 }

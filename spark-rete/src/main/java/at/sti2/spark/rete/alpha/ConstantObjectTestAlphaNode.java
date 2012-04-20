@@ -15,14 +15,19 @@
  */
 package at.sti2.spark.rete.alpha;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.rete.WorkingMemoryElement;
 
 public class ConstantObjectTestAlphaNode extends ValueTestAlphaNode {
 
+	static Logger log = Logger.getLogger(ConstantObjectTestAlphaNode.class);
+	
 	public ConstantObjectTestAlphaNode(String testValue) {
 		super(testValue);
+		log.debug("Object test value:" + testValue);
 	}
 
 	@Override

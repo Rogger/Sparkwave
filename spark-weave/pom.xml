@@ -92,12 +92,18 @@
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.newsclub.net.unix</groupId> -->
-<!-- 			<artifactId>junixsocket</artifactId> -->
-<!-- 			<version>1.3</version> -->
-<!-- 			<scope>compile</scope> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>at.sti2.sparkweave</groupId>
+			<artifactId>spark-invoke</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.newsclub.net.unix</groupId> -->
+		<!-- <artifactId>junixsocket</artifactId> -->
+		<!-- <version>1.3</version> -->
+		<!-- <scope>compile</scope> -->
+		<!-- </dependency> -->
 	</dependencies>
 
 </project>

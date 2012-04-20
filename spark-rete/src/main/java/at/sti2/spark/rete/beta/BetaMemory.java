@@ -20,27 +20,36 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
 
 public class BetaMemory extends RETENode {
+	
+	static Logger logger = Logger.getLogger(BetaMemory.class);
 
 	private List<Token> items = null;
 
 	private boolean rootNode = false;
-
-	public BetaMemory() {
-		items = new ArrayList<Token>();
+	
+	public BetaMemory(){
+//		items = Collections.synchronizedList(new ArrayList <Token> ());
+		items = new ArrayList <Token> ();
 	}
-
-	public void addItem(Token token) {
-		items.add(token);
+	
+	public void addItem(Token token){
+//		synchronized(items){
+			items.add(token);
+//		}
 	}
-
-	public void removeItem(Token token) {
-		items.remove(token);
+	
+	public void removeItem(Token token){
+//		synchronized(items){
+			items.remove(token);
+//		}
 	}
 
 	public List<Token> getItems() {
@@ -48,11 +57,10 @@ public class BetaMemory extends RETENode {
 	}
 
 	@Override
-	public void leftActivate(Token parentToken, WorkingMemoryElement wme) {
-
+	public void leftActivate(Token parentToken, WorkingMemoryElement wme){
+		
 		Token newToken = createToken(parentToken, wme);
 
-		// TODO Insert token at the head of items
 		addItem(newToken);
 
 		for (RETENode reteNode : children)

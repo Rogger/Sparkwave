@@ -91,7 +91,13 @@ public class Network {
 		logger.debug("Adding an inverse property link between [" + subjectPropertyURI + ", " + objectPropertyURI + "].");
 		
 		PropertyNode subjectPropertyNode = getPropertyNodeByURI(subjectPropertyURI);
+		
+		logger.debug("Subject property node:" + subjectPropertyNode.getUri());
+		
 		PropertyNode objectPropertyNode = getPropertyNodeByURI(objectPropertyURI);
+		
+		logger.debug("Object property node:" + objectPropertyNode.getUri());
+		
 		subjectPropertyNode.addOSLinkNode(objectPropertyNode);
 		objectPropertyNode.addOSLinkNode(subjectPropertyNode);
 	}

@@ -17,7 +17,6 @@
 package at.sti2.spark.rete;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,9 +32,11 @@ public class WorkingMemoryElement {
 
 	private List<Token> tokens = null;
 
-	public WorkingMemoryElement() {
-		alphaMems = new ArrayList<AlphaMemory>();
-		tokens = new ArrayList<Token>();
+	public WorkingMemoryElement(){
+//		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
+		alphaMems = new ArrayList <AlphaMemory> ();
+//		tokens = Collections.synchronizedList(new ArrayList <Token> ());
+		tokens = new ArrayList <Token> ();
 	}
 
 	public WorkingMemoryElement(Triple triple) {
@@ -55,46 +56,54 @@ public class WorkingMemoryElement {
 	public List<AlphaMemory> getAlphaMems() {
 		return alphaMems;
 	}
-
-	public void addAlphaMemory(AlphaMemory alphaMem) {
-		alphaMems.add(alphaMem);
+	
+	public void addAlphaMemory(AlphaMemory alphaMem){
+//		synchronized(alphaMems){
+			alphaMems.add(alphaMem);
+//		}
 	}
-
-	public void removeAlphaMemory(AlphaMemory alphaMem) {
-		alphaMems.remove(alphaMem);
+	
+	public void removeAlphaMemory(AlphaMemory alphaMem){
+//		synchronized(alphaMems){
+			alphaMems.remove(alphaMem);
+//		}
 	}
-
-	public void addToken(Token token) {
-		tokens.add(token);
+	
+	public void addToken(Token token){
+//		synchronized(tokens){
+			tokens.add(token);
+//		}
 	}
-
-	public void removeToken(Token token) {
-		tokens.remove(token);
+	
+	public void removeToken(Token token){
+//		synchronized(tokens){
+			tokens.remove(token);
+//		}
 	}
-
-	public void remove() {
-
-		// Remove occurrence from each alpha memory
-		// REMOVAL FROM ALPHA MEMORY IS DONE IN GC
-		// for (AlphaMemory alphamem : alphaMems){
-		// alphamem.removeItem(this);
-
-		// If alpha memory just became empty
-		// TODO Examine again why in the literature we have this behavior, I
-		// believe it is not needed
-		// if (alphamem.getItems().isEmpty())
-		// for (RETENode node : alphamem.getSuccessors())
-		// if (node instanceof JoinNode)
-		// ((JoinNode)node).getParent().getChildren().remove(node);
-		// }
-
-		// Remove all the tokens having an occurrence of WME
-		for (Iterator<Token> tokenIterator = tokens.iterator(); tokenIterator
-				.hasNext();) {
-			Token tokenToDelete = tokenIterator.next();
-			tokenToDelete.deleteTokenAndDescendents();
-			tokenIterator.remove();
-		}
+	
+	public void remove(){
+		
+		//Remove occurrence from each alpha memory
+		//REMOVAL FROM ALPHA MEMORY IS DONE IN GC
+//		for (AlphaMemory alphamem : alphaMems){
+//			alphamem.removeItem(this);
+			
+			//If alpha memory just became empty
+			//TODO Examine again why in the literature we have this behavior, I believe it is not needed
+//			if (alphamem.getItems().isEmpty())
+//				for (RETENode node : alphamem.getSuccessors())
+//					if (node instanceof JoinNode)
+//						((JoinNode)node).getParent().getChildren().remove(node);
+//		}
+		
+		//Remove all the tokens having an occurrence of WME
+//		synchronized(tokens){
+			for (Iterator <Token> tokenIterator = tokens.iterator(); tokenIterator.hasNext(); ){
+				Token tokenToDelete = tokenIterator.next();
+				tokenToDelete.deleteTokenAndDescendents();
+				tokenIterator.remove();
+			}
+//		}
 	}
 
 	public String toString() {

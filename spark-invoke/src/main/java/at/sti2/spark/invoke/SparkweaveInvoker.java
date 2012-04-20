@@ -13,24 +13,12 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.epsilon.network.build;
+package at.sti2.spark.invoke;
 
-import java.io.File;
+import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.solution.Match;
 
-import junit.framework.TestCase;
-import at.sti2.spark.core.stream.Triple;
-import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
-
-public class NetworkBuilderTest extends TestCase {
-
-	public void testBuilding(){
-		
-		NetworkBuilder builder = new NetworkBuilder(new File("resources/support_schema.owl"));
-		EpsilonNetwork epsilonNetwork = builder.buildNetwork();
-		
-		assertNotNull(epsilonNetwork);
-		
-	}
+public interface SparkweaveInvoker {
+	
+	public void invoke(Match match, InvokerProperties invokerProperties) throws SparkweaveInvokerException;
 }

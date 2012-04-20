@@ -19,6 +19,7 @@ package at.sti2.spark.core.condition;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.sti2.spark.core.invoker.InvokerProperties;
 import at.sti2.spark.core.prefix.Prefix;
 
 /**
@@ -32,6 +33,7 @@ public class TriplePatternGraph {
 	private List <TripleCondition> selectConditions = null;
 	private List <TripleCondition> constructConditions = null;
 	private List <Prefix> prefixes = null;
+	private InvokerProperties invokerProperties = null;
 
 	//The timewindow unit is ms
 	private long timeWindowLength = 0l;
@@ -87,6 +89,14 @@ public class TriplePatternGraph {
 		this.timeWindowLength = timeWindowLength;
 	}
 	
+	public InvokerProperties getInvokerProperties() {
+		return invokerProperties;
+	}
+
+	public void setInvokerProperties(InvokerProperties invokerProperties) {
+		this.invokerProperties = invokerProperties;
+	}
+
 	public String getNamespaceByLabel(String label){
 		String namespace = null;
 		
@@ -112,6 +122,26 @@ public class TriplePatternGraph {
 				buffer.append('\n');
 			}
 		}
+		
+		if (invokerProperties != null){
+			buffer.append("INVOKER PROPERTIES\n");
+			buffer.append("BaseURL:");
+			buffer.append(invokerProperties.getInvokerBaseURL());
+			buffer.append("\n");
+			buffer.append("Class:");
+			buffer.append(invokerProperties.getInvokerClass());
+			buffer.append("\n");
+		}
+		
+		buffer.append("CONSTRUCT\n");
+		
+		for (TripleCondition condition : constructConditions)
+			for (TripleConstantTest constantTest : condition.getConstantTests()){
+				buffer.append(constantTest.getTestField());
+				buffer.append(' ');
+				buffer.append(constantTest.getLexicalTestSymbol());
+				buffer.append('\n');
+			}
 		
 		buffer.append("SELECT\n");
 		

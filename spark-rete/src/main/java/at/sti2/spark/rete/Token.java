@@ -17,7 +17,6 @@
 package at.sti2.spark.rete;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -146,24 +145,27 @@ public class Token {
 	/**
 	 * Deletes token and all its parents
 	 */
-	// public void deleteTokenAndParents(){
-	//
-	// if (parent != null)
-	// parent.deleteTokenAndParents();
-	//
-	// //Remove token from the list of node items
-	// //TODO Beta and production node are basically the same so it should
-	// inherit the same parent
-	// if (node instanceof BetaMemory)
-	// ((BetaMemory)node).removeItem(this);
-	// else if (node instanceof ProductionNode)
-	// ((ProductionNode)node).removeItem(this);
-	//
-	// //Remove token from the list of tokens in WME
-	// wme.removeToken(this);
-	//
-	// //Remove token from the list of parent children
-	// if (parent != null)
-	// parent.removeChild(this);
-	// }
+//	public void deleteTokenAndParents(){
+//		
+//		if (parent != null)
+//			parent.deleteTokenAndParents();
+//
+//		//Remove token from the list of node items
+//		//TODO Beta and production node are basically the same so it should inherit the same parent
+//		if (node instanceof BetaMemory)
+//			((BetaMemory)node).removeItem(this);
+//		else if (node instanceof ProductionNode)
+//			((ProductionNode)node).removeItem(this);
+//		
+//		//Remove token from the list of tokens in WME
+//		wme.removeToken(this);
+//		
+//		//Remove token from the list of parent children
+//		if (parent != null)
+//			parent.removeChild(this);
+//	}
+	
+	public String toString(){
+		return wme.toString();
+	}
 }

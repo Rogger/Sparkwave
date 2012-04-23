@@ -31,6 +31,11 @@ PROLOGUE;
 QUERY;
 SELECT_CLAUSE;
 VAR;
+GROUP_GRAPH_PATTERN;
+TRIPLES_SAME_SUBJECT;
+SUBJECT;
+PREDICATE;
+OBJECT;
 }
 
 @header {
@@ -68,18 +73,44 @@ whereClause
     ;
     
 groupGraphPattern
-    : OPEN_CURLY_BRACE
+    : OPEN_CURLY_BRACE triplesBlock CLOSE_CURLY_BRACE -> ^(GROUP_GRAPH_PATTERN triplesBlock)
     ;
 
 triplesBlock
-    : triplesSameSubjectPath (DOT triplesSameSubjectPath)* DOT? -> triplesSameSubjectPath+
+    : triple (DOT triple)* DOT? -> triple+
     ;
     
-triplesSameSubjectPath
-    : triplesNode propertyListNotEmpty? -> ^(TRIPLES_SAME_SUBJECT  triplesNode propertyListNotEmpty?)
+triple
+    : varOrTerm varOrTerm varOrTerm -> ^(TRIPLES_SAME_SUBJECT ^(SUBJECT varOrTerm) ^(PREDICATE varOrTerm) ^(OBJECT varOrTerm))
     ;
 
+varOrTerm
+    : var
+    | graphTerm
+    ;
+    
+var
+    : VAR1
+    ;
 
+graphTerm
+    : iriRef
+    //| rdfLiteral
+    //| numericLiteral
+    //| booleanLiteral
+    //| blankNode
+    //| nil
+    ;
+    
+iriRef
+    : IRI_REF
+    | prefixedName
+    ;
+    
+prefixedName
+    : PNAME_LN
+    | PNAME_NS
+    ;
     
 // $>
 
@@ -104,6 +135,8 @@ OPEN_CURLY_BRACE : '{';
 
 CLOSE_CURLY_BRACE : '}';
 
+VAR1 : '?' VARNAME;
+
 INVERSE : '^';
 
 PIPE : '|';
@@ -116,8 +149,20 @@ LESS : '<';
 
 PNAME_NS : p=PN_PREFIX? ':';
 
+PNAME_LN : PNAME_NS PN_LOCAL;
+
 fragment
 PN_PREFIX : PN_CHARS_BASE ((PN_CHARS|DOT)* PN_CHARS)?;
+
+fragment
+PN_LOCAL : (PN_CHARS_U|DIGIT|PLX)  ((PN_CHARS|{    
+                    	                       if (input.LA(1)=='.') {
+                    	                          int LA2 = input.LA(2);
+                    	       	                  if (!((LA2>='-' && LA2<='.')||(LA2>='0' && LA2<='9')||(LA2>='A' && LA2<='Z')||LA2=='_'||(LA2>='a' && LA2<='z')||LA2=='\u00B7'||(LA2>='\u00C0' && LA2<='\u00D6')||(LA2>='\u00D8' && LA2<='\u00F6')||(LA2>='\u00F8' && LA2<='\u037D')||(LA2>='\u037F' && LA2<='\u1FFF')||(LA2>='\u200C' && LA2<='\u200D')||(LA2>='\u203F' && LA2<='\u2040')||(LA2>='\u2070' && LA2<='\u218F')||(LA2>='\u2C00' && LA2<='\u2FEF')||(LA2>='\u3001' && LA2<='\uD7FF')||(LA2>='\uF900' && LA2<='\uFDCF')||(LA2>='\uFDF0' && LA2<='\uFFFD'))) {
+                    	       	                     return;
+                    	       	                  }
+                    	                       }
+                                           } DOT| PLX)* (PN_CHARS|PLX))?;
 
 fragment
 PN_CHARS_U : PN_CHARS_BASE | '_';
@@ -138,6 +183,19 @@ PN_CHARS_BASE
     | '\uF900'..'\uFDCF'
     | '\uFDF0'..'\uFFFD'
     ;
+    
+fragment
+PLX : PERCENT | PN_LOCAL_ESC;
+
+fragment
+PERCENT : '%' HEX HEX;
+
+fragment
+HEX : DIGIT | 'A'..'F' | 'a'..'z';
+
+fragment
+PN_LOCAL_ESC : '\\' ( '_' | '~' | '.' | '-' | '!' | '$' | '&' | '\'' | '(' | ')' | '*' | '+' | ',' | ';' | '=' | ':' | '/' | '?' | '#' | '@' | '%' );    	
+
     
 fragment
 PN_CHARS

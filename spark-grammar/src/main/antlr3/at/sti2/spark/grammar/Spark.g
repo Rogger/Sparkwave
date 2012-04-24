@@ -28,22 +28,24 @@ output = AST;
 
 tokens{
 PROLOGUE;
+PREFIX;
 QUERY;
 SELECT_CLAUSE;
+WHERE_CLAUSE;
 VAR;
 GROUP_GRAPH_PATTERN;
-TRIPLES_SAME_SUBJECT;
+TRIPLE;
 SUBJECT;
 PREDICATE;
 OBJECT;
 }
 
 @header {
-    package at.sti2.sparkweave.grammar;
+    package at.sti2.spark.grammar;
 }
 
 @lexer::header {
-    package at.sti2.sparkweave.grammar;
+    package at.sti2.spark.grammar;
 }
 
 // $<Parser
@@ -53,11 +55,15 @@ query
     ;
 
 prologue
-    : (prefixDecl)* -> ^(PROLOGUE prefixDecl*)
+    : prefixes -> ^(PROLOGUE prefixes)
+    ;
+    
+prefixes
+    : (prefixDecl)* -> ^(PREFIX prefixDecl*)
     ;
     
 prefixDecl
-    : PREFIX PNAME_NS IRI_REF -> ^(PREFIX PNAME_NS IRI_REF)
+    : PREFIX PNAME_NS IRI_REF -> ^(PNAME_NS IRI_REF)
     ;
     
 selectQuery
@@ -69,7 +75,7 @@ selectClause
     ;
     
 whereClause
-    : WHERE groupGraphPattern
+    : WHERE groupGraphPattern -> ^(WHERE_CLAUSE groupGraphPattern)
     ;
     
 groupGraphPattern
@@ -81,7 +87,7 @@ triplesBlock
     ;
     
 triple
-    : varOrTerm varOrTerm varOrTerm -> ^(TRIPLES_SAME_SUBJECT ^(SUBJECT varOrTerm) ^(PREDICATE varOrTerm) ^(OBJECT varOrTerm))
+    : varOrTerm varOrTerm varOrTerm -> ^(TRIPLE ^(SUBJECT varOrTerm) ^(PREDICATE varOrTerm) ^(OBJECT varOrTerm))
     ;
 
 varOrTerm

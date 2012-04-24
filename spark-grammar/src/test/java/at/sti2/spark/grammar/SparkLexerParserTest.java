@@ -1,4 +1,6 @@
-package at.sti2.sparkweave.grammar;
+package at.sti2.spark.grammar;
+
+import java.io.IOException;
 
 import junit.framework.TestCase;
 
@@ -6,19 +8,21 @@ import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeAdaptor;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
 import org.apache.log4j.Logger;
-
-import at.sti2.sparkweave.grammar.SparkParser.prologue_return;
-import at.sti2.sparkweave.grammar.SparkParser.query_return;
 
 public class SparkLexerParserTest extends TestCase {
 	
 	static protected Logger logger = Logger.getLogger(SparkLexerParserTest.class);
 	
-	public void testLexerParser() throws Exception{
+	public void testParser() throws IOException{
+
+		SparkPatternParser parser = new SparkPatternParser("target/classes/pattern-PT2-TW100.tpg");
+		parser.parse();
+	}
+	
+	public void notestLexerParser() throws Exception{
 		
 		// open file
 		CharStream input = new ANTLRFileStream("target/classes/pattern-PT2-TW100.tpg");
@@ -41,7 +45,6 @@ public class SparkLexerParserTest extends TestCase {
 		
 		
 		
-		
 		logger.info("List of CommonTreeNodes");
 
         CommonTree n = null;
@@ -50,16 +53,25 @@ public class SparkLexerParserTest extends TestCase {
             if ((n.toString()).compareTo("EOF") == 0) {
                 break;
             }
+            if(n.toString().equals("")){
+            	
+            }
         }
         logger.info("\n-------------------------------");
-        
         
         
         nodes.reset();
 
         logger.info("CommonTreeNodes tree=" + ((Tree) nodes.getTreeSource()).toStringTree());
         logger.info("-------------------------------");
+        
+        SparkT walker = new SparkT(nodes);
+        at.sti2.spark.grammar.SparkT.query_return query_return = walker.query();
+        
+        logger.info("SparkT tree=" + ((Tree)query_return.getTree()).toStringTree());
+		((Tree)query_return.getTree()).getChild(0);
 		
 	}
+	
 
 }

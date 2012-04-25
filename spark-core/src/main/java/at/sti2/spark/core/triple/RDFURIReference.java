@@ -16,34 +16,32 @@
 
 package at.sti2.spark.core.triple;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class RDFURIReference extends RDFValue {
+/**
+ * Immutable RDFURIReference
+ * @author michaelrogger
+ *
+ */
+public final class RDFURIReference extends RDFValue {
 
 	private static final long serialVersionUID = -900633337817042617L;
 	
-//	private URI value;
-	private String value;
+	private final String iri;
 	
-//	public RDFURIReference(String value){
-////		try {
-//			this.value = value;
-////		} catch (URISyntaxException e) {
-////			e.printStackTrace();
-////		}
-//	}
+	// caching hashCode
+	private int hashCode = 0;
 	
-	public RDFURIReference(String value){
-		this.value = value;
+	public RDFURIReference(final String iri){
+		this.iri = iri;
+	}
+	
+	public RDFURIReference(final String namespace, final String name){
+		this.iri = namespace+name;
 	}
 
 	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
+		return iri;
 	}
 	
 	@Override
@@ -55,17 +53,18 @@ public class RDFURIReference extends RDFValue {
 		if(!(that instanceof RDFURIReference)) return false;
 		
 		RDFURIReference uri = (RDFURIReference)that;
-		return this.value.equals(uri.value);
+		return this.iri.equals(uri.iri);
 	}
 	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17,37)
-			.append(value)
-			.toHashCode();
+		if (hashCode == 0) {
+			hashCode = new HashCodeBuilder(17, 37).append(iri).toHashCode();
+		}
+		return hashCode;
 	}
 	
 	public String toString(){
-		return value.toString();
+		return iri.toString();
 	}
 }

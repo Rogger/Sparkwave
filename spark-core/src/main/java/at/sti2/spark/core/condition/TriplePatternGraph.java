@@ -155,4 +155,8 @@ public class TriplePatternGraph {
 		
 		return buffer.toString();
 	}
+
+	public void setPrefixes(List<Prefix> prefixes) {
+		this.prefixes = prefixes;
+	}
 }

@@ -33,6 +33,8 @@ QUERY;
 SELECT_CLAUSE;
 WHERE_CLAUSE;
 VAR;
+IRI;
+PREFIX_NAME;
 GROUP_GRAPH_PATTERN;
 TRIPLE;
 SUBJECT;
@@ -96,7 +98,7 @@ varOrTerm
     ;
     
 var
-    : VAR1
+    : VAR1 -> ^(VAR VAR1)
     ;
 
 graphTerm
@@ -109,8 +111,8 @@ graphTerm
     ;
     
 iriRef
-    : IRI_REF
-    | prefixedName
+    : IRI_REF -> ^(IRI IRI_REF)
+    | prefixedName -> ^(PREFIX_NAME prefixedName)
     ;
     
 prefixedName

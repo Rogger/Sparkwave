@@ -19,6 +19,7 @@ import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TripleConstantTest;
 import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.prefix.Prefix;
+import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
@@ -296,12 +297,29 @@ public class SparkPatternParser {
 				String prefixName = treeNode.getChild(0).toString();
 				String[] prefixNameSplit = prefixName.split(":");
 				String namespace = patternGraph.getNamespaceByLabel(prefixNameSplit[0]);
-				
 				rdfValue = new RDFURIReference(namespace,prefixNameSplit[1]);
+				
+			}else if(childToken.equals("RDFLITERAL")){
+				TreeWrapper literalValue = treeNode.getChild(0);
+				String value = literalValue.toString().replaceAll("\"", "");
+				TreeWrapper iri = treeNode.getChild(1);
+				RDFURIReference rdfuriReference = parseRDFURIReference(iri);
+				//TODO language TAG
+				rdfValue = new RDFLiteral(value, rdfuriReference, null);
 			}
 		}
 			
 		return rdfValue;
+	}
+	
+	private RDFURIReference parseRDFURIReference(TreeWrapper treeNode){
+		RDFURIReference uri = null;
+		if(treeNode!=null){
+			TreeWrapper iriValue = treeNode.getChild(0);
+			uri = new RDFURIReference(parseIRI(iriValue.toString()));
+		}
+		
+		return uri;
 	}
 	
 	private String parseIRI(String iri){

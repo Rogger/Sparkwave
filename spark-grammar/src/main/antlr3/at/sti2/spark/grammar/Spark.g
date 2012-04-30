@@ -40,6 +40,7 @@ TRIPLE;
 SUBJECT;
 PREDICATE;
 OBJECT;
+RDFLITERAL;
 }
 
 @header {
@@ -120,11 +121,22 @@ var
 
 graphTerm
     : iriRef
-    //| rdfLiteral
+    | rdfLiteral
     //| numericLiteral
     //| booleanLiteral
     //| blankNode
     //| nil
+    ;
+    
+rdfLiteral
+    : string (LANGTAG | (REFERENCE iriRef))? -> ^(RDFLITERAL string LANGTAG* iriRef*)
+    ;
+    
+string
+    : STRING_LITERAL1
+    | STRING_LITERAL2
+    //| STRING_LITERAL_LONG1
+    //| STRING_LITERAL_LONG2
     ;
     
 iriRef
@@ -154,6 +166,10 @@ WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
 
+TRUE : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
+
+FALSE : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+
 ASTERISK : '*';
 
 OPEN_CURLY_BRACE : '{';
@@ -164,20 +180,43 @@ OPEN_BRACE : '(';
 
 CLOSE_BRACE : ')';
 
-
 VAR1 : '?' VARNAME;
 
-INVERSE : '^';
+LANGTAG : '@' ('A'..'Z'|'a'..'z')+ (MINUS ('A'..'Z'|'a'..'z'|DIGIT)+)*;
 
-PIPE : '|';
+INTEGER : DIGIT+;
+
+STRING_LITERAL1 : '\'' (options {greedy=false;} : ~('\'' | '\\' | EOL) | ECHAR)* '\'';
+
+STRING_LITERAL2 : '"' (options {greedy=false;} : ~('"' | '\\' | EOL) | ECHAR)* '"';
+
+fragment
+ECHAR : '\\' ('t' | 'b' | 'n' | 'r' | 'f' | '\\' | '"' | '\'');
+
+IRI_REF
+    :('<' (options{greedy=false;}: IRI_REF_CHARACTERS)* '>') =>  '<' (options{greedy=false;}: IRI_REF_CHARACTERS)* '>'
+    | LESS { $type = LESS; }
+    ;
+
+fragment
+IRI_REF_CHARACTERS
+    :  ~('<' | '>' | '"' | OPEN_CURLY_BRACE | CLOSE_CURLY_BRACE | PIPE | INVERSE | '`' | '\\' | '\u0000' | '\u0001'| '\u0002' | '\u0003' | '\u0004'| '\u0005' | '\u0006'| '\u0007' | '\u0008' | '\u0009'| '\u000A' | '\u000B'| '\u000C' | '\u000D' | '\u000E'| '\u000F'| '\u0010' | '\u0011'| '\u0012' | '\u0013' | '\u0014'| '\u0015' | '\u0016'| '\u0017' | '\u0018' | '\u0019'| '\u001A' | '\u001B'| '\u001C' | '\u001D' | '\u001E'| '\u001F' | '\u0020')
+    ;
 
 fragment
 DIGIT : '0'..'9';
 
-TIMEWINDOW_CONSTRAINT : DIGIT+;
+INVERSE : '^';
+
+fragment
+EOL : '\n' | '\r';
+
+REFERENCE : '^^';
 
 fragment
 LESS : '<';
+
+PIPE : '|';
 
 PNAME_NS : p=PN_PREFIX? ':';
 
@@ -237,16 +276,6 @@ PN_CHARS
     | '\u00B7' 
     | '\u0300'..'\u036F'
     | '\u203F'..'\u2040'
-    ;
-
-IRI_REF
-    :('<' (options{greedy=false;}: IRI_REF_CHARACTERS)* '>') =>  '<' (options{greedy=false;}: IRI_REF_CHARACTERS)* '>'
-    | LESS { $type = LESS; }
-    ;
-
-fragment
-IRI_REF_CHARACTERS
-    :  ~('<' | '>' | '"' | OPEN_CURLY_BRACE | CLOSE_CURLY_BRACE | PIPE | INVERSE | '`' | '\\' | '\u0000' | '\u0001'| '\u0002' | '\u0003' | '\u0004'| '\u0005' | '\u0006'| '\u0007' | '\u0008' | '\u0009'| '\u000A' | '\u000B'| '\u000C' | '\u000D' | '\u000E'| '\u000F'| '\u0010' | '\u0011'| '\u0012' | '\u0013' | '\u0014'| '\u0015' | '\u0016'| '\u0017' | '\u0018' | '\u0019'| '\u001A' | '\u001B'| '\u001C' | '\u001D' | '\u001E'| '\u001F' | '\u0020')
     ;
     
 fragment

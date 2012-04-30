@@ -81,7 +81,24 @@ whereClause
     ;
     
 groupGraphPattern
-    : OPEN_CURLY_BRACE triplesBlock CLOSE_CURLY_BRACE -> ^(GROUP_GRAPH_PATTERN triplesBlock)
+    : OPEN_CURLY_BRACE groupGraphPatternSub CLOSE_CURLY_BRACE -> ^(GROUP_GRAPH_PATTERN groupGraphPatternSub)
+    ;
+    
+groupGraphPatternSub
+    : triplesBlock groupGraphPatternSubDetail* -> triplesBlock groupGraphPatternSubDetail*
+    | groupGraphPatternSubDetail+ -> groupGraphPatternSubDetail+
+    ;
+    
+groupGraphPatternSubDetail
+    : graphPatternNotTriples DOT? triplesBlock? -> graphPatternNotTriples triplesBlock?
+    ;
+    
+graphPatternNotTriples
+    : timewindow
+    ;
+    
+timewindow
+    : TIMEWINDOW OPEN_BRACE TIMEWINDOW_CONSTRAINT CLOSE_BRACE -> ^(TIMEWINDOW TIMEWINDOW_CONSTRAINT)
     ;
 
 triplesBlock
@@ -143,6 +160,11 @@ OPEN_CURLY_BRACE : '{';
 
 CLOSE_CURLY_BRACE : '}';
 
+OPEN_BRACE : '(';
+
+CLOSE_BRACE : ')';
+
+
 VAR1 : '?' VARNAME;
 
 INVERSE : '^';
@@ -151,6 +173,8 @@ PIPE : '|';
 
 fragment
 DIGIT : '0'..'9';
+
+TIMEWINDOW_CONSTRAINT : DIGIT+;
 
 fragment
 LESS : '<';

@@ -190,9 +190,30 @@ public class SparkPatternParser {
 				if(childToken.equals("TRIPLE")){
 					TripleCondition triple = parseTriple(child,patternGraph);
 					patternGraph.addSelectTripleCondition(triple);
+				}else if(childToken.equals("TIMEWINDOW")){
+					int timewindow = parseTimewindow(child);
+					patternGraph.setTimeWindowLength(timewindow);
 				}
 			}
 		}
+	}
+	
+	
+	/**
+	 * Parse TIMEWINDOW
+	 * @param treeNode
+	 */
+	private int parseTimewindow(TreeWrapper treeNode){
+		
+		int timewindow = 0;
+		if(treeNode!=null){
+			TreeWrapper timeWindowValue = treeNode.getChild(0);
+			
+			if(timeWindowValue!=null){
+				timewindow = Integer.parseInt(timeWindowValue.toString());				
+			}
+		}
+		return timewindow;
 	}
 	
 	/**

@@ -119,12 +119,10 @@ public class ParserThread implements Runnable{
 			}
 				
 		} catch (IOException e) {
-			
+			logger.error(e);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
 		}
-		
 		
 	}
 	

@@ -42,6 +42,10 @@ PREDICATE;
 OBJECT;
 RDFLITERAL;
 CONSTRUCT_TRIPLES;
+INVOKE;
+INVOKE_GROUP;
+INVOKE_CLASS;
+KEYVALUE_PAIR;
 }
 
 @header {
@@ -59,7 +63,7 @@ query
     ;
 
 prologue
-    : prefixes -> ^(PROLOGUE prefixes)
+    : prefixes invokeClause? -> ^(PROLOGUE prefixes invokeClause?)
     ;
     
 prefixes
@@ -68,6 +72,22 @@ prefixes
     
 prefixDecl
     : PREFIX PNAME_NS IRI_REF -> ^(PNAME_NS IRI_REF)
+    ;
+    
+invokeClause
+    : INVOKE invokeGroup -> ^(INVOKE invokeGroup)
+    ;
+    
+invokeGroup
+    : OPEN_CURLY_BRACE invokeClass CLOSE_CURLY_BRACE -> ^(INVOKE_GROUP invokeClass )
+    ;
+    
+invokeClass
+    : CLASS IRI_REF_CHARACTERS* -> ^(INVOKE_CLASS IRI_REF_CHARACTERS*)
+    ;
+    
+keyValuePair
+    : KEY EQUAL VALUE -> ^(KEYVALUE_PAIR KEY VALUE)
     ;
     
 selectQuery
@@ -170,11 +190,15 @@ prefixedName
 
 DOT : '.';
 
+COLUMN : ':';
+
 MINUS : '-';
 
 PREFIX : ('P'|'p')('R'|'r')('E'|'e')('F'|'f')('I'|'i')('X'|'x');
 
 SELECT : ('S'|'s')('E'|'e')('L'|'l')('E'|'e')('C'|'c')('T'|'t');
+
+INVOKE : ('I'|'i')('N'|'n')('V'|'v')('O'|'o')('K'|'k')('E'|'e');
 
 CONSTRUCT : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('R'|'r')('U'|'u')('C'|'c')('T'|'t');
 
@@ -182,11 +206,17 @@ WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
 
+CLASS : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s');
+
 TRUE : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
 FALSE : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
 ASTERISK : '*';
+
+QUOTE : '"';
+
+EQUAL : '=';
 
 OPEN_CURLY_BRACE : '{';
 
@@ -296,5 +326,14 @@ PN_CHARS
     
 fragment
 VARNAME : (PN_CHARS_U | DIGIT) (PN_CHARS_U | DIGIT | '\u00B7' | '\u0300'..'\u036F' | '\u203F'..'\u2040')*;
+
+fragment
+NS : ('a'..'z')+;
+
+fragment
+KEY : ('A'..'Z' | 'a'..'z')+;
+
+fragment
+VALUE : QUOTE (DIGIT | 'A'..'Z' | 'a'..'z' | DOT | COLUMN )+ QUOTE;
     
 // $>

@@ -46,6 +46,8 @@ INVOKE;
 INVOKE_GROUP;
 INVOKE_CLASS;
 KEYVALUE_PAIR;
+KEY;
+VALUE;
 }
 
 @header {
@@ -63,7 +65,7 @@ query
     ;
 
 prologue
-    : prefixes invokeClause? -> ^(PROLOGUE prefixes invokeClause?)
+    : prefixes invokeClause -> ^(PROLOGUE prefixes invokeClause)
     ;
     
 prefixes
@@ -79,15 +81,11 @@ invokeClause
     ;
     
 invokeGroup
-    : OPEN_CURLY_BRACE invokeClass CLOSE_CURLY_BRACE -> ^(INVOKE_GROUP invokeClass )
-    ;
-    
-invokeClass
-    : CLASS IRI_REF_CHARACTERS* -> ^(INVOKE_CLASS IRI_REF_CHARACTERS*)
+    : OPEN_CURLY_BRACE keyValuePair* CLOSE_CURLY_BRACE -> ^(INVOKE_GROUP keyValuePair* )
     ;
     
 keyValuePair
-    : KEY EQUAL VALUE -> ^(KEYVALUE_PAIR KEY VALUE)
+    : string EQUAL string -> ^(KEYVALUE_PAIR ^(KEY string) ^(VALUE string))
     ;
     
 selectQuery
@@ -206,15 +204,11 @@ WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
 
-CLASS : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s');
-
 TRUE : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
 FALSE : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
 ASTERISK : '*';
-
-QUOTE : '"';
 
 EQUAL : '=';
 
@@ -326,14 +320,5 @@ PN_CHARS
     
 fragment
 VARNAME : (PN_CHARS_U | DIGIT) (PN_CHARS_U | DIGIT | '\u00B7' | '\u0300'..'\u036F' | '\u203F'..'\u2040')*;
-
-fragment
-NS : ('a'..'z')+;
-
-fragment
-KEY : ('A'..'Z' | 'a'..'z')+;
-
-fragment
-VALUE : QUOTE (DIGIT | 'A'..'Z' | 'a'..'z' | DOT | COLUMN )+ QUOTE;
     
 // $>

@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TripleConstantTest;
 import at.sti2.spark.core.condition.TriplePatternGraph;
+import at.sti2.spark.core.invoker.InvokerProperties;
 import at.sti2.spark.core.prefix.Prefix;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -104,7 +105,10 @@ public class SparkPatternParser {
 				if(childToken.equals("PREFIX")){
 					List<Prefix> prefixes = parsePrefix(child);
 					patternGraph.setPrefixes(prefixes);
-				}
+				}else if(childToken.equals("INVOKE")){
+    				InvokerProperties invokerProperties = parseInvoke(child,patternGraph);
+    				patternGraph.setInvokerProperties(invokerProperties);
+    			}
 			}
 		}
 	}
@@ -134,6 +138,73 @@ public class SparkPatternParser {
 		}
 		
 		return prefixes;
+	}
+	
+	/**
+	 * parse INVOKE
+	 * @param treeNode
+	 * @param patternGraph
+	 * @return
+	 */
+	private InvokerProperties parseInvoke(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		
+		InvokerProperties invokerProperties = null;
+		
+		if(treeNode!=null){
+			for(TreeWrapper child : treeNode) {
+				String childToken = child.toString();
+				logger.debug(childToken);
+				
+				if(childToken.equals("INVOKE_GROUP")){
+					invokerProperties = parseInvokeGroup(child, patternGraph);
+				}
+			}
+		}
+		
+		return invokerProperties;
+	}
+	
+	private InvokerProperties parseInvokeGroup(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		InvokerProperties invokerProperties = new InvokerProperties(patternGraph);
+		
+		if(treeNode!=null){
+			for(TreeWrapper child : treeNode) {
+				String childToken = child.toString();
+				logger.debug(childToken);
+				
+				if(childToken.equals("KEYVALUE_PAIR")){
+					Entry<String,String> keyValuePair = parseKeyValuePair(child);
+					
+					if(keyValuePair.getKey().equalsIgnoreCase("class")){
+						invokerProperties.setInvokerClass(keyValuePair.getValue());
+					}else if(keyValuePair.getKey().equalsIgnoreCase("baseurl")){
+						invokerProperties.setInvokerBaseURL(keyValuePair.getValue());
+					}
+				}
+			}
+		}
+		
+		return invokerProperties;
+	}
+	
+	/**
+	 * Parse KEYVALUE_PAIR
+	 * @param treeNode
+	 * @return 
+	 */
+	private Entry<String, String> parseKeyValuePair(TreeWrapper treeNode){
+		
+		Entry<String,String> entry = null;
+		
+		if(treeNode!=null){
+			TreeWrapper key = treeNode.getChild(0).getChild(0);
+			String strKey = key.toString().replaceAll("\"", "");
+			TreeWrapper value = treeNode.getChild(1).getChild(0);
+			String strValue = value.toString().replaceAll("\"", "");
+			entry = new Entry<String, String>(strKey, strValue);
+		}
+		
+		return entry;
 	}
 	
 	/**

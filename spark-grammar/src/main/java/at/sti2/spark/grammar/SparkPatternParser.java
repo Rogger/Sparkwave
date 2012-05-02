@@ -83,6 +83,8 @@ public class SparkPatternParser {
     			}
 				else if(childToken.equals("SELECT")){
     				parseSelect(child,patternGraph);
+    			}else if(childToken.equals("CONSTRUCT")){
+    				parseConstruct(child,patternGraph);
     			}
 			}
 		}
@@ -135,7 +137,7 @@ public class SparkPatternParser {
 	}
 	
 	/**
-	 * Parse select
+	 * Parse SELECT
 	 */
 	private void parseSelect(TreeWrapper treeNode, TriplePatternGraph patternGraph){
 		if(treeNode!=null){
@@ -157,6 +159,45 @@ public class SparkPatternParser {
 		if(treeNode!=null){
 			TreeWrapper child = treeNode.getChild(0);
 			logger.debug(child.toString());
+		}
+	}
+	
+	/**
+	 * Parse CONSTRUCT
+	 * @param treeNode
+	 * @param patternGraph
+	 */
+	private void parseConstruct(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		if(treeNode!=null){
+			for(TreeWrapper child : treeNode) {
+				String childToken = child.toString();
+				logger.debug(childToken);
+				
+				if(childToken.equals("CONSTRUCT_TRIPLES")){
+					parseConstructTriples(child,patternGraph);
+				}
+				else if(childToken.equals("WHERE_CLAUSE")){
+					parseWhereClause(child,patternGraph);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Parse CONSTRUCT_TRIPLES
+	 * @param treeNode
+	 */
+	private void parseConstructTriples(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		if(treeNode!=null){
+			for(TreeWrapper child : treeNode) {
+				String childToken = child.toString();
+				logger.debug(childToken);
+				
+				if(childToken.equals("TRIPLE")){
+					TripleCondition triple = parseTriple(child,patternGraph);
+					patternGraph.addConstructTripleCondition(triple);
+				}
+			}
 		}
 	}
 	
@@ -214,6 +255,9 @@ public class SparkPatternParser {
 				timewindow = Integer.parseInt(timeWindowValue.toString());				
 			}
 		}
+		
+		logger.info(timewindow);
+		
 		return timewindow;
 	}
 	

@@ -41,6 +41,7 @@ SUBJECT;
 PREDICATE;
 OBJECT;
 RDFLITERAL;
+CONSTRUCT_TRIPLES;
 }
 
 @header {
@@ -54,7 +55,7 @@ RDFLITERAL;
 // $<Parser
 
 query
-    : prologue (selectQuery) EOF -> ^(QUERY prologue selectQuery*)
+    : prologue (selectQuery | constructQuery) EOF -> ^(QUERY prologue selectQuery* constructQuery*)
     ;
 
 prologue
@@ -75,6 +76,19 @@ selectQuery
     
 selectClause
     : SELECT ASTERISK -> ^(SELECT_CLAUSE ASTERISK)
+    ;
+    
+constructQuery
+    : CONSTRUCT constructTemplate whereClause  -> ^(CONSTRUCT constructTemplate whereClause* )
+    //| CONSTRUCT datasetClause* WHERE OPEN_CURLY_BRACE triplesTemplate? CLOSE_CURLY_BRACE solutionModifier -> ^(CONSTRUCT datasetClause* ^(WHERE_CLAUSE triplesTemplate*) solutionModifier*)
+    ;
+    
+constructTemplate
+    : OPEN_CURLY_BRACE constructTriples? CLOSE_CURLY_BRACE -> ^(CONSTRUCT_TRIPLES constructTriples?)
+    ;
+    
+constructTriples
+    : triple (DOT triple)* DOT? -> triple+
     ;
     
 whereClause
@@ -99,7 +113,7 @@ graphPatternNotTriples
     ;
     
 timewindow
-    : TIMEWINDOW OPEN_BRACE TIMEWINDOW_CONSTRAINT CLOSE_BRACE -> ^(TIMEWINDOW TIMEWINDOW_CONSTRAINT)
+    : TIMEWINDOW OPEN_BRACE INTEGER CLOSE_BRACE -> ^(TIMEWINDOW INTEGER)
     ;
 
 triplesBlock
@@ -161,6 +175,8 @@ MINUS : '-';
 PREFIX : ('P'|'p')('R'|'r')('E'|'e')('F'|'f')('I'|'i')('X'|'x');
 
 SELECT : ('S'|'s')('E'|'e')('L'|'l')('E'|'e')('C'|'c')('T'|'t');
+
+CONSTRUCT : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('R'|'r')('U'|'u')('C'|'c')('T'|'t');
 
 WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 

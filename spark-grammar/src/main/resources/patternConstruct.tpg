@@ -1,6 +1,5 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX support: <http://www.foi.se/support/wp4demo#>
-@invoke class="at.sti2.spark.invoke.ImpactoriumInvoker" baseurl="http://impactorium.epn.foi.se:7070/impact"
 
 CONSTRUCT {
 	support:ReportX rdf:type support:Report .

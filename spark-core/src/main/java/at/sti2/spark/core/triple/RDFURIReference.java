@@ -16,23 +16,23 @@
 
 package at.sti2.spark.core.triple;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+/**
+ * Immutable RDFURIReference
+ * @author srdjankomazec
+ * @author michaelrogger
+ *
+ */
 public class RDFURIReference extends RDFValue {
 
 	private static final long serialVersionUID = -900633337817042617L;
 	
-//	private URI value;
-	private String value;
+	private final String value;
 	
-//	public RDFURIReference(String value){
-////		try {
-//			this.value = value;
-////		} catch (URISyntaxException e) {
-////			e.printStackTrace();
-////		}
-//	}
+	// cached hashCode
+	private int hashCode = 0;
+	
 	
 	public RDFURIReference(String value){
 		this.value = value;
@@ -42,10 +42,6 @@ public class RDFURIReference extends RDFValue {
 		return value;
 	}
 
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
 	@Override
 	public boolean equals(Object that){
 		
@@ -60,9 +56,12 @@ public class RDFURIReference extends RDFValue {
 	
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17,37)
+		if(hashCode == 0){
+			hashCode = new HashCodeBuilder(17,37)
 			.append(value)
 			.toHashCode();
+		}
+		return hashCode;
 	}
 	
 	public String toString(){

@@ -16,13 +16,24 @@
 
 package at.sti2.spark.core.triple;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+/**
+ * Immutable RDFLiteral
+ * @author srdjankomazec
+ * @author michaelrogger
+ *
+ */
 public class RDFLiteral extends RDFValue {
 	
 	private static final long serialVersionUID = 4244499579141058280L;
 	
-	private String value;
-	private RDFURIReference datatypeURI;
-	private String languageTag;
+	private final String value;
+	private final RDFURIReference datatypeURI;
+	private final String languageTag;
+	
+	// cached hash code
+	private int hashCode = 0;
 	
 	public RDFLiteral(String value, RDFURIReference datatypeURI, String languageTag) {
 		super();
@@ -35,58 +46,60 @@ public class RDFLiteral extends RDFValue {
 		return value;
 	}
 	
-	public void setValue(String value) {
-		this.value = value;
-	}
-	
 	public RDFURIReference getDatatypeURI() {
 		return datatypeURI;
-	}
-	
-	public void setDatatypeURI(RDFURIReference datatypeURI) {
-		this.datatypeURI = datatypeURI;
 	}
 	
 	public String getLanguageTag() {
 		return languageTag;
 	}
 	
-	public void setLanguageTag(String languageTag) {
-		this.languageTag = languageTag;
-	}
-	
-	public boolean equals(Object rdfLiteral){
+	public boolean equals(Object that){
 		
-		RDFLiteral object = null;
+		//reference check (fast)
+		if(this == that) return true;
 		
-		if (!(rdfLiteral instanceof RDFLiteral))
-			object = (RDFLiteral)rdfLiteral;
-		else
-			return false;
+		//type check and null check
+		if(!(that instanceof RDFLiteral)) return false;
 		
+		RDFLiteral rdfLiteral = (RDFLiteral)that;
+				
 		//Check language tags
-		if ( (object.getLanguageTag()!=null)&&(languageTag==null)||
-			 (object.getLanguageTag()==null)&&(languageTag!=null))
+		if ( (rdfLiteral.getLanguageTag()!=null)&&(languageTag==null)||
+			 (rdfLiteral.getLanguageTag()==null)&&(languageTag!=null))
 			return false;
 		
-		if ((object.getLanguageTag()!=null)&&(languageTag!=null))
-			if (!object.getLanguageTag().equals(languageTag))
+		if ((rdfLiteral.getLanguageTag()!=null)&&(languageTag!=null))
+			if (!rdfLiteral.getLanguageTag().equals(languageTag))
 				return false;
 		
 		//Check datatypeURIs
-		if ( (object.getDatatypeURI()!=null)&&(datatypeURI==null)||
-				 (object.getDatatypeURI()==null)&&(datatypeURI!=null))
+		if ( (rdfLiteral.getDatatypeURI()!=null)&&(datatypeURI==null)||
+				 (rdfLiteral.getDatatypeURI()==null)&&(datatypeURI!=null))
 				return false;
 			
-			if ((object.getDatatypeURI()!=null)&&(datatypeURI!=null))
-				if (!object.getDatatypeURI().equals(datatypeURI))
+			if ((rdfLiteral.getDatatypeURI()!=null)&&(datatypeURI!=null))
+				if (!rdfLiteral.getDatatypeURI().equals(datatypeURI))
 					return false;
 			
-		return object.getValue().equals(value);
+		return rdfLiteral.getValue().equals(value);
 			
 	}
 	
+	@Override
+	public int hashCode() {
+		if(hashCode == 0){
+			hashCode = new HashCodeBuilder(11,37)
+					.append(value)
+					.append(datatypeURI)
+					.append(languageTag)
+					.toHashCode();			
+		}
+		return hashCode;
+	}
+	
 	public String toString(){
+		
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append(value);

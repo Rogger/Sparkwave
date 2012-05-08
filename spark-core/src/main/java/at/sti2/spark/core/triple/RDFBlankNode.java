@@ -16,11 +16,14 @@
 
 package at.sti2.spark.core.triple;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class RDFBlankNode extends RDFValue {
 
 	private static final long serialVersionUID = -8935456420817842903L;
 	
-	private String value;
+	private final String value;
+	private int hashCode = 0;
 
 	public RDFBlankNode(String value){
 		this.value = value;
@@ -29,21 +32,26 @@ public class RDFBlankNode extends RDFValue {
 	public String getValue() {
 		return value;
 	}
-
-	public void setValue(String value) {
-		this.value = value;
+	
+	public boolean equals(Object that){
+		
+		//reference check (fast)
+		if(this == that) return true;
+		//type check and null check
+		if(!(that instanceof RDFBlankNode)) return false;
+		
+		RDFBlankNode blankNode = (RDFBlankNode)that;
+		return value.equals(blankNode.getValue());
 	}
 	
-	public boolean equals(Object blankNode){
-		
-		RDFBlankNode object = null;
-		
-		if (!(blankNode instanceof RDFBlankNode))
-			object = (RDFBlankNode)blankNode;
-		else
-			return false;
-		
-		return value.equals(object.getValue());
+	@Override
+	public int hashCode() {
+		if(hashCode == 0){
+			hashCode = new HashCodeBuilder(17,37)
+			.append(value)
+			.toHashCode();
+		}
+		return hashCode;
 	}
 	
 	public String toString(){

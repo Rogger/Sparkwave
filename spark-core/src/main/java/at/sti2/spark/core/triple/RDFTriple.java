@@ -18,6 +18,8 @@ package at.sti2.spark.core.triple;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class RDFTriple implements Serializable{
 	
 	private static final long serialVersionUID = -2301534685285465150L;
@@ -57,33 +59,30 @@ public class RDFTriple implements Serializable{
 		this.object = object;
 	}
 	
-	//TODO Maybe to think about making equality relationships based on the lexical values?
-	public boolean equals(Object triple){
-		return subject.equals(((RDFTriple)triple).getSubject())&&
-		       predicate.equals(((RDFTriple)triple).getPredicate())&&
-		       object.equals(((RDFTriple)triple).getObject());
+	@Override
+	public boolean equals(Object that){
+		
+		//reference check (fast)
+		if(this == that) return true;
+		//type check and null check
+		if(!(that instanceof RDFTriple)) return false;
+		RDFTriple rdfTriple = (RDFTriple)that;
+
+		return subject.equals(rdfTriple.getSubject()) &&
+		       predicate.equals(rdfTriple.getPredicate())&&
+		       object.equals(rdfTriple.getObject());
 	}
 	
-	public String getLexicalValueOfField(Field field){
-		
-		String value = null;
-		
-		if (field == Field.SUBJECT){
-			if (subject instanceof RDFURIReference)
-				value = ((RDFURIReference)subject).getValue().toString();
-		} else if (field == Field.PREDICATE){
-			if (predicate instanceof RDFURIReference)
-				value = ((RDFURIReference)predicate).getValue().toString();
-		} else if (field == Field.OBJECT){
-			if (object instanceof RDFLiteral)
-				value = ((RDFLiteral)object).getValue();
-			else if (object instanceof RDFURIReference)
-				value = ((RDFURIReference)object).getValue().toString();
-		}
-		
-		return value;
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(19, 37)
+				.append(subject)
+				.append(predicate)
+				.append(object)
+				.toHashCode();
 	}
 	
+
 	public RDFValue getValueOfField(Field field){
 		
 		if (field == Field.SUBJECT){

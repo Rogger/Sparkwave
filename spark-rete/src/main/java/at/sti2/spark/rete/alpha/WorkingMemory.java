@@ -146,12 +146,12 @@ public class WorkingMemory {
 		return alphaNodes;
 	}
 	
-	public String getAlphaMemoryLevels(){
-		StringBuffer bufferLevels = new StringBuffer();
-		bufferLevels.append("AM ");
-		for (AlphaMemory alphaMemory : alphaMemories)
-			bufferLevels.append((alphaMemory.getItems().size()+alphaMemory.getPermanentItems().size()) + " ");
-		
-		return bufferLevels.toString();
-	}
+//	public String getAlphaMemoryLevels(){
+//		StringBuffer bufferLevels = new StringBuffer();
+//		bufferLevels.append("AM ");
+//		for (AlphaMemory alphaMemory : alphaMemories){
+//			bufferLevels.append((alphaMemory.getItemsSize()) + " ");
+//		}
+//		return bufferLevels.toString();
+//	}
 }

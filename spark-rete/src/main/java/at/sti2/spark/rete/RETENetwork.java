@@ -25,6 +25,7 @@ import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TripleConstantTest;
 import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.triple.RDFTriple;
+import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.alpha.AlphaNode;
@@ -299,6 +300,8 @@ public class RETENetwork {
 		
 		List <JoinNodeTest> tests = getTestsFromCondition(tripleConditions.get(0), previousConditions);
 		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(0));
+		alphaMemory.activateIndexesForTests(tests);
+		alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getTimeWindowLength());
 		currentNode =  buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleConditions.get(0), triplePatternGraph.getTimeWindowLength());
 		
 		for (int i = 1; i < tripleConditions.size(); i++){
@@ -306,6 +309,8 @@ public class RETENetwork {
 				previousConditions.add(tripleConditions.get(i-1));
 				tests = getTestsFromCondition(tripleConditions.get(i), previousConditions);
 				alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(i));
+				alphaMemory.activateIndexesForTests(tests);
+				alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getTimeWindowLength());
 				currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleConditions.get(i), triplePatternGraph.getTimeWindowLength());
 		}
 		
@@ -317,8 +322,27 @@ public class RETENetwork {
 		//Update the new node with the matches above
 		productionNode.update();
 		
+//		
+//		// build index structure based on tests
+//		for(AlphaMemory aMemory : getWorkingMemory().getAlphaMemories()){
+//			
+//			
+//			boolean subjectIndex = false;
+//			boolean predicateIndex = false;
+//			boolean objectIndex = false;
+//			
+//			for(RETENode reteNode : aMemory.getSuccessors()){
+//				List<JoinNodeTest> jTests = ((JoinNode)reteNode).getTests();
+//				
+//				for(){
+//					
+//				}
+//			}
+//		}
+		
 		triplePatternGraphs.add(triplePatternGraph);
 	}
+	
 	
 //	public void addProduction(List <TripleCondition> conditions){
 //		

@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import at.sti2.spark.core.collect.Removable;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 
-public class WorkingMemoryElement {
+public class WorkingMemoryElement implements Removable {
 
 	private Triple triple = null;
 

@@ -17,45 +17,66 @@
 package at.sti2.spark.rete.alpha;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.triple.RDFTriple;
+import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.rete.WorkingMemoryElement;
+import at.sti2.spark.rete.beta.JoinNodeTest;
 import at.sti2.spark.rete.node.RETENode;
+
+import com.google.common.collect.LinkedHashMultimap;
 
 public class AlphaMemory {
 	
 	static Logger logger = Logger.getLogger(AlphaMemory.class);
 	
-	//Synchronized list which holds all WMEs currently in the memory
-	private List <WorkingMemoryElement> items = null;
-	private List <WorkingMemoryElement> permanentItems = null;
+	final IndexStructure<WorkingMemoryElement> indexStructure;
 	
 	private List <RETENode> successors  = null;
 	
 	public AlphaMemory(){
-//		items = Collections.synchronizedList(new ArrayList <WorkingMemoryElement> ());
-		items = new ArrayList <WorkingMemoryElement> ();
-		permanentItems = new ArrayList <WorkingMemoryElement>();
+		
 		successors  = new ArrayList <RETENode> ();
+		indexStructure = new IndexStructure<WorkingMemoryElement>();
+		
+	}
+	
+	public void activateIndexesForTests (List<JoinNodeTest> tests){
+		
+		for(JoinNodeTest test :tests){
+			Field arg1Field = test.getArg1Field();
+			
+			if(arg1Field == Field.SUBJECT){
+				indexStructure.setSubjectIndexing(true);
+			}else if(arg1Field == Field.PREDICATE){
+				indexStructure.setPredicateIndexing(true);
+			}else if(arg1Field == Field.OBJECT){
+				indexStructure.setObjectIndexing(true);
+			}
+		}
+	}
+	
+	public IndexStructure<WorkingMemoryElement> getIndexStructure() {
+		return indexStructure;
 	}
 
 	public void activate(WorkingMemoryElement wme) {
 
-		// Add it to the list
-		addItem(wme);
+		indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, wme.getTriple().getTimestamp());		
 
 		wme.addAlphaMemory(this);
 
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);
 	}
-
-	public List<WorkingMemoryElement> getItems() {
-		return items;
-	}
+	
 
 	public List<RETENode> getSuccessors() {
 		return successors;
@@ -65,50 +86,28 @@ public class AlphaMemory {
 		successors.add(node);
 	}
 	
-	public void addItem(WorkingMemoryElement wme){
-		
-		if(!wme.getTriple().isPermanent()){
-//			synchronized(items){
-				items.add(wme);
-//			}
-		}else{
-			permanentItems.add(wme);
-		}
-
-	}
-	
-	public void removeItem(WorkingMemoryElement wme){
-//		synchronized(items){
-			items.remove(wme);
-//		}
-	}
-
-	public List<WorkingMemoryElement> getPermanentItems() {
-		return permanentItems;
-	}
-
 	public String toString() {
 
 		StringBuffer buffer = new StringBuffer();
 
-		for (WorkingMemoryElement item : permanentItems) {
-			buffer.append('\n');
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
-			buffer.append(" ");
-			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
-		}
-		
-//		synchronized(items){
-			for (WorkingMemoryElement item : items){
-				buffer.append('\n');
-				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
-				buffer.append(" ");
-				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
-				buffer.append(" ");
-				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
-			}
+//		for (WorkingMemoryElement item : permanentItems) {
+//			buffer.append('\n');
+//			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
+//			buffer.append(" ");
+//			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
+//			buffer.append(" ");
+//			buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+//		}
+//		
+////		synchronized(items){
+//			for (WorkingMemoryElement item : items){
+//				buffer.append('\n');
+//				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.SUBJECT));
+//				buffer.append(" ");
+//				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.PREDICATE));
+//				buffer.append(" ");
+//				buffer.append(item.getTriple().getRDFTriple().getValueOfField(RDFTriple.Field.OBJECT));
+//			}
 //		}
 		
 		return buffer.toString();

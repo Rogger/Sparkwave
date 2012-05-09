@@ -17,8 +17,8 @@
 package at.sti2.spark.rete.beta;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import at.sti2.spark.core.condition.TripleCondition;
@@ -30,6 +30,8 @@ import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.node.RETENode;
+
+import com.google.common.collect.Sets;
 
 public class JoinNode extends RETENode {
 
@@ -107,95 +109,59 @@ public class JoinNode extends RETENode {
 	public void leftActivate(Token token) {
 
 		Vector<Token> tokenVector = getTokenVect(token);
-
-		// permanent items
-		leftActivate(token, tokenVector, alphaMemory.getPermanentItems(), true);
-
-		// dynamic items
-		leftActivate(token, tokenVector, alphaMemory.getItems(), false);
+		leftActivate(token,tokenVector, alphaMemory);
 
 	}
+	
+	/**
+	 * Left Activate
+	 * @param token
+	 * @param alphaMemory
+	 */
+	private void leftActivate(Token token, Vector<Token> tokenVect,
+			AlphaMemory alphaMemory) {
 
+		Set<WorkingMemoryElement> resultSet = null;
+		Set<WorkingMemoryElement> intermediateSet = null;
+		for (JoinNodeTest test : tests) {
 
-	private void leftActivate(Token token, Vector<Token> tokenVect, List<WorkingMemoryElement> listItems, boolean permanent) {
+			Field arg1Field = test.getArg1Field();
+			Field arg2Field = test.getArg2Field();
+			Token parentToken = tokenVect.get(test.getArg2ConditionNumber());
+			RDFValue testTokenValue = parentToken.getWme().getTriple()
+					.getRDFTriple().getValueOfField(test.getArg2Field());
 
-		int testsSize = tests.size();
-		if (testsSize > 0 && listItems.size() > 0) {
-
-			// Declare join node test variable
-			JoinNodeTest test1 = null, test2 = null, test3 = null;
-			Field test1Arg1 = null, test2Arg1 = null, test3Arg1 = null;
-			RDFValue test1TokenValue = null, test2TokenValue = null, test3TokenValue = null;
-
-			// Prepare tests
-			if (testsSize == 1) {
-				test1 = tests.get(0);
-				test1Arg1 = test1.getArg1Field();
-				Token parentToken = tokenVect.get(test1
-						.getArg2ConditionNumber());
-				test1TokenValue = parentToken.getWme().getTriple()
-						.getRDFTriple().getValueOfField(test1.getArg2Field());
-			}
-			if (testsSize == 2) {
-				test2 = tests.get(1);
-				test2Arg1 = test2.getArg1Field();
-				Token parentToken = tokenVect.get(test2
-						.getArg2ConditionNumber());
-				test2TokenValue = parentToken.getWme().getTriple()
-						.getRDFTriple().getValueOfField(test2.getArg2Field());
-			}
-			if (testsSize == 3) {
-				test3 = tests.get(2);
-				test3Arg1 = test3.getArg1Field();
-				Token parentToken = tokenVect.get(test3
-						.getArg2ConditionNumber());
-				test3TokenValue = parentToken.getWme().getTriple()
-						.getRDFTriple().getValueOfField(test3.getArg2Field());
+			if (arg1Field == RDFTriple.Field.SUBJECT) {
+				intermediateSet = alphaMemory.getIndexStructure()
+						.getElementFromSubject(testTokenValue);
+			} else if (arg1Field == RDFTriple.Field.PREDICATE) {
+				intermediateSet = alphaMemory.getIndexStructure()
+						.getElementFromPredicate(testTokenValue);
+			} else if (arg1Field == RDFTriple.Field.OBJECT) {
+				intermediateSet = alphaMemory.getIndexStructure()
+						.getElementFromObject(testTokenValue);
 			}
 
-//			synchronized (listItems) {
-				for (WorkingMemoryElement alphaWME : listItems) {
+			if (resultSet == null && intermediateSet != null) {
+				resultSet = intermediateSet;
+			} else if (intermediateSet != null) {
+				resultSet = Sets.intersection(resultSet, intermediateSet);
+			}
 
-					RDFTriple rdfTriple = alphaWME.getTriple().getRDFTriple();
-
-					// Perform Test 1
-					if (test1 != null) {
-						RDFValue alphaWMEValue = rdfTriple
-								.getValueOfField(test1Arg1);
-						if (!alphaWMEValue.equals(test1TokenValue)) {
-							continue;
-						}
-					}
-
-					// Perform Test 2
-					if (test2 != null) {
-						RDFValue alphaWMEValue = rdfTriple
-								.getValueOfField(test2Arg1);
-						if (!alphaWMEValue.equals(test2TokenValue)) {
-							continue;
-						}
-					}
-
-					// Perform Test 3
-					if (test3 != null) {
-						RDFValue alphaWMEValue = rdfTriple
-								.getValueOfField(test3Arg1);
-						if (!alphaWMEValue.equals(test3TokenValue)) {
-							continue;
-						}
-					}
-
-					// Check if the token and wme are falling into a window
-					if (!permanent && !performTimeWindowTest(token, alphaWME))
-						continue;
-
-					// All tests successful
-					for (RETENode reteNode : children)
-						reteNode.leftActivate(token, alphaWME);
-
-				}
-//			}
 		}
+
+		for (WorkingMemoryElement wme : resultSet) {
+
+			// Check if the token and wme are falling into a window
+			if (wme.getTriple().isPermanent()
+					|| performTimeWindowTest(token, wme)) {
+				// All tests successful
+				for (RETENode reteNode : children)
+					reteNode.leftActivate(token, wme);
+			}
+
+		}
+
 	}
 
 	public void setTests(List<JoinNodeTest> tests) {

@@ -76,17 +76,17 @@ public abstract class RETENode {
 			parent.setChildren(new ArrayList <RETENode> ());
 			parent.addChild(this);
 
-			// dynamic
-			for (WorkingMemoryElement wme : ((JoinNode) parent)
-					.getAlphaMemory().getItems())
-				parent.rightActivate(wme);
-
-			// permanent
-			for (WorkingMemoryElement wme : ((JoinNode) parent)
-					.getAlphaMemory().getPermanentItems())
-				parent.rightActivate(wme);
-
-			parent.setChildren(parentChildren);
+//			// dynamic
+//			for (WorkingMemoryElement wme : ((JoinNode) parent)
+//					.getAlphaMemory().getItems())
+//				parent.rightActivate(wme);
+//
+//			// permanent
+//			for (WorkingMemoryElement wme : ((JoinNode) parent)
+//					.getAlphaMemory().getPermanentItems())
+//				parent.rightActivate(wme);
+//
+//			parent.setChildren(parentChildren);
 		}
 
 	}

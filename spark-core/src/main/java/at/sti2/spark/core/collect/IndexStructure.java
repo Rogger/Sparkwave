@@ -9,6 +9,16 @@ import at.sti2.spark.core.triple.RDFValue;
 
 import com.google.common.collect.HashMultimap;
 
+/**
+ * Index Structure for indexing RDF triple, can be dynamically adjusted to index
+ * subject,predicate,object. Each indexed object can have a time to live value,
+ * if object is older than specified window for index structure the element is
+ * automatically removed from index.
+ * 
+ * @author michaelrogger
+ * 
+ * @param <Value>
+ */
 public class IndexStructure<Value extends Removable> {
 
 	long windowInMillis;
@@ -64,37 +74,44 @@ public class IndexStructure<Value extends Removable> {
 			// WeakReference<RDFValue>(subject);
 			subjectMap.put(subject, value);
 
-			TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(
-					subject, value, timestamp + windowInMillis);
-			expireSubjectQueue.add(ttlEntry);
-		} else if (predicateIndexing) {
+			if(timestamp != 0){
+				TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(subject, value, timestamp + windowInMillis);
+				expireSubjectQueue.add(ttlEntry);
+			}
+		}
+		
+		if (predicateIndexing) {
 			RDFValue predicate = e.getPredicate();
 			predicateMap.put(predicate, value);
 
-			TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(
-					predicate, value, timestamp + windowInMillis);
-			expirePredicateQueue.add(ttlEntry);
-		} else if (objectIndexing) {
+			if(timestamp != 0){
+				TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(predicate, value, timestamp + windowInMillis);
+				expirePredicateQueue.add(ttlEntry);
+			}					
+		}
+		
+		if (objectIndexing) {
 			RDFValue object = e.getObject();
 			objectMap.put(object, value);
 
-			TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(
-					object, value, timestamp + windowInMillis);
-			expireObjectQueue.add(ttlEntry);
+			if(timestamp != 0){
+				TTLEntry<RDFValue, Value> ttlEntry = new TTLEntry<RDFValue, Value>(object, value, timestamp + windowInMillis);
+				expireObjectQueue.add(ttlEntry);
+			}
 		}
 	}
 
-	public Set<Value> getElementFromSubject(RDFValue e) {
+	public Set<Value> getElementsFromSubjectIndex(RDFValue e) {
 		removeExpiredEntries();
 		return subjectMap.get(e);
 	}
 
-	public Set<Value> getElementFromPredicate(RDFValue e) {
+	public Set<Value> getElementsFromPredicateIndex(RDFValue e) {
 		removeExpiredEntries();
 		return predicateMap.get(e);
 	}
 	
-	public Set<Value> getElementFromObject(RDFValue e) {
+	public Set<Value> getElementsFromObjectIndex(RDFValue e) {
 		removeExpiredEntries();
 		return objectMap.get(e);
 	}

@@ -22,7 +22,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.stream.Triple;
+import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;
@@ -35,25 +37,47 @@ public class BetaMemory extends RETENode {
 
 	private boolean rootNode = false;
 	
+	private final IndexStructure<Token> indexStructure;
+	
 	public BetaMemory(){
 //		items = Collections.synchronizedList(new ArrayList <Token> ());
 		items = new ArrayList <Token> ();
+		
+		indexStructure = new IndexStructure<Token>();
 	}
 	
-	public void addItem(Token token){
-//		synchronized(items){
-			items.add(token);
-//		}
-	}
-	
-	public void removeItem(Token token){
-//		synchronized(items){
-			items.remove(token);
-//		}
-	}
+//	public void addItem(Token token){
+////		synchronized(items){
+//			items.add(token);
+////		}
+//	}
+//	
+//	public void removeItem(Token token){
+////		synchronized(items){
+//			items.remove(token);
+////		}
+//	}
 
-	public List<Token> getItems() {
-		return items;
+//	public List<Token> getItems() {
+//		return items;
+//	}
+	
+	public void activateIndexesForTests(JoinNodeTest test) {
+
+		Field arg2Field = test.getArg2Field();
+
+		if (arg2Field == Field.SUBJECT) {
+			indexStructure.setSubjectIndexing(true);
+		} else if (arg2Field == Field.PREDICATE) {
+			indexStructure.setPredicateIndexing(true);
+		} else if (arg2Field == Field.OBJECT) {
+			indexStructure.setObjectIndexing(true);
+		}
+		
+	}
+	
+	public IndexStructure<Token> getIndexStructure() {
+		return indexStructure;
 	}
 
 	@Override
@@ -61,8 +85,14 @@ public class BetaMemory extends RETENode {
 		
 		Token newToken = createToken(parentToken, wme);
 
-		addItem(newToken);
-
+		if(wme.getTriple().isPermanent()){
+			// add token to index
+			indexStructure.addElement(wme.getTriple().getRDFTriple(), newToken, 0);			
+		}else{
+			// add token to index
+			indexStructure.addElement(wme.getTriple().getRDFTriple(), newToken, wme.getTriple().getTimestamp());
+		}
+		
 		for (RETENode reteNode : children)
 			reteNode.leftActivate(newToken);
 	}
@@ -87,7 +117,7 @@ public class BetaMemory extends RETENode {
 		newToken.setNode(this);
 
 		// TODO Insert token at the head of WME tokens
-		wme.addToken(newToken);
+//		wme.addToken(newToken);
 
 		// TODO Insert token at the head of parent's children
 		if (parentToken != null) {

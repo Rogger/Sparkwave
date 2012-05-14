@@ -20,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import at.sti2.spark.core.collect.Removable;
 import at.sti2.spark.rete.beta.BetaMemory;
 import at.sti2.spark.rete.beta.ProductionNode;
 import at.sti2.spark.rete.node.RETENode;
 
-public class Token {
+public class Token implements Removable{
 
 	private Token parent = null;
 	private WorkingMemoryElement wme = null;
@@ -39,6 +40,14 @@ public class Token {
 	// Added for time window purposes
 	private long startTime = 0l;
 	private long endTime = 0l;
+	
+	public Token getTokenAtBetaMemory(BetaMemory betaMemory){
+		if(node == betaMemory){
+			return this;
+		}else{
+			return parent.getTokenAtBetaMemory(betaMemory);
+		}
+	}
 
 	public long getStartTime() {
 		return startTime;
@@ -109,8 +118,9 @@ public class Token {
 		children.remove(child);
 	}
 
-	public void deleteTokenAndDescendents() {
+	private void deleteTokenAndDescendents() {
 
+		// Not needed? GC deltes them anyway if there are no more references
 		for (Iterator<Token> childrenIterator = children.iterator(); childrenIterator
 				.hasNext();) {
 
@@ -122,24 +132,21 @@ public class Token {
 		// Remove token from the list of node items
 		// TODO Beta and production node are basically the same so it should
 		// inherit the same parent
-		if (node instanceof BetaMemory) {
-			((BetaMemory) node).removeItem(this);
-		} else if (node instanceof ProductionNode) {
-			((ProductionNode) node).removeItem(this);
-		}
+//		if (node instanceof BetaMemory) {
+//			((BetaMemory) node).removeItem(this);
+//		} else if (node instanceof ProductionNode) {
+//			((ProductionNode) node).removeItem(this);
+//		}
 
 		// Remove token from the list of tokens in WME
 		// THIS REMOVAL IS DONE AT THE LEVEL OF WORKING MEMORY ELEMENT
 		// wme.removeToken(this);
 		// System.out.println("Removed token from WME. " + wme.toString());
 
-		// Remove token from the list of parent children
-		// THIS IS NOW DONE AT THE LEVEL OF ITERATION
-		// parent.removeChild(this);
-		// System.out.println("Removed token from parent. " + wme.toString());
+//		 System.out.println("Removed token from parent. " + wme.toString());
 
 		// Remove pointer to parent
-		parent = null;
+//		parent = null;
 	}
 
 	/**
@@ -167,5 +174,14 @@ public class Token {
 	
 	public String toString(){
 		return wme.toString();
+	}
+
+	@Override
+	public void remove() {
+		// Remove token from parent
+		if(parent!=null)
+			parent.removeChild(this);
+				
+		deleteTokenAndDescendents();
 	}
 }

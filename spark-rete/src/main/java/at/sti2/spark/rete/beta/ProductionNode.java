@@ -23,6 +23,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.condition.TripleCondition;
+import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
@@ -79,23 +80,23 @@ public class ProductionNode extends RETENode {
 		addItem(newToken);
 		matchCounter++;
 		
-//		Match match = new Match();
-//		match.setVariableBindings(getVariableBindings(newToken));
-//		outputBuffer.put(match);
+		Match match = new Match();
+		match.setVariableBindings(getVariableBindings(newToken));
+		outputBuffer.put(match);
 		
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("We have " + (matchCounter) + " match:\n");
-//		Token printToken = newToken;
-//		
-//		while (printToken != null){
-//			buffer.append(printToken.getWme().getTriple().toString());
-//			buffer.append('\n');
-//			printToken = printToken.getParent();
-//		}
-//		
-//		buffer.append("Time interval [" + newToken.getTimeInterval() + "] ms.");
-//		
-//		System.out.println(buffer.toString());
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("We have " + (matchCounter) + " match:\n");
+		Token printToken = newToken;
+		
+		while (printToken != null){
+			buffer.append(printToken.getWme().getTriple().toString());
+			buffer.append('\n');
+			printToken = printToken.getParent();
+		}
+		
+		buffer.append("Time interval [" + newToken.getTimeInterval() + "] ms.");
+		
+		System.out.println(buffer.toString());
 		
 	}
 	
@@ -130,7 +131,7 @@ public class ProductionNode extends RETENode {
 			newToken.setEndTime(wme.getTriple().getTimestamp());
 		}
 		
-		wme.addToken(newToken);
+//		wme.addToken(newToken);
 		
 		return newToken;
 	}

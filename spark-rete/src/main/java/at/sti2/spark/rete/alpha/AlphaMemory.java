@@ -60,6 +60,7 @@ public class AlphaMemory {
 			}else if(arg1Field == Field.OBJECT){
 				indexStructure.setObjectIndexing(true);
 			}
+			
 		}
 	}
 	
@@ -69,9 +70,12 @@ public class AlphaMemory {
 
 	public void activate(WorkingMemoryElement wme) {
 
-		indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, wme.getTriple().getTimestamp());		
+		if(wme.getTriple().isPermanent())
+			indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, 0);
+		else
+			indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, wme.getTriple().getTimestamp());
 
-		wme.addAlphaMemory(this);
+//		wme.addAlphaMemory(this);
 
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);

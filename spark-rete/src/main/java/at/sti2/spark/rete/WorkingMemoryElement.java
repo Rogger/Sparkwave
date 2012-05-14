@@ -31,19 +31,19 @@ public class WorkingMemoryElement implements Removable {
 	// Added for retracting purposes
 	private List<AlphaMemory> alphaMems = null;
 
-	private List<Token> tokens = null;
+//	private List<Token> tokens = null;
 
 	public WorkingMemoryElement(){
 //		alphaMems = Collections.synchronizedList(new ArrayList <AlphaMemory> ());
 		alphaMems = new ArrayList <AlphaMemory> ();
 //		tokens = Collections.synchronizedList(new ArrayList <Token> ());
-		tokens = new ArrayList <Token> ();
+//		tokens = new ArrayList <Token> ();
 	}
 
 	public WorkingMemoryElement(Triple triple) {
 		this.triple = triple;
 		alphaMems = new ArrayList<AlphaMemory>();
-		tokens = new ArrayList<Token>();
+//		tokens = new ArrayList<Token>();
 	}
 
 	public Triple getTriple() {
@@ -70,18 +70,19 @@ public class WorkingMemoryElement implements Removable {
 //		}
 	}
 	
-	public void addToken(Token token){
-//		synchronized(tokens){
-			tokens.add(token);
-//		}
-	}
+//	public void addToken(Token token){
+////		synchronized(tokens){
+//			tokens.add(token);
+////		}
+//	}
+//	
+//	public void removeToken(Token token){
+////		synchronized(tokens){
+//			tokens.remove(token);
+////		}
+//	}
 	
-	public void removeToken(Token token){
-//		synchronized(tokens){
-			tokens.remove(token);
-//		}
-	}
-	
+	@Override
 	public void remove(){
 		
 		//Remove occurrence from each alpha memory
@@ -99,11 +100,11 @@ public class WorkingMemoryElement implements Removable {
 		
 		//Remove all the tokens having an occurrence of WME
 //		synchronized(tokens){
-			for (Iterator <Token> tokenIterator = tokens.iterator(); tokenIterator.hasNext(); ){
-				Token tokenToDelete = tokenIterator.next();
-				tokenToDelete.deleteTokenAndDescendents();
-				tokenIterator.remove();
-			}
+//			for (Iterator <Token> tokenIterator = tokens.iterator(); tokenIterator.hasNext(); ){
+//				Token tokenToDelete = tokenIterator.next();
+//				tokenToDelete.deleteTokenAndDescendents();
+//				tokenIterator.remove();
+//			}
 //		}
 	}
 

@@ -147,7 +147,7 @@ public class TestIndexStructure extends TestCase{
 			RDFTriple rdfTriple = new RDFTriple(subject, predicate, object);
 			subjectIndex.addElement(rdfTriple, removableObject, now);
 
-			Set<Removable> elementFromSubject = subjectIndex.getElementFromSubject(subject);
+			Set<Removable> elementFromSubject = subjectIndex.getElementsFromSubjectIndex(subject);
 			System.out.println(elementFromSubject.size());
 			
 //			Thread.sleep(100);

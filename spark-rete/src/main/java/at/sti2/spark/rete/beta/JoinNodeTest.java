@@ -16,38 +16,38 @@
 
 package at.sti2.spark.rete.beta;
 
+import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.triple.RDFTriple;
+import at.sti2.spark.rete.Token;
 
 public class JoinNodeTest {
 
-	private RDFTriple.Field arg1Field = null;
-	private RDFTriple.Field arg2Field = null;
-	private int arg2ConditionNumber;
+	final RDFTriple.Field arg1Field;
+	final RDFTriple.Field arg2Field;
+	final IndexStructure<Token> indexStructure;
+	final BetaMemory betaMemory;
 	
-	public JoinNodeTest(RDFTriple.Field arg1Field, RDFTriple.Field arg2Field,
-			int arg2ConditionNumber) {
-		
+	public JoinNodeTest(RDFTriple.Field arg1Field, RDFTriple.Field arg2Field,BetaMemory betaMemory) {
 		this.arg1Field = arg1Field;
 		this.arg2Field = arg2Field;
-		this.arg2ConditionNumber = arg2ConditionNumber;
+		this.betaMemory = betaMemory;
+		this.indexStructure = betaMemory.getIndexStructure();
 	}
+	
 	public RDFTriple.Field getArg1Field() {
 		return arg1Field;
 	}
-	public void setArg1Field(RDFTriple.Field arg1Field) {
-		this.arg1Field = arg1Field;
-	}
+	
 	public RDFTriple.Field getArg2Field() {
 		return arg2Field;
 	}
-	public void setArg2Field(RDFTriple.Field arg2Field) {
-		this.arg2Field = arg2Field;
+	
+	public IndexStructure<Token> getIndexStructure() {
+		return indexStructure;
 	}
-	public int getArg2ConditionNumber() {
-		return arg2ConditionNumber;
-	}
-	public void setArg2ConditionNumber(int arg2ConditionNumber) {
-		this.arg2ConditionNumber = arg2ConditionNumber;
+	
+	public BetaMemory getBetaMemory() {
+		return betaMemory;
 	}
 	
 	@Override
@@ -56,8 +56,8 @@ public class JoinNodeTest {
 		buffer.append(arg1Field);
 		buffer.append(" ");
 		buffer.append(arg2Field);
-		buffer.append(" ");
-		buffer.append(arg2ConditionNumber);
+//		buffer.append(" ");
+//		buffer.append(arg2ConditionNumber);
 		
 		return buffer.toString();
 	}

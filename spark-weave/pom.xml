@@ -17,7 +17,28 @@
 	</properties>
 
 	<build>
+
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeArtifactIds>junit</excludeArtifactIds>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -33,39 +54,74 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<addClasspath>true</addClasspath>
-							<classpathPrefix>lib</classpathPrefix>
-							<mainClass>at.sti2.spark.network.SparkWeaveNetwork</mainClass>
+							<!-- <addClasspath>true</addClasspath> -->
+							<!-- <classpathPrefix>lib</classpathPrefix> -->
+							<!-- <mainClass>at.sti2.spark.network.SparkWeaveNetwork</mainClass> -->
+							<mainClass>at.sti2.spark.launcher.SparkLauncher</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
 					</archive>
 				</configuration>
 			</plugin>
 
-			<plugin>
-				<groupId>org.dstovall</groupId>
-				<artifactId>onejar-maven-plugin</artifactId>
-				<version>1.4.4</version>
-				<executions>
-					<execution>
-						<configuration>
-						</configuration>
-						<id>distribution</id>
-						<goals>
-							<goal>one-jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.dstovall</groupId> -->
+<!-- 				<artifactId>onejar-maven-plugin</artifactId> -->
+<!-- 				<version>1.4.4</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<configuration> -->
+<!-- 						</configuration> -->
+<!-- 						<id>distribution</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>one-jar</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 
 		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<!-- Ignore/Execute plugin execution -->
+				<!-- http://stackoverflow.com/questions/8706017/maven-dependency-plugin-goals-copy-dependencies-unpack-is-not-supported-b -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<!-- copy-dependency plugin -->
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>onejar-maven-plugin.googlecode.com</id>
-			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
-		</pluginRepository>
-	</pluginRepositories>
+<!-- 	<pluginRepositories> -->
+<!-- 		<pluginRepository> -->
+<!-- 			<id>onejar-maven-plugin.googlecode.com</id> -->
+<!-- 			<url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url> -->
+<!-- 		</pluginRepository> -->
+<!-- 	</pluginRepositories> -->
 
 	<dependencies>
 		<dependency>

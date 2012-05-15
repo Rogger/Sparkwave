@@ -86,7 +86,7 @@ public class SparkWeaveNetworkServer extends Thread{
 	            logger.info("Connected: " + sock);
 	            
 	            BufferedReader streamReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-	            BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(100);
+	            BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
 	            
 	            SparkWeaveNetworkServerThread sparkThread = new SparkWeaveNetworkServerThread(sparkWeaveNetwork, queue);
 	            ParserThread parserThread = new ParserThread(streamReader,queue,sparkThread);

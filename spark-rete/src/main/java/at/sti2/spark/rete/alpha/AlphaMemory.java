@@ -17,21 +17,15 @@
 package at.sti2.spark.rete.alpha;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.collect.IndexStructure;
-import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.beta.JoinNodeTest;
 import at.sti2.spark.rete.node.RETENode;
-
-import com.google.common.collect.LinkedHashMultimap;
 
 public class AlphaMemory {
 	

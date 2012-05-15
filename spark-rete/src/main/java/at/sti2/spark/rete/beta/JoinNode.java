@@ -73,29 +73,8 @@ public class JoinNode extends RETENode {
 	@Override
 	public void rightActivate(WorkingMemoryElement wme) {
 		
-//		List<Token> items = ((BetaMemory) parent).getItems();
-//		
-//		// Look into the beta memory to find any token for which tests succeed.
-//			
-//			for (Token betaMemoryToken : items) {
-//
-//				Vector<Token> wmeTokenVect = getTokenVect(betaMemoryToken);
-//
-//			// Check if variables have the same value
-//			if (performTests(betaMemoryToken, wme, wmeTokenVect)) {
-//
-//					// Check if the token and wme are falling into a window
-//					if (!(wme.getTriple().isPermanent()) && (!performTimeWindowTest(betaMemoryToken, wme)))
-//						continue;
-//
-//					for (RETENode reteNode : children)
-//						reteNode.leftActivate(betaMemoryToken, wme);
-//				}
-//			}
-
 		// If the join node is under dummy root beta node left activation should
-		// fire
-		
+		// fire		
 		if (((BetaMemory) parent).isRootNode()){
 			
 			for (RETENode reteNode : children)
@@ -108,7 +87,6 @@ public class JoinNode extends RETENode {
 			for (JoinNodeTest test : tests) {
 
 				Field arg2Field = test.getArg2Field();
-				IndexStructure<Token> indexStructure = test.getIndexStructure();
 				RDFValue testTokenValue = wme.getTriple().getRDFTriple().getValueOfField(test.getArg1Field());
 
 				if (arg2Field == RDFTriple.Field.SUBJECT) {
@@ -212,41 +190,6 @@ public class JoinNode extends RETENode {
 			return (tripleTimestamp - tokenStartTime) < timeWindowLength;
 		else
 			return tokenEndTime - tokenStartTime < timeWindowLength;
-	}
-
-//	public boolean performTests(Token token, WorkingMemoryElement wme,Vector<Token> parentTokens) {
-//
-//		RDFValue valueArg1;
-//		RDFValue valueArg2;
-//
-//		for (JoinNodeTest test : tests) {
-//
-//			valueArg1 = wme.getTriple().getRDFTriple().getValueOfField(test.getArg1Field());
-//
-//			// TODO Fix this for faster processing; instead of using indices
-//			// maybe we can use pointers?!
-//			// The value I have is the one of index in the tree, while the only
-//			// thing I have is the token from which to start.
-//
-//			int index = test.getArg2ConditionNumber();
-//			Token wmeToken = parentTokens.get(index);
-//			valueArg2 = wmeToken.getWme().getTriple().getRDFTriple().getValueOfField(test.getArg2Field());
-//
-//			if (!valueArg1.equals(valueArg2))
-//				return false;
-//		}
-//
-//		return true;
-//	}
-
-	private Vector<Token> getTokenVect(Token token) {
-		Vector<Token> tokenVect = new Vector<Token>();
-		Token currentToken = token;
-		while (currentToken != null) {
-			tokenVect.add(0, currentToken);
-			currentToken = currentToken.getParent();
-		}
-		return tokenVect;
 	}
 
 	@Override

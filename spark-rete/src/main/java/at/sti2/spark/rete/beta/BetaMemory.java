@@ -16,10 +16,6 @@
 
 package at.sti2.spark.rete.beta;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.collect.IndexStructure;
@@ -33,34 +29,13 @@ public class BetaMemory extends RETENode {
 	
 	static Logger logger = Logger.getLogger(BetaMemory.class);
 
-	private List<Token> items = null;
-
 	private boolean rootNode = false;
 	
 	private final IndexStructure<Token> indexStructure;
 	
 	public BetaMemory(){
-//		items = Collections.synchronizedList(new ArrayList <Token> ());
-		items = new ArrayList <Token> ();
-		
 		indexStructure = new IndexStructure<Token>();
 	}
-	
-//	public void addItem(Token token){
-////		synchronized(items){
-//			items.add(token);
-////		}
-//	}
-//	
-//	public void removeItem(Token token){
-////		synchronized(items){
-//			items.remove(token);
-////		}
-//	}
-
-//	public List<Token> getItems() {
-//		return items;
-//	}
 	
 	public void activateIndexesForTests(JoinNodeTest test) {
 

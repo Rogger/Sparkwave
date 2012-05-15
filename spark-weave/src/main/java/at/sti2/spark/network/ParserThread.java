@@ -112,7 +112,6 @@ public class ParserThread implements Runnable{
 				if(run){
 					RDFTriple rdfTriple = new RDFTriple(tripSubject,tripPredicate,tripObject);
 					Triple triple = new Triple(rdfTriple,0, false, 0l);
-//					logger.info(triple);
 					queue.put(triple);
 				}
 				

@@ -17,8 +17,11 @@ package at.sti2.spark.network;
 
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+
+import com.google.common.base.Stopwatch;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
@@ -43,12 +46,12 @@ public class SparkWeaveNetworkServerThread implements Runnable {
 	public void run() {
 
 		long tripleCounter = 0;
-		long startProcessingTime;
-		long endProcessingTime;
 
 		try {
-			startProcessingTime = System.currentTimeMillis();
-
+			
+			Stopwatch stopWatch = new Stopwatch();
+			stopWatch.start();
+			
 			while (run) {
 
 				// get triple from queue
@@ -65,6 +68,7 @@ public class SparkWeaveNetworkServerThread implements Runnable {
 					tripleCounter++;
 					if (tripleCounter % 2 == 0)
 						runGC();
+					
 				} else {
 					run = false;
 				}
@@ -80,29 +84,23 @@ public class SparkWeaveNetworkServerThread implements Runnable {
 				// }
 
 			}
-
-			endProcessingTime = System.currentTimeMillis();
+			
+			stopWatch.stop();
 
 			StringBuffer timeBuffer = new StringBuffer();
-			timeBuffer.append("Processing took ["
-					+ (endProcessingTime - startProcessingTime) + "ms] ");
-			timeBuffer
-					.append((endProcessingTime - startProcessingTime) / 60000);
+			timeBuffer.append("Processing took ["+ stopWatch.elapsedTime(TimeUnit.MILLISECONDS) + "ms] ");
+			timeBuffer.append(stopWatch.elapsedTime(TimeUnit.MINUTES));
 			timeBuffer.append(" min ");
-			timeBuffer
-					.append(((endProcessingTime - startProcessingTime) % 60000) / 1000);
+			timeBuffer.append(stopWatch.elapsedTime(TimeUnit.SECONDS));
 			timeBuffer.append(" s ");
-			timeBuffer.append((endProcessingTime - startProcessingTime) % 1000);
+			timeBuffer.append(stopWatch.elapsedTime(TimeUnit.MILLISECONDS));
 			timeBuffer.append(" ms.");
 
 			logger.info(timeBuffer.toString());
-			logger.info("Pattern has been matched "
-					+ sparkWeaveNetwork.getReteNetwork().getNumMatches()
-					+ " times.");
+			logger.info("Pattern has been matched "+ sparkWeaveNetwork.getReteNetwork().getNumMatches()+ " times.");
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 

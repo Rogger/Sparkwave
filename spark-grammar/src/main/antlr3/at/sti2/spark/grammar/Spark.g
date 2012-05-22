@@ -68,7 +68,7 @@ VALUE;
   public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         String hdr = getErrorHeader(e);
         String msg = getErrorMessage(e, tokenNames);
-        errorReporter.reportError(tokenNames, e);
+        errorReporter.reportError(tokenNames, e, hdr, msg);
   }
 }
 
@@ -82,7 +82,7 @@ VALUE;
   public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
         String hdr = getErrorHeader(e);
         String msg = getErrorMessage(e, tokenNames);
-        errorReporter.reportError(tokenNames, e);
+        errorReporter.reportError(tokenNames, e, hdr, msg);
   }
 }
 

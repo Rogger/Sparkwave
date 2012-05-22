@@ -16,6 +16,7 @@
 package at.sti2.spark.network;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,8 +29,8 @@ import at.sti2.spark.epsilon.network.ClassNode;
 import at.sti2.spark.epsilon.network.PropertyNode;
 import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
+import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.input.NTripleStreamReader;
-import at.sti2.spark.language.query.SparkPatternParser;
 import at.sti2.spark.output.SparkweaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
 import at.sti2.spark.rete.alpha.AlphaNode;
@@ -66,7 +67,11 @@ public class SparkWeaveNetwork{
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
-		triplePatternGraph = patternParser.parse();
+		try {
+			triplePatternGraph = patternParser.parse();
+		} catch (IOException e) {
+			logger.error("Could not open pattern file "+patternFileName);
+		}
 		
 		File ontologyFile = new File(epsilonOntologyFileName);
 		

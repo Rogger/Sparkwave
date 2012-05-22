@@ -52,11 +52,11 @@ public class SparkPatternParser {
 			protected Logger logger = Logger.getLogger(getClass());
 			
 			@Override
-			public void reportError(String[] tokenNames, RecognitionException e) {
+			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
 				if(e instanceof NoViableAltException){
 					// ignore
 				}else{
-					logger.warn(e);					
+					logger.warn(e);
 				}
 			}
 		};
@@ -72,8 +72,8 @@ public class SparkPatternParser {
 			protected Logger logger = Logger.getLogger(getClass());
 			
 			@Override
-			public void reportError(String[] tokenNames, RecognitionException e) {
-				logger.warn(e);
+			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
+				logger.warn(hdr+"\t"+msg);
 			}
 		};
 		

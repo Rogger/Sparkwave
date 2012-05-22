@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
@@ -25,6 +26,7 @@ import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.util.Entry;
 
 
 public class SparkPatternParser {
@@ -44,12 +46,40 @@ public class SparkPatternParser {
 		// open file
 		CharStream input = new ANTLRFileStream(patternFilePath);
 		
+		//Lexer Error Reporter
+		IErrorReporter lexerErrorReporter = new IErrorReporter() {
+			
+			protected Logger logger = Logger.getLogger(getClass());
+			
+			@Override
+			public void reportError(String[] tokenNames, RecognitionException e) {
+				if(e instanceof NoViableAltException){
+					// ignore
+				}else{
+					logger.warn(e);					
+				}
+			}
+		};
+		
 		// Lexer
 		SparkLexer lexer = new SparkLexer(input);
+		lexer.setErrorReporter(lexerErrorReporter);
 		CommonTokenStream tokenStream = new CommonTokenStream(lexer);
+		
+		//Parser Error Reporter
+		IErrorReporter parserErrorReporter = new IErrorReporter() {
+			
+			protected Logger logger = Logger.getLogger(getClass());
+			
+			@Override
+			public void reportError(String[] tokenNames, RecognitionException e) {
+				logger.warn(e);
+			}
+		};
 		
 		// Parser
 		SparkParser parser = new SparkParser(tokenStream);
+		parser.setErrorReporter(parserErrorReporter);
 		SparkParser.query_return query = null;
 		try {
 			query = parser.query();

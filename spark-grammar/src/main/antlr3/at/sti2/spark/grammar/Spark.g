@@ -58,6 +58,34 @@ VALUE;
     package at.sti2.spark.grammar;
 }
 
+@parser::members {
+  // lexer members
+  private IErrorReporter errorReporter = null;
+  public void setErrorReporter(IErrorReporter errorReporter) {
+  	this.errorReporter = errorReporter;
+  }
+ 
+  public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errorReporter.reportError(tokenNames, e);
+  }
+}
+
+@lexer::members {
+  // lexer members
+  private IErrorReporter errorReporter = null;
+  public void setErrorReporter(IErrorReporter errorReporter) {
+  	this.errorReporter = errorReporter;
+  }
+ 
+  public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+        String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errorReporter.reportError(tokenNames, e);
+  }
+}
+
 // $<Parser
 
 query

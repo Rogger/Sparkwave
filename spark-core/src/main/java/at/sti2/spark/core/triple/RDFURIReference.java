@@ -21,27 +21,29 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 /**
  * Immutable RDFURIReference
  * @author srdjankomazec
- * @author michaelrogger
  *
  */
-public class RDFURIReference extends RDFValue {
+public final class RDFURIReference extends RDFValue {
 
 	private static final long serialVersionUID = -900633337817042617L;
 	
-	private final String value;
+	private final String iri;
 	
-	// cached hashCode
+	// caching hashCode
 	private int hashCode = 0;
 	
+	public RDFURIReference(final String iri){
+		this.iri = iri;
+	}
 	
-	public RDFURIReference(String value){
-		this.value = value;
+	public RDFURIReference(final String namespace, final String name){
+		this.iri = namespace+name;
 	}
 
 	public String getValue() {
-		return value;
+		return iri;
 	}
-
+	
 	@Override
 	public boolean equals(Object that){
 		
@@ -51,20 +53,18 @@ public class RDFURIReference extends RDFValue {
 		if(!(that instanceof RDFURIReference)) return false;
 		
 		RDFURIReference uri = (RDFURIReference)that;
-		return this.value.equals(uri.value);
+		return this.iri.equals(uri.iri);
 	}
 	
 	@Override
 	public int hashCode() {
-		if(hashCode == 0){
-			hashCode = new HashCodeBuilder(17,37)
-			.append(value)
-			.toHashCode();
+		if (hashCode == 0) {
+			hashCode = new HashCodeBuilder(17, 37).append(iri).toHashCode();
 		}
 		return hashCode;
 	}
 	
 	public String toString(){
-		return value.toString();
+		return iri.toString();
 	}
 }

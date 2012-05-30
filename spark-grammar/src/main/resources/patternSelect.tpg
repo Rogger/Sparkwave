@@ -1,0 +1,21 @@
+PREFIX bsbm-vocab: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+PREFIX bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT *
+
+WHERE {
+	?x rdf:type bsbm-vocab:Offer .
+	?x bsbm-vocab:product ?product .
+	?x bsbm-vocab:vendor ?vendor .
+	?x bsbm-vocab:price ?price .
+	?x bsbm-vocab:validFrom ?from .
+	?x bsbm-vocab:validTo ?to .
+	?x bsbm-vocab:deliveryDays ?delivery .
+	?x bsbm-vocab:offerWebpage ?webpage .
+	?x dc:publisher ?publisher .
+	?x dc:date ?date .
+	?product rdf:type bsbm-inst:ProductType2 .
+	TIMEWINDOW (100)
+}

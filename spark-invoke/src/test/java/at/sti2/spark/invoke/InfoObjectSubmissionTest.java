@@ -1,6 +1,9 @@
 package at.sti2.spark.invoke;
 
+import java.io.IOException;
 import java.util.Hashtable;
+
+import org.apache.log4j.Logger;
 
 import junit.framework.TestCase;
 import at.sti2.spark.core.condition.TriplePatternGraph;
@@ -8,17 +11,25 @@ import at.sti2.spark.core.invoker.InvokerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
-import at.sti2.spark.language.query.SparkPatternParser;
+import at.sti2.spark.grammar.SparkPatternParser;
 
 public class InfoObjectSubmissionTest extends TestCase {
+	
+	static Logger logger = Logger.getLogger(InfoObjectSubmissionTest.class);
 
 	private Match match = null;
 	private InvokerProperties invokerProperties = null;
 	
 	public void setUp(){
 		
-		SparkPatternParser parser = new SparkPatternParser("./resources/support_pattern2.tpg");
-		TriplePatternGraph patternGraph = parser.parse();
+		String patternFileName = "./resources/support_pattern2.tpg";
+		SparkPatternParser parser = new SparkPatternParser(patternFileName);
+		TriplePatternGraph patternGraph = null;
+		try {
+			patternGraph = parser.parse();
+		} catch (IOException e) {
+			logger.error("Could not open pattern file "+patternFileName);
+		}
 		
 		invokerProperties = new InvokerProperties(patternGraph);
 		invokerProperties.setInvokerBaseURL("http://impactorium.epn.foi.se:7070/impact");

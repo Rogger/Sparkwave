@@ -1,6 +1,0 @@
-prefix bsbm-vocab: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
-prefix bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
-prefix dc: <http://purl.org/dc/elements/1.1/>
-prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-SELECT *
-WHERE

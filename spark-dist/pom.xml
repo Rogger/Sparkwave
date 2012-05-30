@@ -17,7 +17,7 @@
 	<modules>
 		<module>../spark-core</module>
 		<module>../spark-epsilon</module>
-		<module>../spark-language</module>
+		<module>../spark-grammar</module>
 		<module>../spark-rete</module>
 		<module>../spark-streamer</module>
 		<module>../spark-invoke</module>

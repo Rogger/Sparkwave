@@ -17,6 +17,7 @@
 package at.sti2.spark.rete.beta;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -32,7 +33,9 @@ import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.node.RETENode;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 
 public class JoinNode extends RETENode {
 
@@ -83,18 +86,27 @@ public class JoinNode extends RETENode {
 		}else{
 			
 			Set<Token> resultSet = null;
-			Set<Token> intermediateSet = null;
+			Set<Token> intermediateSet = new LinkedHashSet<Token>();
+			
 			for (JoinNodeTest test : tests) {
 
 				Field arg2Field = test.getArg2Field();
 				RDFValue testTokenValue = wme.getTriple().getRDFTriple().getValueOfField(test.getArg1Field());
 
+				Set<Token> tokensFromIndex = null;
 				if (arg2Field == RDFTriple.Field.SUBJECT) {
-					intermediateSet = test.getBetaMemory().getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
+					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
 				} else if (arg2Field == RDFTriple.Field.PREDICATE) {
-					intermediateSet = test.getBetaMemory().getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
+					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
 				} else if (arg2Field == RDFTriple.Field.OBJECT) {
-					intermediateSet = test.getBetaMemory().getIndexStructure().getElementsFromObjectIndex(testTokenValue);
+					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromObjectIndex(testTokenValue);
+				}
+				
+				
+				// Get Tokens at the level of parent beta memory
+				for(Token token : tokensFromIndex){
+					Set<Token> childTokensAtBetaMemory = token.getChildTokensAtBetaMemory((BetaMemory)parent);
+					intermediateSet = Sets.union(childTokensAtBetaMemory, intermediateSet);
 				}
 
 				if (resultSet == null && intermediateSet != null) {
@@ -138,7 +150,7 @@ public class JoinNode extends RETENode {
 		for (JoinNodeTest test : tests) {
 
 			Field arg1Field = test.getArg1Field();
-			Token parentToken = token.getTokenAtBetaMemory(test.getBetaMemory());
+			Token parentToken = token.getParentTokenAtBetaMemory(test.getBetaMemory());
 			RDFValue testTokenValue = parentToken.getWme().getTriple().getRDFTriple().getValueOfField(test.getArg2Field());
 
 			if (arg1Field == RDFTriple.Field.SUBJECT) {

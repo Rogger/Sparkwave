@@ -18,7 +18,9 @@ package at.sti2.spark.rete;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import at.sti2.spark.core.collect.Removable;
 import at.sti2.spark.rete.beta.BetaMemory;
@@ -41,12 +43,44 @@ public class Token implements Removable{
 	private long startTime = 0l;
 	private long endTime = 0l;
 	
-	public Token getTokenAtBetaMemory(BetaMemory betaMemory){
+	public Token getParentTokenAtBetaMemory(BetaMemory betaMemory){
 		if(node == betaMemory){
 			return this;
 		}else{
-			return parent.getTokenAtBetaMemory(betaMemory);
+			return parent.getParentTokenAtBetaMemory(betaMemory);
 		}
+	}
+	
+	public Set<Token> getChildTokensAtBetaMemory(BetaMemory betaMemory){
+		Set<Token> tokens = new LinkedHashSet<Token>(); 
+		
+		//check trivial case: this.node = betaMemory
+		if(this.node == betaMemory){
+			tokens.add(this);
+			return tokens;
+		}
+		
+		List<List<Token>> bfs = new ArrayList<List<Token>>();
+		if(children.size()>0)
+			bfs.add(children);
+		
+		while(bfs.size()>0){
+			
+			for(Token childToken : bfs.remove(0)){
+				
+				//childtoken at betamemory
+				if(childToken.node == betaMemory){
+					tokens.add(childToken);
+				}else{
+					List<Token> list = childToken.children;
+					if(list.size()>0)
+						bfs.add(list);
+				}
+				
+			}
+		}
+		
+		return tokens;
 	}
 
 	public long getStartTime() {
@@ -117,6 +151,15 @@ public class Token implements Removable{
 	public void removeChild(Token child) {
 		children.remove(child);
 	}
+	
+	@Override
+	public void remove() {
+		// Remove token from parent
+		if(parent!=null)
+			parent.removeChild(this);
+				
+		deleteTokenAndDescendents();
+	}
 
 	private void deleteTokenAndDescendents() {
 
@@ -176,12 +219,4 @@ public class Token implements Removable{
 		return wme.toString();
 	}
 
-	@Override
-	public void remove() {
-		// Remove token from parent
-		if(parent!=null)
-			parent.removeChild(this);
-				
-		deleteTokenAndDescendents();
-	}
 }

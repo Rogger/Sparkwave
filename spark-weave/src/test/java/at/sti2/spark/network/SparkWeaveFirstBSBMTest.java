@@ -36,7 +36,7 @@ import at.sti2.spark.input.N3FileInput;
 public class SparkWeaveFirstBSBMTest extends TestCase {
 
 	private List <RDFTriple> triples = null;
-	private SparkWeaveNetwork sparkWeaveNetwork = null;
+	private SparkwaveNetwork sparkWeaveNetwork = null;
 	private File ontologyFile = null;
 	
 	static Logger logger = Logger.getLogger(SparkWeaveFirstBSBMTest.class);
@@ -125,7 +125,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		
 		ontologyFile = new File("./resources/bsbm_epsilon.owl");
 		
-		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile);
+		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
 		
 		//Print Rete network structure

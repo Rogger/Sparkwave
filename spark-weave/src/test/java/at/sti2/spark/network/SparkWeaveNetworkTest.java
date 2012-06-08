@@ -36,7 +36,7 @@ import at.sti2.spark.input.N3FileInput;
 public class SparkWeaveNetworkTest extends TestCase {
 
 	private List <RDFTriple> triples = null;
-	private SparkWeaveNetwork sparkWeaveNetwork = null;
+	private SparkwaveNetwork sparkWeaveNetwork = null;
 	private File ontologyFile = null;
 	
 	static Logger logger = Logger.getLogger(SparkWeaveNetworkTest.class);
@@ -175,7 +175,7 @@ public class SparkWeaveNetworkTest extends TestCase {
 		
 		ontologyFile = new File("./resources/epsilon.owl");
 		
-		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile);
+		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
 		
 		//Print Rete network structure

@@ -33,11 +33,11 @@ public class ParserThread implements Runnable{
 	BufferedReader streamReader;
 	BlockingQueue<Triple> queue;
 	boolean run=true;
-	SparkWeaveNetworkServerThread sparkThread;
+	SparkwaveStreamThread sparkThread;
 	
 	static Logger logger = Logger.getLogger(ParserThread.class);
 	
-	public ParserThread(BufferedReader streamReader, BlockingQueue<Triple> queue,SparkWeaveNetworkServerThread sparkThread) {
+	public ParserThread(BufferedReader streamReader, BlockingQueue<Triple> queue,SparkwaveStreamThread sparkThread) {
 		this.streamReader = streamReader;
 		this.queue = queue;
 		this.sparkThread = sparkThread;

@@ -38,9 +38,9 @@ import at.sti2.spark.rete.alpha.ValueTestAlphaNode;
 import at.sti2.spark.rete.alpha.WorkingMemory;
 import at.sti2.spark.rete.beta.ProductionNode;
 
-public class SparkWeaveNetwork{
+public class SparkwaveNetwork{
 	
-	static Logger logger = Logger.getLogger(SparkWeaveNetwork.class);
+	static Logger logger = Logger.getLogger(SparkwaveNetwork.class);
 	
 	private RETENetwork reteNetwork = null;
 	private EpsilonNetwork epsilonNetwork = null;
@@ -52,7 +52,7 @@ public class SparkWeaveNetwork{
 	//Values needed for garbage collection
 	private long lastTimestamp = 0l;
 	
-	public SparkWeaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology) {
+	public SparkwaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology) {
 		init(triplePatternGraph,epsilonOntology);	
 	}
 	
@@ -61,7 +61,7 @@ public class SparkWeaveNetwork{
 		this.epsilonOntology = epsilonOntology;
 	}
 	
-	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String instancesFileName) {
+	public SparkwaveNetwork(String serverPort, String patternFileName, String epsilonOntologyFileName, String instancesFileName) {
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
@@ -80,7 +80,7 @@ public class SparkWeaveNetwork{
 		//getReteNetwork().printNetworkStructure();
 		
 		//Start SparkWeaveNetworkServerInstance
-		(new SparkWeaveNetworkServer(this)).start();
+		(new SparkwaveNetworkServer(this, Integer.parseInt(serverPort))).start();
 		
 		//If there are static instances to be added
 		if (!instancesFileName.toLowerCase().equals("null")){
@@ -131,15 +131,7 @@ public class SparkWeaveNetwork{
 		
 		bindNetworks();
 		
-		logger.info("SparkWeave network completed...");
-		
-
-//		SparkWeaveGarbageCollector sparkWeaveGC = new SparkWeaveGarbageCollector(this, gcSessionDelay);
-//		sparkWeaveGC.start();
-
-//		
-//		logger.info("SparkWeave garbage collector started...");
-
+		logger.info("Sparkwave network completed...");
 		
 		//If there is a CONSTRUCT part start also the output thread 
 		if (triplePatternGraph.getConstructConditions().size() > 0){
@@ -149,7 +141,7 @@ public class SparkWeaveNetwork{
 				outputThread.start();
 			}
 			
-			logger.info("SparkWeave output thread started...");
+			logger.info("Sparkwave output thread started...");
 		}
 		
 	}
@@ -251,23 +243,36 @@ public class SparkWeaveNetwork{
 	
 	public static void main(String args[]){
 		
-		if (args.length != 3){
-			System.err.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 4 parameters:");
-			System.err.println(" <pattern_file> - name of the file holding triple pattern definition.");
-			System.err.println(" <epsilon_ontology_file> - name of the file holding ontology or null.");
-			System.err.println(" <static_instances_file> - name of the file holding static instances or null.");
+		if (args.length != 4){
+			System.err.println("SparkwaveNetwork starts an instance of Sparkwave. It expects following 4 parameters:");
+			System.err.println(" <tcp/ip port>           - port on which network accepts incoming streams.");
+			System.err.println(" <pattern file>          - name of the file holding triple pattern definition.");
+			System.err.println(" <epsilon ontology file> - name of the file holding ontology or null.");
+			System.err.println(" <static instances file> - name of the file holding static instances or null.");
+			System.exit(0);
+		}
+		
+		//Test to see if the port number is correct
+		try{
+			int portNumber = Integer.parseInt(args[0]);
+			if ((portNumber < 0) || (portNumber > 65535)){
+				System.err.println("The port number value should be between 0 and 65535!");
+				System.exit(0);
+			}
+		}catch(NumberFormatException nfex){
+			System.err.println("The port value should be a number!");
 			System.exit(0);
 		}
 		
 		//Test to see if pattern file exists
-		File file = new File(args[0]);
+		File file = new File(args[1]);
 		if (!file.exists()){
 			System.err.println("Triple pattern file doesn't exist!");
 			System.exit(0);
 		}
 		
 		//Test to see if epsilon ontology file exists or the value is NULL
-		file = new File(args[1]);
+		file = new File(args[2]);
 		if (!file.exists())
 			if(!(args[1].toLowerCase().equals("null"))){
 				System.err.println("Epsilon ontology file doesn't exist or the value is not NULL!");
@@ -275,13 +280,13 @@ public class SparkWeaveNetwork{
 		}
 		
 		//Test to see if static instances file exists or the value is NULL
-		file = new File(args[2]);
+		file = new File(args[3]);
 		if (!file.exists())
 			if(!(args[2].toLowerCase().equals("null"))){
 				System.err.println("Static instances file doesn't exist or the value is not NULL!");
 				System.exit(0);
 		}
 		
-		new SparkWeaveNetwork(args[0], args[1], args[2]);
+		new SparkwaveNetwork(args[0], args[1], args[2], args[3]);
 	}
 }

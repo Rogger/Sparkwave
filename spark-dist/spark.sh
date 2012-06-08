@@ -1,4 +1,4 @@
 #!/bin/bash
 
 echo "$@"
-exec java -Xmx2048M -jar ../spark-weave/target/spark-weave-1.0-SNAPSHOT.jar "$@"
+exec java -Xmx1024M -jar ../spark-weave/target/spark-weave-1.0-SNAPSHOT.jar "$@"

@@ -175,7 +175,7 @@ public class SparkWeaveNetworkTest extends TestCase {
 		
 		ontologyFile = new File("./resources/epsilon.owl");
 		
-		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile, 200l);
+		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
 		
 		//Print Rete network structure

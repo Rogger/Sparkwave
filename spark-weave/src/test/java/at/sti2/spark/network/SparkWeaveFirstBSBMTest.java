@@ -125,7 +125,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		
 		ontologyFile = new File("./resources/bsbm_epsilon.owl");
 		
-		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile, 200l);
+		sparkWeaveNetwork = new SparkWeaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
 		
 		//Print Rete network structure

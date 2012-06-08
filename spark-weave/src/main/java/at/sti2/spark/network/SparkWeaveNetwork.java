@@ -51,19 +51,17 @@ public class SparkWeaveNetwork{
 	
 	//Values needed for garbage collection
 	private long lastTimestamp = 0l;
-	private long gcSessionDelay = 0l;
 	
-	public SparkWeaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology, long gcSessionDelay) {
-		init(triplePatternGraph,epsilonOntology,gcSessionDelay);	
+	public SparkWeaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology) {
+		init(triplePatternGraph,epsilonOntology);	
 	}
 	
-	private void init(TriplePatternGraph triplePatternGraph, File epsilonOntology, long gcSessionDelay){
+	private void init(TriplePatternGraph triplePatternGraph, File epsilonOntology){
 		this.triplePatternGraph = triplePatternGraph;
 		this.epsilonOntology = epsilonOntology;
-		this.gcSessionDelay = gcSessionDelay;
 	}
 	
-	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String instancesFileName, String gcSessionDelay) {
+	public SparkWeaveNetwork(String patternFileName, String epsilonOntologyFileName, String instancesFileName) {
 		
 		//Build triple pattern representation
 		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
@@ -75,7 +73,7 @@ public class SparkWeaveNetwork{
 		
 		File ontologyFile = new File(epsilonOntologyFileName);
 		
-		init(triplePatternGraph, ontologyFile, Long.parseLong(gcSessionDelay));
+		init(triplePatternGraph, ontologyFile);
 		buildNetwork();
 		
 		//Print Rete network structure
@@ -250,19 +248,14 @@ public class SparkWeaveNetwork{
 		lastTimestamp = streamedTriple.getTimestamp();
 		epsilonNetwork.activate(streamedTriple);
 	}
-
-	public long getGcSessionDelay() {
-		return gcSessionDelay;
-	}
 	
 	public static void main(String args[]){
 		
-		if (args.length != 4){
+		if (args.length != 3){
 			System.err.println("SparkWeaveNetwork builds an instance of Sparkweave. It expects following 4 parameters:");
 			System.err.println(" <pattern_file> - name of the file holding triple pattern definition.");
 			System.err.println(" <epsilon_ontology_file> - name of the file holding ontology or null.");
 			System.err.println(" <static_instances_file> - name of the file holding static instances or null.");
-			System.err.println(" <gc_session_delay> - the time interval between garbage collection sessions in [ms].");
 			System.exit(0);
 		}
 		
@@ -289,13 +282,6 @@ public class SparkWeaveNetwork{
 				System.exit(0);
 		}
 		
-		try{
-	        Integer.parseInt(args[3]);
-	    } catch(NumberFormatException nfe) {
-	    	System.err.println("GC session delay must be a number!");
-	    	System.exit(0);
-	    }
-		
-		new SparkWeaveNetwork(args[0], args[1], args[2], args[3]);
+		new SparkWeaveNetwork(args[0], args[1], args[2]);
 	}
 }

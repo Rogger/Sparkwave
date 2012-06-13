@@ -13,12 +13,14 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.invoke;
+package at.sti2.spark.handler;
 
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 
-public interface SparkweaveInvoker {
+public interface SparkweaveHandler {
 	
-	public void invoke(Match match, InvokerProperties invokerProperties) throws SparkweaveInvokerException;
+	public void init(HandlerProperties invokerProperties);
+	
+	public void invoke(Match match) throws SparkweaveHandlerException;
 }

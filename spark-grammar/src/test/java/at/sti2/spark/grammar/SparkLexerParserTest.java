@@ -32,8 +32,7 @@ public class SparkLexerParserTest extends TestCase {
 		assertTrue(patternGraph.getPrefixes().size() > 0);
 		assertTrue(patternGraph.getConstructConditions().size() > 0);
 		assertTrue(patternGraph.getTimeWindowLength() > 0);
-		assertTrue( !patternGraph.getInvokerProperties().getInvokerBaseURL().equals("") );
-		assertTrue( !patternGraph.getInvokerProperties().getInvokerClass().equals("") );
+		assertTrue(patternGraph.getHandlers().size() > 0 );
 	}
 
 }

@@ -20,7 +20,7 @@
 		<module>../spark-grammar</module>
 		<module>../spark-rete</module>
 		<module>../spark-streamer</module>
-		<module>../spark-invoke</module>
+		<module>../spark-handler</module>
 		<module>../spark-weave</module>
 	</modules>
 

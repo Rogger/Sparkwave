@@ -15,23 +15,27 @@
  */
 package at.sti2.spark.output;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TriplePatternGraph;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
-import at.sti2.spark.invoke.SparkweaveInvoker;
+import at.sti2.spark.handler.SparkweaveHandler;
+import at.sti2.spark.handler.SparkweaveHandlerException;
 
 public class SparkweaveNetworkOutputThread extends Thread {
 
-	static Logger log = Logger.getLogger(SparkweaveNetworkOutputThread.class);
+	static Logger logger = Logger.getLogger(SparkweaveNetworkOutputThread.class);
 	
 	private OutputBuffer outputBuffer = null;
 	private TriplePatternGraph triplePatternGraph = null;
@@ -41,33 +45,46 @@ public class SparkweaveNetworkOutputThread extends Thread {
 		this.triplePatternGraph = patternGraph;
 	}
 	
-	public void run(){
+	public void run() {
 		Match match = null;
-		SparkweaveInvoker invoker = null;
-		
-		//Instantiate invoker class
-		try {
-			invoker = (SparkweaveInvoker)Class.forName(triplePatternGraph.getInvokerProperties().getInvokerClass()).newInstance();
-			
-			while(true){
-				try {
-					match = outputBuffer.get();
-//					invoker.invoke(match, triplePatternGraph.getInvokerProperties());
-//					System.out.println( formatMatch(match));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-//				} catch (SparkweaveInvokerException e) {
-//					e.printStackTrace();
-				}
+		List<SparkweaveHandler> handlerInstances = new ArrayList<SparkweaveHandler>();
+
+		List<HandlerProperties> handlerPropertiesList = triplePatternGraph
+				.getHandlers();
+
+		// Instantiate handlers
+		for (HandlerProperties handlerProperties : handlerPropertiesList) {
+			String handlerClass = handlerProperties.getHandlerClass();
+			SparkweaveHandler invoker = null;
+
+			try {
+				invoker = (SparkweaveHandler) Class.forName(handlerClass).newInstance();
+				invoker.init(handlerProperties);
+				handlerInstances.add(invoker);
+
+			} catch (ClassNotFoundException e) {
+				logger.error("Could not find class " + handlerClass);
+			} catch (InstantiationException e) {
+				logger.error("Could not instantiate class " + handlerClass);
+			} catch (IllegalAccessException e) {
+				logger.error(e);
 			}
-			
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
 		}
+
+		while (true) {
+			try {
+				match = outputBuffer.get();
+				for (SparkweaveHandler handlerInstance : handlerInstances) {
+					handlerInstance.invoke(match);
+				}
+				// System.out.println( formatMatch(match));
+			} catch (InterruptedException e) {
+				logger.error(e);
+			} catch (SparkweaveHandlerException e) {
+				logger.error(e);
+			}
+		}
+
 	}
 	
 	private String formatMatch(Match match){

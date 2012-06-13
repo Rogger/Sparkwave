@@ -15,40 +15,56 @@
  */
 package at.sti2.spark.core.invoker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import at.sti2.spark.core.condition.TriplePatternGraph;
 
 
-public class InvokerProperties {
+public class HandlerProperties {
 	
-	private String invokerClass = null;
-	private String invokerBaseURL = null;
+	private String handlerClass = null;
+	private Map<String,String> handlerKeyValue = null;
 	private TriplePatternGraph triplePatternGraph = null;
 	
-	public InvokerProperties(TriplePatternGraph triplePatternGraph){
+	public HandlerProperties(TriplePatternGraph triplePatternGraph){
 		this.triplePatternGraph = triplePatternGraph;
+		this.handlerKeyValue = new HashMap<String, String>();
 	}
 	
-	public String getInvokerClass() {
-		return invokerClass;
+	public String getHandlerClass() {
+		return handlerClass;
 	}
 	
-	public void setInvokerClass(String invokerClass) {
-		this.invokerClass = invokerClass;
+	public void setHandlerClass(String invokerClass) {
+		this.handlerClass = invokerClass;
 	}
 	
-	public String getInvokerBaseURL() {
-		return invokerBaseURL;
-	}
-	
-	public void setInvokerBaseURL(String invokerBaseURL) {
-		this.invokerBaseURL = invokerBaseURL;
-	}
-
 	public TriplePatternGraph getTriplePatternGraph() {
 		return triplePatternGraph;
 	}
 
 	public void setTriplePatternGraph(TriplePatternGraph triplePatternGraph) {
 		this.triplePatternGraph = triplePatternGraph;
+	}
+	
+	public void addKeyValue(String key,String value){
+		handlerKeyValue.put(key, value);
+	}
+	
+	public String getValue(String key){
+		return handlerKeyValue.get(key);
+	}
+	
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("Class:");
+		buffer.append(getHandlerClass());
+		buffer.append("\n");
+		buffer.append("KeyValue Pairs:");
+		buffer.append(handlerKeyValue);
+		buffer.append("\n");
+		return super.toString();
 	}
 }

@@ -24,7 +24,6 @@ import java.util.Set;
 
 import at.sti2.spark.core.collect.Removable;
 import at.sti2.spark.rete.beta.BetaMemory;
-import at.sti2.spark.rete.beta.ProductionNode;
 import at.sti2.spark.rete.node.RETENode;
 
 public class Token implements Removable{
@@ -35,8 +34,6 @@ public class Token implements Removable{
 	// Added for retracting purposes
 	private RETENode node = null; // Points to the memory where this token is in
 
-	// Synchronized list of children (both main RETE thread and GC thread are
-	// accessing it)
 	private List<Token> children = null;
 
 	// Added for time window purposes
@@ -139,10 +136,10 @@ public class Token implements Removable{
 	public void setNode(RETENode node) {
 		this.node = node;
 	}
-
-	// public List<Token> getChildren() {
-	// return children;
-	// }
+	
+	public int getChildrenSize(){
+		return children.size();
+	}
 
 	public void addChild(Token child) {
 		children.add(child);

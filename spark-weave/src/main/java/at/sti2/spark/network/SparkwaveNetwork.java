@@ -274,7 +274,7 @@ public class SparkwaveNetwork{
 		//Test to see if epsilon ontology file exists or the value is NULL
 		file = new File(args[2]);
 		if (!file.exists())
-			if(!(args[1].toLowerCase().equals("null"))){
+			if(!(args[2].toLowerCase().equals("null"))){
 				System.err.println("Epsilon ontology file doesn't exist or the value is not NULL!");
 				System.exit(0);
 		}
@@ -282,7 +282,7 @@ public class SparkwaveNetwork{
 		//Test to see if static instances file exists or the value is NULL
 		file = new File(args[3]);
 		if (!file.exists())
-			if(!(args[2].toLowerCase().equals("null"))){
+			if(!(args[3].toLowerCase().equals("null"))){
 				System.err.println("Static instances file doesn't exist or the value is not NULL!");
 				System.exit(0);
 		}

@@ -42,9 +42,10 @@ PREDICATE;
 OBJECT;
 RDFLITERAL;
 CONSTRUCT_TRIPLES;
-INVOKE;
-INVOKE_GROUP;
-INVOKE_CLASS;
+HANDLERS;
+HANDLER;
+HANDLER_GROUP;
+HANDLER_CLASS;
 KEYVALUE_PAIR;
 KEY;
 VALUE;
@@ -93,7 +94,7 @@ query
     ;
 
 prologue
-    : prefixes invokeClause -> ^(PROLOGUE prefixes invokeClause)
+    : prefixes handlersClause -> ^(PROLOGUE prefixes handlersClause)
     ;
     
 prefixes
@@ -103,13 +104,17 @@ prefixes
 prefixDecl
     : PREFIX PNAME_NS IRI_REF -> ^(PNAME_NS IRI_REF)
     ;
-    
-invokeClause
-    : INVOKE invokeGroup -> ^(INVOKE invokeGroup)
+
+handlersClause
+    : HANDLERS OPEN_CURLY_BRACE handlerClause* CLOSE_CURLY_BRACE -> ^(HANDLERS handlerClause*)
+    ;
+   
+handlerClause
+    : HANDLER handlerGroup -> ^(HANDLER handlerGroup)
     ;
     
-invokeGroup
-    : OPEN_CURLY_BRACE keyValuePair* CLOSE_CURLY_BRACE -> ^(INVOKE_GROUP keyValuePair* )
+handlerGroup
+    : OPEN_CURLY_BRACE keyValuePair* CLOSE_CURLY_BRACE -> ^(HANDLER_GROUP keyValuePair* )
     ;
     
 keyValuePair
@@ -224,7 +229,9 @@ PREFIX : ('P'|'p')('R'|'r')('E'|'e')('F'|'f')('I'|'i')('X'|'x');
 
 SELECT : ('S'|'s')('E'|'e')('L'|'l')('E'|'e')('C'|'c')('T'|'t');
 
-INVOKE : ('I'|'i')('N'|'n')('V'|'v')('O'|'o')('K'|'k')('E'|'e');
+HANDLER : ('H'|'h')('A'|'a')('N'|'n')('D'|'d')('L'|'l')('E'|'e')('R'|'r');
+
+HANDLERS : ('H'|'h')('A'|'a')('N'|'n')('D'|'d')('L'|'l')('E'|'e')('R'|'r')('S'|'s');
 
 CONSTRUCT : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('R'|'r')('U'|'u')('C'|'c')('T'|'t');
 

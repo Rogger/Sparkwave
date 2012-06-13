@@ -1,33 +1,41 @@
-package at.sti2.spark.invoke;
+package at.sti2.spark.handler;
 
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 
-public class ConsoleInvoker implements SparkweaveInvoker {
+public class ConsoleHandler implements SparkweaveHandler {
 
-	static Logger log = Logger.getLogger(ImpactoriumInvoker.class);
+	static Logger log = Logger.getLogger(ConsoleHandler.class);
 	
 	private long noMatches = 0;
 	
+	HandlerProperties handlerProperties = null;
+	
 	@Override
-	public void invoke(Match match, InvokerProperties invokerProperties) throws SparkweaveInvokerException{
+	public void init(HandlerProperties handlerProperties) {
+		this.handlerProperties = handlerProperties;
+		
+	}
+	
+	@Override
+	public void invoke(Match match) throws SparkweaveHandlerException{
 		
 		//Format the output for the match
-		String ntriplesOutput = formatMatchNTriples(match, invokerProperties);
+		String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
 		
 		noMatches++;
 		log.debug("Match no " + noMatches);
 		log.info(ntriplesOutput);
 	}
 	
-	private String formatMatchNTriples(Match match, InvokerProperties invokerProperties){
+	private String formatMatchNTriples(Match match, HandlerProperties invokerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
 		for (TripleCondition condition : invokerProperties.getTriplePatternGraph().getConstructConditions()){

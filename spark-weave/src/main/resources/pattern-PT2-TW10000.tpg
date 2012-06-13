@@ -3,7 +3,19 @@ PREFIX bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-SELECT *
+HANDLERS {
+	HANDLER {
+		"class" = "at.sti2.spark.handler.ImpactoriumHandler"
+		"baseurl" = "http://impactorium.epn.foi.se:7070/impact"
+	}
+	HANDLER {
+		"class" = "at.sti2.spark.handler.ConsoleHandler"
+	}
+}
+
+CONSTRUCT {
+	?x rdf:type bsbm-vocab:Offer .
+}
 
 WHERE {
 	?x rdf:type bsbm-vocab:Offer .

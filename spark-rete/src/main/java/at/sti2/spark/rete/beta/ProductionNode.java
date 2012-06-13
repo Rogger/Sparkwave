@@ -77,13 +77,13 @@ public class ProductionNode extends RETENode {
 		
 		Token newToken = createToken(token, wme);
 		
-		addItem(newToken);
+//		addItem(newToken);
 		matchCounter++;
 		
-//		Match match = new Match();
-//		match.setVariableBindings(getVariableBindings(newToken));
-//		outputBuffer.put(match);
-//		
+		Match match = new Match();
+		match.setVariableBindings(getVariableBindings(newToken));
+		outputBuffer.put(match);
+		
 //		StringBuffer buffer = new StringBuffer();
 //		buffer.append("We have " + (matchCounter) + " match:\n");
 //		Token printToken = newToken;
@@ -98,6 +98,16 @@ public class ProductionNode extends RETENode {
 //		
 //		System.out.println(buffer.toString());
 		
+	}
+	
+	private void removeMatchToken(Token token){
+		
+		Token currentToken = token.getParent();
+		
+		while(currentToken != null){
+			
+//			if(currentToken.getChildrenSize() >
+		}
 	}
 	
 	public OutputBuffer getOutputBuffer() {

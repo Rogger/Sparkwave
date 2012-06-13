@@ -7,18 +7,20 @@ import org.apache.log4j.Logger;
 
 import junit.framework.TestCase;
 import at.sti2.spark.core.condition.TriplePatternGraph;
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.SparkPatternParser;
+import at.sti2.spark.handler.ImpactoriumHandler;
+import at.sti2.spark.handler.SparkweaveHandlerException;
 
 public class InfoObjectSubmissionTest extends TestCase {
 	
 	static Logger logger = Logger.getLogger(InfoObjectSubmissionTest.class);
 
 	private Match match = null;
-	private InvokerProperties invokerProperties = null;
+	private HandlerProperties handlerProperties = null;
 	
 	public void setUp(){
 		
@@ -31,9 +33,9 @@ public class InfoObjectSubmissionTest extends TestCase {
 			logger.error("Could not open pattern file "+patternFileName);
 		}
 		
-		invokerProperties = new InvokerProperties(patternGraph);
-		invokerProperties.setInvokerBaseURL("http://impactorium.epn.foi.se:7070/impact");
-		invokerProperties.setInvokerClass(null);
+		handlerProperties = new HandlerProperties(patternGraph);
+		handlerProperties.addKeyValue("baseurl","http://impactorium.epn.foi.se:7070/impact");
+		handlerProperties.setHandlerClass(null);
 		
 		Hashtable<String, RDFValue> variableBindings = new Hashtable<String, RDFValue>();
 		variableBindings.put("?sensor1", new RDFURIReference("http://www.foi.se/support/wp4demo#PAT_1"));
@@ -47,10 +49,11 @@ public class InfoObjectSubmissionTest extends TestCase {
 	}
 	
 	public void testInfoObjectSubmission(){
-		ImpactoriumInvoker invoker = new ImpactoriumInvoker();
+		ImpactoriumHandler invoker = new ImpactoriumHandler();
+		invoker.init(handlerProperties);
 		try {
-			invoker.invoke(match, invokerProperties);
-		} catch (SparkweaveInvokerException e) {
+			invoker.invoke(match);
+		} catch (SparkweaveHandlerException e) {
 			e.printStackTrace();
 		}
 	}

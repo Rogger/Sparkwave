@@ -13,7 +13,7 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.invoke;
+package at.sti2.spark.handler;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -46,28 +46,36 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
 
-public class ImpactoriumInvoker implements SparkweaveInvoker {
+public class ImpactoriumHandler implements SparkweaveHandler {
 
-	static Logger logger = Logger.getLogger(ImpactoriumInvoker.class);
+	static Logger logger = Logger.getLogger(ImpactoriumHandler.class);
+	HandlerProperties handlerProperties = null;
 	
 	@Override
-	public void invoke(Match match, InvokerProperties invokerProperties) throws SparkweaveInvokerException{
+	public void init(HandlerProperties handlerProperties) {
+		this.handlerProperties = handlerProperties;
 		
-		logger.info("Invoking impactorium at base URL " + invokerProperties.getInvokerBaseURL());
+	}
+	
+	@Override
+	public void invoke(Match match) throws SparkweaveHandlerException{
+		
+		String baseurl = handlerProperties.getValue("baseurl");
+		logger.info("Invoking impactorium at base URL " + baseurl);
 		
 		//Define report id value 
 		String reportId = "" + (new Date()).getTime();
 		
 		//HTTP PUT the info-object id
 		HttpClient httpclient = new DefaultHttpClient();
-		HttpPut httpPut = new HttpPut(invokerProperties.getInvokerBaseURL() + "/info-object");
+		HttpPut httpPut = new HttpPut(baseurl + "/info-object");
 		
 		try {
 			StringEntity infoObjectEntityRequest = new StringEntity("<info-object name=\"Report " + reportId + " \"/>", "UTF-8");
@@ -91,10 +99,10 @@ public class ImpactoriumInvoker implements SparkweaveInvoker {
 				logger.info("Info object report id " + infoObjectReportId);
 				
 				//Format the output for the match
-				String ntriplesOutput = formatMatchNTriples(match, invokerProperties);
+				String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
 				
 				//HTTP PUT the data 
-				httpPut = new HttpPut(invokerProperties.getInvokerBaseURL() + "/info-object/" + infoObjectReportId + "/data/data.nt");
+				httpPut = new HttpPut(baseurl + "/info-object/" + infoObjectReportId + "/data/data.nt");
 				StringEntity dataEntityRequest = new StringEntity(ntriplesOutput, "UTF-8");
 				httpPut.setEntity(dataEntityRequest);
 				response = httpclient.execute(httpPut);
@@ -103,7 +111,7 @@ public class ImpactoriumInvoker implements SparkweaveInvoker {
 				
 				//First invocation succeeded
 				if (!(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK))
-					throw new SparkweaveInvokerException("Could not write data.");
+					throw new SparkweaveHandlerException("Could not write data.");
 				}
 			}
 		} catch (UnsupportedEncodingException e) {
@@ -148,7 +156,7 @@ public class ImpactoriumInvoker implements SparkweaveInvoker {
 		return reportId;
 	}
 	
-	private String formatMatchNTriples(Match match, InvokerProperties invokerProperties){
+	private String formatMatchNTriples(Match match, HandlerProperties invokerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
 		for (TripleCondition condition : invokerProperties.getTriplePatternGraph().getConstructConditions()){

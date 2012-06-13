@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.condition.TripleConstantTest;
 import at.sti2.spark.core.condition.TriplePatternGraph;
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.prefix.Prefix;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -135,9 +135,8 @@ public class SparkPatternParser {
 				if(childToken.equals("PREFIX")){
 					List<Prefix> prefixes = parsePrefix(child);
 					patternGraph.setPrefixes(prefixes);
-				}else if(childToken.equals("INVOKE")){
-    				InvokerProperties invokerProperties = parseInvoke(child,patternGraph);
-    				patternGraph.setInvokerProperties(invokerProperties);
+				}else if(childToken.equals("HANDLERS")){
+    				parseHandlers(child,patternGraph);
     			}
 			}
 		}
@@ -171,31 +170,45 @@ public class SparkPatternParser {
 	}
 	
 	/**
-	 * parse INVOKE
-	 * @param treeNode
-	 * @param patternGraph
-	 * @return
+	 * HANDLERS
 	 */
-	private InvokerProperties parseInvoke(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseHandlers(TreeWrapper treeNode, TriplePatternGraph patternGraph){
 		
-		InvokerProperties invokerProperties = null;
+		if(treeNode!=null){
+			for(TreeWrapper child : treeNode){
+				String childToken = child.toString();
+				logger.debug(childToken);
+				if(childToken.equals("HANDLER")){
+					HandlerProperties invokerProperties = parseHandler(child,patternGraph);
+					patternGraph.addHandlerProperties(invokerProperties);					
+				}
+			}
+		}
+	}
+	
+	/**
+	 * HANDLE
+	 */
+	private HandlerProperties parseHandler(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		
+		HandlerProperties handlerProperties = null;
 		
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
 				logger.debug(childToken);
 				
-				if(childToken.equals("INVOKE_GROUP")){
-					invokerProperties = parseInvokeGroup(child, patternGraph);
+				if(childToken.equals("HANDLER_GROUP")){
+					handlerProperties = parseHandlerGroup(child, patternGraph);
 				}
 			}
 		}
 		
-		return invokerProperties;
+		return handlerProperties;
 	}
 	
-	private InvokerProperties parseInvokeGroup(TreeWrapper treeNode, TriplePatternGraph patternGraph){
-		InvokerProperties invokerProperties = new InvokerProperties(patternGraph);
+	private HandlerProperties parseHandlerGroup(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+		HandlerProperties handlerProperties = new HandlerProperties(patternGraph);
 		
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
@@ -206,15 +219,15 @@ public class SparkPatternParser {
 					Entry<String,String> keyValuePair = parseKeyValuePair(child);
 					
 					if(keyValuePair.getKey().equalsIgnoreCase("class")){
-						invokerProperties.setInvokerClass(keyValuePair.getValue());
-					}else if(keyValuePair.getKey().equalsIgnoreCase("baseurl")){
-						invokerProperties.setInvokerBaseURL(keyValuePair.getValue());
+						handlerProperties.setHandlerClass(keyValuePair.getValue());
+					}else{
+						handlerProperties.addKeyValue(keyValuePair.getKey(),keyValuePair.getValue());
 					}
 				}
 			}
 		}
 		
-		return invokerProperties;
+		return handlerProperties;
 	}
 	
 	/**

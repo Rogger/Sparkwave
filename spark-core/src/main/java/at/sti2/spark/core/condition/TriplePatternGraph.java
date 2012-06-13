@@ -19,7 +19,7 @@ package at.sti2.spark.core.condition;
 import java.util.ArrayList;
 import java.util.List;
 
-import at.sti2.spark.core.invoker.InvokerProperties;
+import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.prefix.Prefix;
 
 /**
@@ -33,7 +33,7 @@ public class TriplePatternGraph {
 	private List <TripleCondition> selectConditions = null;
 	private List <TripleCondition> constructConditions = null;
 	private List <Prefix> prefixes = null;
-	private InvokerProperties invokerProperties = null;
+	private List <HandlerProperties> handlers = null;
 
 	//The timewindow unit is ms
 	private long timeWindowLength = 0l;
@@ -43,6 +43,7 @@ public class TriplePatternGraph {
 		selectConditions = new ArrayList <TripleCondition> ();
 		constructConditions = new ArrayList <TripleCondition> ();
 		prefixes = new ArrayList <Prefix> ();
+		handlers = new ArrayList <HandlerProperties>();
 	}
 
 	public List<TripleCondition> getSelectConditions() {
@@ -89,12 +90,12 @@ public class TriplePatternGraph {
 		this.timeWindowLength = timeWindowLength;
 	}
 	
-	public InvokerProperties getInvokerProperties() {
-		return invokerProperties;
+	public List<HandlerProperties> getHandlers() {
+		return handlers;
 	}
 
-	public void setInvokerProperties(InvokerProperties invokerProperties) {
-		this.invokerProperties = invokerProperties;
+	public void addHandlerProperties(HandlerProperties handlerProperties) {
+		this.handlers.add(handlerProperties);
 	}
 
 	public String getNamespaceByLabel(String label){
@@ -123,14 +124,9 @@ public class TriplePatternGraph {
 			}
 		}
 		
-		if (invokerProperties != null){
-			buffer.append("INVOKER PROPERTIES\n");
-			buffer.append("BaseURL:");
-			buffer.append(invokerProperties.getInvokerBaseURL());
-			buffer.append("\n");
-			buffer.append("Class:");
-			buffer.append(invokerProperties.getInvokerClass());
-			buffer.append("\n");
+		if (handlers != null){
+			buffer.append("HANDLERS\n");
+			buffer.append(handlers);
 		}
 		
 		buffer.append("CONSTRUCT\n");

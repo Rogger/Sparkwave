@@ -1,4 +1,4 @@
-package at.sti2.spark.invoke;
+package at.sti2.spark.handler;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -24,7 +24,7 @@ public class InfoObjectSubmissionTest extends TestCase {
 	
 	public void setUp(){
 		
-		String patternFileName = "./resources/support_pattern2.tpg";
+		String patternFileName = "target/classes/support_pattern2.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
 		TriplePatternGraph patternGraph = null;
 		try {

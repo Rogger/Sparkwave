@@ -35,10 +35,10 @@ public class ConsoleHandler implements SparkweaveHandler {
 		log.info(ntriplesOutput);
 	}
 	
-	private String formatMatchNTriples(Match match, HandlerProperties invokerProperties){
+	private String formatMatchNTriples(Match match, HandlerProperties handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : invokerProperties.getTriplePatternGraph().getConstructConditions()){
+		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){
 			
 			//Resolve subject
 			buffer.append('<');

@@ -20,7 +20,7 @@ import at.sti2.spark.core.solution.Match;
 
 public interface SparkweaveHandler {
 	
-	public void init(HandlerProperties invokerProperties);
+	public void init(HandlerProperties invokerProperties) throws SparkweaveHandlerException;
 	
 	public void invoke(Match match) throws SparkweaveHandlerException;
 }

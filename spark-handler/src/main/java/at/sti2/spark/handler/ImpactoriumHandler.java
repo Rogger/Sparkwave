@@ -156,10 +156,10 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 		return reportId;
 	}
 	
-	private String formatMatchNTriples(Match match, HandlerProperties invokerProperties){
+	private String formatMatchNTriples(Match match, HandlerProperties handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : invokerProperties.getTriplePatternGraph().getConstructConditions()){
+		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){
 			
 			//Resolve subject
 			buffer.append('<');

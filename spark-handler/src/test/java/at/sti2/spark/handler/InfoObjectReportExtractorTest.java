@@ -1,4 +1,4 @@
-package at.sti2.spark.invoke;
+package at.sti2.spark.handler;
 
 import at.sti2.spark.handler.ImpactoriumHandler;
 import junit.framework.TestCase;

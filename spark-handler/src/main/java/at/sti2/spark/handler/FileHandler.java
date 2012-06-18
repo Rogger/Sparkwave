@@ -13,85 +13,76 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.output;
+package at.sti2.spark.handler;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
-import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
-import at.sti2.spark.handler.SparkweaveHandler;
-import at.sti2.spark.handler.SparkweaveHandlerException;
 
-public class SparkweaveNetworkOutputThread extends Thread {
+public class FileHandler implements SparkweaveHandler {
 
-	static Logger logger = Logger.getLogger(SparkweaveNetworkOutputThread.class);
+	protected static Logger logger = Logger.getLogger(FileHandler.class);
+	private HandlerProperties handlerProperties = null;
 	
-	private OutputBuffer outputBuffer = null;
-	private TriplePatternGraph triplePatternGraph = null;
+	//file logger
+	private File path = null;
+	private FileWriter writer = null;
 	
-	public SparkweaveNetworkOutputThread(TriplePatternGraph patternGraph, OutputBuffer outputBuffer){
-		this.outputBuffer = outputBuffer;
-		this.triplePatternGraph = patternGraph;
+	private int count = 0;
+	
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	
+	@Override
+	public void init(HandlerProperties handlerProperties) throws SparkweaveHandlerException {
+		this.handlerProperties = handlerProperties;
+		this.path = new File(handlerProperties.getValue("path"));
+		try {
+			if(!path.exists()){
+				path.createNewFile();				
+			}
+		} catch (IOException e) {
+			throw new SparkweaveHandlerException(e);
+		}
 	}
 	
-	public void run() {
-		Match match = null;
-		List<SparkweaveHandler> handlerInstances = new ArrayList<SparkweaveHandler>();
-
-		List<HandlerProperties> handlerPropertiesList = triplePatternGraph
-				.getHandlers();
-
-		// Instantiate handlers
-		for (HandlerProperties handlerProperties : handlerPropertiesList) {
-			String handlerClass = handlerProperties.getHandlerClass();
-			SparkweaveHandler invoker = null;
-
-			try {
-				invoker = (SparkweaveHandler) Class.forName(handlerClass).newInstance();
-				invoker.init(handlerProperties);
-				handlerInstances.add(invoker);
-
-			} catch (ClassNotFoundException e) {
-				logger.error("Could not find class " + handlerClass);
-			} catch (InstantiationException e) {
-				logger.error("Could not instantiate class " + handlerClass);
-			} catch (IllegalAccessException e) {
-				logger.error(e);
-			} catch (SparkweaveHandlerException e) {
-				logger.error(e);
-			}
+	@Override
+	public void invoke(Match match) throws SparkweaveHandlerException{
+		
+		logger.debug("Invoking FileHandler");
+		Date date = new Date();
+		
+		//store match to file
+		StringBuffer sb = new StringBuffer();
+		sb.append(dateFormat.format(date)).append(" match_number:").append(count++).append("\n");
+		sb.append( formatMatchNTriples(match, handlerProperties) );
+		try {
+			writer = new FileWriter(path,true);
+			writer.write(sb.toString());
+			writer.close();
+			logger.info("Match number "+count+" written to file "+path);
+		} catch (IOException e) {
+			throw new SparkweaveHandlerException(e);
 		}
-
-		while (true) {
-			try {
-				match = outputBuffer.get();
-				for (SparkweaveHandler handlerInstance : handlerInstances) {
-					handlerInstance.invoke(match);
-				}
-				// System.out.println( formatMatch(match));
-			} catch (InterruptedException e) {
-				logger.error(e);
-			} catch (SparkweaveHandlerException e) {
-				logger.error(e);
-			}
-		}
-
+		
 	}
-	
-	private String formatMatch(Match match){
+		
+	private StringBuffer formatMatchNTriples(Match match, HandlerProperties handlerProperties){
+		
 		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : triplePatternGraph.getConstructConditions()){
+		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){
 			
 			//Resolve subject
 			buffer.append('<');
@@ -126,7 +117,7 @@ public class SparkweaveNetworkOutputThread extends Thread {
 				
 				buffer.append('<');
 				buffer.append(((RDFURIReference)condition.getConditionTriple().getObject()).toString());
-				buffer.append(">\n");
+				buffer.append("> .\n");
 				
 			} else if (condition.getConditionTriple().getObject() instanceof RDFVariable){
 				
@@ -136,14 +127,14 @@ public class SparkweaveNetworkOutputThread extends Thread {
 				if (value instanceof RDFURIReference){
 					buffer.append('<');
 					buffer.append(value.toString());
-					buffer.append(">\n");
+					buffer.append("> .\n");
 				} else if (value instanceof RDFLiteral){
 					buffer.append('\"');
 					buffer.append(((RDFLiteral)value).getValue());
 					buffer.append('\"');
 					buffer.append("^^<");
 					buffer.append(((RDFLiteral)value).getDatatypeURI());
-					buffer.append(">\n");
+					buffer.append("> .\n");
 				}
 			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
 				buffer.append('\"');
@@ -151,23 +142,9 @@ public class SparkweaveNetworkOutputThread extends Thread {
 				buffer.append('\"');
 				buffer.append("^^<");
 				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
-				buffer.append(">\n");
+				buffer.append("> .\n");
 			}
 		}
-		return buffer.toString();
-	}
-	
-	private String outputMatch(Match match){
-		StringBuffer buffer = new StringBuffer();
-		Enumeration <String> keyEnum = match.getVariableBindings().keys();
-		while(keyEnum.hasMoreElements()){
-			String variableId = (String)keyEnum.nextElement();
-			RDFValue value = (RDFValue)match.getVariableBindings().get(variableId);
-			buffer.append(variableId);
-			buffer.append(" : ");
-			buffer.append(value.toString());
-			buffer.append('\n');
-		}		
-		return buffer.toString();		
+		return buffer;
 	}
 }

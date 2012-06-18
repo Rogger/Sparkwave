@@ -5,8 +5,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 HANDLERS {
 	HANDLER {
-		"class" = "at.sti2.spark.handler.ImpactoriumHandler"
-		"baseurl" = "http://impactorium.epn.foi.se:7070/impact"
+		"class" = "at.sti2.spark.handler.FileHandler"
+		"path" = "supportPatternMatch.log"
 	}
 	HANDLER {
 		"class" = "at.sti2.spark.handler.ConsoleHandler"

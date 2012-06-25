@@ -13,7 +13,7 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.core.prefix;
+package at.sti2.spark.grammar.pattern;
 
 public class Prefix {
 
@@ -31,5 +31,10 @@ public class Prefix {
 	}
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	
+	@Override
+	public String toString() {
+		return label+":"+namespace;
 	}
 }

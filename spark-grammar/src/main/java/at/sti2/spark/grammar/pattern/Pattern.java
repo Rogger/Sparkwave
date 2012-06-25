@@ -14,13 +14,11 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package at.sti2.spark.core.condition;
+package at.sti2.spark.grammar.pattern;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import at.sti2.spark.core.invoker.HandlerProperties;
-import at.sti2.spark.core.prefix.Prefix;
 
 /**
  * 
@@ -28,28 +26,29 @@ import at.sti2.spark.core.prefix.Prefix;
  * 
  * @author srdkom
  */
-public class TriplePatternGraph {
+public class Pattern {
 
-	private List <TripleCondition> selectConditions = null;
+	private GroupGraphPattern wherePattern = null;
 	private List <TripleCondition> constructConditions = null;
 	private List <Prefix> prefixes = null;
-	private List <HandlerProperties> handlers = null;
+	private List <Handler> handlers = null;
 
-	//The timewindow unit is ms
-	private long timeWindowLength = 0l;
-	
-	public TriplePatternGraph() {
+	public Pattern() {
 		super();
-		selectConditions = new ArrayList <TripleCondition> ();
+		wherePattern = new GroupGraphPattern();
 		constructConditions = new ArrayList <TripleCondition> ();
 		prefixes = new ArrayList <Prefix> ();
-		handlers = new ArrayList <HandlerProperties>();
-	}
-
-	public List<TripleCondition> getSelectConditions() {
-		return selectConditions;
+		handlers = new ArrayList <Handler>();
 	}
 	
+	public GroupGraphPattern getWherePattern(){
+		return wherePattern;
+	}
+	
+	public void setWherePattern(GroupGraphPattern wherePattern){
+		this.wherePattern = wherePattern;
+	}
+
 	public List<TripleCondition> getConstructConditions() {
 		return constructConditions;
 	}
@@ -58,20 +57,12 @@ public class TriplePatternGraph {
 		return prefixes;
 	}
 
-	public void addSelectTripleCondition(TripleCondition condition) {
-		selectConditions.add(condition);
-	}
-	
 	public void addConstructTripleCondition(TripleCondition condition) {
 		constructConditions.add(condition);
 	}
 	
 	public void addPrefix(Prefix prefix){
 		prefixes.add(prefix);
-	}
-	
-	public TripleCondition getSelectConditionByIndex(int index){
-		return selectConditions.get(index);
 	}
 	
 	public TripleCondition getConstructConditionByIndex(int index){
@@ -82,19 +73,11 @@ public class TriplePatternGraph {
 		return prefixes.get(index);
 	}
 	
-	public long getTimeWindowLength(){
-		return timeWindowLength;
-	}
-	
-	public void setTimeWindowLength(long timeWindowLength){
-		this.timeWindowLength = timeWindowLength;
-	}
-	
-	public List<HandlerProperties> getHandlers() {
+	public List<Handler> getHandlers() {
 		return handlers;
 	}
 
-	public void addHandlerProperties(HandlerProperties handlerProperties) {
+	public void addHandlerProperties(Handler handlerProperties) {
 		this.handlers.add(handlerProperties);
 	}
 
@@ -126,7 +109,9 @@ public class TriplePatternGraph {
 		
 		if (handlers != null){
 			buffer.append("HANDLERS\n");
-			buffer.append(handlers);
+			for(Handler handler : handlers){
+				buffer.append(handler.toString()).append("\n");
+			}
 		}
 		
 		buffer.append("CONSTRUCT\n");
@@ -139,15 +124,8 @@ public class TriplePatternGraph {
 				buffer.append('\n');
 			}
 		
-		buffer.append("SELECT\n");
-		
-		for (TripleCondition condition : selectConditions)
-			for (TripleConstantTest constantTest : condition.getConstantTests()){
-				buffer.append(constantTest.getTestField());
-				buffer.append(' ');
-				buffer.append(constantTest.getLexicalTestSymbol());
-				buffer.append('\n');
-			}
+		buffer.append("WHERE\n");
+		buffer.append(wherePattern.toString());
 		
 		return buffer.toString();
 	}

@@ -16,16 +16,24 @@ import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TripleConstantTest;
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import at.sti2.spark.core.invoker.HandlerProperties;
-import at.sti2.spark.core.prefix.Prefix;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.SparkLexer;
+import at.sti2.spark.grammar.SparkParser;
+import at.sti2.spark.grammar.pattern.GroupGraphPattern;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.Prefix;
+import at.sti2.spark.grammar.pattern.TripleCondition;
+import at.sti2.spark.grammar.pattern.TripleConstantTest;
+import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.expression.Expression;
+import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
+import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
+import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
+import at.sti2.spark.grammar.pattern.expression.Operator;
 import at.sti2.spark.grammar.util.Entry;
 
 
@@ -39,9 +47,9 @@ public class SparkPatternParser {
 		this.patternFilePath = patternFilePath;
 	}
 	
-	public TriplePatternGraph parse() throws IOException{
+	public Pattern parse() throws IOException{
 		
-		TriplePatternGraph triplePatternGraph = new TriplePatternGraph();
+		Pattern triplePatternGraph = new Pattern();
 		
 		// open file
 		CharStream input = new ANTLRFileStream(patternFilePath);
@@ -101,7 +109,7 @@ public class SparkPatternParser {
 	/**
 	 * Parse Query
 	 */
-	private void parseQuery(TreeWrapper treeNode,TriplePatternGraph patternGraph){
+	private void parseQuery(TreeWrapper treeNode,Pattern patternGraph){
 		
 		if(treeNode!=null){
 			
@@ -124,7 +132,7 @@ public class SparkPatternParser {
 	/**
 	 * Parse Prologue
 	 */
-	private void parsePrologue(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parsePrologue(TreeWrapper treeNode, Pattern patternGraph){
 		
 		if(treeNode!=null){
 			
@@ -172,14 +180,14 @@ public class SparkPatternParser {
 	/**
 	 * HANDLERS
 	 */
-	private void parseHandlers(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseHandlers(TreeWrapper treeNode, Pattern patternGraph){
 		
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode){
 				String childToken = child.toString();
 				logger.debug(childToken);
 				if(childToken.equals("HANDLER")){
-					HandlerProperties invokerProperties = parseHandler(child,patternGraph);
+					Handler invokerProperties = parseHandler(child,patternGraph);
 					patternGraph.addHandlerProperties(invokerProperties);					
 				}
 			}
@@ -189,9 +197,9 @@ public class SparkPatternParser {
 	/**
 	 * HANDLE
 	 */
-	private HandlerProperties parseHandler(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private Handler parseHandler(TreeWrapper treeNode, Pattern patternGraph){
 		
-		HandlerProperties handlerProperties = null;
+		Handler handlerProperties = null;
 		
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
@@ -207,8 +215,8 @@ public class SparkPatternParser {
 		return handlerProperties;
 	}
 	
-	private HandlerProperties parseHandlerGroup(TreeWrapper treeNode, TriplePatternGraph patternGraph){
-		HandlerProperties handlerProperties = new HandlerProperties(patternGraph);
+	private Handler parseHandlerGroup(TreeWrapper treeNode, Pattern patternGraph){
+		Handler handlerProperties = new Handler(patternGraph);
 		
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
@@ -253,7 +261,7 @@ public class SparkPatternParser {
 	/**
 	 * Parse SELECT
 	 */
-	private void parseSelect(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseSelect(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
@@ -269,7 +277,7 @@ public class SparkPatternParser {
 		}
 	}
 	
-	private void parseSelectClause(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseSelectClause(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			TreeWrapper child = treeNode.getChild(0);
 			logger.debug(child.toString());
@@ -281,7 +289,7 @@ public class SparkPatternParser {
 	 * @param treeNode
 	 * @param patternGraph
 	 */
-	private void parseConstruct(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseConstruct(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
@@ -301,7 +309,7 @@ public class SparkPatternParser {
 	 * Parse CONSTRUCT_TRIPLES
 	 * @param treeNode
 	 */
-	private void parseConstructTriples(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseConstructTriples(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
@@ -319,14 +327,15 @@ public class SparkPatternParser {
 	 * Parse WHERE_CLAUSE
 	 * @param treeNode
 	 */
-	private void parseWhereClause(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private void parseWhereClause(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
 				logger.debug(childToken);
 				
 				if(childToken.equals("GROUP_GRAPH_PATTERN")){
-					parseGroupGraphPattern(child,patternGraph);
+					GroupGraphPattern parseGroupGraphPattern = parseGroupGraphPattern(child,patternGraph);
+					patternGraph.setWherePattern(parseGroupGraphPattern);
 				}
 			}
 		}
@@ -336,22 +345,29 @@ public class SparkPatternParser {
 	 * Parse GROUP_GRAPH_PATTERN
 	 * @param treeNode
 	 */
-	private void parseGroupGraphPattern(TreeWrapper treeNode, TriplePatternGraph patternGraph){
-		if(treeNode!=null){
+	private GroupGraphPattern parseGroupGraphPattern(TreeWrapper treeNode, Pattern patternGraph){
+		GroupGraphPattern groupGraphPattern = new GroupGraphPattern();
 
+		if(treeNode!=null){
+		
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
 				logger.debug(childToken);
 				
 				if(childToken.equals("TRIPLE")){
 					TripleCondition triple = parseTriple(child,patternGraph);
-					patternGraph.addSelectTripleCondition(triple);
+					groupGraphPattern.addWhereCondition(triple);
 				}else if(childToken.equals("TIMEWINDOW")){
-					int timewindow = parseTimewindow(child);
-					patternGraph.setTimeWindowLength(timewindow);
+					int timewindow = parseTimewindow(child,patternGraph);
+					groupGraphPattern.setTimeWindowLength(timewindow);
+				}else if(childToken.equals("FILTER")){
+					List<Expression> expressions = parseFilter(child,patternGraph);
+					groupGraphPattern.setFilter(expressions);
 				}
 			}
 		}
+		
+		return groupGraphPattern;
 	}
 	
 	
@@ -359,7 +375,7 @@ public class SparkPatternParser {
 	 * Parse TIMEWINDOW
 	 * @param treeNode
 	 */
-	private int parseTimewindow(TreeWrapper treeNode){
+	private int parseTimewindow(TreeWrapper treeNode, Pattern patternGraph){
 		
 		int timewindow = 0;
 		if(treeNode!=null){
@@ -376,10 +392,88 @@ public class SparkPatternParser {
 	}
 	
 	/**
+	 * Parse FILTER
+	 */
+	private List<Expression> parseFilter(TreeWrapper treeNode, Pattern patternGraph){
+		
+		ArrayList<Expression> expressions = new ArrayList<Expression>();
+		
+		if(treeNode!=null){
+			TreeWrapper bracketted = treeNode.getChild(0);
+			logger.info(bracketted);
+			
+			if(bracketted!=null && bracketted.toString().equals("BRACKETTED_EXPRESSION")){
+				Expression parseExpression = parseBrackettedExpression(bracketted,patternGraph);
+				if(parseExpression!=null)
+					expressions.add(parseExpression);
+			}
+		}
+		
+		return expressions;
+	}
+	
+	/**
+	 * Parse BRACKETTED_EXPRESSION
+	 * @param treeNode
+	 * @return
+	 */
+	private Expression parseBrackettedExpression(TreeWrapper treeNode, Pattern patternGraph) {
+		Expression expression = null;
+		if (treeNode != null) {
+			TreeWrapper operation = treeNode.getChild(0);
+			
+			// operation
+			if(operation!=null){
+				logger.info(operation);
+				String operatorValue = operation.toString();
+				
+				Operator operator = null;
+				if (operatorValue.equals("=")) {
+					operator = Operator.EQUAL;
+				}
+				
+				// left
+				ExpressionAbstract leftRDFValue = parseRelationalExpression(operation.getChild(0));
+				
+				//right
+				ExpressionAbstract rightRDFValue = parseRelationalExpression(operation.getChild(1));
+				
+				expression = new Expression(leftRDFValue, rightRDFValue, operator);
+			}
+		}
+		return expression;
+	}
+	
+	private ExpressionAbstract parseRelationalExpression(TreeWrapper treeNode) {
+		if (treeNode != null) {
+
+			// expression
+			if (treeNode != null) {
+				logger.info(treeNode);
+				String expressionValue = treeNode.toString();
+
+				if (expressionValue.equals("VAR")) {
+					String varName = treeNode.getChild(0).toString();
+					varName = varName.replaceAll("\\?", "");
+					ExpressionVariable expressionVariable = new ExpressionVariable(varName);
+					return expressionVariable;
+					
+				} else if (expressionValue.equals("NUMERIC_LITERAL")) {
+					String numericValue = treeNode.getChild(0).toString();
+					ExpressionNumericLiteral expressionNumericValue = new ExpressionNumericLiteral(
+							Double.parseDouble(numericValue));
+					return expressionNumericValue;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
 	 * Parse TRIPLE
 	 * @param treeNode
 	 */
-	private TripleCondition parseTriple(TreeWrapper treeNode, TriplePatternGraph patternGraph) {
+	private TripleCondition parseTriple(TreeWrapper treeNode, Pattern patternGraph) {
 		
 		TripleCondition tripleCondition = new TripleCondition();
 		RDFTriple triple = new RDFTriple();
@@ -438,7 +532,7 @@ public class SparkPatternParser {
 	 * @param treeNode
 	 * @return
 	 */
-	private RDFValue parseRDFValue(TreeWrapper treeNode, TriplePatternGraph patternGraph){
+	private RDFValue parseRDFValue(TreeWrapper treeNode, Pattern patternGraph){
 		
 		RDFValue rdfValue = null;
 		
@@ -449,8 +543,10 @@ public class SparkPatternParser {
 				String varName = treeNode.getChild(0).toString();
 				varName = varName.replaceAll("\\?", "");
 				rdfValue = new RDFVariable(varName);
+				
 			}else if(childToken.equals("IRI")){
 				//TODO
+				
 			}else if(childToken.equals("PREFIX_NAME")){
 				String prefixName = treeNode.getChild(0).toString();
 				String[] prefixNameSplit = prefixName.split(":");

@@ -49,14 +49,21 @@ HANDLER_CLASS;
 KEYVALUE_PAIR;
 KEY;
 VALUE;
+FILTER;
+BRACKETTED_EXPRESSION;
+NUMERIC_LITERAL;
 }
 
 @header {
-    package at.sti2.spark.grammar;
+package at.sti2.spark.grammar;
+
+import at.sti2.spark.grammar.parser.IErrorReporter;
 }
 
 @lexer::header {
-    package at.sti2.spark.grammar;
+package at.sti2.spark.grammar;
+
+import at.sti2.spark.grammar.parser.IErrorReporter;
 }
 
 @parser::members {
@@ -161,10 +168,48 @@ groupGraphPatternSubDetail
     
 graphPatternNotTriples
     : timewindow
+    | filter
     ;
     
 timewindow
     : TIMEWINDOW OPEN_BRACE INTEGER CLOSE_BRACE -> ^(TIMEWINDOW INTEGER)
+    ;
+    
+filter
+    : FILTER constraint -> ^(FILTER constraint)
+    ;
+  
+constraint
+    : brackettedExpression
+    ;
+    
+brackettedExpression
+    : OPEN_BRACE expression CLOSE_BRACE -> ^(BRACKETTED_EXPRESSION expression)
+    ;
+    
+expression
+    : relationalExpression
+    ;
+    
+relationalExpression
+	: (n1=numericExpression -> $n1) ( (EQUAL n2=numericExpression -> ^(EQUAL $relationalExpression $n2)) )?
+	;
+//    : (n1=numericExpression -> $n1) ((EQUAL n2=numericExpression -> ^(EQUAL $relationalExpression $n2))   
+//                                    | (NOT_EQUAL n3=numericExpression -> ^(NOT_EQUAL $relationalExpression $n3)) 
+//                                    | (LESS n4=numericExpression -> ^(LESS $relationalExpression $n4)) 
+//                                    | (GREATER n5=numericExpression -> ^(GREATER $relationalExpression $n5))
+//                                    | (LESS_EQUAL n6=numericExpression -> ^(LESS_EQUAL $relationalExpression $n6))
+//                                    | (GREATER_EQUAL n7=numericExpression -> ^(GREATER_EQUAL $relationalExpression $n7))  
+//                                    | (IN l2=expressionList -> ^(IN $relationalExpression $l2))
+//                                    | (NOT IN l3=expressionList -> ^(NOT IN $relationalExpression $l3)))?
+//    ;
+
+numericExpression
+    : primaryExpression
+    ;
+    
+primaryExpression
+    : brackettedExpression | numericLiteral | var
     ;
 
 triplesBlock
@@ -197,6 +242,18 @@ rdfLiteral
     : string (LANGTAG | (REFERENCE iriRef))? -> ^(RDFLITERAL string LANGTAG* iriRef*)
     ;
     
+numericLiteral
+    : numericLiteralUnsigned -> ^(NUMERIC_LITERAL numericLiteralUnsigned)
+//    | numericLiteralPositive
+//    | numericLiteralNegative
+    ;
+    
+numericLiteralUnsigned
+    : INTEGER 
+    | DECIMAL
+//    | DOUBLE
+    ;
+    
 string
     : STRING_LITERAL1
     | STRING_LITERAL2
@@ -221,6 +278,8 @@ prefixedName
 
 DOT : '.';
 
+PLUS : '+';
+
 COLUMN : ':';
 
 MINUS : '-';
@@ -238,6 +297,8 @@ CONSTRUCT : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('R'|'r')('U'|'u')('C'|
 WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
+
+FILTER : ('F'|'f')('I'|'i')('L'|'l')('T'|'t')('E'|'e')('R'|'r');
 
 TRUE : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
@@ -260,6 +321,11 @@ VAR1 : '?' VARNAME;
 LANGTAG : '@' ('A'..'Z'|'a'..'z')+ (MINUS ('A'..'Z'|'a'..'z'|DIGIT)+)*;
 
 INTEGER : DIGIT+;
+
+DECIMAL
+    : DIGIT+ DOT DIGIT*
+    | DOT DIGIT+
+    ;
 
 STRING_LITERAL1 : '\'' (options {greedy=false;} : ~('\'' | '\\' | EOL) | ECHAR)* '\'';
 

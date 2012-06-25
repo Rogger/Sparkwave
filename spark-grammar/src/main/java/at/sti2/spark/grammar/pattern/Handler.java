@@ -13,21 +13,19 @@
  * with this library; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package at.sti2.spark.core.invoker;
+package at.sti2.spark.grammar.pattern;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import at.sti2.spark.core.condition.TriplePatternGraph;
 
-
-public class HandlerProperties {
+public class Handler {
 	
 	private String handlerClass = null;
 	private Map<String,String> handlerKeyValue = null;
-	private TriplePatternGraph triplePatternGraph = null;
+	private Pattern triplePatternGraph = null;
 	
-	public HandlerProperties(TriplePatternGraph triplePatternGraph){
+	public Handler(Pattern triplePatternGraph){
 		this.triplePatternGraph = triplePatternGraph;
 		this.handlerKeyValue = new HashMap<String, String>();
 	}
@@ -40,11 +38,11 @@ public class HandlerProperties {
 		this.handlerClass = invokerClass;
 	}
 	
-	public TriplePatternGraph getTriplePatternGraph() {
+	public Pattern getTriplePatternGraph() {
 		return triplePatternGraph;
 	}
 
-	public void setTriplePatternGraph(TriplePatternGraph triplePatternGraph) {
+	public void setTriplePatternGraph(Pattern triplePatternGraph) {
 		this.triplePatternGraph = triplePatternGraph;
 	}
 	

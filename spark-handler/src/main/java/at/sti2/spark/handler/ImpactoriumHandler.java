@@ -45,21 +45,21 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 
 public class ImpactoriumHandler implements SparkweaveHandler {
 
 	static Logger logger = Logger.getLogger(ImpactoriumHandler.class);
-	HandlerProperties handlerProperties = null;
+	Handler handlerProperties = null;
 	
 	@Override
-	public void init(HandlerProperties handlerProperties) {
+	public void init(Handler handlerProperties) {
 		this.handlerProperties = handlerProperties;
 		
 	}
@@ -156,7 +156,7 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 		return reportId;
 	}
 	
-	private String formatMatchNTriples(Match match, HandlerProperties handlerProperties){
+	private String formatMatchNTriples(Match match, Handler handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
 		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){

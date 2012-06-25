@@ -15,12 +15,12 @@
  */
 package at.sti2.spark.handler;
 
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
+import at.sti2.spark.grammar.pattern.Handler;
 
 public interface SparkweaveHandler {
 	
-	public void init(HandlerProperties invokerProperties) throws SparkweaveHandlerException;
+	public void init(Handler invokerProperties) throws SparkweaveHandlerException;
 	
 	public void invoke(Match match) throws SparkweaveHandlerException;
 }

@@ -22,11 +22,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.node.RETENode;

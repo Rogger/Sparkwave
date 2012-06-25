@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 import org.antlr.runtime.tree.Tree;
 
-class TreeWrapper implements Iterable<TreeWrapper>,Iterator<TreeWrapper>{
+public class TreeWrapper implements Iterable<TreeWrapper>,Iterator<TreeWrapper>{
 	
 	private final Tree tree;
 	private int size = 0;

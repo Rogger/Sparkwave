@@ -24,13 +24,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TripleConstantTest;
-import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.GroupGraphPattern;
+import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.TripleCondition;
+import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.input.N3FileInput;
 
 public class SparkWeaveFirstBSBMTest extends TestCase {
@@ -115,13 +116,16 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		
 		// ----- BUILDING A TRIPLE GRAPH PATTERN -----
 		
-		TriplePatternGraph patternGraph = new TriplePatternGraph();
-		patternGraph.addSelectTripleCondition(tripleCondition1);
-		patternGraph.addSelectTripleCondition(tripleCondition2);
-		patternGraph.addSelectTripleCondition(tripleCondition3);
+		GroupGraphPattern wherePattern = new GroupGraphPattern();
+		wherePattern.addWhereCondition(tripleCondition1);
+		wherePattern.addWhereCondition(tripleCondition2);
+		wherePattern.addWhereCondition(tripleCondition3);
 		
 		// --- SET TIME WINDOW ---
-		patternGraph.setTimeWindowLength(1000);
+		wherePattern.setTimeWindowLength(1000);
+		
+		Pattern patternGraph = new Pattern();
+		patternGraph.setWherePattern(wherePattern);
 		
 		ontologyFile = new File("./resources/bsbm_epsilon.owl");
 		

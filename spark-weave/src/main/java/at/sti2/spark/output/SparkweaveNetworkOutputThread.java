@@ -21,15 +21,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 import at.sti2.spark.handler.SparkweaveHandler;
 import at.sti2.spark.handler.SparkweaveHandlerException;
 
@@ -38,9 +38,9 @@ public class SparkweaveNetworkOutputThread extends Thread {
 	static Logger logger = Logger.getLogger(SparkweaveNetworkOutputThread.class);
 	
 	private OutputBuffer outputBuffer = null;
-	private TriplePatternGraph triplePatternGraph = null;
+	private Pattern triplePatternGraph = null;
 	
-	public SparkweaveNetworkOutputThread(TriplePatternGraph patternGraph, OutputBuffer outputBuffer){
+	public SparkweaveNetworkOutputThread(Pattern patternGraph, OutputBuffer outputBuffer){
 		this.outputBuffer = outputBuffer;
 		this.triplePatternGraph = patternGraph;
 	}
@@ -49,11 +49,10 @@ public class SparkweaveNetworkOutputThread extends Thread {
 		Match match = null;
 		List<SparkweaveHandler> handlerInstances = new ArrayList<SparkweaveHandler>();
 
-		List<HandlerProperties> handlerPropertiesList = triplePatternGraph
-				.getHandlers();
+		List<Handler> handlerPropertiesList = triplePatternGraph.getHandlers();
 
 		// Instantiate handlers
-		for (HandlerProperties handlerProperties : handlerPropertiesList) {
+		for (Handler handlerProperties : handlerPropertiesList) {
 			String handlerClass = handlerProperties.getHandlerClass();
 			SparkweaveHandler invoker = null;
 

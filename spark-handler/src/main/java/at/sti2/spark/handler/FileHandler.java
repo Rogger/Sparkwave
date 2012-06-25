@@ -24,18 +24,18 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 
 public class FileHandler implements SparkweaveHandler {
 
 	protected static Logger logger = Logger.getLogger(FileHandler.class);
-	private HandlerProperties handlerProperties = null;
+	private Handler handlerProperties = null;
 	
 	//file logger
 	private File path = null;
@@ -46,7 +46,7 @@ public class FileHandler implements SparkweaveHandler {
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	
 	@Override
-	public void init(HandlerProperties handlerProperties) throws SparkweaveHandlerException {
+	public void init(Handler handlerProperties) throws SparkweaveHandlerException {
 		this.handlerProperties = handlerProperties;
 		this.path = new File(handlerProperties.getValue("path"));
 		try {
@@ -79,7 +79,7 @@ public class FileHandler implements SparkweaveHandler {
 		
 	}
 		
-	private StringBuffer formatMatchNTriples(Match match, HandlerProperties handlerProperties){
+	private StringBuffer formatMatchNTriples(Match match, Handler handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
 		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){

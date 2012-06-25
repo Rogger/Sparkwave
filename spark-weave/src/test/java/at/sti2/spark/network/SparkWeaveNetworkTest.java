@@ -24,13 +24,14 @@ import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TripleConstantTest;
-import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.GroupGraphPattern;
+import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.TripleCondition;
+import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.input.N3FileInput;
 
 public class SparkWeaveNetworkTest extends TestCase {
@@ -160,18 +161,20 @@ public class SparkWeaveNetworkTest extends TestCase {
 		tripleCondition7.addConstantTest(tripleConstantTest10);
 		
 		// ----- BUILDING A TRIPLE GRAPH PATTERN -----
-		
-		TriplePatternGraph patternGraph = new TriplePatternGraph();
-		patternGraph.addSelectTripleCondition(tripleCondition1);
-		patternGraph.addSelectTripleCondition(tripleCondition2);
-		patternGraph.addSelectTripleCondition(tripleCondition3);
-		//patternGraph.addTripleCondition(tripleCondition4);
-		patternGraph.addSelectTripleCondition(tripleCondition5);
-		//patternGraph.addTripleCondition(tripleCondition6);
-		patternGraph.addSelectTripleCondition(tripleCondition7);
+		GroupGraphPattern wherePattern = new GroupGraphPattern();
+		wherePattern.addWhereCondition(tripleCondition1);
+		wherePattern.addWhereCondition(tripleCondition2);
+		wherePattern.addWhereCondition(tripleCondition3);
+		//wherePattern.addWhereCondition(tripleCondition4);
+		wherePattern.addWhereCondition(tripleCondition5);
+		//wherePattern.addWhereCondition(tripleCondition6);
+		wherePattern.addWhereCondition(tripleCondition7);
 		
 		// --- SET TIME WINDOW ---
-		patternGraph.setTimeWindowLength(150);
+		wherePattern.setTimeWindowLength(150);
+		
+		Pattern patternGraph = new Pattern();
+		patternGraph.setWherePattern(wherePattern);
 		
 		ontologyFile = new File("./resources/epsilon.owl");
 		

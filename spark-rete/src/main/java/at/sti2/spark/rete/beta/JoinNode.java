@@ -23,11 +23,11 @@ import java.util.Set;
 import java.util.Vector;
 
 import at.sti2.spark.core.collect.IndexStructure;
-import at.sti2.spark.core.condition.TripleCondition;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
@@ -198,7 +198,7 @@ public class JoinNode extends RETENode {
 
 		if (tripleTimestamp < tokenStartTime)
 			return (tokenEndTime - tripleTimestamp) < timeWindowLength;
-		else if (tripleTimestamp > token.getEndTime())
+		else if (tripleTimestamp > tokenEndTime)
 			return (tripleTimestamp - tokenStartTime) < timeWindowLength;
 		else
 			return tokenEndTime - tokenStartTime < timeWindowLength;

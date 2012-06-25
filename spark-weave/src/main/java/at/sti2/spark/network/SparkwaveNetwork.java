@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.epsilon.network.ClassNode;
@@ -30,6 +29,7 @@ import at.sti2.spark.epsilon.network.PropertyNode;
 import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.grammar.SparkPatternParser;
+import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.output.SparkweaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
@@ -46,17 +46,17 @@ public class SparkwaveNetwork{
 	private EpsilonNetwork epsilonNetwork = null;
 	
 	//Input artifacts
-	private TriplePatternGraph triplePatternGraph = null;
+	private Pattern triplePatternGraph = null;
 	private File epsilonOntology = null;
 	
 	//Values needed for garbage collection
 	private long lastTimestamp = 0l;
 	
-	public SparkwaveNetwork(TriplePatternGraph triplePatternGraph, File epsilonOntology) {
+	public SparkwaveNetwork(Pattern triplePatternGraph, File epsilonOntology) {
 		init(triplePatternGraph,epsilonOntology);	
 	}
 	
-	private void init(TriplePatternGraph triplePatternGraph, File epsilonOntology){
+	private void init(Pattern triplePatternGraph, File epsilonOntology){
 		this.triplePatternGraph = triplePatternGraph;
 		this.epsilonOntology = epsilonOntology;
 	}
@@ -233,7 +233,7 @@ public class SparkwaveNetwork{
 	}
 	
 	public long getTimeWindowLength(){
-		return triplePatternGraph.getTimeWindowLength();
+		return triplePatternGraph.getWherePattern().getTimeWindowLength();
 	}
 	
 	public void activateNetwork(Triple streamedTriple){

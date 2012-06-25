@@ -2,13 +2,13 @@ package at.sti2.spark.handler;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.TripleCondition;
 
 public class ConsoleHandler implements SparkweaveHandler {
 
@@ -16,10 +16,10 @@ public class ConsoleHandler implements SparkweaveHandler {
 	
 	private long noMatches = 0;
 	
-	HandlerProperties handlerProperties = null;
+	Handler handlerProperties = null;
 	
 	@Override
-	public void init(HandlerProperties handlerProperties) {
+	public void init(Handler handlerProperties) {
 		this.handlerProperties = handlerProperties;
 		
 	}
@@ -35,7 +35,7 @@ public class ConsoleHandler implements SparkweaveHandler {
 		log.info(ntriplesOutput);
 	}
 	
-	private String formatMatchNTriples(Match match, HandlerProperties handlerProperties){
+	private String formatMatchNTriples(Match match, Handler handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
 		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){

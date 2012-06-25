@@ -22,12 +22,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.collect.IndexStructure;
-import at.sti2.spark.core.condition.TripleCondition;
-import at.sti2.spark.core.condition.TripleConstantTest;
-import at.sti2.spark.core.condition.TriplePatternGraph;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.TripleCondition;
+import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ConstantObjectTestAlphaNode;
@@ -45,7 +45,7 @@ public class RETENetwork {
 
 	private WorkingMemory workingMemory = null;
 	private BetaMemory betaMemory = null;
-	private List<TriplePatternGraph> triplePatternGraphs = null;
+	private List<Pattern> triplePatternGraphs = null;
 
 	static Logger logger = Logger.getLogger(RETENetwork.class);
 
@@ -59,7 +59,7 @@ public class RETENetwork {
 		betaMemory.setRootNode();
 
 		// Initialize list of triple pattern graphs
-		triplePatternGraphs = new ArrayList<TriplePatternGraph>();
+		triplePatternGraphs = new ArrayList<Pattern>();
 	}
 
 	public RETENode buildOrShareBetaMemoryNode(RETENode parentNode) {
@@ -335,13 +335,12 @@ public class RETENetwork {
 	 * 
 	 * @param triplePatternGraph
 	 */
-	public void addTriplePatternGraph(TriplePatternGraph triplePatternGraph) {
+	public void addTriplePatternGraph(Pattern triplePatternGraph) {
 
 		RETENode currentNode = betaMemory;
 
 		List<TripleCondition> previousConditions = new ArrayList<TripleCondition>();
-		List<TripleCondition> tripleConditions = triplePatternGraph
-				.getSelectConditions();
+		List<TripleCondition> tripleConditions = triplePatternGraph.getWherePattern().getWhereConditions();
 
 		List<BetaMemory> betaMemories = new ArrayList<BetaMemory>();
 
@@ -353,11 +352,10 @@ public class RETENetwork {
 		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions
 				.get(0));
 		alphaMemory.activateIndexesForTests(tests);
-		alphaMemory.getIndexStructure().setWindowInMillis(
-				triplePatternGraph.getTimeWindowLength());
+		alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
 		currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
 				tripleConditions.get(0),
-				triplePatternGraph.getTimeWindowLength());
+				triplePatternGraph.getWherePattern().getTimeWindowLength());
 
 		for (int i = 1; i < tripleConditions.size(); i++) {
 
@@ -373,19 +371,19 @@ public class RETENetwork {
 			for(JoinNodeTest test :tests){
 				test.getBetaMemory().activateIndexesForTests(test);
 			}
-			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(triplePatternGraph.getTimeWindowLength());
+			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
 
 			// alpha memory
 			alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(i));
 
 			// activate alpha memory indexes
 			alphaMemory.activateIndexesForTests(tests);
-			alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getTimeWindowLength());
+			alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
 
 			// join node
 			currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
 					tripleConditions.get(i),
-					triplePatternGraph.getTimeWindowLength());
+					triplePatternGraph.getWherePattern().getTimeWindowLength());
 		}
 
 		// Build a new production node, make it a child of current node

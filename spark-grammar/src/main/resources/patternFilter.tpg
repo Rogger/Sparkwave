@@ -1,0 +1,19 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX support: <http://www.foi.se/support/wp4demo#>
+
+SELECT *
+
+WHERE {
+	?detection1 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+	?detection1 support:has_sensor ?sensor1 .
+	?sensor1 rdf:type support:PETSensor .
+	?sensor1 support:sensor_has_location ?location1 .
+	?location1 support:location_is_part_of_location support:DockX .
+	?detection2 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+	?detection2 support:has_sensor ?sensor2 .
+	?sensor2 rdf:type support:PATSensor .
+	?sensor2 support:sensor_has_location ?location2 .
+	?location2 support:location_is_part_of_location support:DockX .	
+	FILTER (?sensor1 = 10)
+	TIMEWINDOW (100)
+}

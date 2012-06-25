@@ -7,13 +7,12 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import junit.framework.TestCase;
-import at.sti2.spark.core.condition.TriplePatternGraph;
-import at.sti2.spark.core.invoker.HandlerProperties;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.SparkPatternParser;
-import at.sti2.spark.handler.ImpactoriumHandler;
+import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.handler.SparkweaveHandlerException;
 
 public class FileHandlerTest extends TestCase {
@@ -21,13 +20,13 @@ public class FileHandlerTest extends TestCase {
 	static Logger logger = Logger.getLogger(FileHandlerTest.class);
 
 	private Match match = null;
-	private List<HandlerProperties> handlerProperties = null;
+	private List<Handler> handlerProperties = null;
 	
 	public void setUp(){
 		
 		String patternFileName = "target/test-classes/fileHandler_support_pattern2.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
-		TriplePatternGraph patternGraph = null;
+		Pattern patternGraph = null;
 		try {
 			patternGraph = parser.parse();
 			handlerProperties = patternGraph.getHandlers();

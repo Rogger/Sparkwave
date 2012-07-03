@@ -1,22 +1,24 @@
 package at.sti2.spark.grammar.pattern.expression;
 
+import at.sti2.spark.core.triple.RDFValue;
+
 public final class Expression {
 	
-	private final ExpressionAbstract left;
-	private final ExpressionAbstract right;
+	private final RDFValue left;
+	private final RDFValue right;
 	private final Operator operator;
 	
-	public Expression(ExpressionAbstract left, ExpressionAbstract right, Operator operator) {
+	public Expression(RDFValue left, RDFValue right, Operator operator) {
 		this.left = left;
 		this.right = right;
 		this.operator = operator;
 	}
 	
-	public ExpressionAbstract getLeft() {
+	public RDFValue getLeft() {
 		return left;
 	}
 	
-	public ExpressionAbstract getRight() {
+	public RDFValue getRight() {
 		return right;
 	}
 	

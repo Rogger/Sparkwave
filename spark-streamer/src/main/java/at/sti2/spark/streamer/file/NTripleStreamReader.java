@@ -195,7 +195,7 @@ public class NTripleStreamReader {
 			
 			datatypeURI = new RDFURIReference(buffer.toString());
 			
-			tripObject = new RDFLiteral(lexicalForm, datatypeURI, languageTag);
+			tripObject = RDFLiteral.Factory.createLiteral(lexicalForm, datatypeURI, languageTag);
 		//The character is '<' and we have another URL
 		}else{
 			//Move one place beyond '<'

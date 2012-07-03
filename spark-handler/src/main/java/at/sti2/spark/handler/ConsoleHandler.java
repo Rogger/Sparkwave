@@ -6,9 +6,9 @@ import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
-import at.sti2.spark.grammar.pattern.TripleCondition;
 
 public class ConsoleHandler implements SparkweaveHandler {
 

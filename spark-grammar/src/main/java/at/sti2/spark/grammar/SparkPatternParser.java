@@ -17,17 +17,18 @@ import org.antlr.runtime.tree.Tree;
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.triple.RDFLiteral;
+import at.sti2.spark.core.triple.RDFNumericLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.SparkLexer;
 import at.sti2.spark.grammar.SparkParser;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Prefix;
-import at.sti2.spark.grammar.pattern.TripleCondition;
-import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.grammar.pattern.expression.Expression;
 import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
@@ -433,10 +434,10 @@ public class SparkPatternParser {
 				}
 				
 				// left
-				ExpressionAbstract leftRDFValue = parseRelationalExpression(operation.getChild(0));
+				RDFValue leftRDFValue = parseRelationalExpression(operation.getChild(0));
 				
 				//right
-				ExpressionAbstract rightRDFValue = parseRelationalExpression(operation.getChild(1));
+				RDFValue rightRDFValue = parseRelationalExpression(operation.getChild(1));
 				
 				expression = new Expression(leftRDFValue, rightRDFValue, operator);
 			}
@@ -444,7 +445,7 @@ public class SparkPatternParser {
 		return expression;
 	}
 	
-	private ExpressionAbstract parseRelationalExpression(TreeWrapper treeNode) {
+	private RDFValue parseRelationalExpression(TreeWrapper treeNode) {
 		if (treeNode != null) {
 
 			// expression
@@ -455,13 +456,12 @@ public class SparkPatternParser {
 				if (expressionValue.equals("VAR")) {
 					String varName = treeNode.getChild(0).toString();
 					varName = varName.replaceAll("\\?", "");
-					ExpressionVariable expressionVariable = new ExpressionVariable(varName);
+					RDFVariable expressionVariable = new RDFVariable(varName);
 					return expressionVariable;
 					
 				} else if (expressionValue.equals("NUMERIC_LITERAL")) {
 					String numericValue = treeNode.getChild(0).toString();
-					ExpressionNumericLiteral expressionNumericValue = new ExpressionNumericLiteral(
-							Double.parseDouble(numericValue));
+					RDFNumericLiteral expressionNumericValue = RDFLiteral.Factory.createNumericLiteral(Double.parseDouble(numericValue));
 					return expressionNumericValue;
 				}
 			}
@@ -559,7 +559,7 @@ public class SparkPatternParser {
 				TreeWrapper iri = treeNode.getChild(1);
 				RDFURIReference rdfuriReference = parseRDFURIReference(iri);
 				//TODO language TAG
-				rdfValue = new RDFLiteral(value, rdfuriReference, null);
+				rdfValue = RDFLiteral.Factory.createLiteral(value, rdfuriReference, null);
 			}
 		}
 			

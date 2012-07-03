@@ -14,13 +14,11 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package at.sti2.spark.grammar.pattern;
+package at.sti2.spark.core.triple;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.variable.RDFVariable;
 
 /**
  * A condition represents an RDF triple which may include RDFVariable at any position

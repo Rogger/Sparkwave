@@ -19,19 +19,22 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Stopwatch;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.TripleCondition;
-import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.input.N3FileInput;
 
 public class SparkWeaveFirstBSBMTest extends TestCase {
@@ -127,7 +130,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		Pattern patternGraph = new Pattern();
 		patternGraph.setWherePattern(wherePattern);
 		
-		ontologyFile = new File("./resources/bsbm_epsilon.owl");
+		ontologyFile = new File("target/classes/BSBM/epsilon-PT2-DS329.owl");
 		
 		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
@@ -138,12 +141,15 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		triples = new ArrayList <RDFTriple> ();
 		
 		//Setup data
-		N3FileInput n3FileInput = new N3FileInput("./resources/sparkweave_benchmark/offers.nt");
+		N3FileInput n3FileInput = new N3FileInput("target/classes/BSBM/offers-trunc_10.nt");
 		n3FileInput.parseTriples();
 		triples = n3FileInput.getTriples();
 	}
 	
 	public void testNetworkProcessing(){
+		
+		Stopwatch stopWatch = new Stopwatch();
+		stopWatch.start();
 		
 		logger.info("Processing " + triples.size() + " triples.");
 		
@@ -152,6 +158,14 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 			sparkWeaveNetwork.activateNetwork(sTriple);
 		}
 		
-		assertTrue(true);
+		stopWatch.stop();
+		StringBuffer timeBuffer = new StringBuffer();
+		timeBuffer.append("Streaming took ["+ stopWatch.elapsedTime(TimeUnit.MILLISECONDS) + "ms] ");
+		logger.info(timeBuffer.toString());
+		logger.info("Processed " + triples.size() + " triples.");
+		long numMatches = sparkWeaveNetwork.getReteNetwork().getNumMatches();
+		logger.info("Pattern has been matched "+ numMatches+ " times.");
+		
+		assertTrue(numMatches == 2);
 	}
 }

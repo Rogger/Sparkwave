@@ -103,7 +103,7 @@ public class N3FileInput {
 		    	if (object.asLiteral().getDatatypeURI() != null)
 		    		datatypeURI = new RDFURIReference(object.asLiteral().getDatatypeURI());
 		    	
-		    	tripObject = new RDFLiteral(lexicalForm, datatypeURI, languageTag);
+		    	tripObject = RDFLiteral.Factory.createLiteral(lexicalForm, datatypeURI, languageTag);
 		    		
 		    } else if (object.isResource()){
 		    	if (object.asResource().getURI()!=null){

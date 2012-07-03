@@ -27,11 +27,11 @@ import org.apache.log4j.Logger;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.TripleCondition;
-import at.sti2.spark.grammar.pattern.TripleConstantTest;
 
 public class WeatherTest extends TestCase {
 	

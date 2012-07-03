@@ -14,9 +14,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-package at.sti2.spark.core.triple.variable;
+package at.sti2.spark.core.triple;
 
-import at.sti2.spark.core.triple.RDFValue;
 
 public class RDFVariable extends RDFValue{
 

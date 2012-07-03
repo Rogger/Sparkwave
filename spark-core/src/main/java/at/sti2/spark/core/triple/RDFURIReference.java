@@ -53,7 +53,7 @@ public final class RDFURIReference extends RDFValue {
 		if(!(that instanceof RDFURIReference)) return false;
 		
 		RDFURIReference uri = (RDFURIReference)that;
-		return this.iri.equals(uri.iri);
+		return this.iri.equalsIgnoreCase(uri.iri);
 	}
 	
 	@Override

@@ -18,8 +18,10 @@ package at.sti2.spark.core.triple;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import at.sti2.spark.core.constants.XMLSchema;
+
 /**
- * Immutable RDFLiteral
+ * Immutable RDFLiteral, use <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
  * @author srdjankomazec
  * @author michaelrogger
  *
@@ -35,7 +37,10 @@ public class RDFLiteral extends RDFValue {
 	// cached hash code
 	private int hashCode = 0;
 	
-	public RDFLiteral(String value, RDFURIReference datatypeURI, String languageTag) {
+	/**
+	 * Private constructor, use RDFLiteral.Factory.createLiteral()
+	 */
+	protected RDFLiteral(String value, RDFURIReference datatypeURI, String languageTag) {
 		super();
 		this.value = value;
 		this.datatypeURI = datatypeURI;
@@ -112,5 +117,40 @@ public class RDFLiteral extends RDFValue {
 		}
 			
 		return buffer.toString();
+	}
+	
+	/**
+	 * Factory for creating immutable literals
+	 * @author michaelrogger
+	 *
+	 */
+	public static class Factory{
+		
+		/**
+		 * Create Literal
+		 * @param value
+		 * @param datatypeURI
+		 * @param languageTag
+		 * @return
+		 */
+		public static RDFLiteral createLiteral(String value, RDFURIReference datatypeURI, String languageTag){
+			if(datatypeURI.equals(XMLSchema.getXSDDouble())){
+				Double doubleValue = Double.parseDouble(value);
+				return createNumericLiteral(doubleValue);
+			}else if(datatypeURI.equals(XMLSchema.getXSDInt())){
+				int intValue = Integer.parseInt(value);
+				return createNumericLiteral(intValue);
+			}else{
+				return new RDFLiteral(value, datatypeURI, languageTag);
+			}
+		}
+		
+		public static RDFNumericLiteral createNumericLiteral(int number){
+			return new RDFNumericLiteral(number);
+		}
+		
+		public static RDFNumericLiteral createNumericLiteral(double number){
+			return new RDFNumericLiteral(number);
+		}
 	}
 }

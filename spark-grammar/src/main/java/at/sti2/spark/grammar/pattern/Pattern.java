@@ -19,6 +19,9 @@ package at.sti2.spark.grammar.pattern;
 import java.util.ArrayList;
 import java.util.List;
 
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
+
 
 /**
  * 

@@ -168,7 +168,7 @@ public class SparkwaveStreamThread implements Runnable {
 				char[] dataTypeChar = Arrays.copyOf(charBuf, pos);
 				
 				RDFURIReference datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
-				tripObject = new RDFLiteral(String.valueOf(lexicalChar),datatypeURI,null);
+				tripObject = RDFLiteral.Factory.createLiteral(String.valueOf(lexicalChar),datatypeURI,null);
 			}
 			
 			if(run){

@@ -18,21 +18,31 @@ package at.sti2.spark.rete;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
 
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.collect.IndexStructure;
+import at.sti2.spark.core.triple.RDFLiteral;
+import at.sti2.spark.core.triple.RDFNumericLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.core.triple.RDFTriple.Field;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.TripleCondition;
-import at.sti2.spark.grammar.pattern.TripleConstantTest;
+import at.sti2.spark.grammar.pattern.expression.Expression;
+import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
+import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
+import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ConstantObjectTestAlphaNode;
 import at.sti2.spark.rete.alpha.ConstantPredicateTestAlphaNode;
 import at.sti2.spark.rete.alpha.ConstantSubjectTestAlphaNode;
+import at.sti2.spark.rete.alpha.FilterEqualAlphaNode;
 import at.sti2.spark.rete.alpha.ValueTestAlphaNode;
 import at.sti2.spark.rete.alpha.WorkingMemory;
 import at.sti2.spark.rete.beta.BetaMemory;
@@ -181,7 +191,7 @@ public class RETENetwork {
 		return tests;
 	}
 
-	private AlphaMemory buildOrShareAlphaMemory(TripleCondition condition) {
+	private AlphaMemory buildOrShareAlphaMemory(TripleCondition condition, List<Expression> expressions) {
 
 		AlphaMemory alphaMemory = null;
 
@@ -205,7 +215,7 @@ public class RETENetwork {
 			currentNode = buildOrShareConstantTestNode(currentNode,
 					constantTest.getTestField(),
 					constantTest.getLexicalTestSymbol());
-
+			
 			if (currentNode.getOutputMemory() != null)
 				alphaMemory = currentNode.getOutputMemory();
 		}
@@ -221,7 +231,15 @@ public class RETENetwork {
 				alphaMemory = currentNode.getOutputMemory();
 
 		}
+		
+		// Filter
+		TripleConstantTest objectConstantTest = condition.getObjectConstantTest();
+		if(objectConstantTest==null){
+			currentNode = buildOrShareFilterNode(currentNode, expressions, condition);			
+		}
+		
 
+		
 		// TODO Not all alpha nodes should have memory, only those which are
 		// connectives to beta memory
 		if (currentNode.getOutputMemory() == null) {
@@ -231,6 +249,51 @@ public class RETENetwork {
 		}
 
 		return alphaMemory;
+	}
+	
+	private AlphaNode buildOrShareFilterNode(AlphaNode currentNode, List<Expression> expressions, TripleCondition condition){
+		
+		//TODO support symmetric case
+		
+//		AlphaNode returnNode = null;
+		
+		RDFValue object = condition.getConditionTriple().getObject();
+
+		if(object instanceof RDFVariable){
+			RDFVariable rdfVariable = (RDFVariable)object;
+			
+			for(Expression expression : expressions){
+				RDFValue left = expression.getLeft();
+				RDFValue right = expression.getRight();
+				
+				// ?var op numerical
+				if(left instanceof RDFVariable){
+					if(right instanceof RDFNumericLiteral){
+						
+						//check if variable of expression = variable of condition
+						if(rdfVariable.equals(left)){
+							
+							for(AlphaNode node : currentNode.getChildren()){
+								if(node instanceof FilterEqualAlphaNode){
+									//check if they are filtering the same
+									
+									return node;
+								}
+							}
+							
+							// create LiteralFilter
+							double value = ((RDFNumericLiteral) right).doubleValue();
+							FilterEqualAlphaNode filterEqualAlphaNode = new FilterEqualAlphaNode(RDFLiteral.Factory.createNumericLiteral(value));
+							currentNode.addChild(filterEqualAlphaNode);
+							return filterEqualAlphaNode;
+						}
+					}
+				}
+			}
+		}
+		
+		//no node added
+		return currentNode;
 	}
 
 	private AlphaNode buildOrShareConstantTestNode(AlphaNode currentNode,
@@ -333,14 +396,16 @@ public class RETENetwork {
 	/**
 	 * This method adds a triple pattern graph
 	 * 
-	 * @param triplePatternGraph
+	 * @param pattern
 	 */
-	public void addTriplePatternGraph(Pattern triplePatternGraph) {
+	public void addTriplePatternGraph(Pattern pattern) {
 
 		RETENode currentNode = betaMemory;
+		
+		GroupGraphPattern wherePattern = pattern.getWherePattern();
 
 		List<TripleCondition> previousConditions = new ArrayList<TripleCondition>();
-		List<TripleCondition> tripleConditions = triplePatternGraph.getWherePattern().getWhereConditions();
+		List<TripleCondition> tripleConditions = wherePattern.getWhereConditions();
 
 		List<BetaMemory> betaMemories = new ArrayList<BetaMemory>();
 
@@ -349,15 +414,16 @@ public class RETENetwork {
 
 		List<JoinNodeTest> tests = getTestsFromCondition(
 				tripleConditions.get(0), previousConditions, betaMemories);
-		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions
-				.get(0));
+		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(0),wherePattern.getFilter());
 		alphaMemory.activateIndexesForTests(tests);
-		alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
+		alphaMemory.getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 		currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
 				tripleConditions.get(0),
-				triplePatternGraph.getWherePattern().getTimeWindowLength());
+				pattern.getWherePattern().getTimeWindowLength());
 
 		for (int i = 1; i < tripleConditions.size(); i++) {
+			
+			TripleCondition tripleCondition = tripleConditions.get(i);
 
 			// beta memory
 			currentNode = buildOrShareBetaMemoryNode(currentNode);
@@ -365,25 +431,23 @@ public class RETENetwork {
 
 			// get next join node tests
 			previousConditions.add(tripleConditions.get(i - 1));
-			tests = getTestsFromCondition(tripleConditions.get(i),previousConditions, betaMemories);
+			tests = getTestsFromCondition(tripleCondition,previousConditions, betaMemories);
 
 			// activate beta memory indexes for each test
 			for(JoinNodeTest test :tests){
 				test.getBetaMemory().activateIndexesForTests(test);
 			}
-			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
+			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(pattern.getWherePattern().getTimeWindowLength());
 
 			// alpha memory
-			alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(i));
+			alphaMemory = buildOrShareAlphaMemory(tripleCondition,wherePattern.getFilter());
 
 			// activate alpha memory indexes
 			alphaMemory.activateIndexesForTests(tests);
-			alphaMemory.getIndexStructure().setWindowInMillis(triplePatternGraph.getWherePattern().getTimeWindowLength());
+			alphaMemory.getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 
 			// join node
-			currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
-					tripleConditions.get(i),
-					triplePatternGraph.getWherePattern().getTimeWindowLength());
+			currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleCondition, pattern.getWherePattern().getTimeWindowLength());
 		}
 
 		// Build a new production node, make it a child of current node
@@ -394,7 +458,7 @@ public class RETENetwork {
 		// Update the new node with the matches above
 		productionNode.update();
 
-		triplePatternGraphs.add(triplePatternGraph);
+		triplePatternGraphs.add(pattern);
 	}
 
 	// public void addProduction(List <TripleCondition> conditions){

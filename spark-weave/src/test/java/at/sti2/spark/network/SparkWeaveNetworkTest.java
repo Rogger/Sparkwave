@@ -19,19 +19,22 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Stopwatch;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.variable.RDFVariable;
+import at.sti2.spark.core.triple.RDFVariable;
+import at.sti2.spark.core.triple.TripleCondition;
+import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.TripleCondition;
-import at.sti2.spark.grammar.pattern.TripleConstantTest;
 import at.sti2.spark.input.N3FileInput;
 
 public class SparkWeaveNetworkTest extends TestCase {
@@ -194,13 +197,24 @@ public class SparkWeaveNetworkTest extends TestCase {
 	
 	public void testNetworkProcessing(){
 		
+		Stopwatch stopWatch = new Stopwatch();
+		stopWatch.start();
+		
 		logger.info("Processing " + triples.size() + " triples.");
 		
 		for (RDFTriple triple : triples){
-			Triple sTriple = new Triple(triple, (new Date()).getTime(), false,  0l);
+			Triple sTriple = new Triple(triple, (new Date()).getTime(), false, 0l);
 			sparkWeaveNetwork.activateNetwork(sTriple);
 		}
 		
-		assertTrue(true);
+		stopWatch.stop();
+		StringBuffer timeBuffer = new StringBuffer();
+		timeBuffer.append("Streaming took ["+ stopWatch.elapsedTime(TimeUnit.MILLISECONDS) + "ms] ");
+		logger.info(timeBuffer.toString());
+		logger.info("Processed " + triples.size() + " triples.");
+		long numMatches = sparkWeaveNetwork.getReteNetwork().getNumMatches();
+		logger.info("Pattern has been matched "+ numMatches+ " times.");
+		
+		assertTrue(numMatches == 2);
 	}
 }

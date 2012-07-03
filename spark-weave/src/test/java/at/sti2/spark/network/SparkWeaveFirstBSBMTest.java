@@ -130,7 +130,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		Pattern patternGraph = new Pattern();
 		patternGraph.setWherePattern(wherePattern);
 		
-		ontologyFile = new File("target/classes/BSBM/epsilon-PT2-DS329.owl");
+		ontologyFile = new File("target/test-classes/BSBM/epsilon-PT2-DS329.owl");
 		
 		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
@@ -141,7 +141,7 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		triples = new ArrayList <RDFTriple> ();
 		
 		//Setup data
-		N3FileInput n3FileInput = new N3FileInput("target/classes/BSBM/offers-trunc_10.nt");
+		N3FileInput n3FileInput = new N3FileInput("target/test-classes/BSBM/offers-trunc_10.nt");
 		n3FileInput.parseTriples();
 		triples = n3FileInput.getTriples();
 	}

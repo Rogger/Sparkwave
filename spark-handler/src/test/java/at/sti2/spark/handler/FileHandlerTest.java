@@ -1,5 +1,6 @@
 package at.sti2.spark.handler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
@@ -47,8 +48,17 @@ public class FileHandlerTest extends TestCase {
 	}
 	
 	public void testFileHandler() throws SparkweaveHandlerException{
+		
+		Handler handler = handlerProperties.get(0);
+		File logFile = new File(handler.getValue("path"));
+		if(logFile.exists())
+			logFile.delete();
+		
 		SparkweaveHandler fileHandler = new FileHandler();
-		fileHandler.init(handlerProperties.get(0));
+		fileHandler.init(handler);
 		fileHandler.invoke(match);
+		
+		logFile = new File(handler.getValue("path"));
+		assertTrue(logFile.exists());
 	}
 }

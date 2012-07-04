@@ -2,21 +2,28 @@ COMPILE
 =======
 
 Prerequisite:
-jdk6+
-maven 2.2.x or 3.x
+jdk 6+
+maven 3.x+
 
-
-1) mvn clean install package -Dmaven.test.skip=true
+Build:
+1) switch to spark-dist folder
+2) mvn clean install package -Dmaven.test.skip=true
 
 
 RUN
 ===
 
-To start SparkWeave network execute the following command:
+To start Sparkwave network execute the following command:
 
-$ sh spark.sh $PWD/tests/bsbm/pattern-PT1-TW100.tpg $PWD/tests/bsbm/epsilon-PT1-DS329.owl dist 200 
+	$ sh spark.sh [port] [pattern_file] [epsilon_ontology_file] [static_instances_file]
 
-To start SparkWeave streamer execute the following command:
+	Example:
+	$ sh spark.sh 8080 $PWD/tests/bsbm/pattern-PT2-TW100-filter.tpg $PWD/tests/bsbm/epsilon-PT2-DS329.owl null
+ 
 
-$ sh spark-streamer.sh 8080 $PWD/tests/bsbm/offers-trunc100.nt
+To start Sparkwave streamer execute the following command:
 
+	$ sh spark-streamer.sh [port] [triple_file]
+
+	Example:
+	$ sh spark-streamer.sh 8080 $PWD/tests/bsbm/offers-trunc100.nt

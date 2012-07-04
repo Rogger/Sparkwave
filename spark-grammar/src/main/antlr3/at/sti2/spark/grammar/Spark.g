@@ -57,13 +57,13 @@ NUMERIC_LITERAL;
 @header {
 package at.sti2.spark.grammar;
 
-import at.sti2.spark.grammar.parser.IErrorReporter;
+import at.sti2.spark.grammar.IErrorReporter;
 }
 
 @lexer::header {
 package at.sti2.spark.grammar;
 
-import at.sti2.spark.grammar.parser.IErrorReporter;
+import at.sti2.spark.grammar.IErrorReporter;
 }
 
 @parser::members {

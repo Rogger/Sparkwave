@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.stream.Triple;
@@ -40,6 +38,7 @@ public class WeatherTest {
 	
 	static Logger logger = Logger.getLogger(WeatherTest.class);
 
+//	@Before
 	public void init() throws Exception {
 		
 		/**

@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import org.junit.Test;
+
 import junit.framework.TestCase;
 
 import at.sti2.spark.core.collect.IndexStructure;
@@ -21,7 +23,7 @@ import at.sti2.spark.core.triple.RDFValue;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.LinkedHashMultimap;
 
-public class TestIndexStructure extends TestCase{
+public class TestIndexStructure {
 	
 //	public void testGuavaMap() throws InterruptedException{
 //		LinkedHashMultimap<WeakReference<RDFValue>, WeakReference<WorkingMemoryElement>> subjectItems = LinkedHashMultimap.create();
@@ -122,6 +124,7 @@ public class TestIndexStructure extends TestCase{
 //		
 //	}
 	
+	@Test
 	public void testIndex() throws InterruptedException{
 		
 		Removable removableObject = new Removable() {
@@ -148,7 +151,7 @@ public class TestIndexStructure extends TestCase{
 			subjectIndex.addElement(rdfTriple, removableObject, now);
 
 			Set<Removable> elementFromSubject = subjectIndex.getElementsFromSubjectIndex(subject);
-			System.out.println(elementFromSubject.size());
+//			System.out.println(elementFromSubject.size());
 			
 //			Thread.sleep(100);
 		}

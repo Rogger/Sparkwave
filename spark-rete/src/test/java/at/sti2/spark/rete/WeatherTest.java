@@ -33,15 +33,14 @@ import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 
-public class WeatherTest extends TestCase {
+public class WeatherTest {
 	
 	private RETENetwork reteNetwork = null;
 	private List <RDFTriple> triples = null;
 	
 	static Logger logger = Logger.getLogger(WeatherTest.class);
 
-	protected void setUp() throws Exception {
-		super.setUp();
+	public void init() throws Exception {
 		
 		/**
 		 * A test case which examines how the network is built for the following graph pattern
@@ -192,11 +191,12 @@ public class WeatherTest extends TestCase {
 		triples = new ArrayList <RDFTriple> ();
 		
 		//Setup data
-		N3FileInput n3FileInput = new N3FileInput("./resources/moretriples.n3");
+		N3FileInput n3FileInput = new N3FileInput("target/test-classes/./resources/moretriples.n3");
 		n3FileInput.parseTriples();
 		triples = n3FileInput.getTriples();
 	}
 	
+//	@Test
 	public void testPerformance(){
 		
 		Date startDate = new Date();

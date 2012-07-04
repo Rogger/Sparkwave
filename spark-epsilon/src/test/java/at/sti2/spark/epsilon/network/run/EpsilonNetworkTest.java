@@ -15,19 +15,22 @@
  */
 package at.sti2.spark.epsilon.network.run;
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class EpsilonNetworkTest extends TestCase {
+public class EpsilonNetworkTest {
 
 	private EpsilonNetwork epsilonNetwork = null;
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void init() throws Exception {
 		epsilonNetwork = new EpsilonNetwork();
 	}
 	
+	@Test
 	public void testEpsilonNetwork(){
-		assertTrue(true);
+		Assert.assertTrue(true);
 	}
 
 }

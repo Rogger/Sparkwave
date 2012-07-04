@@ -21,11 +21,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
-
-import com.google.common.base.Stopwatch;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -37,7 +36,9 @@ import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.N3FileInput;
 
-public class SparkWeaveNetworkTest extends TestCase {
+import com.google.common.base.Stopwatch;
+
+public class SparkWeaveNetworkTest {
 
 	private List <RDFTriple> triples = null;
 	private SparkwaveNetwork sparkWeaveNetwork = null;
@@ -45,8 +46,8 @@ public class SparkWeaveNetworkTest extends TestCase {
 	
 	static Logger logger = Logger.getLogger(SparkWeaveNetworkTest.class);
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+//	@Before
+	public void init() throws Exception {
 		
 		/**
 		 * A test case which examines how the network is built for the following graph pattern
@@ -179,7 +180,7 @@ public class SparkWeaveNetworkTest extends TestCase {
 		Pattern patternGraph = new Pattern();
 		patternGraph.setWherePattern(wherePattern);
 		
-		ontologyFile = new File("./resources/epsilon.owl");
+		ontologyFile = new File("target/test-classes/knosis/epsilon.owl");
 		
 		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
 		sparkWeaveNetwork.buildNetwork();
@@ -190,12 +191,13 @@ public class SparkWeaveNetworkTest extends TestCase {
 		triples = new ArrayList <RDFTriple> ();
 		
 		//Setup data
-		N3FileInput n3FileInput = new N3FileInput("./resources/moretriples.n3");
+		N3FileInput n3FileInput = new N3FileInput("target/test-classes/knosis/moretriples.n3");
 		n3FileInput.parseTriples();
 		triples = n3FileInput.getTriples();
 	}
 	
-	public void testNetworkProcessing(){
+//	@Test
+	public void networkProcessing(){
 		
 		Stopwatch stopWatch = new Stopwatch();
 		stopWatch.start();
@@ -215,6 +217,6 @@ public class SparkWeaveNetworkTest extends TestCase {
 		long numMatches = sparkWeaveNetwork.getReteNetwork().getNumMatches();
 		logger.info("Pattern has been matched "+ numMatches+ " times.");
 		
-		assertTrue(numMatches == 2);
+		Assert.assertTrue(numMatches == 2);
 	}
 }

@@ -1,10 +1,18 @@
 package at.sti2.spark.handler;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.Socket;
+import java.net.URL;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
+import org.junit.Assume;
+import org.junit.Before;
+import org.junit.Test;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -15,16 +23,24 @@ import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.handler.ImpactoriumHandler;
 import at.sti2.spark.handler.SparkweaveHandlerException;
 
-public class InfoObjectSubmissionTest extends TestCase {
+public class InfoObjectSubmissionTest {
 	
 	static Logger logger = Logger.getLogger(InfoObjectSubmissionTest.class);
 
 	private Match match = null;
 	private Handler handlerProperties = null;
 	
-	public void setUp(){
+	@Before
+	public void init() throws Exception {
 		
-		String patternFileName = "target/classes/support_pattern2.tpg";
+		final String host = "impactorium.epn.foi.se";
+		final int port = 7070;
+		final String path = "/impact";
+		final String url = "http://"+host+":"+port+path;
+		
+		Assume.assumeTrue(checkServerAvailability(host,port));
+		
+		String patternFileName = "target/test-classes/support_pattern2.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
 		Pattern patternGraph = null;
 		try {
@@ -34,7 +50,7 @@ public class InfoObjectSubmissionTest extends TestCase {
 		}
 		
 		handlerProperties = new Handler(patternGraph);
-		handlerProperties.addKeyValue("baseurl","http://impactorium.epn.foi.se:7070/impact");
+		handlerProperties.addKeyValue("baseurl",url);
 		handlerProperties.setHandlerClass(null);
 		
 		Hashtable<String, RDFValue> variableBindings = new Hashtable<String, RDFValue>();
@@ -48,6 +64,7 @@ public class InfoObjectSubmissionTest extends TestCase {
 		
 	}
 	
+	@Test
 	public void testInfoObjectSubmission(){
 		ImpactoriumHandler invoker = new ImpactoriumHandler();
 		invoker.init(handlerProperties);
@@ -56,5 +73,17 @@ public class InfoObjectSubmissionTest extends TestCase {
 		} catch (SparkweaveHandlerException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean checkServerAvailability(String host, int port) throws MalformedURLException, IOException{
+		Socket socket = null;
+		boolean reachable = false;
+		try {
+		    socket = new Socket(host, port);
+		    reachable = true;
+		} finally {
+		    if (socket != null) try { socket.close(); } catch(IOException e) {}
+		}
+		return reachable;
 	}
 }

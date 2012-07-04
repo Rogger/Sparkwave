@@ -6,6 +6,9 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import junit.framework.TestCase;
 import at.sti2.spark.core.solution.Match;
@@ -16,14 +19,15 @@ import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.handler.SparkweaveHandlerException;
 
-public class FileHandlerTest extends TestCase {
+public class FileHandlerTest {
 	
 	static Logger logger = Logger.getLogger(FileHandlerTest.class);
 
 	private Match match = null;
 	private List<Handler> handlerProperties = null;
 	
-	public void setUp(){
+	@Before
+	public void init(){
 		
 		String patternFileName = "target/test-classes/fileHandler_support_pattern2.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
@@ -47,6 +51,7 @@ public class FileHandlerTest extends TestCase {
 		
 	}
 	
+	@Test
 	public void testFileHandler() throws SparkweaveHandlerException{
 		
 		Handler handler = handlerProperties.get(0);
@@ -59,6 +64,6 @@ public class FileHandlerTest extends TestCase {
 		fileHandler.invoke(match);
 		
 		logFile = new File(handler.getValue("path"));
-		assertTrue(logFile.exists());
+		Assert.assertTrue(logFile.exists());
 	}
 }

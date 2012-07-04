@@ -21,11 +21,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import junit.framework.TestCase;
-
 import org.apache.log4j.Logger;
-
-import com.google.common.base.Stopwatch;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -37,7 +36,9 @@ import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.N3FileInput;
 
-public class SparkWeaveFirstBSBMTest extends TestCase {
+import com.google.common.base.Stopwatch;
+
+public class SparkWeaveFirstBSBMTest {
 
 	private List <RDFTriple> triples = null;
 	private SparkwaveNetwork sparkWeaveNetwork = null;
@@ -45,8 +46,8 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 	
 	static Logger logger = Logger.getLogger(SparkWeaveFirstBSBMTest.class);
 	
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void init() throws Exception {
 		
 		/*
    			?x			http://www.w3.org/1999/02/22-rdf-syntax-ns#type 						http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer .
@@ -146,7 +147,8 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		triples = n3FileInput.getTriples();
 	}
 	
-	public void testNetworkProcessing(){
+	@Test
+	public void networkProcessing(){
 		
 		Stopwatch stopWatch = new Stopwatch();
 		stopWatch.start();
@@ -166,6 +168,6 @@ public class SparkWeaveFirstBSBMTest extends TestCase {
 		long numMatches = sparkWeaveNetwork.getReteNetwork().getNumMatches();
 		logger.info("Pattern has been matched "+ numMatches+ " times.");
 		
-		assertTrue(numMatches == 2);
+		Assert.assertTrue(numMatches == 2);
 	}
 }

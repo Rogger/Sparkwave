@@ -17,20 +17,20 @@ package at.sti2.spark.epsilon.network.build;
 
 import java.io.File;
 
-import junit.framework.TestCase;
-import at.sti2.spark.core.stream.Triple;
-import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.RDFURIReference;
+import org.junit.Assert;
+import org.junit.Test;
+
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 
-public class NetworkBuilderTest extends TestCase {
+public class NetworkBuilderTest {
 
+	@Test
 	public void testBuilding(){
 		
 		NetworkBuilder builder = new NetworkBuilder(new File("resources/support_schema.owl"));
 		EpsilonNetwork epsilonNetwork = builder.buildNetwork();
 		
-		assertNotNull(epsilonNetwork);
+		Assert.assertNotNull(epsilonNetwork);
 		
 	}
 }

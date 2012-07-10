@@ -46,7 +46,7 @@ public class SparkLexerParserTest {
 		Assert.assertNotNull(patternGraph);
 		Assert.assertTrue(patternGraph.getPrefixes().size() > 0);
 		Assert.assertTrue(patternGraph.getWherePattern().getTimeWindowLength() > 0);
-		Assert.assertTrue(patternGraph.getWherePattern().getFilter().size() > 0);
+		Assert.assertTrue(patternGraph.getWherePattern().getFilters().size() > 0);
 	}
 
 }

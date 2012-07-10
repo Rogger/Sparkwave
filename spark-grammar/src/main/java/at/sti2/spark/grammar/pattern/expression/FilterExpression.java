@@ -2,13 +2,13 @@ package at.sti2.spark.grammar.pattern.expression;
 
 import at.sti2.spark.core.triple.RDFValue;
 
-public final class Expression {
+public final class FilterExpression {
 	
 	private final RDFValue left;
 	private final RDFValue right;
 	private final Operator operator;
 	
-	public Expression(RDFValue left, RDFValue right, Operator operator) {
+	public FilterExpression(RDFValue left, RDFValue right, Operator operator) {
 		this.left = left;
 		this.right = right;
 		this.operator = operator;

@@ -15,5 +15,6 @@ WHERE {
 	?sensor2 support:sensor_has_location ?location2 .
 	?location2 support:location_is_part_of_location support:DockX .	
 	FILTER (?sensor1 = 10)
+	FILTER (?location2 = 10.5)
 	TIMEWINDOW (100)
 }

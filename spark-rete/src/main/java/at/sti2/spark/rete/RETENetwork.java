@@ -33,7 +33,7 @@ import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.expression.Expression;
+import at.sti2.spark.grammar.pattern.expression.FilterExpression;
 import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
 import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
 import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
@@ -191,7 +191,7 @@ public class RETENetwork {
 		return tests;
 	}
 
-	private AlphaMemory buildOrShareAlphaMemory(TripleCondition condition, List<Expression> expressions) {
+	private AlphaMemory buildOrShareAlphaMemory(TripleCondition condition, List<FilterExpression> expressions) {
 
 		AlphaMemory alphaMemory = null;
 
@@ -251,7 +251,7 @@ public class RETENetwork {
 		return alphaMemory;
 	}
 	
-	private AlphaNode buildOrShareFilterNode(AlphaNode currentNode, List<Expression> expressions, TripleCondition condition){
+	private AlphaNode buildOrShareFilterNode(AlphaNode currentNode, List<FilterExpression> expressions, TripleCondition condition){
 		
 		//TODO support symmetric case
 		
@@ -262,7 +262,7 @@ public class RETENetwork {
 		if(object instanceof RDFVariable){
 			RDFVariable rdfVariable = (RDFVariable)object;
 			
-			for(Expression expression : expressions){
+			for(FilterExpression expression : expressions){
 				RDFValue left = expression.getLeft();
 				RDFValue right = expression.getRight();
 				
@@ -414,7 +414,7 @@ public class RETENetwork {
 
 		List<JoinNodeTest> tests = getTestsFromCondition(
 				tripleConditions.get(0), previousConditions, betaMemories);
-		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(0),wherePattern.getFilter());
+		AlphaMemory alphaMemory = buildOrShareAlphaMemory(tripleConditions.get(0),wherePattern.getFilters());
 		alphaMemory.activateIndexesForTests(tests);
 		alphaMemory.getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 		currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
@@ -440,7 +440,7 @@ public class RETENetwork {
 			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(pattern.getWherePattern().getTimeWindowLength());
 
 			// alpha memory
-			alphaMemory = buildOrShareAlphaMemory(tripleCondition,wherePattern.getFilter());
+			alphaMemory = buildOrShareAlphaMemory(tripleCondition,wherePattern.getFilters());
 
 			// activate alpha memory indexes
 			alphaMemory.activateIndexesForTests(tests);

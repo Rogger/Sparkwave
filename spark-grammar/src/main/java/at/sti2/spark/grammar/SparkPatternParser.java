@@ -30,7 +30,7 @@ import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Prefix;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.grammar.pattern.expression.Expression;
+import at.sti2.spark.grammar.pattern.expression.FilterExpression;
 import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
 import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
 import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
@@ -362,8 +362,8 @@ public class SparkPatternParser {
 					int timewindow = parseTimewindow(child,patternGraph);
 					groupGraphPattern.setTimeWindowLength(timewindow);
 				}else if(childToken.equals("FILTER")){
-					List<Expression> expressions = parseFilter(child,patternGraph);
-					groupGraphPattern.setFilter(expressions);
+					List<FilterExpression> expressions = parseFilter(child,patternGraph);
+					groupGraphPattern.addFilters(expressions);
 				}
 			}
 		}
@@ -395,16 +395,16 @@ public class SparkPatternParser {
 	/**
 	 * Parse FILTER
 	 */
-	private List<Expression> parseFilter(TreeWrapper treeNode, Pattern patternGraph){
+	private List<FilterExpression> parseFilter(TreeWrapper treeNode, Pattern patternGraph){
 		
-		ArrayList<Expression> expressions = new ArrayList<Expression>();
+		ArrayList<FilterExpression> expressions = new ArrayList<FilterExpression>();
 		
 		if(treeNode!=null){
 			TreeWrapper bracketted = treeNode.getChild(0);
 			logger.info(bracketted);
 			
 			if(bracketted!=null && bracketted.toString().equals("BRACKETTED_EXPRESSION")){
-				Expression parseExpression = parseBrackettedExpression(bracketted,patternGraph);
+				FilterExpression parseExpression = parseBrackettedExpression(bracketted,patternGraph);
 				if(parseExpression!=null)
 					expressions.add(parseExpression);
 			}
@@ -418,8 +418,8 @@ public class SparkPatternParser {
 	 * @param treeNode
 	 * @return
 	 */
-	private Expression parseBrackettedExpression(TreeWrapper treeNode, Pattern patternGraph) {
-		Expression expression = null;
+	private FilterExpression parseBrackettedExpression(TreeWrapper treeNode, Pattern patternGraph) {
+		FilterExpression expression = null;
 		if (treeNode != null) {
 			TreeWrapper operation = treeNode.getChild(0);
 			
@@ -439,31 +439,45 @@ public class SparkPatternParser {
 				//right
 				RDFValue rightRDFValue = parseRelationalExpression(operation.getChild(1));
 				
-				expression = new Expression(leftRDFValue, rightRDFValue, operator);
+				expression = new FilterExpression(leftRDFValue, rightRDFValue, operator);
 			}
 		}
 		return expression;
 	}
 	
 	private RDFValue parseRelationalExpression(TreeWrapper treeNode) {
+		// expression
 		if (treeNode != null) {
+			logger.info(treeNode);
+			String expressionValue = treeNode.toString();
 
-			// expression
-			if (treeNode != null) {
-				logger.info(treeNode);
-				String expressionValue = treeNode.toString();
-
-				if (expressionValue.equals("VAR")) {
-					String varName = treeNode.getChild(0).toString();
-					varName = varName.replaceAll("\\?", "");
-					RDFVariable expressionVariable = new RDFVariable(varName);
-					return expressionVariable;
-					
-				} else if (expressionValue.equals("NUMERIC_LITERAL")) {
-					String numericValue = treeNode.getChild(0).toString();
-					RDFNumericLiteral expressionNumericValue = RDFLiteral.Factory.createNumericLiteral(Double.parseDouble(numericValue));
-					return expressionNumericValue;
-				}
+			if (expressionValue.equals("VAR")) {
+				String varName = treeNode.getChild(0).toString();
+				varName = varName.replaceAll("\\?", "");
+				RDFVariable expressionVariable = new RDFVariable(varName);
+				return expressionVariable;
+				
+			} else if (expressionValue.equals("NUMERIC_LITERAL")) {
+				TreeWrapper child = treeNode.getChild(0);
+				RDFNumericLiteral numericLiteral = parseNumericLiteral(child);
+				return numericLiteral;
+			}
+		}
+		return null;
+	}
+	
+	private RDFNumericLiteral parseNumericLiteral(TreeWrapper treeNode){
+		if(treeNode != null){
+			logger.info(treeNode);
+			String literalType = treeNode.toString();
+			if(literalType.equals("DECIMAL_LITERAL")){
+				String numericValue = treeNode.getChild(0).toString();
+				RDFNumericLiteral expressionNumericValue = RDFLiteral.Factory.createNumericLiteral(Double.parseDouble(numericValue));
+				return expressionNumericValue;
+			}else if(literalType.equals("INTEGER_LITERAL")){
+				String numericValue = treeNode.getChild(0).toString();
+				RDFNumericLiteral expressionNumericValue = RDFLiteral.Factory.createNumericLiteral(Integer.parseInt(numericValue));
+				return expressionNumericValue;
 			}
 		}
 		return null;

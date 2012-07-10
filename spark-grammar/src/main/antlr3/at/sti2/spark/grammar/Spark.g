@@ -52,6 +52,8 @@ VALUE;
 FILTER;
 BRACKETTED_EXPRESSION;
 NUMERIC_LITERAL;
+DECIMAL_LITERAL;
+INTEGER_LITERAL;
 }
 
 @header {
@@ -249,8 +251,8 @@ numericLiteral
     ;
     
 numericLiteralUnsigned
-    : INTEGER 
-    | DECIMAL
+    : INTEGER -> ^(INTEGER_LITERAL INTEGER)
+    | DECIMAL -> ^(DECIMAL_LITERAL DECIMAL)
 //    | DOUBLE
     ;
     
@@ -324,7 +326,7 @@ INTEGER : DIGIT+;
 
 DECIMAL
     : DIGIT+ DOT DIGIT*
-    | DOT DIGIT+
+//    | DOT DIGIT+
     ;
 
 STRING_LITERAL1 : '\'' (options {greedy=false;} : ~('\'' | '\\' | EOL) | ECHAR)* '\'';

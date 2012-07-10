@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import at.sti2.spark.core.constants.XMLSchema;
 
 /**
- * Immutable RDFLiteral, use <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
+ * Immutable RDFLiteral, represents a RDFLITERAL with an value, optional dataytype and optional language tag. Use <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
  * @author srdjankomazec
  * @author michaelrogger
  *

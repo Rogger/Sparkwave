@@ -3,9 +3,11 @@ package at.sti2.spark.core.triple;
 import at.sti2.spark.core.constants.XMLSchema;
 
 /**
- * An extension of RDFLiteral that stores a numeric value to avoid parsing. Use <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
+ * An extension of RDFLiteral that stores a numeric value to avoid parsing. Use
+ * <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
+ * 
  * @author michaelrogger
- *
+ * 
  */
 public class RDFNumericLiteral extends RDFLiteral {
 
@@ -26,6 +28,10 @@ public class RDFNumericLiteral extends RDFLiteral {
 		this(number, XMLSchema.getXSDDouble());
 	}
 	
+	/**
+	 * Return value as double
+	 * @return
+	 */
 	public double doubleValue(){
 		return number.doubleValue();
 	}

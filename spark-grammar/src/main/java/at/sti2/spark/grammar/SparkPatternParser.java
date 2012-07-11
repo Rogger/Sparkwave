@@ -2,16 +2,13 @@ package at.sti2.spark.grammar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
 import org.apache.log4j.Logger;
@@ -24,20 +21,19 @@ import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.core.triple.TripleConstantTest;
-import at.sti2.spark.grammar.SparkLexer;
-import at.sti2.spark.grammar.SparkParser;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Handler;
-import at.sti2.spark.grammar.pattern.Prefix;
 import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.Prefix;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
-import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
-import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
-import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
 import at.sti2.spark.grammar.pattern.expression.Operator;
 import at.sti2.spark.grammar.util.Entry;
 
-
+/**
+ * Sparkwave pattern parser supports: prefixes, handlers, select, where, filter and timewindow.
+ * @author michaelrogger
+ *
+ */
 public class SparkPatternParser {
 	
 	protected static Logger logger = Logger.getLogger(SparkParser.class);
@@ -48,6 +44,11 @@ public class SparkPatternParser {
 		this.patternFilePath = patternFilePath;
 	}
 	
+	/**
+	 * Parse the pattern
+	 * @return Pattern
+	 * @throws IOException I/O problems with the pattern file
+	 */
 	public Pattern parse() throws IOException{
 		
 		Pattern triplePatternGraph = new Pattern();

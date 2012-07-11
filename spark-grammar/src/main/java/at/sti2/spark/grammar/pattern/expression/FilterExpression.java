@@ -6,9 +6,9 @@ public final class FilterExpression {
 	
 	private final RDFValue left;
 	private final RDFValue right;
-	private final Operator operator;
+	private final FilterOperator operator;
 	
-	public FilterExpression(RDFValue left, RDFValue right, Operator operator) {
+	public FilterExpression(RDFValue left, RDFValue right, FilterOperator operator) {
 		this.left = left;
 		this.right = right;
 		this.operator = operator;
@@ -22,7 +22,7 @@ public final class FilterExpression {
 		return right;
 	}
 	
-	public Operator getOperator() {
+	public FilterOperator getFilterOperator() {
 		return operator;
 	}
 	

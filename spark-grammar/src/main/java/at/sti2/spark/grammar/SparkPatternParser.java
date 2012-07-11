@@ -26,7 +26,7 @@ import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.grammar.pattern.Prefix;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
-import at.sti2.spark.grammar.pattern.expression.Operator;
+import at.sti2.spark.grammar.pattern.expression.FilterOperator;
 import at.sti2.spark.grammar.util.Entry;
 
 /**
@@ -429,9 +429,31 @@ public class SparkPatternParser {
 				logger.info(operation);
 				String operatorValue = operation.toString();
 				
-				Operator operator = null;
+				FilterOperator operator = null;
+				
+				// equal
 				if (operatorValue.equals("=")) {
-					operator = Operator.EQUAL;
+					operator = FilterOperator.EQUAL;
+				}
+				// not equal
+				else if(operatorValue.equals("!=")){
+					operator = FilterOperator.NOT_EQUAL;
+				}
+				// greater
+				else if(operatorValue.equals(">")){
+					operator = FilterOperator.GREATER;
+				}
+				// greater equal
+				else if(operatorValue.equals(">=")){
+					operator = FilterOperator.GREATER_EQUAL;
+				}
+				// less
+				else if(operatorValue.equals("<")){
+					operator = FilterOperator.LESS;
+				}
+				// less equal
+				else if(operatorValue.equals("<=")){
+					operator = FilterOperator.LESS_EQUAL;
 				}
 				
 				// left

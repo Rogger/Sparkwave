@@ -194,7 +194,12 @@ expression
     ;
     
 relationalExpression
-	: (n1=numericExpression -> $n1) ( (EQUAL n2=numericExpression -> ^(EQUAL $relationalExpression $n2)) )?
+	: (n1=numericExpression -> $n1) ( ( EQUAL n2=numericExpression -> ^(EQUAL $relationalExpression $n2 ))
+	| (NOT_EQUAL n3=numericExpression -> ^(NOT_EQUAL $relationalExpression $n3))
+	| (LESS n4=numericExpression -> ^(LESS $relationalExpression $n4))
+	| (GREATER n5=numericExpression -> ^(GREATER $relationalExpression $n5))
+	| (LESS_EQUAL n6=numericExpression -> ^(LESS_EQUAL $relationalExpression $n6))
+	| (GREATER_EQUAL n7=numericExpression -> ^(GREATER_EQUAL $relationalExpression $n7)) )?
 	;
 //    : (n1=numericExpression -> $n1) ((EQUAL n2=numericExpression -> ^(EQUAL $relationalExpression $n2))   
 //                                    | (NOT_EQUAL n3=numericExpression -> ^(NOT_EQUAL $relationalExpression $n3)) 
@@ -310,6 +315,12 @@ ASTERISK : '*';
 
 EQUAL : '=';
 
+NOT_EQUAL : '!=';
+
+LESS_EQUAL : '<=';
+
+GREATER_EQUAL : '>=';
+
 OPEN_CURLY_BRACE : '{';
 
 CLOSE_CURLY_BRACE : '}';
@@ -358,6 +369,8 @@ REFERENCE : '^^';
 
 fragment
 LESS : '<';
+
+GREATER : '>';
 
 PIPE : '|';
 

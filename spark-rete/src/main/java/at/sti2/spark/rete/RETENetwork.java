@@ -18,25 +18,19 @@ package at.sti2.spark.rete;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFNumericLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
+import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.core.triple.TripleConstantTest;
-import at.sti2.spark.core.triple.RDFTriple.Field;
-import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
-import at.sti2.spark.grammar.pattern.expression.ExpressionAbstract;
-import at.sti2.spark.grammar.pattern.expression.ExpressionNumericLiteral;
-import at.sti2.spark.grammar.pattern.expression.ExpressionVariable;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ConstantObjectTestAlphaNode;

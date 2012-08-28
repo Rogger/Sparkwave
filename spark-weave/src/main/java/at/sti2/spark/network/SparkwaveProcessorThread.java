@@ -18,10 +18,14 @@ package at.sti2.spark.network;
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 
+import org.apache.log4j.Logger;
+
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
 
 public class SparkwaveProcessorThread extends Thread {
+	
+	static Logger logger = Logger.getLogger(SparkwaveProcessorThread.class);
 
 	private SparkwaveNetwork sparkwaveNetwork = null;
 	private BlockingQueue<Triple> queue = null;
@@ -43,6 +47,10 @@ public class SparkwaveProcessorThread extends Thread {
 				// get triple from queue
 				Triple triple = queue.take();
 				sparkwaveNetwork.activateNetwork(triple);
+				
+//				if(queue.isEmpty()){
+//					logger.info("Pattern has been matched "+ sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
+//				}
 				
 				// GC
 				tripleCounter++;

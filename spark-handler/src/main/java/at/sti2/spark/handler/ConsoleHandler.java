@@ -12,9 +12,11 @@ import at.sti2.spark.grammar.pattern.Handler;
 
 public class ConsoleHandler implements SparkweaveHandler {
 
-	static Logger log = Logger.getLogger(ConsoleHandler.class);
+	private static Logger log = Logger.getLogger(ConsoleHandler.class);
 	
 	private long noMatches = 0;
+	
+	private boolean verbose = true;
 	
 	Handler handlerProperties = null;
 	
@@ -22,17 +24,27 @@ public class ConsoleHandler implements SparkweaveHandler {
 	public void init(Handler handlerProperties) {
 		this.handlerProperties = handlerProperties;
 		
+		String strVerbose = handlerProperties.getValue("verbose");
+		if(strVerbose!=null){
+			if(strVerbose.equals("false"))
+				verbose = false;
+			else
+				verbose = true;
+		}
 	}
 	
 	@Override
 	public void invoke(Match match) throws SparkweaveHandlerException{
-		
-		//Format the output for the match
-		String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
-		
+
 		noMatches++;
-		log.debug("Match no " + noMatches);
-		log.info(ntriplesOutput);
+		log.info("Match no " + noMatches);
+		
+		if(verbose){
+			//Format the output for the match
+			String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
+			log.info(ntriplesOutput);			
+		}
+		
 	}
 	
 	private String formatMatchNTriples(Match match, Handler handlerProperties){

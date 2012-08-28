@@ -85,48 +85,60 @@ public class JoinNode extends RETENode {
 			
 		}else{
 			
-			Set<Token> resultSet = null;
-			Set<Token> intermediateSet = new LinkedHashSet<Token>();
+			if(tests.size()>0){
+				
+				Set<Token> resultSet = null;
+				Set<Token> intermediateSet = new LinkedHashSet<Token>();
+				
+				for (JoinNodeTest test : tests) {
+					
+					Field arg2Field = test.getArg2Field();
+					RDFValue testTokenValue = wme.getTriple().getRDFTriple().getValueOfField(test.getArg1Field());
+					
+					Set<Token> tokensFromIndex = null;
+					if (arg2Field == RDFTriple.Field.SUBJECT) {
+						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
+					} else if (arg2Field == RDFTriple.Field.PREDICATE) {
+						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
+					} else if (arg2Field == RDFTriple.Field.OBJECT) {
+						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromObjectIndex(testTokenValue);
+					}
+					
+					
+					// Get Tokens at the level of parent beta memory
+					for(Token token : tokensFromIndex){
+						Set<Token> childTokensAtBetaMemory = token.getChildTokensAtBetaMemory((BetaMemory)parent);
+						intermediateSet = Sets.union(childTokensAtBetaMemory, intermediateSet);
+					}
+					
+					if (resultSet == null && intermediateSet != null) {
+						resultSet = intermediateSet;
+					} else if (intermediateSet != null) {
+						resultSet = Sets.intersection(resultSet, intermediateSet);
+					}
+					
+				}
+				
+				if(resultSet!=null){
+					for (Token token : resultSet) {
+						
+						// Check if the token and wme are falling into a window
+						if (token.getWme().getTriple().isPermanent() || performTimeWindowTest(token, wme)) {
+							// All tests successful
+							for (RETENode reteNode : children)
+								reteNode.leftActivate(token, wme);
+						}
+						
+					}				
+				}
+			}
+			else{
+				ArrayList<Token> elementsFromTokenQueue = ((BetaMemory)parent).getIndexStructure().getElementsFromTokenQueue();
+				for (RETENode reteNode : children)
+					for(Token token : elementsFromTokenQueue)
+					reteNode.leftActivate(token, wme);
+			}
 			
-			for (JoinNodeTest test : tests) {
-
-				Field arg2Field = test.getArg2Field();
-				RDFValue testTokenValue = wme.getTriple().getRDFTriple().getValueOfField(test.getArg1Field());
-
-				Set<Token> tokensFromIndex = null;
-				if (arg2Field == RDFTriple.Field.SUBJECT) {
-					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
-				} else if (arg2Field == RDFTriple.Field.PREDICATE) {
-					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
-				} else if (arg2Field == RDFTriple.Field.OBJECT) {
-					tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromObjectIndex(testTokenValue);
-				}
-				
-				
-				// Get Tokens at the level of parent beta memory
-				for(Token token : tokensFromIndex){
-					Set<Token> childTokensAtBetaMemory = token.getChildTokensAtBetaMemory((BetaMemory)parent);
-					intermediateSet = Sets.union(childTokensAtBetaMemory, intermediateSet);
-				}
-
-				if (resultSet == null && intermediateSet != null) {
-					resultSet = intermediateSet;
-				} else if (intermediateSet != null) {
-					resultSet = Sets.intersection(resultSet, intermediateSet);
-				}
-
-			}
-
-			for (Token token : resultSet) {
-
-				// Check if the token and wme are falling into a window
-				if (token.getWme().getTriple().isPermanent() || performTimeWindowTest(token, wme)) {
-					// All tests successful
-					for (RETENode reteNode : children)
-						reteNode.leftActivate(token, wme);
-				}
-
-			}
 		}
 	}
 
@@ -144,45 +156,64 @@ public class JoinNode extends RETENode {
 	 * @param alphaMemory
 	 */
 	private void leftActivate(Token token, AlphaMemory alphaMemory) {
-
-		Set<WorkingMemoryElement> resultSet = null;
-		Set<WorkingMemoryElement> intermediateSet = null;
-		for (JoinNodeTest test : tests) {
-
-			Field arg1Field = test.getArg1Field();
-			Token parentToken = token.getParentTokenAtBetaMemory(test.getBetaMemory());
-			RDFValue testTokenValue = parentToken.getWme().getTriple().getRDFTriple().getValueOfField(test.getArg2Field());
-
-			if (arg1Field == RDFTriple.Field.SUBJECT) {
-				intermediateSet = alphaMemory.getIndexStructure()
-						.getElementsFromSubjectIndex(testTokenValue);
-			} else if (arg1Field == RDFTriple.Field.PREDICATE) {
-				intermediateSet = alphaMemory.getIndexStructure()
-						.getElementsFromPredicateIndex(testTokenValue);
-			} else if (arg1Field == RDFTriple.Field.OBJECT) {
-				intermediateSet = alphaMemory.getIndexStructure()
-						.getElementsFromObjectIndex(testTokenValue);
+		
+		if(tests.size()>0){
+			Set<WorkingMemoryElement> resultSet = null;
+			Set<WorkingMemoryElement> intermediateSet = null;
+			for (JoinNodeTest test : tests) {
+				
+				Field arg1Field = test.getArg1Field();
+				Token parentToken = token.getParentTokenAtBetaMemory(test.getBetaMemory());
+				RDFValue testTokenValue = parentToken.getWme().getTriple().getRDFTriple().getValueOfField(test.getArg2Field());
+				
+				if (arg1Field == RDFTriple.Field.SUBJECT) {
+					intermediateSet = alphaMemory.getIndexStructure()
+							.getElementsFromSubjectIndex(testTokenValue);
+				} else if (arg1Field == RDFTriple.Field.PREDICATE) {
+					intermediateSet = alphaMemory.getIndexStructure()
+							.getElementsFromPredicateIndex(testTokenValue);
+				} else if (arg1Field == RDFTriple.Field.OBJECT) {
+					intermediateSet = alphaMemory.getIndexStructure()
+							.getElementsFromObjectIndex(testTokenValue);
+				}
+				
+				if (resultSet == null && intermediateSet != null) {
+					resultSet = intermediateSet;
+				} else if (intermediateSet != null) {
+					resultSet = Sets.intersection(resultSet, intermediateSet);
+				}
+				
 			}
-
-			if (resultSet == null && intermediateSet != null) {
-				resultSet = intermediateSet;
-			} else if (intermediateSet != null) {
-				resultSet = Sets.intersection(resultSet, intermediateSet);
+			
+			if(resultSet!=null){
+				for (WorkingMemoryElement wme : resultSet) {
+					
+					// Check if the token and wme are falling into a window
+					if (wme.getTriple().isPermanent()
+							|| performTimeWindowTest(token, wme)) {
+						// All tests successful
+						for (RETENode reteNode : children)
+							reteNode.leftActivate(token, wme);
+					}
+					
+				}
 			}
-
+			
+		}
+		else{
+			ArrayList<WorkingMemoryElement> elementsFromTokenQueue = alphaMemory.getIndexStructure().getElementsFromTokenQueue();
+			for(WorkingMemoryElement wme : elementsFromTokenQueue){
+				
+				if (wme.getTriple().isPermanent()
+						|| performTimeWindowTest(token, wme)) {
+					
+					for (RETENode reteNode : children){
+						reteNode.leftActivate(token, wme);					
+					}
+				}
+			}
 		}
 
-		for (WorkingMemoryElement wme : resultSet) {
-
-			// Check if the token and wme are falling into a window
-			if (wme.getTriple().isPermanent()
-					|| performTimeWindowTest(token, wme)) {
-				// All tests successful
-				for (RETENode reteNode : children)
-					reteNode.leftActivate(token, wme);
-			}
-
-		}
 
 	}
 

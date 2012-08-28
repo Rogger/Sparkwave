@@ -23,7 +23,9 @@ import java.util.List;
 import java.util.Set;
 
 import at.sti2.spark.core.collect.Removable;
+import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.beta.BetaMemory;
+import at.sti2.spark.rete.beta.ProductionNode;
 import at.sti2.spark.rete.node.RETENode;
 
 public class Token implements Removable{
@@ -192,25 +194,29 @@ public class Token implements Removable{
 	/**
 	 * Deletes token and all its parents
 	 */
-//	public void deleteTokenAndParents(){
-//		
-//		if (parent != null)
-//			parent.deleteTokenAndParents();
-//
-//		//Remove token from the list of node items
-//		//TODO Beta and production node are basically the same so it should inherit the same parent
-//		if (node instanceof BetaMemory)
-//			((BetaMemory)node).removeItem(this);
-//		else if (node instanceof ProductionNode)
-//			((ProductionNode)node).removeItem(this);
-//		
-//		//Remove token from the list of tokens in WME
-//		wme.removeToken(this);
-//		
-//		//Remove token from the list of parent children
-//		if (parent != null)
-//			parent.removeChild(this);
-//	}
+	public void deleteTokenAndParents(){
+		
+		if (parent != null)
+			parent.deleteTokenAndParents();
+
+		//Remove token from the list of node items
+		//TODO Beta and production node are basically the same so it should inherit the same parent
+		if (node instanceof BetaMemory){
+			((BetaMemory)node).getIndexStructure().remove(this);
+		
+		}else if (node instanceof ProductionNode){
+			
+		}
+		//Remove token from the list of tokens in WME
+		for(AlphaMemory alphaMemory : wme.getAlphaMems()){
+			alphaMemory.getIndexStructure().remove(wme);
+		}
+			
+		
+		//Remove token from the list of parent children
+		if (parent != null)
+			parent.removeChild(this);
+	}
 	
 	public String toString(){
 		return wme.toString();

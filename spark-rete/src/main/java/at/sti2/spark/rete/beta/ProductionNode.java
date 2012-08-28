@@ -84,6 +84,10 @@ public class ProductionNode extends RETENode {
 		match.setVariableBindings(getVariableBindings(newToken));
 		outputBuffer.put(match);
 		
+		newToken.deleteTokenAndParents();
+		
+		logger.debug("Pattern has been matched "+matchCounter);
+		
 //		StringBuffer buffer = new StringBuffer();
 //		buffer.append("We have " + (matchCounter) + " match:\n");
 //		Token printToken = newToken;

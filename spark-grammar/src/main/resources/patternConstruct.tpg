@@ -7,7 +7,7 @@ HANDLERS {
 		"baseurl" = "http://impactorium.epn.foi.se:7070/impact"
 	}
 	HANDLER {
-		"class" = "at.sti2.spark.invoke.ConsoleHandler"
+		"class" = "at.sti2.spark.handler.ConsoleHandler"
 	}
 }
 

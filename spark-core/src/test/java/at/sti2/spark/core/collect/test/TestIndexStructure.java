@@ -158,5 +158,42 @@ public class TestIndexStructure {
 		
 	}
 	
+	@Test
+	public void testIndexWithoutIndexing() throws InterruptedException{
+		
+		
+		IndexStructure<Removable> index = new IndexStructure<Removable>();
+		index.setWindowInMillis(5000);
+		
+		for(int i = 0; i < 1000 ; i++){
+
+			//create object
+			long now = System.currentTimeMillis();
+			RDFURIReference subject = new RDFURIReference("http://www.test.com/subject");
+			RDFURIReference predicate = new RDFURIReference("http://www.test.com/predicate");
+			RDFURIReference object = new RDFURIReference("http://www.test.com/object");
+			RDFTriple rdfTriple = new RDFTriple(subject, predicate, object);
+			
+			Removable removableObject = new Removable() {
+				
+				@Override
+				public void remove() {
+					System.out.println("Got removed");
+					
+				}
+			};
+			
+			index.addElement(rdfTriple, removableObject, now);
+
+			ArrayList<Removable> elementsFromTripleQueue = index.getElementsFromTokenQueue();
+			System.out.println(elementsFromTripleQueue.size());
+			
+//			index.remove(removableObject);
+			
+			Thread.sleep(100);
+		}
+		
+	}
+	
 
 }

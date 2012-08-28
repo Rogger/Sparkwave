@@ -50,8 +50,12 @@ public class RDFLiteral extends RDFValue {
 		this.languageTag = languageTag;
 	}
 	
+	/**
+	 * Returns value plus datatype
+	 * @return
+	 */
 	public String getValue() {
-		return value;
+		return value+"^^"+datatypeURI;
 	}
 	
 	public RDFURIReference getDatatypeURI() {

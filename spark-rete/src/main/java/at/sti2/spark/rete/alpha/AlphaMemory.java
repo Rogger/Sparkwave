@@ -69,7 +69,7 @@ public class AlphaMemory {
 		else
 			indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, wme.getTriple().getTimestamp());
 
-//		wme.addAlphaMemory(this);
+		wme.addAlphaMemory(this);
 
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);

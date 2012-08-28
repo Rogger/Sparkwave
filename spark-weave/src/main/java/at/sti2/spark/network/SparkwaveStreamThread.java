@@ -86,7 +86,7 @@ public class SparkwaveStreamThread implements Runnable {
 
 			logger.info(timeBuffer.toString());
 			logger.info("Processed " + tripleCounter + " triples.");
-			logger.info("Pattern has been matched "+ sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
+//			logger.info("Pattern has been matched "+ sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
 
 		} catch (InterruptedException e) {
 			logger.error(e);

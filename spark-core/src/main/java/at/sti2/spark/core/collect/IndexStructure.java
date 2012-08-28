@@ -15,6 +15,7 @@
  */
 package at.sti2.spark.core.collect;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -45,10 +46,12 @@ public class IndexStructure<Value extends Removable> {
 	final ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>> expireSubjectQueue;
 	final ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>> expirePredicateQueue;
 	final ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>> expireObjectQueue;
+	final ConcurrentLinkedQueue<TTLEntrySingle<Value>> expireTokenQueue; 
 
 	private final HashMultimap<RDFValue, Value> subjectMap;
 	private final HashMultimap<RDFValue, Value> predicateMap;
 	private final HashMultimap<RDFValue, Value> objectMap;
+	private final ArrayList<Value> tokenList; 
 
 	public IndexStructure() {
 		this.subjectIndexing = false;
@@ -59,10 +62,33 @@ public class IndexStructure<Value extends Removable> {
 		subjectMap = HashMultimap.create();
 		predicateMap = HashMultimap.create();
 		objectMap = HashMultimap.create();
+		
+		tokenList = new ArrayList<Value>();
+		expireTokenQueue = new ConcurrentLinkedQueue<TTLEntrySingle<Value>>();
 
 		expireSubjectQueue = new ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>>();
 		expirePredicateQueue = new ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>>();
 		expireObjectQueue = new ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>>();
+	}
+	
+	/**
+	 * Remove value from all indexes, should be only called if automatic expiration is not enough
+	 * @param value
+	 */
+	public void remove(Value value){
+		if(subjectIndexing)
+			removeEntry(expireSubjectQueue,subjectMap,value);
+		
+		if(predicateIndexing)
+			removeEntry(expirePredicateQueue, predicateMap,value);
+		
+		if(objectIndexing)
+			removeEntry(expireObjectQueue, objectMap,value);
+		
+		//no indexing => all tokens are needed
+		if(!subjectIndexing && !predicateIndexing && !objectIndexing){
+			removeEntry(expireTokenQueue, tokenList, value);
+		}
 	}
 
 	public void setObjectIndexing(boolean objectIndexing) {
@@ -114,6 +140,16 @@ public class IndexStructure<Value extends Removable> {
 				expireObjectQueue.add(ttlEntry);
 			}
 		}
+		
+		//no indexing => all tokens are needed
+		if(!subjectIndexing && !predicateIndexing && !objectIndexing){
+			
+			tokenList.add(value);
+			if(timestamp != 0){
+				TTLEntrySingle<Value> ttlEntry = new TTLEntrySingle<Value>(value, timestamp + windowInMillis);
+				expireTokenQueue.add(ttlEntry);		
+			}
+		}
 	}
 
 	public Set<Value> getElementsFromSubjectIndex(RDFValue e) {
@@ -129,6 +165,11 @@ public class IndexStructure<Value extends Removable> {
 	public Set<Value> getElementsFromObjectIndex(RDFValue e) {
 		removeExpiredEntries();
 		return objectMap.get(e);
+	}
+	
+	public ArrayList<Value> getElementsFromTokenQueue(){
+		removeExpiredEntries();
+		return tokenList;
 	}
 
 	private long getNow() {
@@ -146,6 +187,11 @@ public class IndexStructure<Value extends Removable> {
 		if(objectIndexing)
 			removeEntries(expireObjectQueue, objectMap);
 		
+		//no indexing => all tokens are needed
+		if(!subjectIndexing && !predicateIndexing && !objectIndexing){
+			removeEntries(expireTokenQueue, tokenList);
+		}
+		
 	}
 
 	private void removeEntries(
@@ -158,7 +204,7 @@ public class IndexStructure<Value extends Removable> {
 
 		for (; iterator.hasNext();) {
 			TTLEntry<RDFValue, Value> next = iterator.next();
-			if (next.getTTL() < now) {
+			if (next.isExpired() || next.getTTL() < now) {
 				RDFValue rdfValue = next.getKey();
 				Value value = next.getValue();
 				
@@ -168,11 +214,63 @@ public class IndexStructure<Value extends Removable> {
 				map.remove(rdfValue, value);
 				iterator.remove();
 
-			} else {
-				break;
 			}
 		}
 
+	}
+	
+	private void removeEntries(ConcurrentLinkedQueue<TTLEntrySingle<Value>> queue, ArrayList<Value> tokenList){
+		long now = getNow();
+		
+		Iterator<TTLEntrySingle<Value>> iterator = queue.iterator();
+		
+		for(; iterator.hasNext();){
+			TTLEntrySingle<Value> next = iterator.next();
+			if (next.isExpired() || next.getTTL() < now) {
+				Value value = next.getValue();
+				
+				value.remove();
+				tokenList.remove(value);
+				iterator.remove();
+
+			}
+		}
+	}
+	
+	private void removeEntry(
+			ConcurrentLinkedQueue<TTLEntry<RDFValue, Value>> queue,
+			HashMultimap<RDFValue, Value> map, Value deleteValue) {
+
+		Iterator<TTLEntry<RDFValue, Value>> iterator = queue.iterator();
+
+		for (; iterator.hasNext();) {
+			TTLEntry<RDFValue, Value> next = iterator.next();
+			RDFValue rdfValue = next.getKey();
+			Value value = next.getValue();
+			
+			if(value == deleteValue){
+				next.setExpired();
+				break;
+			}
+
+		}
+
+	}
+	
+	private void removeEntry(ConcurrentLinkedQueue<TTLEntrySingle<Value>> queue, ArrayList<Value> tokenList, Value deleteValue){
+		
+		Iterator<TTLEntrySingle<Value>> iterator = queue.iterator();
+		
+		for(; iterator.hasNext();){
+			TTLEntrySingle<Value> next = iterator.next();
+				Value value = next.getValue();
+				
+				if(value == deleteValue){
+					next.setExpired();
+					break;
+				}
+
+		} 
 	}
 
 }
@@ -182,6 +280,7 @@ class TTLEntry<Key, Value> {
 	private final Key key;
 	private final Value value;
 	private final long ttl;
+	private boolean markedAsExpired = false;
 
 	public TTLEntry(Key key, Value value, long ttl) {
 		this.key = key;
@@ -199,6 +298,43 @@ class TTLEntry<Key, Value> {
 
 	public Key getKey() {
 		return key;
+	}
+	
+	public void setExpired(){
+		markedAsExpired = true;
+	}
+	
+	public boolean isExpired(){
+		return markedAsExpired;
+	}
+
+}
+
+class TTLEntrySingle<Value> {
+
+	private final Value value;
+	private final long ttl;
+	private boolean markedAsExpired = false;
+
+	public TTLEntrySingle(Value value, long ttl) {
+		this.value = value;
+		this.ttl = ttl;
+	}
+
+	public long getTTL() {
+		return ttl;
+	}
+
+	public Value getValue() {
+		return value;
+	}
+	
+	public void setExpired(){
+		markedAsExpired = true;
+	}
+	
+	public boolean isExpired(){
+		return markedAsExpired;
 	}
 
 }

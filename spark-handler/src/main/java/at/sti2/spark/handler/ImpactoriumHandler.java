@@ -54,6 +54,11 @@ import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
 
 public class ImpactoriumHandler implements SparkweaveHandler {
+	
+	/*
+	 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
+	 */
+	private long twoMinutesPause = 0l;
 
 	static Logger logger = Logger.getLogger(ImpactoriumHandler.class);
 	Handler handlerProperties = null;
@@ -66,6 +71,17 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 	
 	@Override
 	public void invoke(Match match) throws SparkweaveHandlerException{
+		
+		/*
+		 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
+		 *
+		 ******************************************************/
+		long timestamp = (new Date()).getTime();
+		if (timestamp-twoMinutesPause < 120000)
+			return;
+		
+		twoMinutesPause = timestamp;
+		/* *****************************************************/
 		
 		String baseurl = handlerProperties.getValue("baseurl");
 		logger.info("Invoking impactorium at base URL " + baseurl);

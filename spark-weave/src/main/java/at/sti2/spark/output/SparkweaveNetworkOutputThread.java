@@ -60,6 +60,8 @@ public class SparkweaveNetworkOutputThread extends Thread {
 				invoker = (SparkweaveHandler) Class.forName(handlerClass).newInstance();
 				invoker.init(handlerProperties);
 				handlerInstances.add(invoker);
+				
+				logger.info("An instance of " + invoker.getClass().getName() + " registered.");
 
 			} catch (ClassNotFoundException e) {
 				logger.error("Could not find class " + handlerClass);

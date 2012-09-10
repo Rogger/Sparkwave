@@ -1,10 +1,8 @@
 package at.sti2.spark.handler;
 
-import org.junit.Test;
-
-import at.sti2.spark.handler.ImpactoriumHandler;
 import junit.framework.Assert;
-import junit.framework.TestCase;
+
+import org.junit.Test;
 
 public class InfoObjectReportExtractorTest {
 

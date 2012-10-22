@@ -6,9 +6,10 @@
 	<name>spark-grammar</name>
 
 	<parent>
-		<groupId>at.sti2.sparkweave</groupId>
+		<groupId>at.sti2.sparkwave</groupId>
 		<artifactId>spark-dist</artifactId>
 		<version>1.0-SNAPSHOT</version>
+		<relativePath>../spark-dist</relativePath>
 	</parent>
 
 	<properties>
@@ -22,7 +23,7 @@
 			<version>3.4</version>
 		</dependency>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>

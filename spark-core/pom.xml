@@ -6,7 +6,7 @@
 	<name>spark-core</name>
 
 	<parent>
-		<groupId>at.sti2.sparkweave</groupId>
+		<groupId>at.sti2.sparkwave</groupId>
 		<artifactId>spark-dist</artifactId>
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../spark-dist</relativePath>

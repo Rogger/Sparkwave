@@ -6,7 +6,7 @@
 	<name>spark-rete</name>
 
 	<parent>
-		<groupId>at.sti2.sparkweave</groupId>
+		<groupId>at.sti2.sparkwave</groupId>
 		<artifactId>spark-dist</artifactId>
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../spark-dist</relativePath>
@@ -23,13 +23,13 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-grammar</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>

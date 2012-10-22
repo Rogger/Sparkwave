@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>at.sti2.sparkweave</groupId>
+	<groupId>at.sti2.sparkwave</groupId>
 	<artifactId>spark-dist</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -21,7 +21,7 @@
 		<module>../spark-rete</module>
 		<module>../spark-streamer</module>
 		<module>../spark-handler</module>
-		<module>../spark-weave</module>
+		<module>../spark-wave</module>
 	</modules>
 
 	<build>

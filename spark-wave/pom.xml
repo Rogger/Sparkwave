@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>spark-weave</artifactId>
+	<artifactId>spark-wave</artifactId>
 	<packaging>jar</packaging>
 	<name>spark-weave</name>
 
 	<parent>
-		<groupId>at.sti2.sparkweave</groupId>
+		<groupId>at.sti2.sparkwave</groupId>
 		<artifactId>spark-dist</artifactId>
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../spark-dist</relativePath>
@@ -125,19 +125,19 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-core</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-epsilon</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-rete</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
@@ -149,13 +149,13 @@
 <!-- 			<scope>compile</scope> -->
 <!-- 		</dependency> -->
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-grammar</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>at.sti2.sparkweave</groupId>
+			<groupId>at.sti2.sparkwave</groupId>
 			<artifactId>spark-handler</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>

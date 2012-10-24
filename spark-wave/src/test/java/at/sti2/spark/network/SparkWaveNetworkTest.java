@@ -38,13 +38,13 @@ import at.sti2.spark.input.N3FileInput;
 
 import com.google.common.base.Stopwatch;
 
-public class SparkWeaveNetworkTest {
+public class SparkWaveNetworkTest {
 
 	private List <RDFTriple> triples = null;
 	private SparkwaveNetwork sparkWeaveNetwork = null;
 	private File ontologyFile = null;
 	
-	static Logger logger = Logger.getLogger(SparkWeaveNetworkTest.class);
+	static Logger logger = Logger.getLogger(SparkWaveNetworkTest.class);
 	
 //	@Before
 	public void init() throws Exception {

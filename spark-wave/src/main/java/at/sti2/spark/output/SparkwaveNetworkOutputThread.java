@@ -33,14 +33,14 @@ import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.handler.SparkweaveHandler;
 import at.sti2.spark.handler.SparkweaveHandlerException;
 
-public class SparkweaveNetworkOutputThread extends Thread {
+public class SparkwaveNetworkOutputThread extends Thread {
 
-	static Logger logger = Logger.getLogger(SparkweaveNetworkOutputThread.class);
+	static Logger logger = Logger.getLogger(SparkwaveNetworkOutputThread.class);
 	
 	private OutputBuffer outputBuffer = null;
 	private Pattern triplePatternGraph = null;
 	
-	public SparkweaveNetworkOutputThread(Pattern patternGraph, OutputBuffer outputBuffer){
+	public SparkwaveNetworkOutputThread(Pattern patternGraph, OutputBuffer outputBuffer){
 		this.outputBuffer = outputBuffer;
 		this.triplePatternGraph = patternGraph;
 	}

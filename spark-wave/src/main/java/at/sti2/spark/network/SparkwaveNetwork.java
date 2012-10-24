@@ -31,7 +31,7 @@ import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.NTripleStreamReader;
-import at.sti2.spark.output.SparkweaveNetworkOutputThread;
+import at.sti2.spark.output.SparkwaveNetworkOutputThread;
 import at.sti2.spark.rete.RETENetwork;
 import at.sti2.spark.rete.alpha.AlphaNode;
 import at.sti2.spark.rete.alpha.ValueTestAlphaNode;
@@ -137,7 +137,7 @@ public class SparkwaveNetwork{
 		if (triplePatternGraph.getConstructConditions().size() > 0){
 			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
 			for (ProductionNode productionNode : productionNodes){
-				SparkweaveNetworkOutputThread outputThread = new SparkweaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());
+				SparkwaveNetworkOutputThread outputThread = new SparkwaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());
 				outputThread.start();
 			}
 			

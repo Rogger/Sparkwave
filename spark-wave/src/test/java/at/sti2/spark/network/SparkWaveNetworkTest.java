@@ -178,7 +178,7 @@ public class SparkWaveNetworkTest {
 		wherePattern.setTimeWindowLength(150);
 		
 		Pattern patternGraph = new Pattern();
-		patternGraph.setWherePattern(wherePattern);
+		patternGraph.setWhereClause(wherePattern);
 		
 		ontologyFile = new File("target/test-classes/knosis/epsilon.owl");
 		

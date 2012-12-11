@@ -170,7 +170,7 @@ public class WeatherTest {
 		wherePattern.addWhereCondition(tripleCondition7);
 		
 		Pattern patternGraph = new Pattern();
-		patternGraph.setWherePattern(wherePattern);
+		patternGraph.setWhereClause(wherePattern);
 		
 		reteNetwork.addTriplePatternGraph(patternGraph);
 		

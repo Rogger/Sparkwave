@@ -1,0 +1,26 @@
+PREFIX bsbm-vocab: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/>
+PREFIX bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+HANDLERS {
+	HANDLER {
+		"class" = "at.sti2.spark.handler.ConsoleHandler"
+	}
+}
+
+SELECT *
+
+WHERE {
+{
+	?x rdf:type bsbm-vocab:Offer .
+	?x bsbm-vocab:product ?product .
+	TIMEWINDOW (100)
+}
+AND
+{
+	?x rdf:type bsbm-vocab:Offer .
+	?x bsbm-vocab:product ?product .
+	TIMEWINDOW (100)
+}
+}

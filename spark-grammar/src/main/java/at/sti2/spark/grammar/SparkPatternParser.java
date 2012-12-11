@@ -21,8 +21,10 @@ import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.core.triple.TripleConstantTest;
+import at.sti2.spark.grammar.pattern.GraphPattern;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.grammar.pattern.LogicAndGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.grammar.pattern.Prefix;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
@@ -273,7 +275,8 @@ public class SparkPatternParser {
 					parseSelectClause(child,patternGraph);
 				}
 				else if(childToken.equals("WHERE_CLAUSE")){
-					parseWhereClause(child,patternGraph);
+					GraphPattern whereClause = parseWhereClause(child,patternGraph);
+					patternGraph.setWhereClause(whereClause);
 				}
 			}
 		}
@@ -301,7 +304,8 @@ public class SparkPatternParser {
 					parseConstructTriples(child,patternGraph);
 				}
 				else if(childToken.equals("WHERE_CLAUSE")){
-					parseWhereClause(child,patternGraph);
+					GraphPattern whereClause = parseWhereClause(child,patternGraph);
+					patternGraph.setWhereClause(whereClause);
 				}
 			}
 		}
@@ -329,19 +333,37 @@ public class SparkPatternParser {
 	 * Parse WHERE_CLAUSE
 	 * @param treeNode
 	 */
-	private void parseWhereClause(TreeWrapper treeNode, Pattern patternGraph){
+	private GraphPattern parseWhereClause(TreeWrapper treeNode, Pattern patternGraph){
 		if(treeNode!=null){
 			for(TreeWrapper child : treeNode) {
-				String childToken = child.toString();
-				logger.debug(childToken);
-				
-				if(childToken.equals("GROUP_GRAPH_PATTERN")){
-					GroupGraphPattern parseGroupGraphPattern = parseGroupGraphPattern(child,patternGraph);
-					patternGraph.setWherePattern(parseGroupGraphPattern);
-				}
+				return parseGraphPattern(child, patternGraph);
 			}
 		}
+		
+		return null;
 	}
+	
+	/**
+	 * Parse WHERE_CLAUSE continued
+	 * @param treeNode
+	 */
+	private GraphPattern parseGraphPattern(TreeWrapper treeNode, Pattern patternGraph){
+		if(treeNode!=null){
+			String childToken = treeNode.toString();
+			logger.debug(childToken);
+				
+			if(childToken.equals("GROUP_GRAPH_PATTERN")){
+				GroupGraphPattern parseGroupGraphPattern = parseGroupGraphPattern(treeNode,patternGraph);
+				return parseGroupGraphPattern;
+			}else if(childToken.equals("AND_GRAPH")){
+				LogicAndGraphPattern parseAndGraphPattern = parseAndGraphPattern(treeNode, patternGraph);
+				return parseAndGraphPattern;
+			}
+		}
+		
+		return null;
+	}
+	
 	
 	/**
 	 * Parse GROUP_GRAPH_PATTERN
@@ -372,6 +394,34 @@ public class SparkPatternParser {
 		return groupGraphPattern;
 	}
 	
+	/**
+	 * Parse AND_GRAPH
+	 * 
+	 */
+	private LogicAndGraphPattern parseAndGraphPattern(TreeWrapper treeNode, Pattern patternGraph){
+
+		LogicAndGraphPattern logicAndGraphPattern = new LogicAndGraphPattern();
+		
+		if(treeNode!=null && treeNode.getSize()==2){
+		
+			TreeWrapper child1 = treeNode.getChild(0);
+			String childToken1= child1.toString();
+			logger.debug(childToken1);
+			GraphPattern groupPattern1 = parseGraphPattern(child1, patternGraph);
+			
+			TreeWrapper child2 = treeNode.getChild(1);
+			String childToken2 = child2.toString();
+			logger.debug(childToken2);
+			GraphPattern groupPattern2 = parseGraphPattern(child2, patternGraph);
+			
+			logicAndGraphPattern.setLeft(groupPattern1);
+			logicAndGraphPattern.setRight(groupPattern2);
+			
+		}
+		
+		return logicAndGraphPattern;
+		
+	}
 	
 	/**
 	 * Parse TIMEWINDOW

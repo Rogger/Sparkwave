@@ -29,6 +29,7 @@ import at.sti2.spark.epsilon.network.PropertyNode;
 import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
 import at.sti2.spark.grammar.SparkPatternParser;
+import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.NTripleStreamReader;
 import at.sti2.spark.output.SparkwaveNetworkOutputThread;
@@ -233,7 +234,9 @@ public class SparkwaveNetwork{
 	}
 	
 	public long getTimeWindowLength(){
-		return triplePatternGraph.getWherePattern().getTimeWindowLength();
+		//TODO THIS IS A HACK!!!
+		GroupGraphPattern whereClause = (GroupGraphPattern) triplePatternGraph.getWhereClause();
+		return whereClause.getTimeWindowLength();
 	}
 	
 	public void activateNetwork(Triple streamedTriple){

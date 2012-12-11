@@ -36,6 +36,7 @@ VAR;
 IRI;
 PREFIX_NAME;
 GROUP_GRAPH_PATTERN;
+AND_GRAPH;
 TRIPLE;
 SUBJECT;
 PREDICATE;
@@ -157,11 +158,12 @@ whereClause
     
 groupGraphPattern
     : OPEN_CURLY_BRACE groupGraphPatternSub CLOSE_CURLY_BRACE -> ^(GROUP_GRAPH_PATTERN groupGraphPatternSub)
+    | OPEN_CURLY_BRACE groupOrAndGraphPattern CLOSE_CURLY_BRACE -> groupOrAndGraphPattern
     ;
     
 groupGraphPatternSub
     : triplesBlock groupGraphPatternSubDetail* -> triplesBlock groupGraphPatternSubDetail*
-    | groupGraphPatternSubDetail+ -> groupGraphPatternSubDetail+
+//    | groupGraphPatternSubDetail+ -> groupGraphPatternSubDetail+
     ;
     
 groupGraphPatternSubDetail
@@ -217,6 +219,10 @@ numericExpression
     
 primaryExpression
     : brackettedExpression | numericLiteral | var
+    ;
+    
+groupOrAndGraphPattern
+    : (g1=groupGraphPattern) AND (g2=groupGraphPattern) -> ^(AND_GRAPH $g1 $g2)
     ;
 
 triplesBlock
@@ -302,6 +308,8 @@ HANDLERS : ('H'|'h')('A'|'a')('N'|'n')('D'|'d')('L'|'l')('E'|'e')('R'|'r')('S'|'
 CONSTRUCT : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('R'|'r')('U'|'u')('C'|'c')('T'|'t');
 
 WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
+
+AND :	('A'|'a')('N'|'n')('D'|'d');
 
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
 

@@ -396,10 +396,11 @@ public class RETENetwork {
 
 		RETENode currentNode = betaMemory;
 		
-		GroupGraphPattern wherePattern = pattern.getWherePattern();
+		//TODO THIS IS A HACK!!!
+		GroupGraphPattern wherePattern = (GroupGraphPattern) pattern.getWhereClause();
 
 		List<TripleCondition> previousConditions = new ArrayList<TripleCondition>();
-		List<TripleCondition> tripleConditions = wherePattern.getWhereConditions();
+		List<TripleCondition> tripleConditions = wherePattern.getConditions();
 
 		List<BetaMemory> betaMemories = new ArrayList<BetaMemory>();
 
@@ -413,7 +414,7 @@ public class RETENetwork {
 		alphaMemory.getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 		currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests,
 				tripleConditions.get(0),
-				pattern.getWherePattern().getTimeWindowLength());
+				wherePattern.getTimeWindowLength());
 
 		for (int i = 1; i < tripleConditions.size(); i++) {
 			
@@ -431,7 +432,7 @@ public class RETENetwork {
 			for(JoinNodeTest test :tests){
 				test.getBetaMemory().activateIndexesForTests(test);
 			}
-			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(pattern.getWherePattern().getTimeWindowLength());
+			((BetaMemory) currentNode).getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 
 			// alpha memory
 			alphaMemory = buildOrShareAlphaMemory(tripleCondition,wherePattern.getFilters());
@@ -441,7 +442,7 @@ public class RETENetwork {
 			alphaMemory.getIndexStructure().setWindowInMillis(wherePattern.getTimeWindowLength());
 
 			// join node
-			currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleCondition, pattern.getWherePattern().getTimeWindowLength());
+			currentNode = buildOrShareJoinNode(currentNode, alphaMemory, tests, tripleCondition, wherePattern.getTimeWindowLength());
 		}
 
 		// Build a new production node, make it a child of current node

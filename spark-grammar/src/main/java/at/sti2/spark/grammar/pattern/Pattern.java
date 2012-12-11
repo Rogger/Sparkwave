@@ -31,25 +31,25 @@ import at.sti2.spark.core.triple.TripleConstantTest;
  */
 public class Pattern {
 
-	private GroupGraphPattern wherePattern = null;
+	private GraphPattern whereClause = null;
 	private List <TripleCondition> constructConditions = null;
 	private List <Prefix> prefixes = null;
 	private List <Handler> handlers = null;
 
 	public Pattern() {
 		super();
-		wherePattern = new GroupGraphPattern();
+		whereClause = null;
 		constructConditions = new ArrayList <TripleCondition> ();
 		prefixes = new ArrayList <Prefix> ();
 		handlers = new ArrayList <Handler>();
 	}
 	
-	public GroupGraphPattern getWherePattern(){
-		return wherePattern;
+	public GraphPattern getWhereClause(){
+		return whereClause;
 	}
 	
-	public void setWherePattern(GroupGraphPattern wherePattern){
-		this.wherePattern = wherePattern;
+	public void setWhereClause(GraphPattern whereClause){
+		this.whereClause = whereClause;
 	}
 
 	public List<TripleCondition> getConstructConditions() {
@@ -128,7 +128,7 @@ public class Pattern {
 			}
 		
 		buffer.append("WHERE\n");
-		buffer.append(wherePattern.toString());
+		buffer.append(whereClause.toString());
 		
 		return buffer.toString();
 	}

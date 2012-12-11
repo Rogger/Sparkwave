@@ -129,7 +129,7 @@ public class SparkWaveFirstBSBMTest {
 		wherePattern.setTimeWindowLength(1000);
 		
 		Pattern patternGraph = new Pattern();
-		patternGraph.setWherePattern(wherePattern);
+		patternGraph.setWhereClause(wherePattern);
 		
 		ontologyFile = new File("target/test-classes/BSBM/epsilon-PT2-DS329.owl");
 		

@@ -27,7 +27,7 @@ import at.sti2.spark.grammar.pattern.expression.FilterExpression;
  * GroupGraphPattern represents a bunch of triple conditions, a timewindow and an optional filter
  * @author michaelrogger
  */
-public class GroupGraphPattern {
+public class GroupGraphPattern implements GraphPattern {
 
 	
 	private List <TripleCondition> triples = null;
@@ -44,7 +44,7 @@ public class GroupGraphPattern {
 		filters = new ArrayList<FilterExpression>();
 	}
 
-	public List<TripleCondition> getWhereConditions() {
+	public List<TripleCondition> getConditions() {
 		return triples;
 	}
 	
@@ -107,6 +107,16 @@ public class GroupGraphPattern {
 		}
 		
 		return buffer.toString();
+	}
+
+	@Override
+	public int getChildSize() {
+		return 0;
+	}
+
+	@Override
+	public GraphPattern getChild(int index) {
+		return null;
 	}
 
 }

@@ -37,6 +37,7 @@ IRI;
 PREFIX_NAME;
 GROUP_GRAPH_PATTERN;
 AND_GRAPH;
+BEFORE_GRAPH;
 TRIPLE;
 SUBJECT;
 PREDICATE;
@@ -52,6 +53,7 @@ KEY;
 VALUE;
 FILTER;
 BRACKETTED_EXPRESSION;
+LOGIC_BRACKETTED_EXPRESSION;
 NUMERIC_LITERAL;
 DECIMAL_LITERAL;
 INTEGER_LITERAL;
@@ -158,7 +160,7 @@ whereClause
     
 groupGraphPattern
     : OPEN_CURLY_BRACE groupGraphPatternSub CLOSE_CURLY_BRACE -> ^(GROUP_GRAPH_PATTERN groupGraphPatternSub)
-    | OPEN_CURLY_BRACE groupOrAndGraphPattern CLOSE_CURLY_BRACE -> groupOrAndGraphPattern
+    | OPEN_CURLY_BRACE logicGraphPattern CLOSE_CURLY_BRACE -> logicGraphPattern
     ;
     
 groupGraphPatternSub
@@ -220,9 +222,14 @@ numericExpression
 primaryExpression
     : brackettedExpression | numericLiteral | var
     ;
+
+ logicGraphPattern
+    : (g1=groupGraphPattern -> $g1) ( (AND g2=groupGraphPattern -> ^(AND_GRAPH $logicGraphPattern $g2 )) 
+    | (BEFORE binaryBrackettedExpression g3=groupGraphPattern -> ^(BEFORE_GRAPH $logicGraphPattern binaryBrackettedExpression $g3 )) )
+    ;
     
-groupOrAndGraphPattern
-    : (g1=groupGraphPattern) AND (g2=groupGraphPattern) -> ^(AND_GRAPH $g1 $g2)
+binaryBrackettedExpression
+    : OPEN_BRACE (n1=numericLiteral) COMMA (n2=numericLiteral) CLOSE_BRACE -> ^(LOGIC_BRACKETTED_EXPRESSION $n1 $n2)
     ;
 
 triplesBlock
@@ -311,6 +318,8 @@ WHERE : ('W'|'w')('H'|'h')('E'|'e')('R'|'r')('E'|'e');
 
 AND :	('A'|'a')('N'|'n')('D'|'d');
 
+BEFORE : ('B'|'b')('E'|'e')('F'|'f')('O'|'o')('R'|'r')('E'|'e');
+
 TIMEWINDOW : ('T'|'t')('I'|'i')('M'|'m')('E'|'e')('W'|'w')('I'|'i')('N'|'n')('D'|'d')('O'|'o')('W'|'w');
 
 FILTER : ('F'|'f')('I'|'i')('L'|'l')('T'|'t')('E'|'e')('R'|'r');
@@ -320,6 +329,8 @@ TRUE : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 FALSE : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
 ASTERISK : '*';
+
+COMMA : ',';
 
 EQUAL : '=';
 

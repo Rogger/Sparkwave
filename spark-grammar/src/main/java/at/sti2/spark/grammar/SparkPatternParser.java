@@ -27,6 +27,7 @@ import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.LogicAndGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.grammar.pattern.Prefix;
+import at.sti2.spark.grammar.pattern.TemporalBeforeGraphPattern;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
 import at.sti2.spark.grammar.pattern.expression.FilterOperator;
 import at.sti2.spark.grammar.util.Entry;
@@ -358,6 +359,9 @@ public class SparkPatternParser {
 			}else if(childToken.equals("AND_GRAPH")){
 				LogicAndGraphPattern parseAndGraphPattern = parseAndGraphPattern(treeNode, patternGraph);
 				return parseAndGraphPattern;
+			}else if(childToken.equals("BEFORE_GRAPH")){
+				TemporalBeforeGraphPattern parseBeforeGraphPattern = parseBeforeGraphPattern(treeNode, patternGraph);
+				return parseBeforeGraphPattern;
 			}
 		}
 		
@@ -424,6 +428,74 @@ public class SparkPatternParser {
 	}
 	
 	/**
+	 * Parse BEFORE_GRAPH
+	 * 
+	 */
+	private TemporalBeforeGraphPattern parseBeforeGraphPattern(TreeWrapper treeNode, Pattern patternGraph){
+
+		TemporalBeforeGraphPattern temporalBeforeGraphPattern = new TemporalBeforeGraphPattern();
+		
+		if(treeNode!=null && treeNode.getSize()==3){
+		
+			TreeWrapper child1 = treeNode.getChild(0);
+			String childToken1= child1.toString();
+			logger.debug(childToken1);
+			GraphPattern groupPattern1 = parseGraphPattern(child1, patternGraph);
+			
+			TreeWrapper child2 = treeNode.getChild(1);
+			String childToken2= child2.toString();
+			logger.debug(childToken2);
+			
+			//Parse <TEMPORAL OP>(int,int)
+			int[] logicBracketedExpression = parseLogicBracketedExpression(child2, patternGraph);
+			
+			TreeWrapper child3 = treeNode.getChild(2);
+			String childToken3 = child3.toString();
+			logger.debug(childToken3);
+			GraphPattern groupPattern3 = parseGraphPattern(child3, patternGraph);
+			
+			temporalBeforeGraphPattern.setLeft(groupPattern1);
+			temporalBeforeGraphPattern.setRight(groupPattern3);
+			temporalBeforeGraphPattern.setLowerBound(logicBracketedExpression[0]);
+			temporalBeforeGraphPattern.setUpperBound(logicBracketedExpression[1]);
+			
+		}
+		
+		return temporalBeforeGraphPattern;
+		
+	}
+	
+	/**
+	 * Parse the bracketed expression for temporal operators
+	 * @param treeNode
+	 * @param patternGraph
+	 * @return
+	 */
+	private int[] parseLogicBracketedExpression(TreeWrapper treeNode, Pattern patternGraph){
+		
+		int[] boundaries = new int[2];
+		
+		if(treeNode!=null && treeNode.getSize()==2){
+			
+			//NUMERIC_LITERAL -> INTEGER_LITERAL -> INT VALUE
+			TreeWrapper lowerBound = treeNode.getChild(0).getChild(0).getChild(0);
+			String lowerBoundStr = lowerBound.toString();
+			logger.debug(lowerBoundStr);
+			boundaries[0] = Integer.parseInt(lowerBoundStr);
+			
+			//NUMERIC_LITERAL -> INTEGER_LITERAL -> INT VALUE
+			TreeWrapper upperBound = treeNode.getChild(1).getChild(0).getChild(0);
+			String upperBoundStr = upperBound.toString();
+			logger.debug(upperBoundStr);
+			boundaries[1] = Integer.parseInt(upperBoundStr);
+			
+		}
+		
+		return boundaries;
+		
+	}
+	
+	/**
 	 * Parse TIMEWINDOW
 	 * @param treeNode
 	 */
@@ -438,7 +510,7 @@ public class SparkPatternParser {
 			}
 		}
 		
-		logger.info(timewindow);
+		logger.debug(timewindow);
 		
 		return timewindow;
 	}
@@ -452,7 +524,7 @@ public class SparkPatternParser {
 		
 		if(treeNode!=null){
 			TreeWrapper bracketted = treeNode.getChild(0);
-			logger.info(bracketted);
+			logger.debug(bracketted);
 			
 			if(bracketted!=null && bracketted.toString().equals("BRACKETTED_EXPRESSION")){
 				FilterExpression parseExpression = parseBrackettedExpression(bracketted,patternGraph);

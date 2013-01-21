@@ -11,6 +11,7 @@ import at.sti2.spark.grammar.pattern.GraphPattern;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.LogicAndGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.spark.grammar.pattern.TemporalBeforeGraphPattern;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
 import at.sti2.spark.grammar.pattern.expression.FilterOperator;
 
@@ -82,6 +83,28 @@ public class SparkLexerParserTest {
 		GroupGraphPattern left = (GroupGraphPattern) whereClause.getLeft();
 		GroupGraphPattern right = (GroupGraphPattern) whereClause.getRight();
 		
+		Assert.assertTrue(left.getConditions().size() > 0);
+		Assert.assertTrue(left.getTimeWindowLength() > 0);
+		Assert.assertTrue(right.getConditions().size() > 0);
+		Assert.assertTrue(right.getTimeWindowLength() > 0);
+		
+	}
+	
+	@Test
+	public void testPatternTemporalBefore() throws Exception{
+		SparkPatternParser parser = new SparkPatternParser("target/classes/patternTemporalBefore.tpg");
+		Pattern patternGraph = parser.parse();
+		
+		Assert.assertTrue(patternGraph.getPrefixes().size() > 0);
+		
+		TemporalBeforeGraphPattern temporalBeforeGraphPattern = (TemporalBeforeGraphPattern) patternGraph.getWhereClause();
+		GroupGraphPattern left = (GroupGraphPattern) temporalBeforeGraphPattern.getLeft();
+		GroupGraphPattern right = (GroupGraphPattern) temporalBeforeGraphPattern.getRight();
+		int lowerBound = temporalBeforeGraphPattern.getLowerBound();
+		int upperBound = temporalBeforeGraphPattern.getUpperBound();
+		
+		Assert.assertTrue(lowerBound > 0);
+		Assert.assertTrue(upperBound > 0);
 		Assert.assertTrue(left.getConditions().size() > 0);
 		Assert.assertTrue(left.getTimeWindowLength() > 0);
 		Assert.assertTrue(right.getConditions().size() > 0);

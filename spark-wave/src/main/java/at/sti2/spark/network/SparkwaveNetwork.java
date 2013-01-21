@@ -234,7 +234,7 @@ public class SparkwaveNetwork{
 	}
 	
 	public long getTimeWindowLength(){
-		//TODO THIS IS A HACK!!!
+		//TODO THIS IS A HACK!!! Assumming that whereClause contains only GroupGraphPattern
 		GroupGraphPattern whereClause = (GroupGraphPattern) triplePatternGraph.getWhereClause();
 		return whereClause.getTimeWindowLength();
 	}

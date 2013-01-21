@@ -150,6 +150,14 @@ public class SparkPatternParser {
 					patternGraph.setPrefixes(prefixes);
 				}else if(childToken.equals("HANDLERS")){
     				parseHandlers(child,patternGraph);
+    			}else if(childToken.equals("EPSILON_ONTOLOGY")){
+    				TreeWrapper epsilonOntology = child.getChild(0);
+    				String strValue = epsilonOntology.toString().replaceAll("\"", "");
+    				patternGraph.setEpsilonOntology(strValue);
+    			}else if(childToken.equals("STATIC_INSTANCES")){
+    				TreeWrapper staticInstances = child.getChild(0);
+    				String strValue = staticInstances.toString().replaceAll("\"", "");
+    				patternGraph.setStaticInstances(strValue);
     			}
 			}
 		}

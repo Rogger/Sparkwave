@@ -57,6 +57,8 @@ LOGIC_BRACKETTED_EXPRESSION;
 NUMERIC_LITERAL;
 DECIMAL_LITERAL;
 INTEGER_LITERAL;
+EPSILON_ONTOLOGY;
+STATIC_INSTANCES;
 }
 
 @header {
@@ -106,7 +108,7 @@ query
     ;
 
 prologue
-    : prefixes handlersClause -> ^(PROLOGUE prefixes handlersClause)
+    : prefixes epsilonOntologyClause staticInstances handlersClause -> ^(PROLOGUE prefixes epsilonOntologyClause staticInstances handlersClause)
     ;
     
 prefixes
@@ -115,6 +117,14 @@ prefixes
     
 prefixDecl
     : PREFIX PNAME_NS IRI_REF -> ^(PNAME_NS IRI_REF)
+    ;
+    
+epsilonOntologyClause
+    : EPSILON_ONTOLOGY EQUAL string ->^(EPSILON_ONTOLOGY string)
+    ;
+    
+ staticInstances
+    : STATIC_INSTANCES EQUAL string -> ^(STATIC_INSTANCES string)
     ;
 
 handlersClause
@@ -307,6 +317,10 @@ MINUS : '-';
 PREFIX : ('P'|'p')('R'|'r')('E'|'e')('F'|'f')('I'|'i')('X'|'x');
 
 SELECT : ('S'|'s')('E'|'e')('L'|'l')('E'|'e')('C'|'c')('T'|'t');
+
+EPSILON_ONTOLOGY : ('E'|'e')('P'|'p')('S'|'s')('I'|'i')('L'|'l')('O'|'o')('N'|'n')('_')('O'|'o')('N'|'n')('T'|'t')('O'|'o')('L'|'l')('O'|'o')('G'|'g')('Y'|'y') ;
+
+STATIC_INSTANCES : ('S'|'s')('T'|'t')('A'|'a')('T'|'t')('I'|'i')('C'|'c')('_')('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e')('S'|'s');
 
 HANDLER : ('H'|'h')('A'|'a')('N'|'n')('D'|'d')('L'|'l')('E'|'e')('R'|'r');
 

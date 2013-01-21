@@ -3,6 +3,12 @@ PREFIX bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
+#Location of the epsilon ontology file
+EPSILON_ONTOLOGY = "target/classes/bsbm/epsilon-PT1-DS329.owl"
+
+#Location of the static instances file
+STATIC_INSTANCES = "null"
+
 #Handlers are defined
 HANDLERS {
 	HANDLER {
@@ -15,18 +21,11 @@ HANDLERS {
 
 SELECT *
 
-WHERE {
+WHERE
 {
 	?x rdf:type bsbm-vocab:Offer .
 	?x bsbm-vocab:product ?product .
 	TIMEWINDOW (100)
-}
-AND
-{
-	?x rdf:type bsbm-vocab:Offer .
-	?x bsbm-vocab:product ?product .
-	TIMEWINDOW (100)
-}
 }
 
 ##Pattern end

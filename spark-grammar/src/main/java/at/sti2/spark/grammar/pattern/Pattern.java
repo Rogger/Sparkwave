@@ -34,6 +34,8 @@ public class Pattern {
 	private GraphPattern whereClause = null;
 	private List <TripleCondition> constructConditions = null;
 	private List <Prefix> prefixes = null;
+	private String epsilonOntology = null;
+	private String staticInstances = null;
 	private List <Handler> handlers = null;
 
 	public Pattern() {
@@ -78,6 +80,22 @@ public class Pattern {
 	
 	public List<Handler> getHandlers() {
 		return handlers;
+	}
+	
+	public String getEpsilonOntology() {
+		return epsilonOntology;
+	}
+
+	public void setEpsilonOntology(String epsilonOntology) {
+		this.epsilonOntology = epsilonOntology;
+	}
+
+	public String getStaticInstances() {
+		return staticInstances;
+	}
+
+	public void setStaticInstances(String staticInstances) {
+		this.staticInstances = staticInstances;
 	}
 
 	public void addHandlerProperties(Handler handlerProperties) {

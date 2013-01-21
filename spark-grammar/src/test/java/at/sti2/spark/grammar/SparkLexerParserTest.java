@@ -73,7 +73,7 @@ public class SparkLexerParserTest {
 	}
 	
 	@Test
-	public void testPatternLogicOperator() throws IOException{
+	public void testPatternLogicAndOperator() throws IOException{
 		SparkPatternParser parser = new SparkPatternParser("target/classes/patternLogicOperator.tpg");
 		Pattern patternGraph = parser.parse();
 		
@@ -110,6 +110,18 @@ public class SparkLexerParserTest {
 		Assert.assertTrue(right.getConditions().size() > 0);
 		Assert.assertTrue(right.getTimeWindowLength() > 0);
 		
+	}
+	
+	@Test
+	public void testPatternEOandSI() throws Exception{
+		SparkPatternParser parser = new SparkPatternParser("target/classes/patternEOandSI.tpg");
+		Pattern patternGraph = parser.parse();
+		
+		String epsilonOntology = patternGraph.getEpsilonOntology();
+		String staticInstances = patternGraph.getStaticInstances();
+		
+		Assert.assertTrue( !epsilonOntology.equals("") );
+		Assert.assertTrue( !staticInstances.equals("") );
 	}
 
 }

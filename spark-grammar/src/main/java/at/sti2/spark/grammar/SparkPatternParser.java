@@ -1,5 +1,6 @@
 package at.sti2.spark.grammar;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,10 @@ public class SparkPatternParser {
 	
 	public SparkPatternParser(String patternFilePath) {
 		this.patternFilePath = patternFilePath;
+	}
+	
+	public SparkPatternParser(File patternFile){
+		this.patternFilePath = patternFile.getPath();
 	}
 	
 	/**

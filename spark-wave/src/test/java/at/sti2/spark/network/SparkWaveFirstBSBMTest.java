@@ -132,9 +132,10 @@ public class SparkWaveFirstBSBMTest {
 		patternGraph.setWhereClause(wherePattern);
 		
 		ontologyFile = new File("target/test-classes/BSBM/epsilon-PT2-DS329.owl");
+		patternGraph.setEpsilonOntology(ontologyFile.getPath());
 		
-		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph, ontologyFile);
-		sparkWeaveNetwork.buildNetwork();
+		sparkWeaveNetwork = new SparkwaveNetwork(patternGraph);
+		sparkWeaveNetwork.init();
 		
 		//Print Rete network structure
 		sparkWeaveNetwork.getReteNetwork().printNetworkStructure();

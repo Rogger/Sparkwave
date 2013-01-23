@@ -16,7 +16,6 @@
 package at.sti2.spark.network;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import at.sti2.spark.epsilon.network.ClassNode;
 import at.sti2.spark.epsilon.network.PropertyNode;
 import at.sti2.spark.epsilon.network.build.NetworkBuilder;
 import at.sti2.spark.epsilon.network.run.EpsilonNetwork;
-import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.input.NTripleStreamReader;
@@ -48,43 +46,29 @@ public class SparkwaveNetwork{
 	
 	//Input artifacts
 	private Pattern triplePatternGraph = null;
-	private File epsilonOntology = null;
 	
 	//Values needed for garbage collection
 	private long lastTimestamp = 0l;
 	
-	public SparkwaveNetwork(Pattern triplePatternGraph, File epsilonOntology) {
-		init(triplePatternGraph,epsilonOntology);	
+	public SparkwaveNetwork(Pattern pattern) {
+		this.triplePatternGraph = pattern;	
 	}
 	
-	private void init(Pattern triplePatternGraph, File epsilonOntology){
-		this.triplePatternGraph = triplePatternGraph;
-		this.epsilonOntology = epsilonOntology;
-	}
-	
-	public SparkwaveNetwork(String serverPort, String patternFileName) {
-		
-		//Build triple pattern representation
-		SparkPatternParser patternParser = new SparkPatternParser(patternFileName);
-		try {
-			triplePatternGraph = patternParser.parse();
-		} catch (IOException e) {
-			logger.error("Could not open pattern file "+patternFileName);
-		}
+	/**
+	 * Kick off initialization of SparkwaveNetwork
+	 * @param triplePatternGraph
+	 * @param epsilonOntology
+	 */
+	public void init(){
 		
 		String epsilonOntologyFileName = triplePatternGraph.getEpsilonOntology();
 		String staticInstancesFileName = triplePatternGraph.getStaticInstances();
 		
-		File ontologyFile = new File(epsilonOntologyFileName);
-		
-		init(triplePatternGraph, ontologyFile);
-		buildNetwork();
+		File epsilonOntologyFile = new File(epsilonOntologyFileName);
+		buildNetwork(epsilonOntologyFile);
 		
 		//Print Rete network structure
 		//getReteNetwork().printNetworkStructure();
-		
-		//Start SparkWeaveNetworkServerInstance
-		(new SparkwaveNetworkServer(this, Integer.parseInt(serverPort))).start();
 		
 		//If there are static instances to be added
 		if (!staticInstancesFileName.toLowerCase().equals("null")){
@@ -113,11 +97,11 @@ public class SparkwaveNetwork{
 			timeBuffer.append((endProcessingTime - startProcessingTime)%1000);
 			timeBuffer.append(" ms.");
 			
-			logger.info(timeBuffer.toString());			
+			logger.info(timeBuffer.toString());
 		}
 	}
-
-	public void buildNetwork(){
+		
+	public void buildNetwork(File epsilonOntology){
 		
 		logger.info("Building RETE network...");
 		
@@ -133,7 +117,7 @@ public class SparkwaveNetwork{
 		
 		logger.info("Binding epsilon and RETE network binding...");
 		
-		bindNetworks();
+		bindNetworks(epsilonOntology);
 		
 		logger.info("Sparkwave network completed...");
 		
@@ -158,7 +142,7 @@ public class SparkwaveNetwork{
 		return epsilonNetwork;
 	}
 	
-	private void bindNetworks(){
+	private void bindNetworks(File epsilonOntology){
 		
 		if (epsilonOntology.exists()){
 		
@@ -247,53 +231,4 @@ public class SparkwaveNetwork{
 		epsilonNetwork.activate(streamedTriple);
 	}
 	
-	public static void main(String args[]){
-		
-		if (args.length != 2){
-			System.err.println("SparkwaveNetwork starts an instance of Sparkwave. It expects following 4 parameters:");
-			System.err.println(" <tcp/ip port>           - port on which network accepts incoming streams.");
-			System.err.println(" <pattern file>          - name of the file holding triple pattern definition.");
-//			System.err.println(" <epsilon ontology file> - name of the file holding ontology or null.");
-//			System.err.println(" <static instances file> - name of the file holding static instances or null.");
-			System.exit(0);
-		}
-		
-		//Test to see if the port number is correct
-		try{
-			int portNumber = Integer.parseInt(args[0]);
-			if ((portNumber < 0) || (portNumber > 65535)){
-				System.err.println("The port number value should be between 0 and 65535!");
-				System.exit(0);
-			}
-		}catch(NumberFormatException nfex){
-			System.err.println("The port value should be a number!");
-			System.exit(0);
-		}
-		
-		//Test to see if pattern file exists
-		File file = new File(args[1]);
-		if (!file.exists()){
-			System.err.println("Triple pattern file doesn't exist!");
-			System.exit(0);
-		}
-		
-		//Test to see if epsilon ontology file exists or the value is NULL
-//		file = new File(args[2]);
-//		if (!file.exists())
-//			if(!(args[2].toLowerCase().equals("null"))){
-//				System.err.println("Epsilon ontology file doesn't exist or the value is not NULL!");
-//				System.exit(0);
-//		}
-		
-		//Test to see if static instances file exists or the value is NULL
-//		file = new File(args[3]);
-//		if (!file.exists())
-//			if(!(args[3].toLowerCase().equals("null"))){
-//				System.err.println("Static instances file doesn't exist or the value is not NULL!");
-//				System.exit(0);
-//		}
-		
-//		new SparkwaveNetwork(args[0], args[1], args[2], args[3]);
-		new SparkwaveNetwork(args[0], args[1]);
-	}
 }

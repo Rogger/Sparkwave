@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,18 +33,16 @@ public class SparkwaveNetworkServer extends Thread{
 	
 	static Logger logger = Logger.getLogger(SparkwaveNetworkServer.class);
 
-	private SparkwaveNetwork sparkwaveNetwork = null;
+	private ExecutorService sparkwaveParserExecutor = Executors.newSingleThreadExecutor(); 
+	private List<BlockingQueue<Triple>> queues = null;
 	private int serverPort = 0;
 	
-	private BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
-	
-	public SparkwaveNetworkServer(SparkwaveNetwork sparkwaveNetwork, int serverPort){
-		this.sparkwaveNetwork = sparkwaveNetwork;
+	public SparkwaveNetworkServer(int serverPort, List<BlockingQueue<Triple>> queues){
+		this.queues = queues;
 		this.serverPort = serverPort;
+		setName(getName()+"-Server");
 	}
 	
-	ExecutorService sparkWeaveExecutor = Executors.newSingleThreadExecutor(); 
-	ExecutorService sparkwaveProcessorExecutor = Executors.newSingleThreadExecutor(); 
 	
 	/**
 	 * UNIX Domain Socket Server
@@ -81,9 +79,11 @@ public class SparkwaveNetworkServer extends Thread{
 
 		try {
 			//Instantiate Sparkwave processor over the queue
-			SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);
-			sparkwaveProcessorExecutor.execute(sparkwaveProcessor);
-			logger.info("Sparkwave processor waiting for incoming triples...");
+			
+			//TODO for every Pattern an own Processor Thread and Queue
+//			SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);
+//			sparkwaveProcessorExecutor.execute(sparkwaveProcessor);
+//			logger.info("Sparkwave processor waiting for incoming triples...");
 			
 			//Open TCP/IP Server socket
 			ServerSocket server = new ServerSocket(serverPort);
@@ -95,10 +95,9 @@ public class SparkwaveNetworkServer extends Thread{
 	            logger.info("Connected: " + sock);
 	            
 	            BufferedReader streamReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+	            SparkwaveStreamParserThread sparkStreamParserThread = new SparkwaveStreamParserThread(streamReader, queues);
 	            
-	            SparkwaveStreamThread sparkThread = new SparkwaveStreamThread(streamReader, queue, sparkwaveNetwork);
-	            
-	            sparkWeaveExecutor.execute(sparkThread);	            
+	            sparkwaveParserExecutor.execute(sparkStreamParserThread);
 	        }
 	        
 		} catch (IOException e) {

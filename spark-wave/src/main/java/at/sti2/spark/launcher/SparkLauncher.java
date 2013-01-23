@@ -12,7 +12,7 @@ public class SparkLauncher {
 	public static void main(String[] args) {
 		JarClassLoader jcl = new JarClassLoader();
 		try {
-			jcl.invokeMain("at.sti2.spark.network.SparkwaveNetwork", args);
+			jcl.invokeMain("at.sti2.spark.launcher.SparkwaveKernel", args);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -43,6 +43,7 @@ public class SparkwaveNetworkOutputThread extends Thread {
 	public SparkwaveNetworkOutputThread(Pattern patternGraph, OutputBuffer outputBuffer){
 		this.outputBuffer = outputBuffer;
 		this.triplePatternGraph = patternGraph;
+		setName(getName()+"-Output");
 	}
 	
 	public void run() {

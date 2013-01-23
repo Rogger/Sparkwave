@@ -33,6 +33,7 @@ public class SparkwaveProcessorThread extends Thread {
 	public SparkwaveProcessorThread(SparkwaveNetwork sparkwaveNetwork, BlockingQueue<Triple> queue){
 		this.sparkwaveNetwork = sparkwaveNetwork;
 		this.queue = queue;
+		setName(getName()+"-Processor");
 	}
 	
 	/**

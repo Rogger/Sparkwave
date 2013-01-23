@@ -18,6 +18,7 @@ package at.sti2.spark.network;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -31,19 +32,17 @@ import at.sti2.spark.core.triple.RDFValue;
 
 import com.google.common.base.Stopwatch;
 
-public class SparkwaveStreamThread implements Runnable {
+public class SparkwaveStreamParserThread implements Runnable {
 
-	static Logger logger = Logger.getLogger(SparkwaveStreamThread.class);
+	static Logger logger = Logger.getLogger(SparkwaveStreamParserThread.class);
 
-	private BlockingQueue<Triple> queue;
+	private List<BlockingQueue<Triple>> queues;
 	private boolean run = true;
 	private BufferedReader streamReader;
-	private SparkwaveNetwork sparkwaveNetwork;
 
-	public SparkwaveStreamThread(BufferedReader streamReader, BlockingQueue<Triple> queue, SparkwaveNetwork sparkwaveNetwork) {
-		this.queue = queue;
+	public SparkwaveStreamParserThread(BufferedReader streamReader, List<BlockingQueue<Triple>> queues) {
+		this.queues = queues;
 		this.streamReader = streamReader;
-		this.sparkwaveNetwork = sparkwaveNetwork;
 	}
 
 	public void run() {
@@ -63,10 +62,13 @@ public class SparkwaveStreamThread implements Runnable {
 
 				if (!triple.isPoisonTriple()) {
 
-					// activate network
 					long currentTimeMillis = System.currentTimeMillis();
 					triple.setTimestamp(currentTimeMillis);
-					queue.put(triple);
+					
+					// put triple in all queues
+					for(BlockingQueue<Triple> queue : queues){
+						queue.put(triple);
+					}
 					
 				} else {
 					run = false;

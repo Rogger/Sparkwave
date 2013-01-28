@@ -82,7 +82,7 @@ public class FileHandler implements SparkweaveHandler {
 	private StringBuffer formatMatchNTriples(Match match, Handler handlerProperties){
 		
 		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstructConditions()){
+		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstruct().getConditions()){
 			
 			//Resolve subject
 			buffer.append('<');

@@ -1,6 +1,12 @@
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX support: <http://www.foi.se/support/wp4demo#>
 
+#Location of the epsilon ontology file
+EPSILON_ONTOLOGY = "null"
+
+#Location of the static instances file
+STATIC_INSTANCES = "null"
+
 HANDLERS {
 	HANDLER {
 		"class" = "at.sti2.spark.handler.ImpactoriumHandler"

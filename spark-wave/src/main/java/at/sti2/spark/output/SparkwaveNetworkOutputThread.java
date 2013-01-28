@@ -93,7 +93,7 @@ public class SparkwaveNetworkOutputThread extends Thread {
 	
 	private String formatMatch(Match match){
 		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : triplePatternGraph.getConstructConditions()){
+		for (TripleCondition condition : triplePatternGraph.getConstruct().getConditions()){
 			
 			//Resolve subject
 			buffer.append('<');

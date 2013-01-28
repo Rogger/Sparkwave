@@ -20,11 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import at.sti2.spark.core.triple.TripleCondition;
-import at.sti2.spark.core.triple.TripleConstantTest;
 import at.sti2.spark.grammar.pattern.expression.FilterExpression;
 
 /**
- * GroupGraphPattern represents a bunch of triple conditions, a timewindow and an optional filter
+ * GroupGraphPattern represents a set of triple conditions, a timewindow and an optional filter
  * @author michaelrogger
  */
 public class GroupGraphPattern implements GraphPattern {
@@ -88,23 +87,22 @@ public class GroupGraphPattern implements GraphPattern {
 		
 		StringBuffer buffer = new StringBuffer();
 
-		buffer.append("TRIPLES\n");
 		for (TripleCondition condition : triples){
-			for (TripleConstantTest constantTest : condition.getConstantTests()){
-				buffer.append(constantTest.getTestField());
-				buffer.append(' ');
-				buffer.append(constantTest.getLexicalTestSymbol());
-				buffer.append('\n');
-			}
+			buffer.append(condition.getConditionTriple()).append(" .\n");
+//			for (TripleConstantTest constantTest : condition.getConstantTests()){
+//				buffer.append(constantTest.getTestField());
+//				buffer.append(' ');
+//				buffer.append(constantTest.getLexicalTestSymbol());
+//				buffer.append('\n');
+//			}
 		}
 		
-		buffer.append("TIMEWINDOW\n");
-		buffer.append(timeWindowLength).append("\n");
+		buffer.append("TIMEWINDOW (").append(timeWindowLength).append(") \n");
 		
-		buffer.append("FILTER\n");
-		for(FilterExpression expression : filters){
-			buffer.append(expression.toString()).append("\n");
-		}
+//		buffer.append("FILTER\n");
+//		for(FilterExpression expression : filters){
+//			buffer.append(expression.toString()).append("\n");
+//		}
 		
 		return buffer.toString();
 	}

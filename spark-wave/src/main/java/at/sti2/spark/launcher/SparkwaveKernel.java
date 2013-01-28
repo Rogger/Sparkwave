@@ -52,29 +52,32 @@ public class SparkwaveKernel{
 		try{
 			portNumber = Integer.parseInt(args[0]);
 			if ((portNumber < 0) || (portNumber > 65535)){
-				System.err.println("The port number value should be between 0 and 65535!");
+				logger.error("The port number value should be between 0 and 65535!");
 				System.exit(0);
 			}
 		}catch(NumberFormatException nfex){
-			System.err.println("The port value should be a number!");
+			logger.error("The port value should be a number!");
 			System.exit(0);
 		}
 		
-		//Test to see if pattern file exists
-		File patternFile = new File(args[1]);
-		if (!patternFile.exists()){
-			System.err.println("Triple pattern file doesn't exist!");
-			System.exit(0);
+		ArrayList<File> patternFiles = new ArrayList<File>();
+		for(int i = 1; i < args.length; i++){
+			File patternFile = new File(args[i]);
+			if (!patternFile.exists()){
+				logger.error("Cannot load triple pattern file "+patternFile+" !");
+				System.exit(0);
+			}else{
+				patternFiles.add(patternFile);				
+			}
 		}
 		
-		new SparkwaveKernel().bootstrap(portNumber, new File[]{patternFile});
-		
+		new SparkwaveKernel().bootstrap(portNumber, patternFiles);
 	}
 	
 	/**
 	 * Kick off bootstrap
 	 */
-	private void bootstrap(int portNumber, File[] patternFiles){
+	private void bootstrap(int portNumber, List<File> patternFiles){
 		
 		//Instantiate Queues
 		List<BlockingQueue<Triple>> queues = new ArrayList<BlockingQueue<Triple>>();
@@ -84,20 +87,23 @@ public class SparkwaveKernel{
 		for(File patternFile : patternFiles){
 			
 			//Build triple pattern representation
+			logger.info("Parsing pattern file "+patternFile+"...");
 			SparkPatternParser patternParser = new SparkPatternParser(patternFile);
 			try {
 				pattern = patternParser.parse();
 			} catch (IOException e) {
 				logger.error("Could not open pattern file "+patternFile);
 			}
+			logger.info("Parsed pattern:\n"+pattern.toString());
 			
-			//Every pattern gets its own queue
-			BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
-			queues.add(queue);
 			
 			//Create SparkwaveNetwork
 			SparkwaveNetwork sparkwaveNetwork = new SparkwaveNetwork(pattern);
 			sparkwaveNetwork.init();
+
+			//Every pattern gets its own queue
+			BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
+			queues.add(queue);
 			
 			//Create SparkwaveProcessorThread
 			SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);

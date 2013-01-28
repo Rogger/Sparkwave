@@ -122,7 +122,7 @@ public class SparkwaveNetwork{
 		logger.info("Sparkwave network completed...");
 		
 		//If there is a CONSTRUCT part start also the output thread 
-		if (triplePatternGraph.getConstructConditions().size() > 0){
+		if (triplePatternGraph.getConstruct().getConditions().size() > 0){
 			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
 			for (ProductionNode productionNode : productionNodes){
 				SparkwaveNetworkOutputThread outputThread = new SparkwaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());

@@ -57,12 +57,20 @@ public class Handler {
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("Class:");
-		buffer.append(getHandlerClass());
-		buffer.append("\n");
-		buffer.append("KeyValue Pairs:");
-		buffer.append(handlerKeyValue);
-		buffer.append("\n");
-		return super.toString();
+		buffer.append("HANDLER {\n");
+		
+		if(handlerClass!=null && !handlerClass.equals("")){
+			buffer.append("\"class\" = ");
+			buffer.append("\""+getHandlerClass()+"\"");
+			buffer.append("\n");			
+		}
+		
+		for(String key : handlerKeyValue.keySet()){
+			buffer.append("\""+key+"\" = ");
+			buffer.append("\""+handlerKeyValue.get(key)+"\"\n");
+		}
+		
+		buffer.append("}\n");
+		return buffer.toString();
 	}
 }

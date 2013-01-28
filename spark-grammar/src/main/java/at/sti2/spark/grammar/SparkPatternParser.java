@@ -22,6 +22,7 @@ import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.core.triple.TripleConstantTest;
+import at.sti2.spark.grammar.pattern.Construct;
 import at.sti2.spark.grammar.pattern.GraphPattern;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
 import at.sti2.spark.grammar.pattern.Handler;
@@ -40,7 +41,7 @@ import at.sti2.spark.grammar.util.Entry;
  */
 public class SparkPatternParser {
 	
-	protected static Logger logger = Logger.getLogger(SparkParser.class);
+	protected static Logger logger = Logger.getLogger(SparkPatternParser.class);
 	
 	private String patternFilePath = null;
 	
@@ -315,7 +316,8 @@ public class SparkPatternParser {
 				logger.debug(childToken);
 				
 				if(childToken.equals("CONSTRUCT_TRIPLES")){
-					parseConstructTriples(child,patternGraph);
+					Construct construct = parseConstructTriples(child,patternGraph);
+					patternGraph.setConstruct(construct);
 				}
 				else if(childToken.equals("WHERE_CLAUSE")){
 					GraphPattern whereClause = parseWhereClause(child,patternGraph);
@@ -329,18 +331,26 @@ public class SparkPatternParser {
 	 * Parse CONSTRUCT_TRIPLES
 	 * @param treeNode
 	 */
-	private void parseConstructTriples(TreeWrapper treeNode, Pattern patternGraph){
-		if(treeNode!=null){
+	private Construct parseConstructTriples(TreeWrapper treeNode, Pattern patternGraph){
+		
+		Construct construct = null;
+		if(treeNode!=null){	
+			
+			construct = new Construct();
+			logger.debug("CONSTRUCT{");
 			for(TreeWrapper child : treeNode) {
-				String childToken = child.toString();
-				logger.debug(childToken);
 				
+				String childToken = child.toString();
 				if(childToken.equals("TRIPLE")){
+					
 					TripleCondition triple = parseTriple(child,patternGraph);
-					patternGraph.addConstructTripleCondition(triple);
+					construct.addCondition(triple);
 				}
 			}
+			logger.debug("}");
 		}
+		
+		return construct;
 	}
 	
 	/**
@@ -348,13 +358,19 @@ public class SparkPatternParser {
 	 * @param treeNode
 	 */
 	private GraphPattern parseWhereClause(TreeWrapper treeNode, Pattern patternGraph){
+		
+		GraphPattern parseGraphPattern = null;
+		
 		if(treeNode!=null){
+			
+			logger.debug("WHERE{");
 			for(TreeWrapper child : treeNode) {
-				return parseGraphPattern(child, patternGraph);
+				parseGraphPattern = parseGraphPattern(child, patternGraph);
 			}
+			logger.debug("}");
 		}
 		
-		return null;
+		return parseGraphPattern;
 	}
 	
 	/**
@@ -393,7 +409,6 @@ public class SparkPatternParser {
 		
 			for(TreeWrapper child : treeNode) {
 				String childToken = child.toString();
-				logger.debug(childToken);
 				
 				if(childToken.equals("TRIPLE")){
 					TripleCondition triple = parseTriple(child,patternGraph);
@@ -521,9 +536,8 @@ public class SparkPatternParser {
 			if(timeWindowValue!=null){
 				timewindow = Integer.parseInt(timeWindowValue.toString());				
 			}
+			logger.debug("TIMEWINDOW("+timewindow+")");
 		}
-		
-		logger.debug(timewindow);
 		
 		return timewindow;
 	}
@@ -561,7 +575,7 @@ public class SparkPatternParser {
 			
 			// operation
 			if(operation!=null){
-				logger.info(operation);
+				logger.debug(operation);
 				String operatorValue = operation.toString();
 				
 				FilterOperator operator = null;
@@ -606,7 +620,7 @@ public class SparkPatternParser {
 	private RDFValue parseRelationalExpression(TreeWrapper treeNode) {
 		// expression
 		if (treeNode != null) {
-			logger.info(treeNode);
+			logger.debug(treeNode);
 			String expressionValue = treeNode.toString();
 
 			if (expressionValue.equals("VAR")) {
@@ -626,7 +640,7 @@ public class SparkPatternParser {
 	
 	private RDFNumericLiteral parseNumericLiteral(TreeWrapper treeNode){
 		if(treeNode != null){
-			logger.info(treeNode);
+			logger.debug(treeNode);
 			String literalType = treeNode.toString();
 			if(literalType.equals("DECIMAL_LITERAL")){
 				String numericValue = treeNode.getChild(0).toString();
@@ -694,7 +708,7 @@ public class SparkPatternParser {
 			}
 		}
 		
-		logger.info(triple);
+		logger.debug(triple);
 		
 		return tripleCondition;
 	}

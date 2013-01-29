@@ -16,7 +16,6 @@
 
 /**
  * @author Michael Rogger   (michael.rogger)
- * @author Srdjan Komazec (srdjan.komazec)
  * @version $Id$
  */
 
@@ -108,7 +107,7 @@ query
     ;
 
 prologue
-    : prefixes epsilonOntologyClause staticInstances handlersClause -> ^(PROLOGUE prefixes epsilonOntologyClause staticInstances handlersClause)
+    : prefixes epsilonOntologyClause? staticInstances? handlersClause -> ^(PROLOGUE prefixes epsilonOntologyClause? staticInstances? handlersClause)
     ;
     
 prefixes

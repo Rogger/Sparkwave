@@ -1,10 +1,7 @@
 package at.sti2.spark.handler;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
@@ -12,16 +9,12 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.handler.ImpactoriumHandler;
-import at.sti2.spark.handler.SparkweaveHandlerException;
 
 public class InfoObjectSubmissionTest {
 	
@@ -38,7 +31,7 @@ public class InfoObjectSubmissionTest {
 		final String path = "/impact";
 		final String url = "http://"+host+":"+port+path;
 		
-		Assume.assumeTrue(checkServerAvailability(host,port));
+		Assume.assumeTrue(checkServerAvailability(host,port));			
 		
 		String patternFileName = "target/test-classes/support_pattern2.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
@@ -75,12 +68,16 @@ public class InfoObjectSubmissionTest {
 		}
 	}
 	
-	public boolean checkServerAvailability(String host, int port) throws MalformedURLException, IOException{
+	public boolean checkServerAvailability(String host, int port){
+		
+		logger.info("Checking server (host:"+host+", port:"+port+") availability...");
 		Socket socket = null;
 		boolean reachable = false;
 		try {
 		    socket = new Socket(host, port);
 		    reachable = true;
+		} catch(Exception e){
+			logger.warn("Host:"+host+" not available!");
 		} finally {
 		    if (socket != null) try { socket.close(); } catch(IOException e) {}
 		}

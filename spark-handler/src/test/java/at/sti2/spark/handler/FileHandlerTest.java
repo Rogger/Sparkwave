@@ -10,14 +10,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import junit.framework.TestCase;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Pattern;
-import at.sti2.spark.handler.SparkweaveHandlerException;
 
 public class FileHandlerTest {
 	

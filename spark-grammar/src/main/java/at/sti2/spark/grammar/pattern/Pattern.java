@@ -22,8 +22,7 @@ import java.util.List;
 
 /**
  * 
- * Triple pattern represents an ordered list of triple conditions
- * 
+ * Triple pattern
  * @author srdkom
  * @author michaelrogger
  */
@@ -123,7 +122,12 @@ public class Pattern {
 				buffer.append("<").append(prefix.getNamespace()).append("> \n");
 			}
 		}
+		buffer.append("\n");
 		
+		buffer.append("EPSILON_ONTOLOGY = \""+epsilonOntology+"\"\n");
+		buffer.append("\n");
+		
+		buffer.append("STATI_INSTANCES = \""+staticInstances+"\"\n");
 		buffer.append("\n");
 		
 		if (handlers != null){
@@ -133,20 +137,12 @@ public class Pattern {
 			}
 			buffer.append("}\n");
 		}
-		
 		buffer.append("\n");
+
 		buffer.append("CONSTRUCT {\n");
 		buffer.append(construct.toString());
 		buffer.append("}\n");
 
-//		for (TripleCondition condition : constructConditions)
-//			for (TripleConstantTest constantTest : condition.getConstantTests()){
-//				buffer.append(constantTest.getTestField());
-//				buffer.append(' ');
-//				buffer.append(constantTest.getLexicalTestSymbol());
-//				buffer.append('\n');
-//			}
-		
 		buffer.append("\n");
 		buffer.append("WHERE {\n");
 		buffer.append(whereClause.toString());

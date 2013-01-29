@@ -65,17 +65,21 @@ public class SparkwaveNetwork{
 		String staticInstancesFileName = triplePatternGraph.getStaticInstances();
 		
 		File epsilonOntologyFile = new File(epsilonOntologyFileName);
+		if(!epsilonOntologyFileName.equalsIgnoreCase("null") && !epsilonOntologyFile.exists() ){
+			logger.warn("Epsilon ontology "+epsilonOntologyFileName+" not found!");
+		}
 		buildNetwork(epsilonOntologyFile);
 		
 		//Print Rete network structure
 		//getReteNetwork().printNetworkStructure();
 		
 		//If there are static instances to be added
-		if (!staticInstancesFileName.toLowerCase().equals("null")){
+		File staticInstancesFile = new File(staticInstancesFileName);
+		if (!staticInstancesFileName.equalsIgnoreCase("null") && !staticInstancesFile.exists()){
+			logger.warn("Static instances "+staticInstancesFileName+" not found!");
+		} else if (!staticInstancesFileName.equalsIgnoreCase("null")) {
 			
-			//Opening the instances file
-			File instancesFile = new File(staticInstancesFileName);
-			NTripleStreamReader streamReader = new NTripleStreamReader(instancesFile);
+			NTripleStreamReader streamReader = new NTripleStreamReader(staticInstancesFile);
 			streamReader.openFile();
 			
 			

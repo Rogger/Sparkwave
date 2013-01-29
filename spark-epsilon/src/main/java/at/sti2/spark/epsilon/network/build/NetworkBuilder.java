@@ -83,7 +83,7 @@ public class NetworkBuilder {
 			}
 		    
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		return epsilonNetwork;

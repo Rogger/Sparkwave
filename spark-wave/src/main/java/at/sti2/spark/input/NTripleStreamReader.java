@@ -44,21 +44,15 @@ public class NTripleStreamReader {
 		this.inputFile = inputFile;
 	}
 	
-	public void parseTriples(){
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-			
-			String tripleLine = null;
-			
-			while((tripleLine = reader.readLine()) != null)
-				triples.add(parseTriple(tripleLine));
-				
-			reader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void parseTriples() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+
+		String tripleLine = null;
+
+		while ((tripleLine = reader.readLine()) != null)
+			triples.add(parseTriple(tripleLine));
+
+		reader.close();
 	}
 	
 	public void openFile(){

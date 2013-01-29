@@ -36,14 +36,13 @@ import at.sti2.spark.network.SparkwaveProcessorThread;
 public class SparkwaveKernel{
 	
 	private static Logger logger = Logger.getLogger(SparkwaveKernel.class);
-	private Pattern pattern = null;
 	
 	public static void main(String args[]){
 		
 		if (args.length < 2){
-			System.err.println("Sparkwave expects the following parameters:");
-			System.err.println(" <tcp/ip port>              - port on which network accepts incoming streams.");
-			System.err.println(" (<pattern file>)?          - name of the file holding triple pattern definition.");
+			logger.info("Sparkwave expects the following parameters:");
+			logger.info(" <tcp/ip port>              - port on which network accepts incoming streams.");
+			logger.info(" (<pattern file>)?          - name of the file holding triple pattern definition.");
 			System.exit(0);
 		}
 		
@@ -64,7 +63,7 @@ public class SparkwaveKernel{
 		for(int i = 1; i < args.length; i++){
 			File patternFile = new File(args[i]);
 			if (!patternFile.exists()){
-				logger.error("Cannot load triple pattern file "+patternFile+" !");
+				logger.error("Cannot load pattern file "+patternFile+" !");
 				System.exit(0);
 			}else{
 				patternFiles.add(patternFile);				
@@ -79,16 +78,22 @@ public class SparkwaveKernel{
 	 */
 	private void bootstrap(int portNumber, List<File> patternFiles){
 		
+		logger.info("Staring Sparkwave...");
+		
 		//Instantiate Queues
 		List<BlockingQueue<Triple>> queues = new ArrayList<BlockingQueue<Triple>>();
 		//Instantiate ExecutorService for SparkwaveProcessor
 		ExecutorService sparkwaveProcessorExecutor = Executors.newFixedThreadPool(4);
 		
-		for(File patternFile : patternFiles){
+		int patternFilesSize = patternFiles.size();
+		for(int i = 0; i < patternFilesSize; i++){
+			
+			File patternFile = patternFiles.get(i);
 			
 			//Build triple pattern representation
-			logger.info("Parsing pattern file "+patternFile+"...");
+			logger.info("Parsing pattern file ("+(i+1)+" of "+patternFilesSize+"): "+patternFile+"...");
 			SparkPatternParser patternParser = new SparkPatternParser(patternFile);
+			Pattern pattern = null;
 			try {
 				pattern = patternParser.parse();
 			} catch (IOException e) {
@@ -96,18 +101,21 @@ public class SparkwaveKernel{
 			}
 			logger.info("Parsed pattern:\n"+pattern.toString());
 			
-			
-			//Create SparkwaveNetwork
-			SparkwaveNetwork sparkwaveNetwork = new SparkwaveNetwork(pattern);
-			sparkwaveNetwork.init();
-
-			//Every pattern gets its own queue
-			BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
-			queues.add(queue);
-			
-			//Create SparkwaveProcessorThread
-			SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);
-			sparkwaveProcessorExecutor.execute(sparkwaveProcessor);
+			if(pattern!=null){
+				
+				//Create SparkwaveNetwork
+				SparkwaveNetwork sparkwaveNetwork = new SparkwaveNetwork(pattern);
+				sparkwaveNetwork.init();
+				
+				//Every pattern gets its own queue
+				BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
+				queues.add(queue);
+				
+				//Create SparkwaveProcessorThread
+				SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);
+				sparkwaveProcessorExecutor.execute(sparkwaveProcessor);
+				
+			}
 			
 		}
 		

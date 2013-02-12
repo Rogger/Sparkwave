@@ -45,24 +45,24 @@ public class SparkwaveNetwork{
 	private EpsilonNetwork epsilonNetwork = null;
 	
 	//Input artifacts
-	private Pattern triplePatternGraph = null;
+	private Pattern pattern = null;
 	
 	//Values needed for garbage collection
 	private long lastTimestamp = 0l;
 	
 	public SparkwaveNetwork(Pattern pattern) {
-		this.triplePatternGraph = pattern;	
+		this.pattern = pattern;	
 	}
 	
 	/**
 	 * Kick off initialization of SparkwaveNetwork
-	 * @param triplePatternGraph
+	 * @param pattern
 	 * @param epsilonOntology
 	 */
 	public void init(){
 		
-		String epsilonOntologyFileName = triplePatternGraph.getEpsilonOntology();
-		String staticInstancesFileName = triplePatternGraph.getStaticInstances();
+		String epsilonOntologyFileName = pattern.getEpsilonOntology();
+		String staticInstancesFileName = pattern.getStaticInstances();
 		
 		File epsilonOntologyFile = new File(epsilonOntologyFileName);
 		if(!epsilonOntologyFileName.equalsIgnoreCase("null") && !epsilonOntologyFile.exists() ){
@@ -111,7 +111,7 @@ public class SparkwaveNetwork{
 		
 		//Build RETE network
 		reteNetwork = new RETENetwork();
-		reteNetwork.addTriplePatternGraph(triplePatternGraph);
+		reteNetwork.addTriplePatternGraph(pattern);
 		
 		logger.info("Building epsilon network...");
 		
@@ -126,10 +126,10 @@ public class SparkwaveNetwork{
 		logger.info("Sparkwave network completed...");
 		
 		//If there is a CONSTRUCT part start also the output thread 
-		if (triplePatternGraph.getConstruct().getConditions().size() > 0){
+		if (pattern.getConstruct().getConditions().size() > 0){
 			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
 			for (ProductionNode productionNode : productionNodes){
-				SparkwaveNetworkOutputThread outputThread = new SparkwaveNetworkOutputThread(triplePatternGraph, productionNode.getOutputBuffer());
+				SparkwaveNetworkOutputThread outputThread = new SparkwaveNetworkOutputThread(pattern, productionNode.getOutputBuffer());
 				outputThread.start();
 			}
 			
@@ -226,7 +226,7 @@ public class SparkwaveNetwork{
 	
 	public long getTimeWindowLength(){
 		//TODO THIS IS A HACK!!! Assumming that whereClause contains only GroupGraphPattern
-		GroupGraphPattern whereClause = (GroupGraphPattern) triplePatternGraph.getWhereClause();
+		GroupGraphPattern whereClause = (GroupGraphPattern) pattern.getWhereClause();
 		return whereClause.getTimeWindowLength();
 	}
 	

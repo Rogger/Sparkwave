@@ -78,12 +78,6 @@ public class SparkwaveNetworkServer extends Thread{
 	public void run(){
 
 		try {
-			//Instantiate Sparkwave processor over the queue
-			
-			//TODO for every Pattern an own Processor Thread and Queue
-//			SparkwaveProcessorThread sparkwaveProcessor = new SparkwaveProcessorThread(sparkwaveNetwork, queue);
-//			sparkwaveProcessorExecutor.execute(sparkwaveProcessor);
-//			logger.info("Sparkwave processor waiting for incoming triples...");
 			
 			//Open TCP/IP Server socket
 			ServerSocket server = new ServerSocket(serverPort);
@@ -95,6 +89,7 @@ public class SparkwaveNetworkServer extends Thread{
 	            logger.info("Connected: " + sock);
 	            
 	            BufferedReader streamReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+	            //TODO inbetween should a plugin convert from XML ->(XSLT) RDF/XML ->(LIB) NT
 	            SparkwaveStreamParserThread sparkStreamParserThread = new SparkwaveStreamParserThread(streamReader, queues);
 	            
 	            sparkwaveParserExecutor.execute(sparkStreamParserThread);

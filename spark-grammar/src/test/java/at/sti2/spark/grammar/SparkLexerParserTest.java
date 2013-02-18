@@ -22,7 +22,7 @@ public class SparkLexerParserTest {
 	@Test
 	public void testPatternSelect() throws IOException{
 
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternSelect.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternSelect.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		Assert.assertNotNull(patternGraph);
@@ -37,7 +37,7 @@ public class SparkLexerParserTest {
 	@Test
 	public void testPatternConstruct() throws IOException{
 		
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternConstruct.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternConstruct.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		Assert.assertNotNull(patternGraph);
@@ -52,7 +52,7 @@ public class SparkLexerParserTest {
 	@Test
 	public void testPatternFilter() throws IOException{
 		
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternFilter.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternFilter.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		Assert.assertNotNull(patternGraph);
@@ -74,7 +74,7 @@ public class SparkLexerParserTest {
 	
 	@Test
 	public void testPatternLogicAndOperator() throws IOException{
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternLogicOperator.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternLogicOperator.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		Assert.assertTrue(patternGraph.getPrefixes().size() > 0);
@@ -92,7 +92,7 @@ public class SparkLexerParserTest {
 	
 	@Test
 	public void testPatternTemporalBefore() throws Exception{
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternTemporalBefore.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternTemporalBefore.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		Assert.assertTrue(patternGraph.getPrefixes().size() > 0);
@@ -114,7 +114,7 @@ public class SparkLexerParserTest {
 	
 	@Test
 	public void testPatternEOandSI() throws Exception{
-		SparkPatternParser parser = new SparkPatternParser("target/classes/patternEOandSI.tpg");
+		SparkPatternParser parser = new SparkPatternParser("target/test-classes/patternEOandSI.tpg");
 		Pattern patternGraph = parser.parse();
 		
 		String epsilonOntology = patternGraph.getEpsilonOntology();

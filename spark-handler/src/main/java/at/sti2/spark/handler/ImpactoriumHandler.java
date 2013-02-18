@@ -112,30 +112,34 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 					
 				//Extract info-object identifier
 				String infoObjectReportId = extractInfoObjectIdentifier(infoObjectResponse);
-				logger.info("Info object report id " + infoObjectReportId);
-				
-				//Format the output for the match
-				String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
-				
-				//HTTP PUT the data 
-				httpPut = new HttpPut(baseurl + "/info-object/" + infoObjectReportId + "/data/data.nt");
-				StringEntity dataEntityRequest = new StringEntity(ntriplesOutput, "UTF-8");
-				httpPut.setEntity(dataEntityRequest);
-				response = httpclient.execute(httpPut);
-				
-				logger.info("[STORING DATA] Status code " + response.getStatusLine());
-				
-				//First invocation succeeded
-				if (!(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK))
-					throw new SparkweaveHandlerException("Could not write data.");
+				if(infoObjectReportId==null){
+					logger.error("Info object report id " + infoObjectReportId);
+				}else{
+					logger.info("Info object report id " + infoObjectReportId);			
+
+					//Format the output for the match
+					String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
+					
+					//HTTP PUT the data 
+					httpPut = new HttpPut(baseurl + "/info-object/" + infoObjectReportId + "/data/data.nt");
+					StringEntity dataEntityRequest = new StringEntity(ntriplesOutput, "UTF-8");
+					httpPut.setEntity(dataEntityRequest);
+					response = httpclient.execute(httpPut);
+					
+					logger.info("[STORING DATA] Status code " + response.getStatusLine());
+					
+					//First invocation succeeded
+					if (!(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK))
+						throw new SparkweaveHandlerException("Could not write data.");
+					}
 				}
 			}
 		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+			logger.error(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 	
@@ -155,9 +159,12 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 			Object result = expr.evaluate(doc, XPathConstants.NODESET);
 			
 			NodeList nodes = (NodeList) result;
-			NamedNodeMap attributesMap = nodes.item(0).getAttributes();
-			Node idAttribute = attributesMap.getNamedItem("id");
-			reportId = idAttribute.getNodeValue();
+			Node item = nodes.item(0);
+			if(item!=null){
+				NamedNodeMap attributesMap = item.getAttributes();
+				Node idAttribute = attributesMap.getNamedItem("id");
+				reportId = idAttribute.getNodeValue();
+			}
 			
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();

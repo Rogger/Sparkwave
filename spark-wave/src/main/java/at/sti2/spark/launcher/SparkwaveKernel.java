@@ -41,8 +41,8 @@ public class SparkwaveKernel{
 		
 		if (args.length < 2){
 			logger.info("Sparkwave expects the following parameters:");
-			logger.info(" <tcp/ip port>              - port on which network accepts incoming streams.");
-			logger.info(" (<pattern file>)?          - name of the file holding triple pattern definition.");
+			logger.info(" <tcp/ip port>              - port to listen for incoming data streams, typically 8080");
+			logger.info(" (<pattern file>)?          - path to *.tpg pattern file(s)");
 			System.exit(0);
 		}
 		

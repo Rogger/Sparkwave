@@ -15,10 +15,10 @@ RUN
 
 To start Sparkwave network execute the following command:
 
-	$ sh spark.sh [port] [pattern_file] [epsilon_ontology_file] [static_instances_file]
+	$ sh spark.sh [port] [pattern_file]
 
 	Example:
-	$ sh spark.sh 8080 $PWD/tests/bsbm/pattern-PT2-TW100-filter.tpg $PWD/tests/bsbm/epsilon-PT2-DS329.owl null
+	$ sh spark.sh 8080 $PWD/tests/bsbm/pattern-PT2-TW100-filter.tpg
  
 
 To start Sparkwave streamer execute the following command:
@@ -27,3 +27,9 @@ To start Sparkwave streamer execute the following command:
 
 	Example:
 	$ sh spark-streamer.sh 8080 $PWD/tests/bsbm/offers-trunc100.nt
+
+
+RELEASE
+=======
+To release a new version, the maven release plugin can be used
+mvn release:prepare

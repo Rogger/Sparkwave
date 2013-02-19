@@ -392,6 +392,8 @@ IRI_REF_CHARACTERS
 fragment
 DIGIT : '0'..'9';
 
+COMMENT : '#' (options{greedy=false;} : .)* EOL { $channel=HIDDEN; };
+
 INVERSE : '^';
 
 fragment

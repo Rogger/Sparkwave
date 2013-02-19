@@ -145,7 +145,7 @@ public class Pattern {
 
 		buffer.append("\n");
 		buffer.append("WHERE {\n");
-		buffer.append(whereClause.toString());
+		buffer.append(whereClause);
 		buffer.append("}\n");
 		
 		return buffer.toString();

@@ -99,7 +99,7 @@ public class SparkwaveKernel{
 			} catch (IOException e) {
 				logger.error("Could not open pattern file "+patternFile);
 			}
-			logger.info("Parsed pattern:\n"+pattern.toString());
+			logger.info("Parsed pattern:\n"+pattern);
 			
 			if(pattern!=null){
 				

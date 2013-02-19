@@ -35,7 +35,6 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -84,6 +83,9 @@ public class DummyRestHandler implements SparkweaveHandler {
 		String url = handlerProperties.getValue("url");
 		logger.info("Invoking impactorium at URL " + url);
 		
+		
+		String formatMatchNTriples = formatMatchNTriples(match, handlerProperties);
+		
 		//Define report id value 
 		String reportId = "" + (new Date()).getTime();
 		
@@ -92,7 +94,9 @@ public class DummyRestHandler implements SparkweaveHandler {
 		HttpPost httpPost = new HttpPost(url);
 		
 		try {
-			StringEntity infoObjectEntityRequest = new StringEntity("<info-object name=\"Report " + reportId + " \"/>", "UTF-8");
+//			StringEntity infoObjectEntityRequest = new StringEntity("<info-object name=\"Report " + reportId + " \"/>", "UTF-8");
+			StringEntity infoObjectEntityRequest = new StringEntity(formatMatchNTriples);
+			
 			httpPost.setEntity(infoObjectEntityRequest);
 			HttpResponse response = httpclient.execute(httpPost);
 			

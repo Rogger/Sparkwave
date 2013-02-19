@@ -1,0 +1,12 @@
+v0.4.1
+======
+Pattern grammar allows single line comments
+DummyRestHandler
+Refactoring
+Small fixes: maven poms reflect same version as scm, typos
+
+v0.4
+====
+MultiPattern support (Feature)
+Pattern grammar specifies epsilon ontology and static instances file (Feature)
+toString output for Pattern oject

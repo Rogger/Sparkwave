@@ -127,7 +127,7 @@ public class Pattern {
 		buffer.append("EPSILON_ONTOLOGY = \""+epsilonOntology+"\"\n");
 		buffer.append("\n");
 		
-		buffer.append("STATI_INSTANCES = \""+staticInstances+"\"\n");
+		buffer.append("STATIC_INSTANCES = \""+staticInstances+"\"\n");
 		buffer.append("\n");
 		
 		if (handlers != null){

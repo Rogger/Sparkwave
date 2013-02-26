@@ -2,12 +2,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spark-wave</artifactId>
 	<packaging>jar</packaging>
-	<name>spark-weave</name>
+	<name>spark-wave</name>
 
 	<parent>
 		<groupId>at.sti2.sparkwave</groupId>
 		<artifactId>spark-dist</artifactId>
-		<version>0.4.1</version>
+		<version>0.4.1-SNAPSHOT</version>
 		<relativePath>../spark-dist</relativePath>
 	</parent>
 
@@ -150,6 +150,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>spark-handler</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>spark-preprocess</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>

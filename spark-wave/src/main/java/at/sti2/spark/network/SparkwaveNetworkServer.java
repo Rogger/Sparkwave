@@ -89,7 +89,12 @@ public class SparkwaveNetworkServer extends Thread{
 	            logger.info("Connected: " + sock);
 	            
 	            BufferedReader streamReader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+	            
 	            //TODO inbetween should a plugin convert from XML ->(XSLT) RDF/XML ->(LIB) NT
+	            //Inputstream -> Outputstream
+	            
+
+	            
 	            SparkwaveStreamParserThread sparkStreamParserThread = new SparkwaveStreamParserThread(streamReader, queues);
 	            
 	            sparkwaveParserExecutor.execute(sparkStreamParserThread);

@@ -3,7 +3,7 @@
 
 	<groupId>at.sti2.sparkwave</groupId>
 	<artifactId>spark-dist</artifactId>
-	<version>0.4.1</version>
+	<version>0.4.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>spark-dist</name>
@@ -20,6 +20,7 @@
 		<module>../spark-streamer</module>
 		<module>../spark-handler</module>
 		<module>../spark-wave</module>
+		<module>../spark-preprocess</module>
 	</modules>
 
 	<build>

@@ -10,7 +10,7 @@ import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
 
-public class ConsoleHandler implements SparkweaveHandler {
+public class ConsoleHandler implements SparkwaveHandler {
 
 	private static Logger log = Logger.getLogger(ConsoleHandler.class);
 	
@@ -34,7 +34,7 @@ public class ConsoleHandler implements SparkweaveHandler {
 	}
 	
 	@Override
-	public void invoke(Match match) throws SparkweaveHandlerException{
+	public void invoke(Match match) throws SparkwaveHandlerException{
 
 		noMatches++;
 		log.info("Match no " + noMatches);

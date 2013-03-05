@@ -50,14 +50,14 @@ public class FileHandlerTest {
 	}
 	
 	@Test
-	public void testFileHandler() throws SparkweaveHandlerException{
+	public void testFileHandler() throws SparkwaveHandlerException{
 		
 		Handler handler = handlerProperties.get(0);
 		File logFile = new File(handler.getValue("path"));
 		if(logFile.exists())
 			logFile.delete();
 		
-		SparkweaveHandler fileHandler = new FileHandler();
+		SparkwaveHandler fileHandler = new FileHandler();
 		fileHandler.init(handler);
 		fileHandler.invoke(match);
 		

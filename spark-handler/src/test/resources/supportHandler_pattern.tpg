@@ -1,0 +1,44 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX support: <http://www.foi.se/support/wp4demo#>
+
+#Location of the epsilon ontology file
+EPSILON_ONTOLOGY = "target/test-classes/support/support_schema.owl"
+
+#Location of the static instances file
+STATIC_INSTANCES = "target/test-classes/support/instances.nt"
+
+
+HANDLERS{
+
+	HANDLER {
+		"class" = "at.sti2.spark.handler.DummyRestHandler"
+		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.SVC/info-object"
+	}
+	
+#	HANDLER {
+#		"class" = "at.sti2.spark.handler.ConsoleHandler"
+#		
+#	}
+	
+}
+
+CONSTRUCT {
+	support:ReportX rdf:type support:Report .
+	support:ReportX support:report_based_on_service ?sensor1 .
+	support:ReportX support:report_based_on_service ?sensor2 .
+	support:ReportX support:reports_about_event ?detection1 .
+	support:ReportX support:reports_about_event ?detection2 .
+	support:ReportX support:report_generated_by_service support:StreamProcessor
+} WHERE {
+	?detection1 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+	?detection1 support:has_sensor ?sensor1 .
+	?sensor1 rdf:type support:PETSensor .
+	?sensor1 support:sensor_has_location ?location1 .
+	?location1 support:location_is_part_of_location support:DockX .
+	?detection2 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+	?detection2 support:has_sensor ?sensor2 .
+	?sensor2 rdf:type support:PATSensor .
+	?sensor2 support:sensor_has_location ?location2 .
+	?location2 support:location_is_part_of_location support:DockX .
+    TIMEWINDOW (100)
+}

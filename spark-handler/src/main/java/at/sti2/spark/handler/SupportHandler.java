@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, University of Innsbruck, Austria.
+ * Copyright (c) 2013, University of Innsbruck, Austria.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -15,20 +15,32 @@
  */
 package at.sti2.spark.handler;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -45,6 +57,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -52,25 +66,29 @@ import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
+import at.sti2.spark.preprocess.RDFFormatTransformer;
+import at.sti2.spark.preprocess.XSLTransformer;
 
-public class DummyRestHandler implements SparkwaveHandler {
+public class SupportHandler implements SparkwaveHandler {
 	
 	private long twoMinutesPause = 0l;
 
-	static Logger logger = Logger.getLogger(DummyRestHandler.class);
-	Handler handlerProperties = null;
+	private static Logger logger = Logger.getLogger(SupportHandler.class);
+	private Handler handlerProperties = null;
+	
+//	private ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("SupportHandler-%d").build();
+//	private ExecutorService executor = Executors.newCachedThreadPool(tf); 
 	
 	@Override
 	public void init(Handler handlerProperties) {
 		this.handlerProperties = handlerProperties;
-		
 	}
 	
 	@Override
 	public void invoke(Match match) throws SparkwaveHandlerException{
 		
 		/*
-		 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
+		 * TODO This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
 		 *
 		 ******************************************************/
 		long timestamp = (new Date()).getTime();
@@ -80,24 +98,54 @@ public class DummyRestHandler implements SparkwaveHandler {
 		twoMinutesPause = timestamp;
 		/* *****************************************************/
 		
-		String url = handlerProperties.getValue("url");
-		logger.info("Invoking impactorium at URL " + url);
+		final String url = handlerProperties.getValue("url");
+		logger.info("Invoking URL " + url);
+	
+		// formatting match to n-triple format
+		final String formatMatchNTriples = formatMatchNTriples(match, handlerProperties);
 		
+		// converting n-triple string to inputstream
+		final InputStream strIn = IOUtils.toInputStream(formatMatchNTriples);
 		
-		String formatMatchNTriples = formatMatchNTriples(match, handlerProperties);
+		try {
+			// Wiring: 
+			final PipedOutputStream pipeOut1 = new PipedOutputStream();
+			final PipedInputStream pipeIn1 = new PipedInputStream(pipeOut1);
+			
+			
+			ByteArrayOutputStream out1 = new ByteArrayOutputStream();
+			// convert n-triple to RDFXML
+			RDFFormatTransformer ntToRDFXML = new RDFFormatTransformer(strIn, out1, "N3", "RDF/XML-ABBREV");
+			ntToRDFXML.process();
+			
+			ByteArrayInputStream in1 = new ByteArrayInputStream(out1.toByteArray());
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			// convert RDFXML to XML
+			Source xslt = new StreamSource(new File("target/classes/support/fromRDFToEvent.xslt"));
+			XSLTransformer rdfxmlToXML = new XSLTransformer(xslt, in1 , baos);
+			rdfxmlToXML.process();
+			
+			//TODO send baos to REST service
 		
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	private void sendToREST(String url, String content){
 		//Define report id value 
-		String reportId = "" + (new Date()).getTime();
+//		String reportId = "" + (new Date()).getTime();
 		
-		//HTTP PUT the info-object id
+		//HTTP Post
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(url);
 		
 		try {
-//			StringEntity infoObjectEntityRequest = new StringEntity("<info-object name=\"Report " + reportId + " \"/>", "UTF-8");
-			StringEntity infoObjectEntityRequest = new StringEntity(formatMatchNTriples);
+			StringEntity postStringEntity = new StringEntity(content);
 			
-			httpPost.setEntity(infoObjectEntityRequest);
+			httpPost.setEntity(postStringEntity);
 			HttpResponse response = httpclient.execute(httpPost);
 			
 			logger.info("[CREATING REPORT] Status code " + response.getStatusLine());
@@ -105,12 +153,12 @@ public class DummyRestHandler implements SparkwaveHandler {
 			//First invocation succeeded
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
 				
-				HttpEntity infoObjectEntityResponse = response.getEntity();
+				HttpEntity entityResponse = response.getEntity();
 				
 				//Something has been returned, let's see what is in it
-				if (infoObjectEntityResponse != null){
-					String infoObjectResponse = EntityUtils.toString(infoObjectEntityResponse);
-					logger.debug("InfoObject response " + infoObjectResponse);
+				if (entityResponse != null){
+					String stringResponse = EntityUtils.toString(entityResponse);
+					logger.debug("Response " + stringResponse);
 				}
 			}
 		} catch (UnsupportedEncodingException e) {

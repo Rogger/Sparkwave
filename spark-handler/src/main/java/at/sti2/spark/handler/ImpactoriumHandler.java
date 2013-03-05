@@ -53,7 +53,7 @@ import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
 
-public class ImpactoriumHandler implements SparkweaveHandler {
+public class ImpactoriumHandler implements SparkwaveHandler {
 	
 	/*
 	 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
@@ -70,7 +70,7 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 	}
 	
 	@Override
-	public void invoke(Match match) throws SparkweaveHandlerException{
+	public void invoke(Match match) throws SparkwaveHandlerException{
 		
 		/*
 		 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
@@ -130,7 +130,7 @@ public class ImpactoriumHandler implements SparkweaveHandler {
 					
 					//First invocation succeeded
 					if (!(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK))
-						throw new SparkweaveHandlerException("Could not write data.");
+						throw new SparkwaveHandlerException("Could not write data.");
 					}
 				}
 			}

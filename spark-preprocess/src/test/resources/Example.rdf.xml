@@ -1,0 +1,17 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:supportOnt="http://www.foi.se/support/wp4demo#">
+  <supportOnt:EventSourceData rdf:about="http://www.foi.se/support/video/from/13123231/to/13123231"/>
+  <supportOnt:SuspiciousPersonDetection rdf:about="http://www.foi.se/support/wp4demo#EventX">
+    <supportOnt:hasParticipant>
+      <supportOnt:Person rdf:about="http://www.foi.se/support/wp4demo#PersonX">
+        <supportOnt:wears rdf:resource="http://www.foi.se/support/wp4demo#YellowJacket"/>
+      </supportOnt:Person>
+    </supportOnt:hasParticipant>
+    <supportOnt:report_based_on_service rdf:resource="http://www.foi.se/support/wp4demo#CTV"/>
+    <supportOnt:date>2010-01-01</supportOnt:date>
+    <supportOnt:location rdf:resource="http://www.foi.se/support/wp4demo#AreaA1"/>
+    <supportOnt:name>Detection of a suspicious person</supportOnt:name>
+    <rdf:type rdf:resource="http://www.foi.se/support/wp4demo#Event"/>
+  </supportOnt:SuspiciousPersonDetection>
+</rdf:RDF>

@@ -1,0 +1,30 @@
+@prefix supportOnt: <http://www.foi.se/support/wp4demo#> .
+
+#  SuspiciousPersonDetection based on video analytics
+
+# Basic event info
+<http://www.foi.se/support/wp4demo#EventX> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#Event> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#SuspiciousPersonDetection> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#name> "Detection of a suspicious person".
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#location> <http://www.foi.se/support/wp4demo#AreaA1> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#date> "2010-01-01".
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#report_based_on_service> <http://www.foi.se/support/wp4demo#CTV> .
+#<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#report_generated_by_service> <http://www.foi.se/support/wp4demo#StreamProcessor> .
+#<http://www.foi.se/support/wp4demo#StreamProcessor> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#EventProcessor>.
+
+# Event description (object involved etc.)
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#hasParticipant> <http://www.foi.se/support/wp4demo#PersonX>.
+<http://www.foi.se/support/wp4demo#PersonX> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#Person>.
+<http://www.foi.se/support/wp4demo#PersonX> <http://www.foi.se/support/wp4demo#wears> <http://www.foi.se/support/wp4demo#YellowJacket>.
+
+
+# 
+<http://www.foi.se/support/video/from/13123231/to/13123231> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#EventSourceData> .
+
+
+# Some test stuff
+#<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#involves> <http://www.foi.se/support/wp4demo#Adde>.
+#<http://www.foi.se/support/wp4demo#Adde> <http://www.foi.se/support/wp4demo#worksAt> <http://www.foi.se/support/wp4demo#FOI>.
+#<http://www.foi.se/support/wp4demo#Adde> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#Person>.
+#<http://www.foi.se/support/wp4demo#YellowJacket> <http://www.foi.se/support/wp4demo#hasOwner> <http://www.foi.se/support/wp4demo#Port>.
+# <http://www.foi.se/support/wp4demo#Camera2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#EventSourceData> .

@@ -1,0 +1,18 @@
+<Event name="Detection of a suspicious person" date="2010-01-01" ref_uri="http://www.foi.se/support/wp4demo#EventX" type="supportOnt:SuspiciousPersonDetection">
+  <location name="http://www.foi.se/support/wp4demo#AreaA1" longitude="" latitude=""/>
+  <source-data>
+    <source-reference uri="http://www.foi.se/support/video/from/13123231/to/13123231"/>
+  </source-data>
+  <event-description>
+    <hasParticipant>
+      <object uri="http://www.foi.se/support/wp4demo#PersonX" type="Person">
+        <wears>
+          <object uri="http://www.foi.se/support/wp4demo#YellowJacket"/>
+        </wears>
+      </object>
+    </hasParticipant>
+    <report_based_on_service>
+      <object uri="http://www.foi.se/support/wp4demo#CTV"/>
+    </report_based_on_service>
+  </event-description>
+</Event>

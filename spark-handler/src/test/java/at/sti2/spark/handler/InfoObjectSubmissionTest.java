@@ -63,7 +63,7 @@ public class InfoObjectSubmissionTest {
 		invoker.init(handlerProperties);
 		try {
 			invoker.invoke(match);
-		} catch (SparkweaveHandlerException e) {
+		} catch (SparkwaveHandlerException e) {
 			e.printStackTrace();
 		}
 	}

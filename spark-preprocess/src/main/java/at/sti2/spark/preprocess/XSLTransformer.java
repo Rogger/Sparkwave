@@ -1,5 +1,6 @@
 package at.sti2.spark.preprocess;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -13,6 +14,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 public class XSLTransformer implements Runnable{
@@ -42,7 +44,7 @@ public class XSLTransformer implements Runnable{
 			throw new IllegalArgumentException();
 		}
 		
-//		StringWriter writer = new StringWriter();
+		logger.info("Performing XSLT transformation");
 		
 		TransformerFactory factory = TransformerFactory.newInstance();
 		factory.setAttribute("indent-number", new Integer(2));
@@ -56,28 +58,18 @@ public class XSLTransformer implements Runnable{
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlSource, result);
 			
-			//TODO PROBLEM is the pipedinputstream is not closed, readLine will wait forever!!
-			
-//			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//			String line = null;
-//			try {
-//				while((line = reader.readLine()) != null) {
-//					  System.out.println(line);
-//				}
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			logger.debug("XSLTTransformer output:\n "+out.toString());
+
 			
 		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
 		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e);
+		} finally{			
+			IOUtils.closeQuietly(in);
+			IOUtils.closeQuietly(out);
 		}
 		
-		logger.debug(out.toString());
 		
 	}
 

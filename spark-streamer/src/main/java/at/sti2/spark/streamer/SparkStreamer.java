@@ -22,7 +22,7 @@ import java.util.Date;
 
 import org.apache.log4j.Logger;
 
-import at.sti2.spark.streamer.file.NTripleStreamReader;
+import at.sti2.spark.streamer.file.FileStreamReader;
 
 public class SparkStreamer {
 	
@@ -92,7 +92,7 @@ public class SparkStreamer {
 			PrintWriter streamWriter = new PrintWriter(sock.getOutputStream());
 		
 			//Read file, create objects and stream them
-			NTripleStreamReader streamReader = new NTripleStreamReader(triplesFileName);
+			FileStreamReader streamReader = new FileStreamReader(triplesFileName);
 			
 			streamReader.openFile();
 			
@@ -102,7 +102,7 @@ public class SparkStreamer {
 			
 			Date startStreaming = new Date();
 			
-			while ((tripleLine = streamReader.nextTripleLine()) != null){
+			while ((tripleLine = streamReader.nextLine()) != null){
 				
 				streamWriter.println(tripleLine);
 				tripleCounter++;

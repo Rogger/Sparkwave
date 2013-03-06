@@ -24,6 +24,7 @@ HANDLERS{
 
 CONSTRUCT {
 	support:ReportX rdf:type support:Report .
+	support:ReportX rdf:type support:Event .
 	support:ReportX support:report_based_on_service ?sensor1 .
 	support:ReportX support:report_based_on_service ?sensor2 .
 	support:ReportX support:reports_about_event ?detection1 .

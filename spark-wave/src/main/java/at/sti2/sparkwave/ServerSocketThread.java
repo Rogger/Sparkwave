@@ -114,20 +114,20 @@ public class ServerSocketThread implements Runnable{
 	            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	            
 	            // XML -> XMLRDF
-//	            Source xslt = new StreamSource(new File("target/test-classes/support/fromEventToRDF.xslt"));
-//	            XSLTransformer xsltTransformer = new XSLTransformer(xslt, socketStreamIn, baos);
+	            Source xslt = new StreamSource(new File("target/test-classes/support/fromEventToRDF.xslt"));
+	            XSLTransformer xsltTransformer = new XSLTransformer(xslt, socketStreamIn, pipeOut1);
 	            
 	            // XMLRDF -> N3
-//	            RDFFormatTransformer xmlrdfToNT = new RDFFormatTransformer(pipeIn1, pipeOut2,"RDF/XML-ABBREV","T-TURTLE");
+	            RDFFormatTransformer xmlrdfToNT = new RDFFormatTransformer(pipeIn1, baos,"RDF/XML-ABBREV","N-TRIPLE");
 
 //	            StreamParserThread sparkStreamParserThread = new StreamParserThread(pipeIn2, queues);
-	            StreamParserThread sparkStreamParserThread = new StreamParserThread(socketStreamIn, queues);
+//	            StreamParserThread sparkStreamParserThread = new StreamParserThread(socketStreamIn, queues);
 
 	            // kick-off pre-process
-//	            sparkwaveParserExecutor.execute(xsltTransformer);
-//	            sparkwaveParserExecutor.execute(xmlrdfToNT);
+	            sparkwaveParserExecutor.execute(xsltTransformer);
+	            sparkwaveParserExecutor.execute(xmlrdfToNT);
 	            // kick-off processor
-	            sparkwaveParserExecutor.execute(sparkStreamParserThread);
+//	            sparkwaveParserExecutor.execute(sparkStreamParserThread);
 	        }
 	        
 		} catch (IOException e) {

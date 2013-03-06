@@ -112,7 +112,6 @@ public class SupportHandler implements SparkwaveHandler {
 			final PipedOutputStream pipeOut1 = new PipedOutputStream();
 			final PipedInputStream pipeIn1 = new PipedInputStream(pipeOut1);
 			
-			
 			ByteArrayOutputStream out1 = new ByteArrayOutputStream();
 			// convert n-triple to RDFXML
 			RDFFormatTransformer ntToRDFXML = new RDFFormatTransformer(strIn, out1, "N3", "RDF/XML-ABBREV");

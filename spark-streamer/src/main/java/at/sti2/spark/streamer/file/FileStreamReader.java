@@ -29,34 +29,15 @@ import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
 
-public class NTripleStreamReader {
+public class FileStreamReader {
 	
-	static Logger logger = Logger.getLogger(NTripleStreamReader.class);
-
+	private static Logger logger = Logger.getLogger(FileStreamReader.class);
 	private String fileName = null;
-	
-	private List <RDFTriple> triples = new ArrayList <RDFTriple> ();
+//	private List <RDFTriple> triples = new ArrayList <RDFTriple> ();
 	private BufferedReader reader = null;
 	
-	public NTripleStreamReader(String fileName){
+	public FileStreamReader(String fileName){
 		this.fileName = fileName;
-	}
-	
-	public void parseTriples(){
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(fileName));
-			
-			String tripleLine = null;
-			
-			while((tripleLine = reader.readLine()) != null)
-				triples.add(parseTriple(tripleLine));
-				
-			reader.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void openFile(){
@@ -77,23 +58,7 @@ public class NTripleStreamReader {
 		}
 	}
 	
-	public RDFTriple nextTriple(){
-		String tripleLine = null;
-		RDFTriple rdfTriple = null;
-		
-		try {
-			if ((tripleLine = reader.readLine()) != null)
-				rdfTriple = parseTriple(tripleLine);
-			
-		} catch (IOException e) {
-			logger.debug("Problem while reading triple file.");
-			e.printStackTrace();
-		}
-		
-		return rdfTriple;
-	}
-	
-	public String nextTripleLine(){
+	public String nextLine(){
 		String tripleLine = null;
 		
 		try {
@@ -108,6 +73,23 @@ public class NTripleStreamReader {
 		return tripleLine;
 	}
 	
+/*	public void parseTriples(){
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(fileName));
+			
+			String tripleLine = null;
+			
+			while((tripleLine = reader.readLine()) != null)
+				triples.add(parseTriple(tripleLine));
+				
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}*/
+	
 	/**
 	 * Method to parse triple in N-Triple format.
 	 * 
@@ -116,7 +98,7 @@ public class NTripleStreamReader {
 	 * @param tripleLine
 	 * @return
 	 */
-	private RDFTriple parseTriple(String tripleLine){
+/*	private RDFTriple parseTriple(String tripleLine){
 		
 		char tripleChars[] = tripleLine.toCharArray();
 		int currentPos = 0; 
@@ -214,4 +196,22 @@ public class NTripleStreamReader {
 	public List<RDFTriple> getTriples() {
 		return triples;
 	}
+	
+	public RDFTriple nextTriple(){
+		String tripleLine = null;
+		RDFTriple rdfTriple = null;
+		
+		try {
+			if ((tripleLine = reader.readLine()) != null)
+				rdfTriple = parseTriple(tripleLine);
+			
+		} catch (IOException e) {
+			logger.debug("Problem while reading triple file.");
+			e.printStackTrace();
+		}
+		
+		return rdfTriple;
+	}
+	
+	*/
 }

@@ -1,6 +1,6 @@
 package at.sti2.spark.preprocess;
 
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -17,21 +17,31 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
-public class XSLTransformer implements Runnable{
+public class XSLTransformer implements PreProcess,Runnable{
 	
 	private Logger logger = Logger.getLogger(XSLTransformer.class);
 	
 	Source xslt = null;
-	InputStream in;
-	OutputStream out;
+	InputStream in = null;
+	OutputStream out = null;
 	
-	public XSLTransformer(Source xslt, InputStream in, OutputStream out) {
-		super();
-		this.xslt = xslt;
-		this.in = in;
+	public XSLTransformer() {
+	}
+	
+	@Override
+	public void init(InputStream in, OutputStream out) {
+		this.in  = in;
 		this.out = out;
 	}
+	
+	@Override
+	public void setProperty(String key, String value){
+		if(key.equals("xsltLocation")){
+			xslt = new StreamSource(new File(value));
+		}
+	}
 
+	@Override
 	public void process(){
 		Source xmlSource = new StreamSource(in);
 		StreamResult result = new StreamResult(out);
@@ -58,7 +68,7 @@ public class XSLTransformer implements Runnable{
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlSource, result);
 			
-			logger.debug("XSLTTransformer output:\n "+out.toString());
+			logger.debug("XSLTransformer output:\n "+out.toString());
 
 			
 		} catch (TransformerConfigurationException e) {

@@ -107,29 +107,23 @@ public class SupportHandler implements SparkwaveHandler {
 		// converting n-triple string to inputstream
 		final InputStream strIn = IOUtils.toInputStream(formatMatchNTriples);
 		
-		try {
-			// Wiring: 
-			final PipedOutputStream pipeOut1 = new PipedOutputStream();
-			final PipedInputStream pipeIn1 = new PipedInputStream(pipeOut1);
-			
-			ByteArrayOutputStream out1 = new ByteArrayOutputStream();
-			// convert n-triple to RDFXML
-			RDFFormatTransformer ntToRDFXML = new RDFFormatTransformer(strIn, out1, "N3", "RDF/XML-ABBREV");
-			ntToRDFXML.process();
-			
-			ByteArrayInputStream in1 = new ByteArrayInputStream(out1.toByteArray());
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			// convert RDFXML to XML
-			Source xslt = new StreamSource(new File("target/classes/support/fromRDFToEvent.xslt"));
-			XSLTransformer rdfxmlToXML = new XSLTransformer(xslt, in1 , baos);
-			rdfxmlToXML.process();
-			
-			//TODO send baos to REST service
+		ByteArrayOutputStream out1 = new ByteArrayOutputStream();
 		
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		// convert n-triple to RDFXML
+		RDFFormatTransformer ntToRDFXML = new RDFFormatTransformer();
+		ntToRDFXML.init(strIn, out1);
+		ntToRDFXML.setProperty("from", "N3");
+		ntToRDFXML.setProperty("to", "RDF/XML-ABBREV");
+		ntToRDFXML.process();
+		
+		ByteArrayInputStream in1 = new ByteArrayInputStream(out1.toByteArray());
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		// convert RDFXML to XML
+		XSLTransformer rdfxmlToXML = new XSLTransformer();
+		rdfxmlToXML.init(in1 , baos);
+		rdfxmlToXML.setProperty("xsltLocation", "target/classes/support/fromRDFToEvent.xslt");
+		rdfxmlToXML.process();
 		
 	}
 	

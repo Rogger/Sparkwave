@@ -18,11 +18,13 @@ package at.sti2.sparkwave;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -38,8 +40,11 @@ import org.apache.log4j.Logger;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import at.sti2.spark.core.stream.Triple;
+import at.sti2.spark.preprocess.PreProcess;
 import at.sti2.spark.preprocess.RDFFormatTransformer;
 import at.sti2.spark.preprocess.XSLTransformer;
+import at.sti2.sparkwave.configuration.ConfigurationModel;
+import at.sti2.sparkwave.configuration.PPPluginConfig;
 import at.sti2.sparkwave.parser.StreamParserThread;
 
 public class ServerSocketThread implements Runnable{
@@ -49,11 +54,11 @@ public class ServerSocketThread implements Runnable{
 	private ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("PreProcess-%d").build();
 	private ExecutorService sparkwaveParserExecutor = Executors.newCachedThreadPool(tf); 
 	private List<BlockingQueue<Triple>> queues = null;
-	private int serverPort = 0;
+	ConfigurationModel configuration = null;
 	
-	public ServerSocketThread(int serverPort, List<BlockingQueue<Triple>> queues){
+	public ServerSocketThread(ConfigurationModel configuration, List<BlockingQueue<Triple>> queues){
 		this.queues = queues;
-		this.serverPort = serverPort;
+		this.configuration = configuration;
 	}
 	
 	
@@ -93,7 +98,7 @@ public class ServerSocketThread implements Runnable{
 		try {
 			
 			//Open TCP/IP Server socket
-			ServerSocket server = new ServerSocket(serverPort);
+			ServerSocket server = new ServerSocket(configuration.getPort());
 	        logger.info("Server: " + server);
 	        
 	        while (!Thread.interrupted()) {
@@ -103,37 +108,83 @@ public class ServerSocketThread implements Runnable{
 	            
 	            InputStream socketStreamIn = sock.getInputStream();
 	            
-	            // Wiring: socketStreamIn --> (Plugin1) --> PipeOut1 --> PipeIn1
-	            final PipedOutputStream pipeOut1 = new PipedOutputStream();
-	            final PipedInputStream pipeIn1 = new PipedInputStream(pipeOut1);
-	           
-	            // Wiring: PipeIn1 --> (Plugin2) --> PipeOut2 --> PipeIn2
-	            final PipedOutputStream pipeOut2 = new PipedOutputStream();
-	            final PipedInputStream pipeIn2 = new PipedInputStream(pipeOut2);
-	            
-	            final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	            
-	            // XML -> XMLRDF
-	            Source xslt = new StreamSource(new File("target/test-classes/support/fromEventToRDF.xslt"));
-	            XSLTransformer xsltTransformer = new XSLTransformer(xslt, socketStreamIn, pipeOut1);
-	            
-	            // XMLRDF -> N3
-	            RDFFormatTransformer xmlrdfToNT = new RDFFormatTransformer(pipeIn1, baos,"RDF/XML-ABBREV","N-TRIPLE");
+	            // PreProcessing Plugins to be loaded
+	            if(configuration.getPPPluginsConfig().size() == 2){
+	            	
+	            	//TODO support arbitrary many plugins
+	            	
+	            	// Wiring: socketStreamIn --> (Plugin1) --> PipeOut1 --> PipeIn1
+	            	final PipedOutputStream pipeOut1 = new PipedOutputStream();
+	            	final PipedInputStream pipeIn1 = new PipedInputStream(pipeOut1);
+	            	
+	            	// Wiring: PipeIn1 --> (Plugin2) --> PipeOut2 --> PipeIn2
+	            	final PipedOutputStream pipeOut2 = new PipedOutputStream();
+	            	final PipedInputStream pipeIn2 = new PipedInputStream(pipeOut2);
+	            	
+	            	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	            	
+	            	// XML -> XMLRDF
+//	            	XSLTransformer xsltTransformer = new XSLTransformer(xslt, socketStreamIn, pipeOut1);
+	            	// XMLRDF -> N3
+//	            	RDFFormatTransformer xmlrdfToNT = new RDFFormatTransformer(pipeIn1, baos,"RDF/XML-ABBREV","N-TRIPLE");
 
-//	            StreamParserThread sparkStreamParserThread = new StreamParserThread(pipeIn2, queues);
-//	            StreamParserThread sparkStreamParserThread = new StreamParserThread(socketStreamIn, queues);
+	            	PPPluginConfig pluginConfig1 = configuration.getPPPluginsConfig().get(0);
+	            	PreProcess plugin1 = instantiateAndConfigurePlugin(pluginConfig1, socketStreamIn, pipeOut1);
+	            	
+	            	PPPluginConfig pluginConfig2 = configuration.getPPPluginsConfig().get(1);
+	            	PreProcess plugin2 = instantiateAndConfigurePlugin(pluginConfig2, pipeIn1, pipeOut2);
 
-	            // kick-off pre-process
-	            sparkwaveParserExecutor.execute(xsltTransformer);
-	            sparkwaveParserExecutor.execute(xmlrdfToNT);
-	            // kick-off processor
-//	            sparkwaveParserExecutor.execute(sparkStreamParserThread);
+	            	// N3 Parser
+	            	StreamParserThread sparkStreamParserThread = new StreamParserThread(pipeIn2, queues);
+	            	
+	            	// kick-off pre-process
+	            	sparkwaveParserExecutor.execute(plugin1);
+	            	sparkwaveParserExecutor.execute(plugin2);
+	            	
+	            	// kick-off parser
+	            	sparkwaveParserExecutor.execute(sparkStreamParserThread);
+
+	            }else{
+	            	
+	            	StreamParserThread sparkStreamParserThread = new StreamParserThread(socketStreamIn, queues);
+	            	
+	            	// kick-off parser
+	            	sparkwaveParserExecutor.execute(sparkStreamParserThread);
+	            
+	            }
+	            
 	        }
 	        
-		} catch (IOException e) {
+		} catch (Exception e) {
 			logger.error(e);
 		} finally {
 			
 		}
+	}
+	
+	private PreProcess instantiateAndConfigurePlugin(PPPluginConfig pluginConfig, InputStream in, OutputStream out) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
+    	
+		PreProcess plugin = null;
+		
+		String className = pluginConfig.getClassName();
+    			
+    	Class<?> clazz = Class.forName(className);
+    	// implements the interface
+    	if(PreProcess.class.isAssignableFrom(clazz)){
+
+    		// instantiate class
+    		plugin = (PreProcess)clazz.newInstance();	  
+    		
+    		// initialize plugin
+    		plugin.init(in, out);
+    		
+    		// Set all properties from xml config
+    		Map<String, String> properties = pluginConfig.getProperties();
+    		for(String key : properties.keySet()){
+    			plugin.setProperty(key, properties.get(key));
+    		}
+    	}
+    	
+    	return plugin;
 	}
 }

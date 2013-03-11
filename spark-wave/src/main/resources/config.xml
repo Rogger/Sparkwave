@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sparkave>
+    <port>8080</port>
+    <preprocess>
+        <plugin>
+            <class>at.sti2.spark.preprocess.XSLTransformer</class>
+            <properties>
+                <property type="xsltLocation">target/classes/supportPPTest/fromEventToRDF.xslt</property>
+            </properties>
+        </plugin>
+        <plugin>
+            <class>at.sti2.spark.preprocess.RDFFormatTransformer</class>
+            <properties>
+                <property type="from">RDF/XML-ABBREV</property>
+                <property type="to">N-TRIPLE</property>
+            </properties>
+        </plugin>
+    </preprocess>
+</sparkave>

@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -32,35 +33,45 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.sparkwave.configuration.ConfigurationModel;
+import at.sti2.sparkwave.configuration.SparkwaveConfigLoader;
 
 public class SparkwaveKernel{
 	
 	private static Logger logger = Logger.getLogger(SparkwaveKernel.class);
+	private static final String configFileName = "config.xml";
 	
 	public static void main(String args[]){
 		
-		if (args.length < 2){
+		if (args.length < 1){
 			logger.info("Sparkwave expects the following parameters:");
-			logger.info(" <tcp/ip port>              - port to listen for incoming data streams, typically 8080");
-			logger.info(" (<pattern file>)?          - path to *.tpg pattern file(s)");
+			logger.info(" (<pattern file>)?	- path to one or more *.tpg pattern file(s)");
+			System.exit(0);
+		}
+		
+		logger.info("Initializing Sparkwave...");
+		
+		SparkwaveConfigLoader sparkConfigLoader = new SparkwaveConfigLoader();
+		ConfigurationModel sparkwaveConfig = null;
+		try {
+			logger.info("Reading Sparkwave configuration from "+configFileName+"...");
+			sparkwaveConfig = sparkConfigLoader.load(configFileName);
+			logger.info("Loaded configuration: port="+sparkwaveConfig.getPort()+", Number of PreProcessing Plugins="+ sparkwaveConfig.getPPPluginsConfig().size());
+			//TODO check schema
+		} catch (ConfigurationException e) {
+			logger.error("Could not load config file, please check existance of "+configFileName);
 			System.exit(0);
 		}
 		
 		//Test to see if the port number is correct
-		int portNumber = 0;
-		try{
-			portNumber = Integer.parseInt(args[0]);
-			if ((portNumber < 0) || (portNumber > 65535)){
-				logger.error("The port number value should be between 0 and 65535!");
-				System.exit(0);
-			}
-		}catch(NumberFormatException nfex){
-			logger.error("The port value should be a number!");
-			System.exit(0);
-		}
+//		int portNumber = configLoader.getPort();
+//		if ((portNumber < 0) || (portNumber > 65535)){
+//			logger.error("The port number value should be between 0 and 65535!");
+//			System.exit(0);
+//		}
 		
 		ArrayList<File> patternFiles = new ArrayList<File>();
-		for(int i = 1; i < args.length; i++){
+		for(int i = 0; i < args.length; i++){
 			File patternFile = new File(args[i]);
 			if (!patternFile.exists()){
 				logger.error("Cannot load pattern file "+patternFile+" !");
@@ -70,15 +81,13 @@ public class SparkwaveKernel{
 			}
 		}
 		
-		new SparkwaveKernel().bootstrap(portNumber, patternFiles);
+		new SparkwaveKernel().bootstrap(sparkwaveConfig, patternFiles);
 	}
 	
 	/**
 	 * Kick off bootstrap
 	 */
-	private void bootstrap(int portNumber, List<File> patternFiles){
-		
-		logger.info("Staring Sparkwave...");
+	private void bootstrap(ConfigurationModel sparkwaveConfig, List<File> patternFiles){
 		
 		//Instantiate Queues
 		List<BlockingQueue<Triple>> queues = new ArrayList<BlockingQueue<Triple>>();
@@ -125,6 +134,6 @@ public class SparkwaveKernel{
 		ExecutorService serverSocketExecutor = Executors.newSingleThreadExecutor(threadFactoyServerSocket);
 		
 		//One Server for all SparkwaveNetworks, acts as multiplexer
-		serverSocketExecutor.execute(new ServerSocketThread(portNumber, queues));
+		serverSocketExecutor.execute(new ServerSocketThread(sparkwaveConfig, queues));
 	}
 }

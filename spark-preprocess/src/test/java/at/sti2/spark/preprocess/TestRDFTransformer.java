@@ -20,7 +20,10 @@ public class TestRDFTransformer {
 		FileInputStream in = new FileInputStream("target/test-classes/Example.n3");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		RDFFormatTransformer formatTransformer = new RDFFormatTransformer(in, baos,"N3","RDF/XML-ABBREV");
+		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();
+		formatTransformer.init(in, baos);
+		formatTransformer.setProperty("from", "N3");
+		formatTransformer.setProperty("to", "RDF/XML-ABBREV");
 		formatTransformer.process();
 		
 		System.out.println(baos.toString());
@@ -32,7 +35,10 @@ public class TestRDFTransformer {
 		FileInputStream in = new FileInputStream("target/test-classes/Example.rdf.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		RDFFormatTransformer formatTransformer = new RDFFormatTransformer(in, baos,"RDF/XML-ABBREV","N-TRIPLE");
+		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();
+		formatTransformer.init(in, baos);
+		formatTransformer.setProperty("from", "RDF/XML-ABBREV");
+		formatTransformer.setProperty("to", "N-TRIPLE");
 		formatTransformer.process();
 		
 		System.out.println(baos.toString());

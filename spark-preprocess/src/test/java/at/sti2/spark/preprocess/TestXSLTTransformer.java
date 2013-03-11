@@ -1,10 +1,6 @@
 package at.sti2.spark.preprocess;
 
-import java.io.File;
 import java.io.FileInputStream;
-
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Before;
@@ -20,11 +16,12 @@ public class TestXSLTTransformer {
 	@Test
 	public void fromRDFtoEvent() throws Exception{
 		
-		Source xslt = new StreamSource(new File("target/test-classes/fromRDFToEvent.xslt"));
 		FileInputStream in = new FileInputStream("target/test-classes/Example.rdf.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		XSLTransformer transformer = new XSLTransformer(xslt, in, baos);
+		XSLTransformer transformer = new XSLTransformer();
+		transformer.init(in, baos);
+		transformer.setProperty("xsltLocation", "target/test-classes/fromRDFToEvent.xslt");
 		transformer.process();
 		System.out.println(baos.toString());
 		
@@ -33,11 +30,12 @@ public class TestXSLTTransformer {
 	@Test
 	public void fromEventToRDF() throws Exception{
 		
-		Source xslt = new StreamSource(new File("target/test-classes/fromEventToRDF.xslt"));
 		FileInputStream in = new FileInputStream("target/test-classes/Example.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
-		XSLTransformer transformer = new XSLTransformer(xslt, in, baos);
+		XSLTransformer transformer = new XSLTransformer();
+		transformer.init(in, baos);
+		transformer.setProperty("xsltLocation", "target/test-classes/fromEventToRDF.xslt");
 		transformer.process();
 		System.out.println(baos.toString());
 		

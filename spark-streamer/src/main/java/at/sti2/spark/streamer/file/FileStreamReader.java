@@ -19,15 +19,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.Logger;
-
-import at.sti2.spark.core.triple.RDFLiteral;
-import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.RDFValue;
 
 public class FileStreamReader {
 	

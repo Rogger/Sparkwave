@@ -68,7 +68,7 @@ public class XSLTransformer implements PreProcess,Runnable{
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlSource, result);
 			
-			logger.debug("XSLTransformer output:\n "+out.toString());
+//			logger.debug("XSLTransformer output:\n "+out.toString());
 
 			
 		} catch (TransformerConfigurationException e) {
@@ -79,7 +79,6 @@ public class XSLTransformer implements PreProcess,Runnable{
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(out);
 		}
-		
 		
 	}
 

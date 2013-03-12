@@ -63,7 +63,7 @@ public class RDFFormatTransformer implements PreProcess,Runnable {
 		RDFWriter rdfWriter = model.getWriter(outLanguage);
 		rdfWriter.write(model, out, null);
 		
-		logger.debug(out.toString());
+//		logger.debug(out.toString());
 		
 		}finally{
 			IOUtils.closeQuietly(in);

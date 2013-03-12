@@ -10,15 +10,19 @@ Build:
 2) mvn clean install package -Dmaven.test.skip=true
 
 
+CONFIGURATION
+=============
+Sparkwave can be configured using the config.xml file.
+
 RUN
 ===
 
 To start Sparkwave network execute the following command:
 
-	$ sh spark.sh [port] [pattern_file]
+	$ sh spark.sh [pattern_file]
 
 	Example:
-	$ sh spark.sh 8080 $PWD/tests/bsbm/pattern-PT2-TW100-filter.tpg
+	$ sh spark.sh $PWD/support/support_pattern.tpg
  
 
 To start Sparkwave streamer execute the following command:
@@ -26,10 +30,4 @@ To start Sparkwave streamer execute the following command:
 	$ sh spark-streamer.sh [port] [triple_file]
 
 	Example:
-	$ sh spark-streamer.sh 8080 $PWD/tests/bsbm/offers-trunc100.nt
-
-
-RELEASE
-=======
-To release a new version, the maven release plugin can be used
-mvn release:prepare
+	$ sh spark-streamer.sh 8080 $PWD/support/sensors.nt

@@ -73,11 +73,11 @@ public class DummyRestHandler implements SparkwaveHandler {
 		 * TODO Remove this. This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
 		 *
 		 ******************************************************/
-		long timestamp = (new Date()).getTime();
-		if (timestamp-twoMinutesPause < 120000)
-			return;
-		
-		twoMinutesPause = timestamp;
+//		long timestamp = (new Date()).getTime();
+//		if (timestamp-twoMinutesPause < 120000)
+//			return;
+//		
+//		twoMinutesPause = timestamp;
 		/* *****************************************************/
 		
 		String url = handlerProperties.getValue("url");

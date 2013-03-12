@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sparkwave>
+    <!-- Mandatory element. Sparkwave listens to specified port (TCP/IP socket) -->
+    <port>8080</port>
+    <!-- Optional element. Preprocessing plugins trasform the incoming data. They are working in sequence as listed in this configuration file -->
+    <preprocess>
+        <!-- XSLTransformation Plugin -->
+        <plugin>
+            <class>at.sti2.spark.preprocess.XSLTransformer</class>
+            <properties>
+                <!-- Mandatory parameter of the xslt location, relative to sparkwave folder -->
+                <property type="xsltLocation">support/xslt/fromEventToRDF.xslt</property>
+            </properties>
+        </plugin>
+        <!-- RDFTransformation Plugin -->
+        <plugin>
+            <class>at.sti2.spark.preprocess.RDFFormatTransformer</class>
+            <properties>
+                <!-- Mandatory parameters, plugin transforms from rdf language to specified language -->
+                <property type="from">RDF/XML-ABBREV</property>
+                <property type="to">N-TRIPLE</property>
+            </properties>
+        </plugin>
+    </preprocess>
+</sparkwave>

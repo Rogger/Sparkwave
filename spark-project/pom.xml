@@ -1,12 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>at.sti2.sparkwave</groupId>
-	<artifactId>spark-dist</artifactId>
+	<artifactId>spark-project</artifactId>
 	<version>0.4.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<name>spark-project</name>
 
-	<name>spark-dist</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +23,7 @@
 		<module>../spark-handler</module>
 		<module>../spark-wave</module>
 		<module>../spark-preprocess</module>
+		<module>../spark-distribution</module>
 	</modules>
 
 	<build>
@@ -34,11 +37,6 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-			    <artifactId>maven-release-plugin</artifactId>
-			    <version>2.4</version>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -48,13 +46,13 @@
 			<url>http://openjena.org/repo</url>
 		</repository>
 	</repositories>
-	
+
 	<scm>
-	    <connection>scm:git:git@github.com:Rogger/Sparkwave.git</connection>
-	    <url>scm:git:git@github.com:Rogger/Sparkwave.git</url>
-	    <developerConnection>scm:git:git@github.com:Rogger/Sparkwave.git</developerConnection>
-	  	<tag>v0.4.1</tag>
-  </scm>
+		<connection>scm:git:git@github.com:Rogger/Sparkwave.git</connection>
+		<url>scm:git:git@github.com:Rogger/Sparkwave.git</url>
+		<developerConnection>scm:git:git@github.com:Rogger/Sparkwave.git</developerConnection>
+		<tag>v0.4.1</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>

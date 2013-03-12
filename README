@@ -9,4 +9,4 @@ sliding window to cope with the streaming nature of processed data.
 
 COMPILE & RUN
 =============
-read spark-dist/README
+read spark-project/README

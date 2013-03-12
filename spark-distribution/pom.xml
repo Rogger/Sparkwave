@@ -51,7 +51,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-				<finalName>Sparkwave-${project.version}</finalName>
+				<finalName>sparkwave-${project.version}</finalName>
 				<appendAssemblyId>false</appendAssemblyId>
 				<descriptors>
                 	<descriptor>assembly/bin.xml</descriptor>

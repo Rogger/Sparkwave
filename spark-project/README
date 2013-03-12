@@ -1,0 +1,29 @@
+COMPILE
+=======
+
+Prerequisite:
+jdk 6+
+maven 3.x+
+
+Build:
+1) switch to spark-project folder
+2) mvn clean install package -Dmaven.test.skip=true
+3) The assembled distribution can be found in the folder spark-distribution/target/
+
+RUN
+===
+
+To start Sparkwave network execute the following command:
+
+	$ sh spark.sh [pattern_file]
+
+	Example:
+	$ sh spark.sh $PWD/support/support_pattern.tpg
+ 
+
+To start Sparkwave streamer execute the following command:
+
+	$ sh spark-streamer.sh [port] [triple_file]
+
+	Example:
+	$ sh spark-streamer.sh 8080 $PWD/support/sensors.nt

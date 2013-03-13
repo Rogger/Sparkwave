@@ -23,13 +23,16 @@ HANDLERS{
 }
 
 CONSTRUCT {
-	support:ReportX rdf:type support:Report .
-	support:ReportX rdf:type support:Event .
-	support:ReportX support:report_based_on_service ?sensor1 .
-	support:ReportX support:report_based_on_service ?sensor2 .
-	support:ReportX support:reports_about_event ?detection1 .
-	support:ReportX support:reports_about_event ?detection2 .
-	support:ReportX support:report_generated_by_service support:StreamProcessor
+	support:EventX rdf:type support:Event .
+	support:EventX rdf:type support:PETPATDetection .
+	support:EventX support:name "PETPATDetection"^^<http://www.w3.org/2001/XMLSchema#string> .
+	support:EventX support:generated-by support:StreamProcessor .
+	support:EventX support:location ?location1 .
+	support:EventX support:location ?location2 .
+	support:EventX support:date "2010-01-01"^^<http://www.w3.org/2001/XMLSchema#date> .
+	support:EventX support:report_based_on_service ?sensor1 .
+	support:EventX support:report_based_on_service ?sensor2 .
+
 } WHERE {
 	?detection1 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 	?detection1 support:has_sensor ?sensor1 .

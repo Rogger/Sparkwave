@@ -15,24 +15,15 @@
  */
 package at.sti2.spark.handler;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -56,8 +47,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFLiteral;
@@ -116,15 +105,21 @@ public class SupportHandler implements SparkwaveHandler {
 		ntToRDFXML.setProperty("to", "RDF/XML-ABBREV");
 		ntToRDFXML.process();
 		
+		logger.debug("N3 -> RDF/XML output:\n"+out1.toString());
+		
 		ByteArrayInputStream in1 = new ByteArrayInputStream(out1.toByteArray());
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteArrayOutputStream out2 = new ByteArrayOutputStream();
 		
 		// convert RDFXML to XML
 		XSLTransformer rdfxmlToXML = new XSLTransformer();
-		rdfxmlToXML.init(in1 , baos);
+		rdfxmlToXML.init(in1 , out2);
 		rdfxmlToXML.setProperty("xsltLocation", "target/classes/support/fromRDFToEvent.xslt");
 		rdfxmlToXML.process();
 		
+		String strEvent = out2.toString();
+		logger.debug("RDF/XML -> Event XML output:\n"+strEvent);
+		
+//		sendToREST(url, strEvent);
 	}
 	
 	private void sendToREST(String url, String content){
@@ -141,7 +136,7 @@ public class SupportHandler implements SparkwaveHandler {
 			httpPost.setEntity(postStringEntity);
 			HttpResponse response = httpclient.execute(httpPost);
 			
-			logger.info("[CREATING REPORT] Status code " + response.getStatusLine());
+			logger.info("[POSTING Event] Status code " + response.getStatusLine());
 			
 			//First invocation succeeded
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK){
@@ -257,12 +252,12 @@ public class SupportHandler implements SparkwaveHandler {
 					buffer.append("> .\n");
 				}
 			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
-				buffer.append('\"');
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getValue());
-				buffer.append('\"');
-				buffer.append("^^<");
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
-				buffer.append("> .\n");
+//				buffer.append('\"');
+				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).toString());
+//				buffer.append('\"');
+//				buffer.append("^^<");
+//				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
+				buffer.append(" .\n");
 			}
 		}
 		return buffer.toString();

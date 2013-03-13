@@ -113,14 +113,14 @@ public class RDFLiteral extends RDFValue {
 	public String toString(){
 		
 		StringBuffer buffer = new StringBuffer();
-		
-		buffer.append(value);
+
+		buffer.append("\"").append(value).append("\"");
 		
 		if (languageTag != null)
 			buffer.append(languageTag);
 		else if (datatypeURI != null){
 			buffer.append("^^");
-			buffer.append(datatypeURI.toString());
+			buffer.append("<").append(datatypeURI.toString()).append(">");
 		}
 			
 		return buffer.toString();

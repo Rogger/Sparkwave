@@ -6,9 +6,9 @@
 
 	<parent>
 		<groupId>at.sti2.sparkwave</groupId>
-		<artifactId>spark-dist</artifactId>
+		<artifactId>spark-project</artifactId>
 		<version>0.4.2-SNAPSHOT</version>
-		<relativePath>../spark-dist</relativePath>
+		<relativePath>../spark-project</relativePath>
 	</parent>
 
 	<properties>

@@ -1,12 +1,10 @@
 package at.sti2.spark.handler;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +25,7 @@ public class SupportHandlerTest {
 	@Before
 	public void init(){
 		
-		String patternFileName = "target/test-classes/supportHandler_pattern.tpg";
+		String patternFileName = "target/test-classes/support/supportHandler_pattern.tpg";
 		SparkPatternParser parser = new SparkPatternParser(patternFileName);
 		Pattern patternGraph = null;
 		try {
@@ -71,7 +69,6 @@ public class SupportHandlerTest {
 		SupportHandler supportHandler = new SupportHandler();
 		supportHandler.init(handler);
 		supportHandler.invoke(match);
-		
 		
 	}
 }

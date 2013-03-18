@@ -20,15 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -42,17 +34,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import at.sti2.spark.core.solution.Match;
-import at.sti2.spark.core.triple.RDFLiteral;
-import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.RDFValue;
-import at.sti2.spark.core.triple.RDFVariable;
 import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.preprocess.RDFFormatTransformer;
@@ -64,9 +47,6 @@ public class SupportHandler implements SparkwaveHandler {
 
 	private static Logger logger = Logger.getLogger(SupportHandler.class);
 	private Handler handlerProperties = null;
-	
-//	private ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("SupportHandler-%d").build();
-//	private ExecutorService executor = Executors.newCachedThreadPool(tf); 
 	
 	@Override
 	public void init(Handler handlerProperties) {
@@ -91,7 +71,8 @@ public class SupportHandler implements SparkwaveHandler {
 		logger.info("Invoking URL " + url);
 	
 		// formatting match to n-triple format
-		final String formatMatchNTriples = formatMatchNTriples(match, handlerProperties);
+		final List<TripleCondition> conditions = handlerProperties.getTriplePatternGraph().getConstruct().getConditions();
+		final String formatMatchNTriples = match.outputNTriples(conditions);
 		
 		// converting n-triple string to inputstream
 		final InputStream strIn = IOUtils.toInputStream(formatMatchNTriples);
@@ -119,12 +100,10 @@ public class SupportHandler implements SparkwaveHandler {
 		String strEvent = out2.toString();
 		logger.debug("RDF/XML -> Event XML output:\n"+strEvent);
 		
-//		sendToREST(url, strEvent);
+		sendToREST(url, strEvent);
 	}
 	
 	private void sendToREST(String url, String content){
-		//Define report id value 
-//		String reportId = "" + (new Date()).getTime();
 		
 		//HTTP Post
 		HttpClient httpclient = new DefaultHttpClient();
@@ -158,108 +137,4 @@ public class SupportHandler implements SparkwaveHandler {
 		}
 	}
 	
-	public String extractInfoObjectIdentifier(String infoObjectResponse){
-		
-		String reportId = null;
-		
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		//dbf.setNamespaceAware(true);
-		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(new ByteArrayInputStream(infoObjectResponse.getBytes("UTF-8")));
-			
-			XPathFactory factory = XPathFactory.newInstance();
-			XPath xpath = factory.newXPath();
-			XPathExpression expr = xpath.compile("//info-object");
-			Object result = expr.evaluate(doc, XPathConstants.NODESET);
-			
-			NodeList nodes = (NodeList) result;
-			Node item = nodes.item(0);
-			if(item!=null){
-				NamedNodeMap attributesMap = item.getAttributes();
-				Node idAttribute = attributesMap.getNamedItem("id");
-				reportId = idAttribute.getNodeValue();
-			}
-			
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-		}
-		
-		return reportId;
-	}
-	
-	private String formatMatchNTriples(Match match, Handler handlerProperties){
-		
-		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstruct().getConditions()){
-			
-			//Resolve subject
-			buffer.append('<');
-			if(condition.getConditionTriple().getSubject() instanceof RDFURIReference)
-				
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getSubject()).toString());
-			
-			else if (condition.getConditionTriple().getSubject() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getSubject()).getVariableId();
-				buffer.append(match.getVariableBindings().get(variableId).toString());
-				
-			}
-			buffer.append("> ");
-			
-			//Resolve predicate
-			buffer.append('<');
-			if(condition.getConditionTriple().getPredicate() instanceof RDFURIReference)
-				
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getPredicate()).toString());
-			
-			else if (condition.getConditionTriple().getPredicate() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getPredicate()).getVariableId();
-				buffer.append(match.getVariableBindings().get(variableId).toString());
-				
-			}
-			buffer.append("> ");
-			
-			//Resolve object
-			if(condition.getConditionTriple().getObject() instanceof RDFURIReference){
-				
-				buffer.append('<');
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getObject()).toString());
-				buffer.append("> .\n");
-				
-			} else if (condition.getConditionTriple().getObject() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getObject()).getVariableId();
-				RDFValue value = match.getVariableBindings().get(variableId);
-				
-				if (value instanceof RDFURIReference){
-					buffer.append('<');
-					buffer.append(value.toString());
-					buffer.append("> .\n");
-				} else if (value instanceof RDFLiteral){
-					buffer.append('\"');
-					buffer.append(((RDFLiteral)value).getValue());
-					buffer.append('\"');
-					buffer.append("^^<");
-					buffer.append(((RDFLiteral)value).getDatatypeURI());
-					buffer.append("> .\n");
-				}
-			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
-//				buffer.append('\"');
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).toString());
-//				buffer.append('\"');
-//				buffer.append("^^<");
-//				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
-				buffer.append(" .\n");
-			}
-		}
-		return buffer.toString();
-	}
 }

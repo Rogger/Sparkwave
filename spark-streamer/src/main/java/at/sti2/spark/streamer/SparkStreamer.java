@@ -15,14 +15,19 @@
  */
 package at.sti2.spark.streamer;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Collection;
 import java.util.Date;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.LineIterator;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.log4j.Logger;
-
-import at.sti2.spark.streamer.file.FileStreamReader;
 
 public class SparkStreamer {
 	
@@ -30,6 +35,7 @@ public class SparkStreamer {
 
 	private String triplesFileName = null;
 	
+	private String host = "localhost";
 	private int port = 0;
 	private Socket sock = null;
 	
@@ -63,49 +69,52 @@ public class SparkStreamer {
 		this.port = Integer.parseInt(port);
 		this.triplesFileName = triplesFileName;
 		
-		//Connect to the socket
-		connect();
-		
 		//Stream file
-		stream();
+		File fileToStream = new File(triplesFileName);
 		
-		System.exit(0);
+		// Load all files from directory
+		if(fileToStream.isDirectory()){
+			Collection<File> listFiles = FileUtils.listFiles(
+					fileToStream,
+					new RegexFileFilter("^(.*?)"), 
+					DirectoryFileFilter.DIRECTORY
+			);
+			for(File file : listFiles){
+				stream(file);
+			}
+		}else{
+			stream(fileToStream);			
+		}
 	}
 	
-	private void connect(){
+	private void stream(File fileToStream){
+		
+		PrintWriter streamWriter = null;
+		LineIterator lineIterator = null;
+
+		long Counter = 0;
 		
 		try {
-			sock = new Socket ("localhost", port);
+			sock = new Socket ("localhost", port);			
 		} catch (IOException e) {
 			logger.debug("Cannot connect to server.");
             System.exit(1);
 		}
 		logger.info("Connected.");
-	}
-	
-	private void stream(){
 		
-		long tripleCounter = 0;
-		long timepoint = (new Date()).getTime();
 		
 		try {
-			PrintWriter streamWriter = new PrintWriter(sock.getOutputStream());
-		
-			//Read file, create objects and stream them
-			FileStreamReader streamReader = new FileStreamReader(triplesFileName);
+			streamWriter = new PrintWriter(sock.getOutputStream());
+			lineIterator = FileUtils.lineIterator(fileToStream, "UTF-8");
 			
-			streamReader.openFile();
-			
-			String tripleLine = null;
-			
-			logger.info("Beginning of streaming.");
-			
+			logger.info("Beginning to stream.");
 			Date startStreaming = new Date();
-			
-			while ((tripleLine = streamReader.nextLine()) != null){
+			String line = null;
+			while (lineIterator.hasNext()){
 				
-				streamWriter.println(tripleLine);
-				tripleCounter++;
+				line = lineIterator.nextLine();
+				streamWriter.println(line);
+				Counter++;
 				
 //				if (tripleCounter%1000 == 0){
 //					long currentTimepoint = (new Date()).getTime();
@@ -118,22 +127,17 @@ public class SparkStreamer {
 			streamWriter.flush();
 			
 			Date endStreaming = new Date();
-			
 			logger.info("End of streaming.");
-			logger.info("Streamed " + tripleCounter + " triples.");
+			logger.info("Streamed " + Counter + " triples/lines.");
 			logger.info("Total streaming time " + (endStreaming.getTime() - startStreaming.getTime()) + " ms.");
-			
-			
-			streamReader.closeFile();
-			
-			streamWriter.close();
-	        sock.close();
 	        
-	        logger.info("Disconnected.");
 	        
 		} catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
+            logger.error(e);
+		} finally {
+			IOUtils.closeQuietly(streamWriter);
+			lineIterator.close();
+			logger.info("Disconnected.");
 		}
 	}
 	

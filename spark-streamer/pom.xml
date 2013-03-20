@@ -45,12 +45,11 @@
 	</build>
 
 	<dependencies>
-		<!-- <dependency> -->
-		<!-- <groupId>${project.groupId}</groupId> -->
-		<!-- <artifactId>spark-core</artifactId> -->
-		<!-- <version>${project.version}</version> -->
-		<!-- <scope>compile</scope> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.2</version>
+		</dependency>
 		<!-- <dependency> -->
 		<!-- <groupId>org.newsclub.net.unix</groupId> -->
 		<!-- <artifactId>junixsocket</artifactId> -->

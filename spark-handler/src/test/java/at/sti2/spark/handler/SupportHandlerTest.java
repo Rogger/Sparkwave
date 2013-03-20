@@ -54,18 +54,6 @@ public class SupportHandlerTest {
 		
 		Handler handler = handlerProperties.get(0);
 		
-//		File logFile = new File(handler.getValue("path"));
-//		if(logFile.exists())
-//			logFile.delete();
-//		
-//		SparkwaveHandler fileHandler = new FileHandler();
-//		fileHandler.init(handler);
-//		fileHandler.invoke(match);
-//		
-//		logFile = new File(handler.getValue("path"));
-//		Assert.assertTrue(logFile.exists());
-		
-		
 		SupportHandler supportHandler = new SupportHandler();
 		supportHandler.init(handler);
 		supportHandler.invoke(match);

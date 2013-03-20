@@ -65,6 +65,7 @@ public class XSLTransformer implements PreProcess,Runnable{
 			transformer = factory.newTransformer(xsltSource);
 			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+//			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlSource, result);
 			

@@ -30,7 +30,7 @@ public class TestXSLTTransformer {
 	@Test
 	public void fromEventToRDF() throws Exception{
 		
-		FileInputStream in = new FileInputStream("target/test-classes/Example.xml");
+		FileInputStream in = new FileInputStream("target/test-classes/support/Event.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		XSLTransformer transformer = new XSLTransformer();

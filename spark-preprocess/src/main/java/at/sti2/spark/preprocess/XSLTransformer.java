@@ -1,5 +1,6 @@
 package at.sti2.spark.preprocess;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +16,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.log4j.Logger;
 
 public class XSLTransformer implements PreProcess,Runnable{
@@ -44,11 +46,15 @@ public class XSLTransformer implements PreProcess,Runnable{
 	@Override
 	public void process(){
 		Source xmlSource = new StreamSource(in);
-		StreamResult result = new StreamResult(out);
-		transform(xslt, xmlSource, result);
+		transform(xslt, xmlSource, out);
 	}
 	
-	private void transform(Source xsltSource, Source xmlSource, Result result){
+	private void transform(Source xsltSource, Source xmlSource, OutputStream out){
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		TeeOutputStream teeOut = new TeeOutputStream(out, baos);
+		
+		StreamResult result = new StreamResult(teeOut);
 		
 		if(xsltSource == null || xmlSource == null || result == null){
 			throw new IllegalArgumentException();
@@ -69,7 +75,7 @@ public class XSLTransformer implements PreProcess,Runnable{
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			transformer.transform(xmlSource, result);
 			
-//			logger.debug("XSLTransformer output:\n "+out.toString());
+			logger.debug("XSLTransformer output:\n "+baos.toString());
 
 			
 		} catch (TransformerConfigurationException e) {

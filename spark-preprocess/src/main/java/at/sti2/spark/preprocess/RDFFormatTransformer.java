@@ -1,9 +1,12 @@
 package at.sti2.spark.preprocess;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -59,11 +62,13 @@ public class RDFFormatTransformer implements PreProcess,Runnable {
 		RDFReader rdfReader = model.getReader(inLanguage);
 		rdfReader.read(model, in, null);
 		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		TeeOutputStream teeOut = new TeeOutputStream(out, baos);
 		
 		RDFWriter rdfWriter = model.getWriter(outLanguage);
-		rdfWriter.write(model, out, null);
+		rdfWriter.write(model, teeOut, null);
 		
-//		logger.debug(out.toString());
+		logger.debug("RDFFormatTransformer output:\n "+baos.toString());
 		
 		}finally{
 			IOUtils.closeQuietly(in);

@@ -11,8 +11,9 @@ STATIC_INSTANCES = "target/test-classes/support/instances.nt"
 HANDLERS{
 
 	HANDLER {
-		"class" = "at.sti2.spark.handler.RestHandler"
-		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.SVC/info-object"
+		"class" = "at.sti2.spark.handler.SupportHandler"
+		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.svc/event"
+		"twominfilter" = "true"
 	}
 	
 #	HANDLER {

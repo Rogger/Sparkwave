@@ -1,0 +1,9 @@
+<http://www.foi.se/support/wp4demo#EventX> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#Event> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.foi.se/support/wp4demo#PETPATDetection> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#name> "PETPAT Detection".
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#generated_by> <http://www.foi.se/support/wp4demo#StreamProcessor>.
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#location> <http://www.foi.se/support/wp4demo#Quay_A> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#location> <http://www.foi.se/support/wp4demo#Quay_B> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#date> "2010-01-01".
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#report_based_on_service> <http://www.foi.se/support/wp4demo#PAT_1> .
+<http://www.foi.se/support/wp4demo#EventX> <http://www.foi.se/support/wp4demo#report_based_on_service> <http://www.foi.se/support/wp4demo#PAT_2> .

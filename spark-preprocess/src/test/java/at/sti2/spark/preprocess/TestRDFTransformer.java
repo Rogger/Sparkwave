@@ -17,7 +17,7 @@ public class TestRDFTransformer {
 	
 	@Test
 	public void testNTToRDFXML() throws FileNotFoundException{
-		FileInputStream in = new FileInputStream("target/test-classes/Example.n3");
+		FileInputStream in = new FileInputStream("target/test-classes/support/Example.n3");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();
@@ -32,7 +32,7 @@ public class TestRDFTransformer {
 	
 	@Test
 	public void testRDFXMLToNT() throws FileNotFoundException{
-		FileInputStream in = new FileInputStream("target/test-classes/Example.rdf.xml");
+		FileInputStream in = new FileInputStream("target/test-classes/support/Example.rdf.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();

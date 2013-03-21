@@ -1,0 +1,15 @@
+<Event name="" date="" ref_uri="http://www.foi.se/support/wp4demo#Observation_20110830_100005_328_PAT_00001_8" type="http://www.foi.se/support/wp4demo#Detection">
+  <source-data/>
+  <event-description>
+    <has_probability>1.0E-10</has_probability>
+    <has_status>true</has_status>
+    <has_sensor>
+      <object uri="http://www.foi.se/support/wp4demo#PAT_8"/>
+    </has_sensor>
+    <has_timestamp>2011-08-30T10:00:05.328</has_timestamp>
+    <has_message_id>00001</has_message_id>
+    <has_source>
+      <object uri="http://example.org/2.txt"/>
+    </has_source>
+  </event-description>
+</Event>

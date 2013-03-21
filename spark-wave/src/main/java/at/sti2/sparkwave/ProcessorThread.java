@@ -46,7 +46,7 @@ public class ProcessorThread implements Runnable{
 			while (true) {
 				// get triple from queue
 				Triple triple = queue.take();
-//				logger.info(triple);
+				logger.info(triple);
 				sparkwaveNetwork.activateNetwork(triple);
 				
 //				if(queue.isEmpty()){

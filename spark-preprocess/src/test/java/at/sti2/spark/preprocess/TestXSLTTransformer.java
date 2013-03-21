@@ -16,12 +16,12 @@ public class TestXSLTTransformer {
 	@Test
 	public void fromRDFtoEvent() throws Exception{
 		
-		FileInputStream in = new FileInputStream("target/test-classes/Example.rdf.xml");
+		FileInputStream in = new FileInputStream("target/test-classes/support/Example.rdf.xml");
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		
 		XSLTransformer transformer = new XSLTransformer();
 		transformer.init(in, baos);
-		transformer.setProperty("xsltLocation", "target/test-classes/fromRDFToEvent.xslt");
+		transformer.setProperty("xsltLocation", "target/test-classes/support/fromRDFToEvent.xslt");
 		transformer.process();
 		System.out.println(baos.toString());
 		
@@ -35,7 +35,7 @@ public class TestXSLTTransformer {
 		
 		XSLTransformer transformer = new XSLTransformer();
 		transformer.init(in, baos);
-		transformer.setProperty("xsltLocation", "target/test-classes/fromEventToRDF.xslt");
+		transformer.setProperty("xsltLocation", "target/test-classes/support/fromEventToRDF.xslt");
 		transformer.process();
 		System.out.println(baos.toString());
 		

@@ -117,7 +117,6 @@ public class SupportHandler implements SparkwaveHandler {
 			postStringEntity.setContentType("text/xml");
 			
 			httpPost.addHeader("Accept", "*/*");
-			
 			httpPost.setEntity(postStringEntity);
 			HttpResponse response = httpclient.execute(httpPost);
 			

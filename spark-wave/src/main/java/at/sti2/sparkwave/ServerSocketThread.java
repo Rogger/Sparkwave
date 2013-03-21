@@ -15,8 +15,6 @@
  */
 package at.sti2.sparkwave;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PipedInputStream;
@@ -26,26 +24,20 @@ import java.net.Socket;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.preprocess.PreProcess;
-import at.sti2.spark.preprocess.RDFFormatTransformer;
-import at.sti2.spark.preprocess.XSLTransformer;
 import at.sti2.sparkwave.configuration.ConfigurationModel;
 import at.sti2.sparkwave.configuration.PPPluginConfig;
 import at.sti2.sparkwave.parser.StreamParserThread;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 public class ServerSocketThread implements Runnable{
 	

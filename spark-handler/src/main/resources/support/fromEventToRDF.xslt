@@ -19,49 +19,62 @@
 		<rdf:RDF>
 
 
-<!-- If/else case: Check if type contains URI: Take the part after # in such cases -->
-<xsl:choose> 
-<xsl:when test="contains(@type,'#')">
+			<!-- If/else case: Check if type contains URI: Take the part after # in 
+				such cases -->
+			<xsl:choose>
+				<xsl:when test="contains(@type,'#')">
 
- <xsl:element name="supportOnt:{substring-after(@type,'#')}"> 
-			<xsl:attribute name="rdf:about"><xsl:value-of select="@ref_uri" /></xsl:attribute>
+					<xsl:element name="supportOnt:{substring-after(@type,'#')}">
+						<xsl:attribute name="rdf:about"><xsl:value-of
+							select="@ref_uri" /></xsl:attribute>
 
-				<supportOnt:date>
-					<xsl:value-of select="@date" />
-				</supportOnt:date>
-				<supportOnt:name>
-					<xsl:value-of select="@name" />
-				</supportOnt:name>
-				<xsl:apply-templates select="event-description/*"></xsl:apply-templates>
-				<rdf:type rdf:resource="http://www.foi.se/support/wp4demo#Event" />
-				<xsl:apply-templates select="/Event/location"></xsl:apply-templates>
+						<supportOnt:date>
+							<xsl:value-of select="@date" />
+						</supportOnt:date>
+						<supportOnt:name>
+							<xsl:value-of select="@name" />
+						</supportOnt:name>
+						
+						<supportOnt:generated-by>
+							<xsl:value-of select="@generated-by" />
+						</supportOnt:generated-by>
+						
+						<xsl:apply-templates select="event-description/*"></xsl:apply-templates>
+						<rdf:type rdf:resource="http://www.foi.se/support/wp4demo#Event" />
+						<xsl:apply-templates select="/Event/location"></xsl:apply-templates>
 
-			</xsl:element>
+					</xsl:element>
 
-</xsl:when>
-<xsl:otherwise> 
- <xsl:element name="{@type}"> 
-			<xsl:attribute name="rdf:about"><xsl:value-of select="@ref_uri" /></xsl:attribute>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:element name="{@type}">
+						<xsl:attribute name="rdf:about"><xsl:value-of
+							select="@ref_uri" /></xsl:attribute>
 
-				<supportOnt:date>
-					<xsl:value-of select="@date" />
-				</supportOnt:date>
-				<supportOnt:name>
-					<xsl:value-of select="@name" />
-				</supportOnt:name>
-				<xsl:apply-templates select="event-description/*"></xsl:apply-templates>
-				<rdf:type rdf:resource="http://www.foi.se/support/wp4demo#Event" />
-				<xsl:apply-templates select="/Event/location"></xsl:apply-templates>
+						<supportOnt:date>
+							<xsl:value-of select="@date" />
+						</supportOnt:date>
+						<supportOnt:name>
+							<xsl:value-of select="@name" />
+						</supportOnt:name>
+						
+							<supportOnt:generated-by>
+							<xsl:value-of select="@generated-by" />
+						</supportOnt:generated-by>
+						
+						<xsl:apply-templates select="event-description/*"></xsl:apply-templates>
+						<rdf:type rdf:resource="http://www.foi.se/support/wp4demo#Event" />
+						<xsl:apply-templates select="/Event/location"></xsl:apply-templates>
 
-			</xsl:element>
+					</xsl:element>
 
 
-</xsl:otherwise>
+				</xsl:otherwise>
 
-</xsl:choose>
- 	
- 
-			
+			</xsl:choose>
+
+
+
 			<xsl:apply-templates select="/Event/source-data/source-reference"></xsl:apply-templates>
 		</rdf:RDF>
 	</xsl:template>
@@ -90,7 +103,7 @@
 	</xsl:template>
 
 
-	<!--  Event description -->
+	<!-- Event description -->
 	<xsl:template name='event_desc' match='*'>
 		<xsl:choose>
 
@@ -125,6 +138,7 @@
 
 			<xsl:otherwise>
 				<xsl:element name='supportOnt:{name()}'>
+				<xsl:value-of select="child::text()" />
 					<xsl:apply-templates select="*"></xsl:apply-templates>
 				</xsl:element>
 			</xsl:otherwise>

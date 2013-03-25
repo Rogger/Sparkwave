@@ -28,7 +28,7 @@ CONSTRUCT {
 }
 
 WHERE {
-	?detection1 support:has_status "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+	?detection1 support:has_status "true" .
 	?detection1 support:has_sensor ?sensor1 .
 	?sensor1 rdf:type support:PETSensor .
 	?sensor1 support:sensor_has_location ?location1 .

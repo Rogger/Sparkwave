@@ -161,18 +161,25 @@ public class StreamParserThread implements Runnable {
 				}
 				char[] lexicalChar = Arrays.copyOf(charBuf, pos);
 				
-				while (getChar() != '<')
-					continue;
-				
-				pos=0;
-				while ((c = getChar()) != '>') {
-					charBuf[pos] = (char)c;
-					pos++;
+				// search for triple end
+				while ((c=getChar()) != '.'){
+					
+					// datatype
+					if(c == '^'){
+						while ((c=getChar()) != '<')
+							continue;
+						
+						pos=0;
+						while ((c = getChar()) != '>') {
+							charBuf[pos] = (char)c;
+							pos++;
+						}
+						char[] dataTypeChar = Arrays.copyOf(charBuf, pos);
+						RDFURIReference datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
+					}
 				}
-				char[] dataTypeChar = Arrays.copyOf(charBuf, pos);
-				
-				RDFURIReference datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
 				tripObject = RDFLiteral.Factory.createLiteral(String.valueOf(lexicalChar),datatypeURI,null);
+				
 			}
 			
 			if(run){

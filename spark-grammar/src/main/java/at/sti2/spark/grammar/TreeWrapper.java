@@ -52,7 +52,10 @@ public class TreeWrapper implements Iterable<TreeWrapper>,Iterator<TreeWrapper>{
 	
 	public TreeWrapper getChild(int index){
 		Tree child = tree.getChild(index);
-		return new TreeWrapper(child);
+		if(child!=null)
+			return new TreeWrapper(child);
+		else
+			return null;
 	}
 	
 }

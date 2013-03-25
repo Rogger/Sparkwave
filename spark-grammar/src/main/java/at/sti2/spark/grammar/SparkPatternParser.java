@@ -743,12 +743,14 @@ public class SparkPatternParser {
 				TreeWrapper literalValue = treeNode.getChild(0);
 				String value = literalValue.toString().replaceAll("\"", "");
 				TreeWrapper iri = treeNode.getChild(1);
-				RDFURIReference rdfuriReference = parseRDFURIReference(iri);
+				RDFURIReference rdfuriReference = null;
+				if(iri!=null)
+					rdfuriReference = parseRDFURIReference(iri);
 				//TODO language TAG
 				rdfValue = RDFLiteral.Factory.createLiteral(value, rdfuriReference, null);
 			}
 		}
-			
+
 		return rdfValue;
 	}
 	

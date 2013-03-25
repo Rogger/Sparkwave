@@ -141,10 +141,10 @@ public class RDFLiteral extends RDFValue {
 		 * @return
 		 */
 		public static RDFLiteral createLiteral(String value, RDFURIReference datatypeURI, String languageTag){
-			if(datatypeURI.equals(XMLSchema.getXSDDouble())){
+			if(datatypeURI != null && datatypeURI.equals(XMLSchema.getXSDDouble())){
 				Double doubleValue = Double.parseDouble(value);
 				return createNumericLiteral(doubleValue);
-			}else if(datatypeURI.equals(XMLSchema.getXSDInt())){
+			}else if(datatypeURI != null && datatypeURI.equals(XMLSchema.getXSDInt())){
 				int intValue = Integer.parseInt(value);
 				return createNumericLiteral(intValue);
 			}else{

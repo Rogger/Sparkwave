@@ -19,6 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -118,7 +119,8 @@ public class ImpactoriumHandler implements SparkwaveHandler {
 					logger.info("Info object report id " + infoObjectReportId);			
 
 					//Format the output for the match
-					String ntriplesOutput = formatMatchNTriples(match, handlerProperties);
+					final List<TripleCondition> conditions = handlerProperties.getTriplePatternGraph().getConstruct().getConditions();
+					final String ntriplesOutput = match.outputNTriples(conditions);
 					
 					//HTTP PUT the data 
 					httpPut = new HttpPut(baseurl + "/info-object/" + infoObjectReportId + "/data/data.nt");
@@ -179,72 +181,4 @@ public class ImpactoriumHandler implements SparkwaveHandler {
 		return reportId;
 	}
 	
-	private String formatMatchNTriples(Match match, Handler handlerProperties){
-		
-		StringBuffer buffer = new StringBuffer();
-		for (TripleCondition condition : handlerProperties.getTriplePatternGraph().getConstruct().getConditions()){
-			
-			//Resolve subject
-			buffer.append('<');
-			if(condition.getConditionTriple().getSubject() instanceof RDFURIReference)
-				
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getSubject()).toString());
-			
-			else if (condition.getConditionTriple().getSubject() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getSubject()).getVariableId();
-				buffer.append(match.getVariableBindings().get(variableId).toString());
-				
-			}
-			buffer.append("> ");
-			
-			//Resolve predicate
-			buffer.append('<');
-			if(condition.getConditionTriple().getPredicate() instanceof RDFURIReference)
-				
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getPredicate()).toString());
-			
-			else if (condition.getConditionTriple().getPredicate() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getPredicate()).getVariableId();
-				buffer.append(match.getVariableBindings().get(variableId).toString());
-				
-			}
-			buffer.append("> ");
-			
-			//Resolve object
-			if(condition.getConditionTriple().getObject() instanceof RDFURIReference){
-				
-				buffer.append('<');
-				buffer.append(((RDFURIReference)condition.getConditionTriple().getObject()).toString());
-				buffer.append("> .\n");
-				
-			} else if (condition.getConditionTriple().getObject() instanceof RDFVariable){
-				
-				String variableId = ((RDFVariable)condition.getConditionTriple().getObject()).getVariableId();
-				RDFValue value = match.getVariableBindings().get(variableId);
-				
-				if (value instanceof RDFURIReference){
-					buffer.append('<');
-					buffer.append(value.toString());
-					buffer.append("> .\n");
-				} else if (value instanceof RDFLiteral){
-					buffer.append('\"');
-					buffer.append(((RDFLiteral)value).getValue());
-					buffer.append('\"');
-					buffer.append("^^<");
-					buffer.append(((RDFLiteral)value).getDatatypeURI());
-					buffer.append("> .\n");
-				}
-			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
-				buffer.append('\"');
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getValue());
-				buffer.append('\"');
-				buffer.append("^^<");
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
-				buffer.append("> .\n");
-			}
-		}
-		return buffer.toString();
-	}
 }

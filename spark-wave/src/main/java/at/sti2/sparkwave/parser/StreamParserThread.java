@@ -162,6 +162,7 @@ public class StreamParserThread implements Runnable {
 				char[] lexicalChar = Arrays.copyOf(charBuf, pos);
 				
 				// search for triple end
+				RDFURIReference datatypeURI = null;
 				while ((c=getChar()) != '.'){
 					
 					// datatype
@@ -175,7 +176,7 @@ public class StreamParserThread implements Runnable {
 							pos++;
 						}
 						char[] dataTypeChar = Arrays.copyOf(charBuf, pos);
-						RDFURIReference datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
+						datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
 					}
 				}
 				tripObject = RDFLiteral.Factory.createLiteral(String.valueOf(lexicalChar),datatypeURI,null);

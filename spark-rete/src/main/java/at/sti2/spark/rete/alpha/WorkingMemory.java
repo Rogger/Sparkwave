@@ -121,10 +121,14 @@ public class WorkingMemory {
 		List<AlphaNode> alphaNodes = new ArrayList <AlphaNode> ();
 		
 		AlphaNode rdfTypeAlphaNode = getRDFTypeAlphaNode();
+		if(rdfTypeAlphaNode!=null){
+			
+			for (AlphaNode childNode : rdfTypeAlphaNode.getChildren())
+				
+				if (childNode instanceof ConstantObjectTestAlphaNode)
+					alphaNodes.add(childNode);			
+		}
 		
-		for (AlphaNode childNode : rdfTypeAlphaNode.getChildren())
-			if (childNode instanceof ConstantObjectTestAlphaNode)
-				alphaNodes.add(childNode);
 		
 		return alphaNodes;
 	}
@@ -139,9 +143,15 @@ public class WorkingMemory {
 		
 		List<AlphaNode> alphaNodes = new ArrayList <AlphaNode> ();
 		
-		for (AlphaNode childNode : getRDFTypeAlphaNode().getChildren())
-			if (!(childNode instanceof ConstantObjectTestAlphaNode))
-				alphaNodes.add(childNode);
+		AlphaNode rdfTypeAlphaNode = getRDFTypeAlphaNode();
+		if(rdfTypeAlphaNode!=null){
+			
+			for (AlphaNode childNode : rdfTypeAlphaNode.getChildren())
+				
+				if (!(childNode instanceof ConstantObjectTestAlphaNode))
+					alphaNodes.add(childNode);
+		}
+		
 					
 		return alphaNodes;
 	}

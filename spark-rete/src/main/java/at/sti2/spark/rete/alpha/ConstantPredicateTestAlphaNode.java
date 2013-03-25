@@ -16,18 +16,19 @@
 package at.sti2.spark.rete.alpha;
 
 import at.sti2.spark.core.triple.RDFURIReference;
+import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.rete.WorkingMemoryElement;
 
 public class ConstantPredicateTestAlphaNode extends ValueTestAlphaNode {
 
-	public ConstantPredicateTestAlphaNode(String testValue) {
+	public ConstantPredicateTestAlphaNode(RDFValue testValue) {
 		super(testValue);
 	}
 
 	@Override
 	public void testActivation(WorkingMemoryElement wme) {
 		
-		if (!((RDFURIReference)wme.getTriple().getRDFTriple().getPredicate()).getValue().equals(testValue))
+		if (!((RDFURIReference)wme.getTriple().getRDFTriple().getPredicate()).equals(testValue))
 			return;
 		
 		activate(wme);

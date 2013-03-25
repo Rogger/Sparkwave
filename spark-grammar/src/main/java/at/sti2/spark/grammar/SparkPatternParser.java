@@ -677,7 +677,7 @@ public class SparkPatternParser {
 
 				// subject constant test
 				if( !(subjectRDFValue instanceof RDFVariable) ){
-					TripleConstantTest test = new TripleConstantTest(subjectRDFValue.toString(), RDFTriple.Field.SUBJECT);
+					TripleConstantTest test = new TripleConstantTest(subjectRDFValue, RDFTriple.Field.SUBJECT);
 					tripleCondition.addConstantTest(test);
 				}
 				
@@ -689,7 +689,7 @@ public class SparkPatternParser {
 				
 				// predicate constant test
 				if(!(predicateRDFValue instanceof RDFVariable)){
-					TripleConstantTest test = new TripleConstantTest(predicateRDFValue.toString(), RDFTriple.Field.PREDICATE);
+					TripleConstantTest test = new TripleConstantTest(predicateRDFValue, RDFTriple.Field.PREDICATE);
 					tripleCondition.addConstantTest(test);
 				}
 				
@@ -701,7 +701,7 @@ public class SparkPatternParser {
 				
 				// object constant test
 				if(!(objectRDFValue instanceof RDFVariable)){
-					TripleConstantTest test = new TripleConstantTest(objectRDFValue.toString(), RDFTriple.Field.OBJECT);
+					TripleConstantTest test = new TripleConstantTest(objectRDFValue, RDFTriple.Field.OBJECT);
 					tripleCondition.addConstantTest(test);
 				}
 
@@ -737,7 +737,7 @@ public class SparkPatternParser {
 				String prefixName = treeNode.getChild(0).toString();
 				String[] prefixNameSplit = prefixName.split(":");
 				String namespace = patternGraph.getNamespaceByLabel(prefixNameSplit[0]);
-				rdfValue = new RDFURIReference(namespace,prefixNameSplit[1]);
+				rdfValue = RDFURIReference.Factory.createURIReference(namespace+prefixNameSplit[1]);
 				
 			}else if(childToken.equals("RDFLITERAL")){
 				TreeWrapper literalValue = treeNode.getChild(0);
@@ -758,7 +758,7 @@ public class SparkPatternParser {
 		RDFURIReference uri = null;
 		if(treeNode!=null){
 			TreeWrapper iriValue = treeNode.getChild(0);
-			uri = new RDFURIReference(parseIRI(iriValue.toString()));
+			uri = RDFURIReference.Factory.createURIReference(parseIRI(iriValue.toString()));
 		}
 		
 		return uri;

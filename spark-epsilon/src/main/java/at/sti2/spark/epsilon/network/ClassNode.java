@@ -45,13 +45,13 @@ public class ClassNode extends Node {
 		if (linkType.equals(Node.LinkType.LINK_S))
 			activeTriple = new RDFTriple(
 				(RDFURIReference)triple.getRDFTriple().getSubject(),
-				new RDFURIReference(rdfType),
-				new RDFURIReference(getUri()));
+				RDFURIReference.Factory.createURIReference(rdfType),
+				RDFURIReference.Factory.createURIReference(getUri()));
 		else
 			activeTriple = new RDFTriple(
 				(RDFURIReference)triple.getRDFTriple().getObject(),
-				new RDFURIReference(rdfType),
-				new RDFURIReference(getUri()));			
+				RDFURIReference.Factory.createURIReference(rdfType),
+				RDFURIReference.Factory.createURIReference(getUri()));			
 		
 		Triple activeStreamedTriple = new Triple(
 				activeTriple,

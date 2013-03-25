@@ -72,11 +72,11 @@ public class SparkWaveFirstBSBMTest {
 		
 		RDFTriple triple1 = new RDFTriple();
 		triple1.setSubject(new RDFVariable("?x"));
-		triple1.setPredicate(new RDFURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-		triple1.setObject(new RDFURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer"));
+		triple1.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		triple1.setObject(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer"));
 		
-		TripleConstantTest tripleConstantTest1 = new TripleConstantTest("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDFTriple.Field.PREDICATE);
-		TripleConstantTest tripleConstantTest2 = new TripleConstantTest("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer", RDFTriple.Field.OBJECT);
+		TripleConstantTest tripleConstantTest1 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest2 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/Offer"), RDFTriple.Field.OBJECT);
 		
 		TripleCondition tripleCondition1 = new TripleCondition();
 		tripleCondition1.setConditionTriple(triple1);
@@ -91,10 +91,10 @@ public class SparkWaveFirstBSBMTest {
 		
 		RDFTriple triple2 = new RDFTriple();
 		triple2.setSubject(new RDFVariable("?x"));
-		triple2.setPredicate(new RDFURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product"));
+		triple2.setPredicate(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product"));
 		triple2.setObject(new RDFVariable("?product"));
 		
-		TripleConstantTest tripleConstantTest3 = new TripleConstantTest("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product", RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest3 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/product"), RDFTriple.Field.PREDICATE);
 		
 		TripleCondition tripleCondition2 = new TripleCondition();
 		tripleCondition2.setConditionTriple(triple2);
@@ -108,11 +108,11 @@ public class SparkWaveFirstBSBMTest {
 		
 		RDFTriple triple3 = new RDFTriple();
 		triple3.setSubject(new RDFVariable("?product"));
-		triple3.setPredicate(new RDFURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-		triple3.setObject(new RDFURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType2"));
+		triple3.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		triple3.setObject(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType2"));
 		
-		TripleConstantTest tripleConstantTest4 = new TripleConstantTest("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDFTriple.Field.PREDICATE);
-		TripleConstantTest tripleConstantTest5 = new TripleConstantTest("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType2", RDFTriple.Field.OBJECT);
+		TripleConstantTest tripleConstantTest4 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest5 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/ProductType2"), RDFTriple.Field.OBJECT);
 		
 		TripleCondition tripleCondition3 = new TripleCondition();
 		tripleCondition3.setConditionTriple(triple3);

@@ -132,7 +132,7 @@ public class NTripleStreamReader {
 			buffer.append(tripleChars[currentPos]);
 			currentPos++;
 		}
-		RDFURIReference tripSubject = new RDFURIReference(buffer.toString());
+		RDFURIReference tripSubject = RDFURIReference.Factory.createURIReference(buffer.toString());
 		
 		//----------------------------------------------
 		//Parse predicate RDF node
@@ -147,7 +147,7 @@ public class NTripleStreamReader {
 			buffer.append(tripleChars[currentPos]);
 			currentPos++;
 		}
-		RDFURIReference tripPredicate = new RDFURIReference(buffer.toString());
+		RDFURIReference tripPredicate = RDFURIReference.Factory.createURIReference(buffer.toString());
 		
 		//----------------------------------------------
 		//Parse object RDF node
@@ -189,7 +189,7 @@ public class NTripleStreamReader {
 				currentPos++;
 			}
 			
-			datatypeURI = new RDFURIReference(buffer.toString());
+			datatypeURI = RDFURIReference.Factory.createURIReference(buffer.toString());
 			
 			tripObject = RDFLiteral.Factory.createLiteral(lexicalForm, datatypeURI, languageTag);
 		//The character is '<' and we have another URL
@@ -201,7 +201,7 @@ public class NTripleStreamReader {
 				buffer.append(tripleChars[currentPos]);
 				currentPos++;
 			}
-			tripObject = new RDFURIReference(buffer.toString());
+			tripObject = RDFURIReference.Factory.createURIReference(buffer.toString());
 		}
 			
 		return new RDFTriple(tripSubject, tripPredicate, tripObject);

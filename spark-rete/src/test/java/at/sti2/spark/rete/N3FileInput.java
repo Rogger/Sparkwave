@@ -76,11 +76,11 @@ public class N3FileInput {
 		    RDFURIReference tripSubject = null;
 		    //If it is URI
 		    if (subject.getURI()!=null){
-		    	tripSubject = new RDFURIReference(subject.getURI());
+		    	tripSubject = RDFURIReference.Factory.createURIReference(subject.getURI());
 		    }
 		    
 		    //Create predicate - must be URI
-		    RDFURIReference tripPredicate = new RDFURIReference(predicate.getURI());
+		    RDFURIReference tripPredicate = RDFURIReference.Factory.createURIReference(predicate.getURI());
 		    
 		    // Create object - can be URI, blank node or literal
 		    
@@ -101,13 +101,13 @@ public class N3FileInput {
 		    	
 		    	//Extract datatypeURI
 		    	if (object.asLiteral().getDatatypeURI() != null)
-		    		datatypeURI = new RDFURIReference(object.asLiteral().getDatatypeURI());
+		    		datatypeURI = RDFURIReference.Factory.createURIReference(object.asLiteral().getDatatypeURI());
 		    	
 		    	tripObject = RDFLiteral.Factory.createLiteral(lexicalForm, datatypeURI, languageTag);
 		    		
 		    } else if (object.isResource()){
 		    	if (object.asResource().getURI()!=null){
-		    		tripObject = new RDFURIReference(object.asResource().getURI());
+		    		tripObject = RDFURIReference.Factory.createURIReference(object.asResource().getURI());
 			    }
 		    }
 		    

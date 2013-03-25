@@ -66,11 +66,11 @@ public class SparkWaveNetworkTest {
 		
 		RDFTriple triple1 = new RDFTriple();
 		triple1.setSubject(new RDFVariable("?x"));
-		triple1.setPredicate(new RDFURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-		triple1.setObject(new RDFURIReference("http://knoesis.wright.edu/ssw/ont/weather.owl#WindObservation"));
+		triple1.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		triple1.setObject(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/weather.owl#WindObservation"));
 		
-		TripleConstantTest tripleConstantTest1 = new TripleConstantTest("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDFTriple.Field.PREDICATE);
-		TripleConstantTest tripleConstantTest2 = new TripleConstantTest("http://knoesis.wright.edu/ssw/ont/weather.owl#WindObservation", RDFTriple.Field.OBJECT);
+		TripleConstantTest tripleConstantTest1 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest2 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/weather.owl#WindObservation"), RDFTriple.Field.OBJECT);
 		
 		TripleCondition tripleCondition1 = new TripleCondition();
 		tripleCondition1.setConditionTriple(triple1);
@@ -82,10 +82,10 @@ public class SparkWaveNetworkTest {
 		
 		RDFTriple triple2 = new RDFTriple();
 		triple2.setSubject(new RDFVariable("?x"));
-		triple2.setPredicate(new RDFURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#result"));
+		triple2.setPredicate(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#result"));
 		triple2.setObject(new RDFVariable("?y"));
 		
-		TripleConstantTest tripleConstantTest3 = new TripleConstantTest("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#result", RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest3 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#result"), RDFTriple.Field.PREDICATE);
 		
 		TripleCondition tripleCondition2 = new TripleCondition();
 		tripleCondition2.setConditionTriple(triple2);
@@ -95,10 +95,10 @@ public class SparkWaveNetworkTest {
 		
 		RDFTriple triple3 = new RDFTriple();
 		triple3.setSubject(new RDFVariable("?x"));
-		triple3.setPredicate(new RDFURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#samplingTime"));
+		triple3.setPredicate(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#samplingTime"));
 		triple3.setObject(new RDFVariable("?z"));
 		
-		TripleConstantTest tripleConstantTest4 = new TripleConstantTest("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#samplingTime", RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest4 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#samplingTime"), RDFTriple.Field.PREDICATE);
 		
 		TripleCondition tripleCondition3 = new TripleCondition();
 		tripleCondition3.setConditionTriple(triple3);
@@ -109,11 +109,11 @@ public class SparkWaveNetworkTest {
 		 */
 		RDFTriple triple4 = new RDFTriple();
 		triple4.setSubject(new RDFVariable("?y"));
-		triple4.setPredicate(new RDFURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-		triple4.setObject(new RDFURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#MeasureData"));
+		triple4.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		triple4.setObject(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#MeasureData"));
 		
-		TripleConstantTest tripleConstantTest5 = new TripleConstantTest("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDFTriple.Field.PREDICATE);
-		TripleConstantTest tripleConstantTest6 = new TripleConstantTest("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#MeasureData", RDFTriple.Field.OBJECT);
+		TripleConstantTest tripleConstantTest5 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest6 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#MeasureData"), RDFTriple.Field.OBJECT);
 		
 		TripleCondition tripleCondition4 = new TripleCondition();
 		tripleCondition4.setConditionTriple(triple4);
@@ -126,10 +126,10 @@ public class SparkWaveNetworkTest {
 		 */
 		RDFTriple triple5 = new RDFTriple();
 		triple5.setSubject(new RDFVariable("?y"));
-		triple5.setPredicate(new RDFURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#floatValue"));
+		triple5.setPredicate(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#floatValue"));
 		triple5.setObject(new RDFVariable("?floatValue"));
 		
-		TripleConstantTest tripleConstantTest7 = new TripleConstantTest("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#floatValue", RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest7 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://knoesis.wright.edu/ssw/ont/sensor-observation.owl#floatValue"), RDFTriple.Field.PREDICATE);
 		
 		TripleCondition tripleCondition5 = new TripleCondition();
 		tripleCondition5.setConditionTriple(triple5);
@@ -140,11 +140,11 @@ public class SparkWaveNetworkTest {
 		 */
 		RDFTriple triple6 = new RDFTriple();
 		triple6.setSubject(new RDFVariable("?z"));
-		triple6.setPredicate(new RDFURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-		triple6.setObject(new RDFURIReference("http://www.w3.org/2006/time#Instant"));
+		triple6.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
+		triple6.setObject(RDFURIReference.Factory.createURIReference("http://www.w3.org/2006/time#Instant"));
 		
-		TripleConstantTest tripleConstantTest8 = new TripleConstantTest("http://www.w3.org/1999/02/22-rdf-syntax-ns#type", RDFTriple.Field.PREDICATE);
-		TripleConstantTest tripleConstantTest9 = new TripleConstantTest("http://www.w3.org/2006/time#Instant", RDFTriple.Field.OBJECT);
+		TripleConstantTest tripleConstantTest8 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"), RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest9 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/2006/time#Instant"), RDFTriple.Field.OBJECT);
 		
 		TripleCondition tripleCondition6 = new TripleCondition();
 		tripleCondition6.setConditionTriple(triple6);
@@ -156,10 +156,10 @@ public class SparkWaveNetworkTest {
 		 */
 		RDFTriple triple7 = new RDFTriple();
 		triple7.setSubject(new RDFVariable("?z"));
-		triple7.setPredicate(new RDFURIReference("http://www.w3.org/2006/time#inXSDDateTime"));
+		triple7.setPredicate(RDFURIReference.Factory.createURIReference("http://www.w3.org/2006/time#inXSDDateTime"));
 		triple7.setObject(new RDFVariable("?instant"));
 		
-		TripleConstantTest tripleConstantTest10 = new TripleConstantTest("http://www.w3.org/2006/time#inXSDDateTime", RDFTriple.Field.PREDICATE);
+		TripleConstantTest tripleConstantTest10 = new TripleConstantTest(RDFURIReference.Factory.createURIReference("http://www.w3.org/2006/time#inXSDDateTime"), RDFTriple.Field.PREDICATE);
 		
 		TripleCondition tripleCondition7 = new TripleCondition();
 		tripleCondition7.setConditionTriple(triple7);

@@ -75,7 +75,7 @@ public class ProcessorThread implements Runnable{
 			Triple processedTriple = ptIter.next();
 
 			for (Token token : sparkwaveNetwork.getEpsilonNetwork()
-					.getTokenNodesByStreamedTriple(processedTriple))
+ 					.getTokenNodesByStreamedTriple(processedTriple))
 				token.removeTokenFromNode();
 
 			// Remove the list of tokens for given streamed triple

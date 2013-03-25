@@ -21,8 +21,9 @@ public class StreamParserTest {
 	public void test() throws InterruptedException {
 		
 		String toParse = 
-				"<http://www.foi.se/support/wp4demo#Observation_20110830_100005_373_PET_00001_1> <http://www.foi.se/support/wp4demo#has_status> \"true\"^^<http://www.w3.org/2001/XMLSchema#boolean> ."+
-				"<http://www.foi.se/support/wp4demo#Observation_20110830_100005_373_PET_00001_1> <http://www.foi.se/support/wp4demo#has_status> \"true\" .";
+				"<http://www.foi.se/support/wp4demo#Observation_20110830_100005_373_PET_00001_1> <http://www.foi.se/support/wp4demo#has_status> \"true\"^^<http://www.w3.org/2001/XMLSchema#boolean> . \n"+
+				"<http://www.foi.se/support/wp4demo#Observation_20110830_100005_373_PET_00001_1> <http://www.foi.se/support/wp4demo#has_status> \"true\" . \n" +
+				"<http://www.foi.se/support/wp4demo#Observation_20110830_100005_373_PET_00001_1> <http://www.foi.se/support/wp4demo#name> \"blub\" . \n";
 		InputStream inputStream = IOUtils.toInputStream(toParse);
 		List<BlockingQueue<Triple>> queues = new ArrayList<BlockingQueue<Triple>>();
 		BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);

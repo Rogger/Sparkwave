@@ -160,7 +160,7 @@ public class SparkwaveNetwork{
 			
 			for (AlphaNode predicateAlphaNode : predicateAlphaNodes){
 				logger.debug("Connecting predicate alpha node " + predicateAlphaNode + " to corresponding epsilon node.");
-				PropertyNode propertyNode = epsilonNetwork.getNetwork().getPropertyNodeByURI(((ValueTestAlphaNode)predicateAlphaNode).getTestValue());
+				PropertyNode propertyNode = epsilonNetwork.getNetwork().getPropertyNodeByURI(((ValueTestAlphaNode)predicateAlphaNode).getTestValue().toString());
 				//If the node exists in the epsilon network add binding
 				if (propertyNode != null)
 					propertyNode.addAlphaNode(predicateAlphaNode);
@@ -183,7 +183,7 @@ public class SparkwaveNetwork{
 			logger.debug("Found object alpha nodes:" + objectAlphaNodes);
 			for (AlphaNode objectAlphaNode : objectAlphaNodes){
 				logger.debug("Connecting object alpha node " + objectAlphaNode + " to corresponding epsilon class node.");
-				ClassNode classNode = epsilonNetwork.getNetwork().getClassNodeByURI(((ValueTestAlphaNode)objectAlphaNode).getTestValue());
+				ClassNode classNode = epsilonNetwork.getNetwork().getClassNodeByURI(((ValueTestAlphaNode)objectAlphaNode).getTestValue().toString());
 				//If the node exists in the epsilon network add binding
 				if (classNode != null)
 					classNode.addAlphaNode(objectAlphaNode);

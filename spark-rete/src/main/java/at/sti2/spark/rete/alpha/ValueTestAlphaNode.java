@@ -15,20 +15,22 @@
  */
 package at.sti2.spark.rete.alpha;
 
+import at.sti2.spark.core.triple.RDFValue;
+
 public abstract class ValueTestAlphaNode extends AlphaNode {
 
-	protected String testValue = null;
+	protected RDFValue testValue = null;
 	
-	public ValueTestAlphaNode(String testValue) {
+	public ValueTestAlphaNode(RDFValue testValue) {
 		super();
 		this.testValue = testValue;
 	}
 
-	public String getTestValue() {
+	public RDFValue getTestValue() {
 		return testValue;
 	}
 
-	public void setTestValue(String testValue) {
+	public void setTestValue(RDFValue testValue) {
 		this.testValue = testValue;
 	}
 	

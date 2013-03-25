@@ -18,8 +18,6 @@ package at.sti2.spark.core.triple;
 
 import at.sti2.spark.core.triple.RDFTriple.Field;
 
-
-
 /**
  * 
  * Represents triple constant test
@@ -28,18 +26,18 @@ import at.sti2.spark.core.triple.RDFTriple.Field;
  */
 public class TripleConstantTest {
 
-	private String lexicalTestSymbol = null;
+	private RDFValue lexicalTestSymbol = null;
 	private RDFTriple.Field testField = null;
 	
-	public TripleConstantTest(String lexicalTestSymbol, Field testField) {
+	public TripleConstantTest(RDFValue lexicalTestSymbol, Field testField) {
 		super();
 		this.lexicalTestSymbol = lexicalTestSymbol;
 		this.testField = testField;
 	}
-	public String getLexicalTestSymbol() {
+	public RDFValue getLexicalTestSymbol() {
 		return lexicalTestSymbol;
 	}
-	public void setLexicalTestSymbol(String lexicalTestSymbol) {
+	public void setLexicalTestSymbol(RDFValue lexicalTestSymbol) {
 		this.lexicalTestSymbol = lexicalTestSymbol;
 	}
 	public RDFTriple.Field getTestField() {

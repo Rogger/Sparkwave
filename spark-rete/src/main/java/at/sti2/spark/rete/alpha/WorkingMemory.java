@@ -146,7 +146,7 @@ public class WorkingMemory {
 		AlphaNode rdfTypeAlphaNode = getRDFTypeAlphaNode();
 		if(rdfTypeAlphaNode!=null){
 			
-			for (AlphaNode childNode : rdfTypeAlphaNode.getChildren())
+			for (AlphaNode childNode : getRDFTypeAlphaNode().getChildren())
 				
 				if (!(childNode instanceof ConstantObjectTestAlphaNode))
 					alphaNodes.add(childNode);

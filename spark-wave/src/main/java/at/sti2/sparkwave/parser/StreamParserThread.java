@@ -116,7 +116,7 @@ public class StreamParserThread implements Runnable {
 				pos++;
 			}
 			char[] subjectChar = Arrays.copyOf(charBuf, pos);
-			RDFURIReference tripSubject = new RDFURIReference(String.valueOf(subjectChar));
+			RDFURIReference tripSubject = RDFURIReference.Factory.createURIReference(String.valueOf(subjectChar));
 			
 			// ----------------------------------------------
 			// Parse predicate RDF node
@@ -131,7 +131,7 @@ public class StreamParserThread implements Runnable {
 				pos++;
 			}
 			char[] predicateChar = Arrays.copyOf(charBuf, pos);
-			RDFURIReference tripPredicate = new RDFURIReference(String.valueOf(predicateChar));
+			RDFURIReference tripPredicate = RDFURIReference.Factory.createURIReference(String.valueOf(predicateChar));
 			
 			
 			// ----------------------------------------------
@@ -150,7 +150,7 @@ public class StreamParserThread implements Runnable {
 					pos++;
 				}
 				char[] objectChar = Arrays.copyOf(charBuf, pos);
-				tripObject = new RDFURIReference(String.valueOf(objectChar));
+				tripObject = RDFURIReference.Factory.createURIReference(String.valueOf(objectChar));
 				
 			}else if(run && c == '"'){
 	
@@ -176,7 +176,7 @@ public class StreamParserThread implements Runnable {
 							pos++;
 						}
 						char[] dataTypeChar = Arrays.copyOf(charBuf, pos);
-						datatypeURI = new RDFURIReference(String.valueOf(dataTypeChar));
+						datatypeURI = RDFURIReference.Factory.createURIReference(String.valueOf(dataTypeChar));
 					}
 				}
 				tripObject = RDFLiteral.Factory.createLiteral(String.valueOf(lexicalChar),datatypeURI,null);

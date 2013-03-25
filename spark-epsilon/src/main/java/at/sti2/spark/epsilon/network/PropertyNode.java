@@ -42,12 +42,12 @@ public class PropertyNode extends Node {
 		if (linkType.equals(Node.LinkType.LINK_SO))
 			activeTriple = new RDFTriple(
 					triple.getRDFTriple().getSubject(),
-					new RDFURIReference(getUri()),
+					RDFURIReference.Factory.createURIReference(getUri()),
 					triple.getRDFTriple().getObject());
 		else
 			activeTriple = new RDFTriple(
 					triple.getRDFTriple().getObject(),
-					new RDFURIReference(getUri()),
+					RDFURIReference.Factory.createURIReference(getUri()),
 					triple.getRDFTriple().getSubject());
 		
 		Triple activeStreamedTriple = new Triple(

@@ -51,11 +51,14 @@ public class RDFLiteral extends RDFValue {
 	}
 	
 	/**
-	 * Returns value plus datatype
+	 * Returns value plus datatype (if set)
 	 * @return
 	 */
 	public String getValue() {
-		return value+"^^"+datatypeURI;
+		if(datatypeURI!=null)
+			return value+"^^"+datatypeURI;
+		else
+			return value;
 	}
 	
 	public RDFURIReference getDatatypeURI() {
@@ -113,9 +116,9 @@ public class RDFLiteral extends RDFValue {
 	public String toString(){
 		
 		StringBuffer buffer = new StringBuffer();
-
-		buffer.append("\"").append(value).append("\"");
 		
+		buffer.append(value);
+
 		if (languageTag != null)
 			buffer.append(languageTag);
 		else if (datatypeURI != null){
@@ -140,7 +143,7 @@ public class RDFLiteral extends RDFValue {
 		 * @param languageTag
 		 * @return
 		 */
-		public static RDFLiteral createLiteral(String value, RDFURIReference datatypeURI, String languageTag){
+		public static RDFLiteral createLiteral(final String value, final RDFURIReference datatypeURI, final String languageTag){
 			if(datatypeURI != null && datatypeURI.equals(XMLSchema.getXSDDouble())){
 				Double doubleValue = Double.parseDouble(value);
 				return createNumericLiteral(doubleValue);

@@ -37,12 +37,12 @@ public class SupportHandlerTest {
 
 		
 		Hashtable<String, RDFValue> variableBindings = new Hashtable<String, RDFValue>();
-		variableBindings.put("sensor1", new RDFURIReference("http://www.foi.se/support/wp4demo#PAT_1"));
-		variableBindings.put("sensor2", new RDFURIReference("http://www.foi.se/support/wp4demo#PET_3"));
-		variableBindings.put("detection1", new RDFURIReference("http://www.foi.se/support/wp4demo#Observation_20110830_102125_943_PAT_01021_1"));
-		variableBindings.put("detection2", new RDFURIReference("http://www.foi.se/support/wp4demo#Observation_20110830_102125_943_PET_01021_3"));
-		variableBindings.put("location1", new RDFURIReference("http://www.foi.se/support/wp4demo#Quay_A"));
-		variableBindings.put("location2", new RDFURIReference("http://www.foi.se/support/wp4demo#Quay_B"));
+		variableBindings.put("sensor1", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#PAT_1"));
+		variableBindings.put("sensor2", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#PET_3"));
+		variableBindings.put("detection1", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#Observation_20110830_102125_943_PAT_01021_1"));
+		variableBindings.put("detection2", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#Observation_20110830_102125_943_PET_01021_3"));
+		variableBindings.put("location1", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#Quay_A"));
+		variableBindings.put("location2", RDFURIReference.Factory.createURIReference("http://www.foi.se/support/wp4demo#Quay_B"));
 		
 		match = new Match();
 		match.setVariableBindings(variableBindings);

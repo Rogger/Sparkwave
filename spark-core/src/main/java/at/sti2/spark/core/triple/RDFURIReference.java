@@ -21,6 +21,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 /**
  * Immutable RDFURIReference
  * @author srdjankomazec
+ * @author michaelrogger
  *
  */
 public final class RDFURIReference extends RDFValue {
@@ -32,11 +33,17 @@ public final class RDFURIReference extends RDFValue {
 	// caching hashCode
 	private int hashCode = 0;
 	
-	public RDFURIReference(final String iri){
+	/**
+	 * Private constructor, use RDFLiteral.Factory.createLiteral()
+	 */
+	protected RDFURIReference(final String iri){
 		this.iri = iri;
 	}
 	
-	public RDFURIReference(final String namespace, final String name){
+	/**
+	 * Private constructor, use RDFLiteral.Factory.createLiteral()
+	 */
+	protected RDFURIReference(final String namespace, final String name){
 		this.iri = namespace+name;
 	}
 
@@ -49,6 +56,7 @@ public final class RDFURIReference extends RDFValue {
 		
 		//reference check (fast)
 		if(this == that) return true;
+		
 		//type check and null check
 		if(!(that instanceof RDFURIReference)) return false;
 		
@@ -66,5 +74,12 @@ public final class RDFURIReference extends RDFValue {
 	
 	public String toString(){
 		return iri.toString();
+	}
+	
+	public static class Factory{
+		
+		public static RDFURIReference createURIReference(final String iri){
+			return new RDFURIReference(iri);
+		}
 	}
 }

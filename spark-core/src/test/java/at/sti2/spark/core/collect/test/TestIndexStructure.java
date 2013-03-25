@@ -30,15 +30,15 @@ public class TestIndexStructure {
 //		LinkedHashMultimap<WeakReference<RDFValue>, WeakReference<WorkingMemoryElement>> predicateItems = LinkedHashMultimap.create();
 //		
 //		//create object
-//		RDFValue subject = new RDFURIReference("http://www.test.com/subject");
-//		RDFValue subject1 = new RDFURIReference("http://www.test.com/subject");
+//		RDFValue subject = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
+//		RDFValue subject1 = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
 //		WeakReference<RDFValue> weakSubject = new WeakReference<RDFValue>(subject1);
 //	
-//		RDFValue predicate = new RDFURIReference("http://www.test.com/predicate");
-//		RDFValue predicate1 = new RDFURIReference("http://www.test.com/predicate");
+//		RDFValue predicate = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
+//		RDFValue predicate1 = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
 //		WeakReference<RDFValue> weakPredicate = new WeakReference<RDFValue>(predicate1);
 //		
-//		RDFValue object = new RDFURIReference("http://www.test.com/object");
+//		RDFValue object = RDFURIReference.Factory.createURIReference("http://www.test.com/object");
 //		
 //		WorkingMemoryElement wme = new WorkingMemoryElement(new Triple(new RDFTriple(subject,predicate,object),12,1));
 //		WeakReference<WorkingMemoryElement> weakWME = new WeakReference<WorkingMemoryElement>(wme);
@@ -81,13 +81,13 @@ public class TestIndexStructure {
 //		WeakHashMap<RDFValue, Object> predMap = new WeakHashMap<RDFValue, Object>();
 //		
 //		//create object
-//		RDFURIReference subject = new RDFURIReference("http://www.test.com/subject");
-//		RDFURIReference subjectKey = new RDFURIReference("http://www.test.com/subject");
+//		RDFURIReference subject = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
+//		RDFURIReference subjectKey = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
 //
-//		RDFURIReference predicate = new RDFURIReference("http://www.test.com/predicate");
-//		RDFURIReference predicateKey = new RDFURIReference("http://www.test.com/predicate");
+//		RDFURIReference predicate = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
+//		RDFURIReference predicateKey = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
 //
-//		RDFURIReference object = new RDFURIReference("http://www.test.com/object");
+//		RDFURIReference object = RDFURIReference.Factory.createURIReference("http://www.test.com/object");
 //		
 //		WorkingMemoryElement wme = new WorkingMemoryElement(new Triple(new RDFTriple(subject,predicate,object),12,1));
 //		Object o1 = new Object();
@@ -144,9 +144,9 @@ public class TestIndexStructure {
 
 			//create object
 			long now = System.currentTimeMillis();
-			RDFURIReference subject = new RDFURIReference("http://www.test.com/subject");
-			RDFURIReference predicate = new RDFURIReference("http://www.test.com/predicate");
-			RDFURIReference object = new RDFURIReference("http://www.test.com/object");
+			RDFURIReference subject = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
+			RDFURIReference predicate = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
+			RDFURIReference object = RDFURIReference.Factory.createURIReference("http://www.test.com/object");
 			RDFTriple rdfTriple = new RDFTriple(subject, predicate, object);
 			subjectIndex.addElement(rdfTriple, removableObject, now);
 
@@ -169,9 +169,9 @@ public class TestIndexStructure {
 
 			//create object
 			long now = System.currentTimeMillis();
-			RDFURIReference subject = new RDFURIReference("http://www.test.com/subject");
-			RDFURIReference predicate = new RDFURIReference("http://www.test.com/predicate");
-			RDFURIReference object = new RDFURIReference("http://www.test.com/object");
+			RDFURIReference subject = RDFURIReference.Factory.createURIReference("http://www.test.com/subject");
+			RDFURIReference predicate = RDFURIReference.Factory.createURIReference("http://www.test.com/predicate");
+			RDFURIReference object = RDFURIReference.Factory.createURIReference("http://www.test.com/object");
 			RDFTriple rdfTriple = new RDFTriple(subject, predicate, object);
 			
 			Removable removableObject = new Removable() {

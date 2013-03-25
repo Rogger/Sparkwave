@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- Edited by XMLSpy® -->
+<!-- Edited by XMLSpy® 25.3 -->
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:wpdemo="http://www.foi.se/support/wp4demo#" xmlns:supportOnt="http://www.foi.se/support/wp4demo#"

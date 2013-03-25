@@ -291,7 +291,7 @@ public class RETENetwork {
 	}
 
 	private AlphaNode buildOrShareConstantTestNode(AlphaNode currentNode,
-			RDFTriple.Field field, String lexicalTestSymbol) {
+			RDFTriple.Field field, RDFValue lexicalTestSymbol) {
 
 		AlphaNode returnNode = null;
 

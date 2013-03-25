@@ -19,27 +19,27 @@ import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
+import at.sti2.spark.core.triple.RDFValue;
 import at.sti2.spark.rete.WorkingMemoryElement;
 
 public class ConstantObjectTestAlphaNode extends ValueTestAlphaNode {
 
 	static Logger log = Logger.getLogger(ConstantObjectTestAlphaNode.class);
 	
-	public ConstantObjectTestAlphaNode(String testValue) {
+	public ConstantObjectTestAlphaNode(RDFValue testValue) {
 		super(testValue);
-		log.debug("Object test value:" + testValue);
 	}
 
 	@Override
 	public void testActivation(WorkingMemoryElement wme) {
 		
-		String lexicalNodeValue = null;
+		RDFValue lexicalNodeValue = null;
 		
-		//TODO This can be further optimized by realizing from ontology/pattern if expected value is URI or literal
+		//TODO This check is obsolete?
 		if (wme.getTriple().getRDFTriple().getObject() instanceof RDFURIReference)
-			lexicalNodeValue = ((RDFURIReference)wme.getTriple().getRDFTriple().getObject()).getValue().toString();
+			lexicalNodeValue = ((RDFURIReference)wme.getTriple().getRDFTriple().getObject());
 		else if (wme.getTriple().getRDFTriple().getObject() instanceof RDFLiteral)
-			lexicalNodeValue = ((RDFLiteral)wme.getTriple().getRDFTriple().getObject()).getValue();
+			lexicalNodeValue = ((RDFLiteral)wme.getTriple().getRDFTriple().getObject());
 
 		if (!lexicalNodeValue.equals(testValue))
 			return;

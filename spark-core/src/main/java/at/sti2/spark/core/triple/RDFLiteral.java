@@ -117,7 +117,7 @@ public class RDFLiteral extends RDFValue {
 		
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append(value);
+		buffer.append("\"").append(value).append("\"");
 
 		if (languageTag != null)
 			buffer.append(languageTag);

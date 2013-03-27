@@ -26,7 +26,7 @@ import at.sti2.spark.rete.alpha.AlphaNode;
 
 public abstract class Node {
 
-	private String uri = null;
+	protected String uri = null;
 
 	public enum LinkType {
 		LINK_S, LINK_O, LINK_SO, LINK_OS

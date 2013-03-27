@@ -78,7 +78,7 @@ public class WorkingMemory {
 		
 		for (AlphaNode childNode : rootNode.getChildren())
 			if ((childNode instanceof ConstantPredicateTestAlphaNode) &&
-				!(((ConstantPredicateTestAlphaNode)childNode).getTestValue().equals(rdfTypeIdentifier)))
+				!(((ConstantPredicateTestAlphaNode)childNode).getTestValue().toString().equals(rdfTypeIdentifier)))
 				propertyAlphaNodes.add(childNode);
 		
 		return propertyAlphaNodes;
@@ -106,7 +106,7 @@ public class WorkingMemory {
 		
 		for (AlphaNode childNode : rootNode.getChildren())
 			if ((childNode instanceof ConstantPredicateTestAlphaNode) &&
-				(((ConstantPredicateTestAlphaNode)childNode).getTestValue().equals(rdfTypeIdentifier)))
+				(((ConstantPredicateTestAlphaNode)childNode).getTestValue().toString().equals(rdfTypeIdentifier)))
 					return childNode;
 		return null;
 	}

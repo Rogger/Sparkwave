@@ -67,4 +67,9 @@ public class ClassNode extends Node {
 		for (Node node : sLinks)
 			node.activate(triple, tokenNodes, Node.LinkType.LINK_S);
 	}
+	
+	@Override
+	public String toString() {
+		return uri;
+	}
 }

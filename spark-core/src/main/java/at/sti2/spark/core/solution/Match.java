@@ -86,19 +86,11 @@ public class Match {
 					buffer.append(value.toString());
 					buffer.append("> .\n");
 				} else if (value instanceof RDFLiteral){
-					buffer.append('\"');
-					buffer.append(((RDFLiteral)value).getValue());
-					buffer.append('\"');
-					buffer.append("^^<");
-					buffer.append(((RDFLiteral)value).getDatatypeURI());
-					buffer.append("> .\n");
+					buffer.append(value.toString());
+					buffer.append(".\n");
 				}
 			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
-//				buffer.append('\"');
 				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).toString());
-//				buffer.append('\"');
-//				buffer.append("^^<");
-//				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).getDatatypeURI());
 				buffer.append(" .\n");
 			}
 		}

@@ -70,6 +70,8 @@ public class AlphaMemory {
 			indexStructure.addElement(wme.getTriple().getRDFTriple(), wme, wme.getTriple().getTimestamp());
 
 		wme.addAlphaMemory(this);
+		
+		logger.debug("Entering BetaNetwork: "+wme.getTriple());
 
 		for (RETENode reteNode : successors)
 			reteNode.rightActivate(wme);

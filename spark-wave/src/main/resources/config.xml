@@ -3,7 +3,7 @@
     <!-- Mandatory element. Sparkwave listens to specified port (TCP/IP socket) -->
     <port>8080</port>
     <!-- Optional element. Preprocessing plugins trasform the incoming data. They are working in sequence as listed in this configuration file -->
-    <preprocess>
+	<preprocess>
         <!-- XSLTransformation Plugin -->
         <plugin>
             <class>at.sti2.spark.preprocess.XSLTransformer</class>

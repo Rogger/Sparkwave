@@ -521,7 +521,7 @@ public class RETENetwork {
 				+ (alphaNode.getClass().getName()));
 		if (alphaNode instanceof ValueTestAlphaNode)
 			logger.debug(prefix + "Value to test:"
-					+ ((ValueTestAlphaNode) alphaNode).getTestValue());
+					+ ((ValueTestAlphaNode) alphaNode).getTestValue().toString());
 		if (alphaNode.getOutputMemory() != null)
 			logger.debug(prefix
 					+ "Alpha mem id:"

@@ -56,7 +56,7 @@ public class SparkwaveKernel{
 		try {
 			logger.info("Reading Sparkwave configuration from "+configFileName+"...");
 			sparkwaveConfig = sparkConfigLoader.load(configFileName);
-			logger.info("Loaded configuration: port="+sparkwaveConfig.getPort()+", Number of PreProcessing Plugins="+ sparkwaveConfig.getPPPluginsConfig().size());
+			logger.info("Loaded configuration: port="+sparkwaveConfig.getPort()+", Number of pre-processing plugins="+ sparkwaveConfig.getPPPluginsConfig().size());
 			//TODO check schema
 		} catch (ConfigurationException e) {
 			logger.error("Could not load config file, please check existance of "+configFileName);

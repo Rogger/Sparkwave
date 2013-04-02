@@ -69,6 +69,7 @@ public class SparkwaveKernel{
 											.hasArg()
 											.withDescription("use the specified config file instead of the default config.xml")
 											.create("config");
+		
 		Options options = new Options();
 		options.addOption(optionHelp);
 		options.addOption(optionVersion);
@@ -79,14 +80,15 @@ public class SparkwaveKernel{
 		try {
 			commandLine = parser.parse(options, args);
 		} catch (ParseException e) {
-			System.err.println("Error while parsing command-line arguments: "+e.getMessage());
+			System.err.println("Error while parsing command-line arguments. "+e.getMessage());
+			System.err.println();
+			displayHelp(options);
 			System.exit(1);
 		}
 		
 		// help
 		if(commandLine == null || commandLine.hasOption("help")){
-			HelpFormatter formatter = new HelpFormatter();
-			formatter.printHelp("sparkwave", options, true);
+			displayHelp(options);
 			System.exit(0);
 		}
 		
@@ -94,7 +96,7 @@ public class SparkwaveKernel{
 		if(commandLine.hasOption("version")){
 			Package classPackage = this.getClass().getPackage();
 			String implementationVersion = classPackage.getImplementationVersion();
-			System.out.println("Version: "+implementationVersion);
+			System.out.println("version: "+implementationVersion);
 			System.exit(0);
 		}
 		
@@ -112,6 +114,11 @@ public class SparkwaveKernel{
 		
 		@SuppressWarnings("rawtypes") // commons-cli should fix this
 		List argList = commandLine.getArgList();
+		if(argList.size()==0){
+			System.err.println("No pattern file(s) specified!");
+			displayHelp(options);
+			System.exit(0);
+		}
 		
 		logger.info("Initializing Sparkwave...");
 		
@@ -140,6 +147,11 @@ public class SparkwaveKernel{
 		
 		// kick off bootstrap
 		bootstrap(sparkwaveConfig, patternFiles);
+	}
+	
+	private void displayHelp(Options options){
+		HelpFormatter formatter = new HelpFormatter();
+		formatter.printHelp("sparkwave", options, true);
 	}
 	
 	/**

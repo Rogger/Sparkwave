@@ -25,8 +25,8 @@ import at.sti2.spark.core.constants.XMLSchema;
  * dataytype and optional language tag. Use the factory
  * <code>RDFLiteral.Factory.createLiteral()</code> to create an instance.
  * 
- * @author srdjankomazec
  * @author michaelrogger
+ * @author srdjankomazec
  * 
  */
 public class RDFLiteral extends RDFValue {
@@ -38,10 +38,10 @@ public class RDFLiteral extends RDFValue {
 	private final String languageTag;
 	
 	// cached hash code
-	private int hashCode = 0;
+	private int cachedHashCode = 0;
 	
 	/**
-	 * Private constructor, use RDFLiteral.Factory.createLiteral()
+	 * Private constructor, use RDFLiteral.Factory.createLiteral() to create an instance
 	 */
 	protected RDFLiteral(String value, RDFURIReference datatypeURI, String languageTag) {
 		super();
@@ -51,20 +51,32 @@ public class RDFLiteral extends RDFValue {
 	}
 	
 	/**
-	 * Returns value plus datatype (if set)
-	 * @return
+	 * @return the value plus datatype (if set)
 	 */
-	public String getValue() {
+	public String getValueAndDatatypeURI() {
 		if(datatypeURI!=null)
 			return value+"^^"+datatypeURI;
 		else
 			return value;
 	}
 	
+	/**
+	 * @return the value without data-type and without language tag
+	 */
+	public String getValue(){
+		return value;
+	}
+	
+	/**
+	 * @return the datatype URI
+	 */
 	public RDFURIReference getDatatypeURI() {
 		return datatypeURI;
 	}
 	
+	/**
+	 * @return the language tag
+	 */
 	public String getLanguageTag() {
 		return languageTag;
 	}
@@ -98,19 +110,18 @@ public class RDFLiteral extends RDFValue {
 					return false;
 			
 		return rdfLiteral.getValue().equals(value);
-			
 	}
 	
 	@Override
 	public int hashCode() {
-		if(hashCode == 0){
-			hashCode = new HashCodeBuilder(11,37)
+		if(cachedHashCode == 0){
+			cachedHashCode = new HashCodeBuilder(11,37)
 					.append(value)
 					.append(datatypeURI)
 					.append(languageTag)
 					.toHashCode();			
 		}
-		return hashCode;
+		return cachedHashCode;
 	}
 	
 	public String toString(){
@@ -130,7 +141,7 @@ public class RDFLiteral extends RDFValue {
 	}
 	
 	/**
-	 * Factory for creating immutable literals
+	 * Factory for creating immutable rdf literals
 	 * @author michaelrogger
 	 *
 	 */

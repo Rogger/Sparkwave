@@ -89,9 +89,11 @@ public class Match {
 					buffer.append(value.toString());
 					buffer.append(".\n");
 				}
+				
 			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
 				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).toString());
 				buffer.append(" .\n");
+			
 			}
 		}
 		return buffer.toString();

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sparkwave>
-    <!-- Mandatory element. Sparkwave listens to specified port (TCP/IP socket) -->
-    <port>8080</port>
-</sparkwave>

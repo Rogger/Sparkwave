@@ -25,6 +25,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 
@@ -36,18 +44,74 @@ import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.sparkwave.configuration.ConfigurationModel;
 import at.sti2.sparkwave.configuration.SparkwaveConfigLoader;
 
+/**
+ * This Class serves as entrypoint for Sparkwave
+ * @author michaelrogger
+ * @author srdkom
+ *
+ */
 public class SparkwaveKernel{
 	
 	private static Logger logger = Logger.getLogger(SparkwaveKernel.class);
-	private static final String configFileName = "config.xml";
+	private String configFileName = "config.xml";
 	
 	public static void main(String args[]){
+		new SparkwaveKernel().init(args);
+	}
+	
+	private void init(String args[]){
 		
-		if (args.length < 1){
-			logger.info("Sparkwave expects the following parameters:");
-			logger.info(" (<pattern file>)?	- path to one or more *.tpg pattern file(s)");
+		Option optionHelp = new Option("help", "print this message");
+		Option optionVersion = new Option("version", "print the version");
+		
+		@SuppressWarnings("static-access") // Fix for static access is in commons-cli version 1.3
+		Option optionConfig = OptionBuilder.withArgName("file")
+											.hasArg()
+											.withDescription("use the specified config file instead of the default config.xml")
+											.create("config");
+		Options options = new Options();
+		options.addOption(optionHelp);
+		options.addOption(optionVersion);
+		options.addOption(optionConfig);
+		
+		CommandLineParser parser = new PosixParser();
+		CommandLine commandLine = null;
+		try {
+			commandLine = parser.parse(options, args);
+		} catch (ParseException e) {
+			System.err.println("Error while parsing command-line arguments: "+e.getMessage());
+			System.exit(1);
+		}
+		
+		// help
+		if(commandLine == null || commandLine.hasOption("help")){
+			HelpFormatter formatter = new HelpFormatter();
+			formatter.printHelp("sparkwave", options, true);
 			System.exit(0);
 		}
+		
+		// version
+		if(commandLine.hasOption("version")){
+			Package classPackage = this.getClass().getPackage();
+			String implementationVersion = classPackage.getImplementationVersion();
+			System.out.println("Version: "+implementationVersion);
+			System.exit(0);
+		}
+		
+		// config
+		if(commandLine.hasOption("config")){
+			String optionValue = commandLine.getOptionValue("config");
+			configFileName = optionValue;
+		}
+		
+//		if (args.length < 1){
+//			logger.info("Sparkwave expects the following parameters:");
+//			logger.info(" (<pattern file>)?	- path to one or more *.tpg pattern file(s)");
+//			System.exit(0);
+//		}
+		
+		@SuppressWarnings("rawtypes") // commons-cli should fix this
+		List argList = commandLine.getArgList();
 		
 		logger.info("Initializing Sparkwave...");
 		
@@ -57,31 +121,25 @@ public class SparkwaveKernel{
 			logger.info("Reading Sparkwave configuration from "+configFileName+"...");
 			sparkwaveConfig = sparkConfigLoader.load(configFileName);
 			logger.info("Loaded configuration: port="+sparkwaveConfig.getPort()+", Number of pre-processing plugins="+ sparkwaveConfig.getPPPluginsConfig().size());
-			//TODO check schema
 		} catch (ConfigurationException e) {
 			logger.error("Could not load config file, please check existance of "+configFileName);
-			System.exit(0);
+			System.exit(1);
 		}
 		
-		//Test to see if the port number is correct
-//		int portNumber = configLoader.getPort();
-//		if ((portNumber < 0) || (portNumber > 65535)){
-//			logger.error("The port number value should be between 0 and 65535!");
-//			System.exit(0);
-//		}
-		
 		ArrayList<File> patternFiles = new ArrayList<File>();
-		for(int i = 0; i < args.length; i++){
-			File patternFile = new File(args[i]);
+		for(int i = 0; i < argList.size(); i++){
+			Object arg = argList.get(i);
+			File patternFile = new File(arg.toString());
 			if (!patternFile.exists()){
 				logger.error("Cannot load pattern file "+patternFile+" !");
-				System.exit(0);
+				System.exit(1);
 			}else{
 				patternFiles.add(patternFile);				
 			}
 		}
 		
-		new SparkwaveKernel().bootstrap(sparkwaveConfig, patternFiles);
+		// kick off bootstrap
+		bootstrap(sparkwaveConfig, patternFiles);
 	}
 	
 	/**

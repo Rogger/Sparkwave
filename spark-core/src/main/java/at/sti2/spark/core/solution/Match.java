@@ -15,6 +15,10 @@
  */
 package at.sti2.spark.core.solution;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -91,11 +95,36 @@ public class Match {
 				}
 				
 			} else if (condition.getConditionTriple().getObject() instanceof RDFLiteral){
-				buffer.append(((RDFLiteral)condition.getConditionTriple().getObject()).toString());
+				RDFLiteral rdfLiteral = (RDFLiteral)condition.getConditionTriple().getObject();
+				
+				// NOW() function
+				if("NOW()".equals(rdfLiteral.getValue())){
+					Date date = Calendar.getInstance().getTime();
+					buffer.append("\""+formatXSDDateTime(date)+"\"");
+					RDFURIReference datatypeURI = rdfLiteral.getDatatypeURI();
+					if(datatypeURI != null)
+						buffer.append("^^<"+datatypeURI+">");
+				}else {
+					buffer.append((rdfLiteral).toString());
+				}
+				
 				buffer.append(" .\n");
 			
 			}
 		}
 		return buffer.toString();
 	}
+	
+	/**
+	 * Returns date time in the xsd format, e.g. 2011-01-10T14:45:13.815-05:00
+	 * @param dt the passed date
+	 * @return string formatted according to xsd:dateTime
+	 */
+	private String formatXSDDateTime(Date dt) {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        DateFormat tzFormatter = new SimpleDateFormat("Z");
+        String timezone = tzFormatter.format(dt);
+        return formatter.format(dt) + timezone.substring(0, 3) + ":"
+                + timezone.substring(3);
+    }
 }

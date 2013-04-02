@@ -30,7 +30,7 @@ CONSTRUCT {
 	support:EventX support:generated-by support:StreamProcessor .
 	support:EventX support:location ?location1 .
 	support:EventX support:location ?location2 .
-	support:EventX support:date "NOW()"^^<http://www.w3.org/2001/XMLSchema#date> .
+	support:EventX support:date "NOW()"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
 	support:EventX support:report_based_on_service ?sensor1 .
 	support:EventX support:report_based_on_service ?sensor2 .
 

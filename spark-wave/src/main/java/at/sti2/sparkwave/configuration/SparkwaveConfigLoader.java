@@ -7,7 +7,11 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 
-
+/**
+ * Loads the Sparkwave configuration
+ * @author michaelrogger
+ *
+ */
 public class SparkwaveConfigLoader {
 	
 	XMLConfiguration config = null;

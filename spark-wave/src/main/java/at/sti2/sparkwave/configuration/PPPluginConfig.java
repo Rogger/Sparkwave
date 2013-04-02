@@ -4,6 +4,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * Plugin configuration model
+ * @author michaelrogger
+ *
+ */
 public class PPPluginConfig {
 	
 	private String className = null;

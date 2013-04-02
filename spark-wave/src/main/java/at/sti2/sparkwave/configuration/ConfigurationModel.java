@@ -3,6 +3,11 @@ package at.sti2.sparkwave.configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sparkwave configuration model
+ * @author michaelrogger
+ *
+ */
 public class ConfigurationModel {
 	
 	private int port = 0;

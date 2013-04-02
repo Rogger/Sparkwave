@@ -27,6 +27,11 @@ import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.spark.handler.SparkwaveHandler;
 import at.sti2.spark.handler.SparkwaveHandlerException;
 
+/**
+ * Manages and executes all handlers for a pattern
+ * @author michaelrogger
+ *
+ */
 public class HandlerThread extends Thread {
 
 	static Logger logger = Logger.getLogger(HandlerThread.class);

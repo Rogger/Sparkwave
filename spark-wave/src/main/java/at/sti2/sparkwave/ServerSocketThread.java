@@ -39,6 +39,12 @@ import at.sti2.sparkwave.parser.StreamParserThread;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
+/**
+ * Accepts new connections on socket. Forwards results to pre-processing and parser threads.
+ * @author michaelrogger
+ * @author srdkom
+ *
+ */
 public class ServerSocketThread implements Runnable{
 	
 	static Logger logger = Logger.getLogger(ServerSocketThread.class);

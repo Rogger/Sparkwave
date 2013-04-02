@@ -36,6 +36,12 @@ import at.sti2.spark.rete.alpha.WorkingMemory;
 import at.sti2.spark.rete.beta.ProductionNode;
 import at.sti2.sparkwave.input.NTripleStreamReader;
 
+/**
+ * Initiates the building and connecting of the epsilon, alpha and beta network.
+ * @author michaelrogger
+ * @author srdkom
+ *
+ */
 public class SparkwaveNetwork{
 	
 	static Logger logger = Logger.getLogger(SparkwaveNetwork.class);

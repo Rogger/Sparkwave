@@ -1,7 +1,7 @@
 package at.sti2.sparkwave.launcher;
 
 /**
- * This launcher is the main entry point, Jar class loader will take care of
+ * This launcher is the main entry point for the archive. The jar class loader will take care of
  * loading dependencies on demand
  * 
  * @author michaelrogger

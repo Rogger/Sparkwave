@@ -45,7 +45,7 @@ import at.sti2.sparkwave.configuration.ConfigurationModel;
 import at.sti2.sparkwave.configuration.SparkwaveConfigLoader;
 
 /**
- * This Class serves as entrypoint for Sparkwave
+ * Serves as entrypoint for Sparkwave.
  * @author michaelrogger
  * @author srdkom
  *

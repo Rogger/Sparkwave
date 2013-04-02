@@ -23,6 +23,11 @@ import org.apache.log4j.Logger;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
 
+/**
+ * 
+ * @author michaelrogger
+ *
+ */
 public class ProcessorThread implements Runnable{
 	
 	static Logger logger = Logger.getLogger(ProcessorThread.class);

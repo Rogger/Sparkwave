@@ -44,25 +44,25 @@ public class TestSupportEventTransformation {
 	 */
 	@Test
 	public void testSensorsNTtoEventXML() throws FileNotFoundException{
-		FileInputStream in = new FileInputStream("target/test-classes/support/Event.nt");
-		ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
-		
-		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();
-		formatTransformer.init(in, baos1);
-		formatTransformer.setProperty("from", "N3");
-		formatTransformer.setProperty("to", "RDF/XML-ABBREV");
-		formatTransformer.process();
-		System.out.println(baos1.toString());
-		
-		// copy output from rdftransformer to input for xslttransformer
-		ByteArrayInputStream bridge = new java.io.ByteArrayInputStream(baos1.toByteArray()); 
-				
-		ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
-		XSLTransformer transformer = new XSLTransformer();
-		transformer.init(bridge, baos2);
-		transformer.setProperty("xsltLocation", "target/test-classes/support/fromRDFToEvent.xslt");
-		transformer.process();
-		System.out.println(baos2.toString());
+//		FileInputStream in = new FileInputStream("target/test-classes/support/Event.nt");
+//		ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
+//		
+//		RDFFormatTransformer formatTransformer = new RDFFormatTransformer();
+//		formatTransformer.init(in, baos1);
+//		formatTransformer.setProperty("from", "N3");
+//		formatTransformer.setProperty("to", "RDF/XML-ABBREV");
+//		formatTransformer.process();
+//		System.out.println(baos1.toString());
+//		
+//		// copy output from rdftransformer to input for xslttransformer
+//		ByteArrayInputStream bridge = new java.io.ByteArrayInputStream(baos1.toByteArray()); 
+//				
+//		ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+//		XSLTransformer transformer = new XSLTransformer();
+//		transformer.init(bridge, baos2);
+//		transformer.setProperty("xsltLocation", "target/test-classes/support/fromRDFToEvent.xslt");
+//		transformer.process();
+//		System.out.println(baos2.toString());
 	}
 	
 	/**

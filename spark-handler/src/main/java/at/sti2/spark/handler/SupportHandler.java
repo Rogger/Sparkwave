@@ -56,12 +56,25 @@ public class SupportHandler implements SparkwaveHandler {
 	@Override
 	public void invoke(Match match) throws SparkwaveHandlerException{
 		
-		/*
-		 * TODO This is an ugly hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
-		 *
-		 ******************************************************/
+		boolean twominfilter = false;
+		String xsltLocation = "target/classes/support/fromRDFToEvent.xslt";
+		
 		String value = handlerProperties.getValue("twominfilter");
 		if(value == null || (value != null && value.equals("true"))){
+			twominfilter = true;
+		}
+		
+		value = handlerProperties.getValue("xsltLocation");
+		if(value != null && !"".equals(value)){
+			xsltLocation = value;
+		}
+		
+		
+		/*
+		 * TODO This is a hack to stop Impactorium handler of sending thousands of matches regarding the same event. 
+		 *
+		 ******************************************************/
+		if(twominfilter){
 			long timestamp = (new Date()).getTime();
 			if (timestamp-twoMinutesPause < 120000)
 				return;
@@ -97,7 +110,7 @@ public class SupportHandler implements SparkwaveHandler {
 		// convert RDFXML to XML
 		XSLTransformer rdfxmlToXML = new XSLTransformer();
 		rdfxmlToXML.init(in1 , out2);
-		rdfxmlToXML.setProperty("xsltLocation", "target/classes/support/fromRDFToEvent.xslt");
+		rdfxmlToXML.setProperty("xsltLocation", xsltLocation);
 		rdfxmlToXML.process();
 		
 		String strEvent = out2.toString();

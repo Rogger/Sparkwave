@@ -1,16 +1,17 @@
 CONFIGURATION
 =============
 Sparkwave can be configured using the config.xml file.
+You can specify the port Sparkwave is listening for incoming data stream and define the pre-processing plugins.
 
 RUN
 ===
 
 To start Sparkwave execute the following command:
 
-	$ sh spark.sh [pattern_file+]
+	$ sh spark.sh -p [pattern_file+]
 
 	Example:
-	$ sh spark.sh $PWD/support/support_pattern.tpg
+	$ sh spark.sh -p $PWD/support/support_pattern.tpg
  
 
 To start Sparkwave streamer execute the following command:

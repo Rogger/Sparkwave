@@ -1,0 +1,54 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX support: <http://www.foi.se/support/wp4demo#>
+
+#Location of the epsilon ontology file
+EPSILON_ONTOLOGY = "support/pattern/support_schema.owl"
+
+#Location of the static instances file
+STATIC_INSTANCES = "support/pattern/instances.nt"
+
+
+HANDLERS{
+
+#	HANDLER {
+#		"class" = "at.sti2.spark.handler.RestHandler"
+#		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.svc/event"
+#	}
+
+	HANDLER {
+		"class" = "at.sti2.spark.handler.SupportHandler"
+		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.svc/event"
+		"twominfilter" = "true"
+		"xsltLocation" = "support/xslt/fromRDFToEvent.xslt"
+	}
+	
+	HANDLER {
+		"class" = "at.sti2.spark.handler.ConsoleHandler"
+		"verbose" = "true"
+	}
+}
+
+CONSTRUCT {
+	support:EventX rdf:type support:Event .
+	support:EventX rdf:type support:PETPATDetection .
+	support:EventX support:name "PETPATDetection" .
+	support:EventX support:generated-by support:StreamProcessor .
+	support:EventX support:location ?location1 .
+	support:EventX support:location ?location2 .
+	support:EventX support:date "NOW()"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+	support:EventX support:report_based_on_service ?sensor1 .
+	support:EventX support:report_based_on_service ?sensor2 .
+} WHERE {
+	?detection1 support:has_status "true" .
+	?detection1 support:has_sensor ?sensor1 .
+	?sensor1 rdf:type support:PETSensor .
+	?sensor1 support:has_longitude ?s1long .
+	?sensor1 support:sensor_has_location ?location1 .
+	?location1 support:location_is_part_of_location support:DockX .
+	?detection2 support:has_status "true" .
+	?detection2 support:has_sensor ?sensor2 .
+	?sensor2 rdf:type support:PATSensor .
+	?sensor2 support:sensor_has_location ?location2 .
+	?location2 support:location_is_part_of_location support:DockX .
+    TIMEWINDOW (100)
+}

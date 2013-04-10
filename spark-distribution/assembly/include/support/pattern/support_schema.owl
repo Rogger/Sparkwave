@@ -1,0 +1,134 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix support: <http://www.foi.se/support/wp4demo#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+support:Service a owl:Class .
+
+support:FusionNode a owl:Class ;
+	rdfs:subClassOf support:Service .
+	
+support:Sensor a owl:Class ;
+	rdfs:subClassOf support:Service .
+	
+support:PETSensor a owl:Class ;
+	rdfs:subClassOf support:Sensor .
+	
+support:PATSensor a owl:Class ;
+	rdfs:subClassOf support:Sensor .
+	
+support:Report a owl:Class .
+
+support:Location a owl:Class .
+
+support:Event a owl:Class .
+
+support:Detection a owl:Class ;
+	rdfs:subClassOf support:Event .
+	
+support:Object a owl:Class .
+
+support:Actor a owl:Class ;
+	rdfs:subClassOf support:Object .
+	
+support:Diver a owl:Class ;
+	rdfs:subClassOf support:Actor .
+	
+support:Animal a owl:Class ;
+	rdfs:subClassOf support:Object .
+	
+support:Material a owl:Class ;
+	rdfs:subClassOf support:Object .
+	
+support:SubSurfaceVessel a owl:Class ;
+	rdfs:subClassOf support:Material .
+	
+support:SurfaceVessel a owl:Class ;
+	rdfs:subClassOf support:Material .
+	
+#################################################################
+#
+#    Properties
+#
+#################################################################
+
+support:has_message_id a owl:DataProperty ;
+	rdfs:range xsd:string ;
+    rdfs:domain support:Detection .	
+
+support:has_status a owl:DataProperty ;
+	rdfs:range xsd:boolean ;
+    rdfs:domain support:Detection .
+    
+support:has_sensor a owl:ObjectProperty ;
+	rdfs:range support:Sensor ;
+    rdfs:domain support:Detection . 
+    
+support:has_probability a owl:DataProperty ;
+	rdfs:range xsd:float ;
+    rdfs:domain support:Detection .   
+    
+support:has_timestamp a owl:DataProperty ;
+	rdfs:range xsd:dateTime ;
+    rdfs:domain support:Event .	
+    
+support:has_longitude a owl:DataProperty ;
+	rdfs:range xsd:float ;
+    rdfs:domain support:Sensor .
+    
+support:has_latitude a owl:DataProperty ;
+	rdfs:range xsd:float ;
+    rdfs:domain support:Sensor .	
+
+support:event_has_location a owl:ObjectProperty ;
+	rdfs:range support:Location ;
+    rdfs:domain support:Event .
+    
+support:location_for_event a owl:ObjectProperty ;
+	owl:inverseOf support:event_has_location .
+    
+support:event_involves_object a owl:ObjectProperty ;
+	rdfs:range support:Object ;
+    rdfs:domain support:Event .
+    
+support:object_involved_in_event a owl:ObjectProperty ;
+	owl:inverseOf support:event_involves_object .
+    
+support:event_reported_in_report a owl:ObjectProperty ;
+	rdfs:range support:Report ;
+    rdfs:domain support:Event .
+    
+support:report_reports_about_event a owl:ObjectProperty ;
+	owl:inverseOf support:event_reported_in_report .
+	
+support:report_based_on_service a owl:ObjectProperty ;
+	rdfs:range support:Service ;
+    rdfs:domain support:Report .
+    
+support:sensor_has_location a owl:ObjectProperty ;
+	rdfs:range support:Location ;
+    rdfs:domain support:Sensor .
+    
+support:service_basis_for_report rdf:type owl:ObjectProperty ;
+	owl:inverseOf support:report_based_on_service .
+	
+support:report_generated_by_service rdf:type owl:ObjectProperty ;
+	rdfs:range support:Service ;
+    rdfs:domain support:Report .
+    
+support:service_generates_report rdf:type owl:ObjectProperty ;
+	owl:inverseOf support:report_generated_by_service .
+	
+support:location_has_part_location rdf:type owl:ObjectProperty ;
+	rdfs:range support:Location ;
+    rdfs:domain support:Location .
+    
+support:location_is_part_of_location rdf:type owl:ObjectProperty ;
+	owl:inverseOf support:location_has_part_location .

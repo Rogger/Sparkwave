@@ -16,7 +16,7 @@ public class ConfigurationLoaderTest {
 	@Test
 	public void testLoad() throws ConfigurationException {
 		SparkwaveConfigLoader loader = new SparkwaveConfigLoader();
-		ConfigurationModel configurationModel = loader.load("target/classes/config.xml");
+		ConfigurationModel configurationModel = loader.load("target/classes/config_support.xml");
 		
 		Assert.assertTrue(configurationModel.getPort() == 8080);
 		

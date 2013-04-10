@@ -25,24 +25,19 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
-
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Pattern;
+import at.sti2.sparkwave.cla.CommandLineArguments;
 import at.sti2.sparkwave.configuration.ConfigurationModel;
 import at.sti2.sparkwave.configuration.SparkwaveConfigLoader;
+
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * Serves as entrypoint for Sparkwave.
@@ -61,39 +56,25 @@ public class SparkwaveKernel{
 	
 	private void init(String args[]){
 		
-		Option optionHelp = new Option("help", "print this message");
-		Option optionVersion = new Option("version", "print the version");
 		
-		@SuppressWarnings("static-access") // Fix for static access is in commons-cli version 1.3
-		Option optionConfig = OptionBuilder.withArgName("file")
-											.hasArg()
-											.withDescription("use the specified config file instead of the default config.xml")
-											.create("config");
-		
-		Options options = new Options();
-		options.addOption(optionHelp);
-		options.addOption(optionVersion);
-		options.addOption(optionConfig);
-		
-		CommandLineParser parser = new PosixParser();
-		CommandLine commandLine = null;
-		try {
-			commandLine = parser.parse(options, args);
-		} catch (ParseException e) {
-			System.err.println("Error while parsing command-line arguments. "+e.getMessage());
-			System.err.println();
-			displayHelp(options);
-			System.exit(1);
+		CommandLineArguments commandLineArguments = new CommandLineArguments();
+		JCommander jc = null;
+		try{
+			jc = new JCommander(commandLineArguments, args);			
+		}catch(ParameterException pe){
+			System.err.println(pe.getMessage());
+			System.err.println("Use -h for help");
+			System.exit(0);
 		}
 		
 		// help
-		if(commandLine == null || commandLine.hasOption("help")){
-			displayHelp(options);
+		if(commandLineArguments == null || commandLineArguments.isHelp()){
+			jc.usage();
 			System.exit(0);
 		}
 		
 		// version
-		if(commandLine.hasOption("version")){
+		if(commandLineArguments.isVersion()){
 			Package classPackage = this.getClass().getPackage();
 			String implementationVersion = classPackage.getImplementationVersion();
 			System.out.println("version: "+implementationVersion);
@@ -101,24 +82,14 @@ public class SparkwaveKernel{
 		}
 		
 		// config
-		if(commandLine.hasOption("config")){
-			String optionValue = commandLine.getOptionValue("config");
-			configFileName = optionValue;
-		}
+		configFileName = commandLineArguments.getConfig();
 		
-//		if (args.length < 1){
-//			logger.info("Sparkwave expects the following parameters:");
-//			logger.info(" (<pattern file>)?	- path to one or more *.tpg pattern file(s)");
-//			System.exit(0);
-//		}
-		
-		@SuppressWarnings("rawtypes") // commons-cli should fix this
-		List argList = commandLine.getArgList();
-		if(argList.size()==0){
-			System.err.println("No pattern file(s) specified!");
-			displayHelp(options);
+		if(commandLineArguments.getPatterns().size() ==0){
+			System.err.println("Use -p to specifiy at least one pattern!");
+			jc.usage();
 			System.exit(0);
 		}
+		
 		
 		logger.info("Initializing Sparkwave...");
 		
@@ -134,9 +105,8 @@ public class SparkwaveKernel{
 		}
 		
 		ArrayList<File> patternFiles = new ArrayList<File>();
-		for(int i = 0; i < argList.size(); i++){
-			Object arg = argList.get(i);
-			File patternFile = new File(arg.toString());
+		for(String patternPath : commandLineArguments.getPatterns()){
+			File patternFile = new File(patternPath);
 			if (!patternFile.exists()){
 				logger.error("Cannot load pattern file "+patternFile+" !");
 				System.exit(1);
@@ -147,11 +117,7 @@ public class SparkwaveKernel{
 		
 		// kick off bootstrap
 		bootstrap(sparkwaveConfig, patternFiles);
-	}
-	
-	private void displayHelp(Options options){
-		HelpFormatter formatter = new HelpFormatter();
-		formatter.printHelp("sparkwave", options, true);
+
 	}
 	
 	/**

@@ -1,3 +1,13 @@
+v0.4.3
+======
+Pre-Processing plugin infrastructure
+Implemented command line parser
+Implemented NOW() function for the pattern construct part
+Added xml capability to streamer
+Implemented config file parser for Sparkwave
+Restructured maven project structure and introduced a distribution project which is used for the final assembled archive
+
+
 v0.4.1
 ======
 Pattern grammar allows single line comments

@@ -101,12 +101,26 @@ public class RDFTriple implements Serializable{
 		
 		StringBuffer buffer = new StringBuffer();
 		
-		buffer.append(subject.toString());
+		buffer.append(subject.formatString());
 		buffer.append(" ");
-		buffer.append(predicate.toString());
+		buffer.append(predicate.formatString());
 		buffer.append(" ");
-		buffer.append(object.toString());
+		buffer.append(object.formatString());
 		
 		return buffer.toString();
 	}
+	
+	public StringBuffer formatString(){
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append(subject.formatString());
+		buffer.append(" ");
+		buffer.append(predicate.formatString());
+		buffer.append(" ");
+		buffer.append(object.formatString());
+		
+		return buffer;
+	}
+	
 }

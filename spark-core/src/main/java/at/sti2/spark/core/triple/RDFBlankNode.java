@@ -57,4 +57,9 @@ public class RDFBlankNode extends RDFValue {
 	public String toString(){
 		return value;
 	}
+	
+	@Override
+	public String formatString() {
+		return value;
+	}
 }

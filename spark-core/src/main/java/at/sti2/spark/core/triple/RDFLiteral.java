@@ -140,6 +140,11 @@ public class RDFLiteral extends RDFValue {
 		return buffer.toString();
 	}
 	
+	@Override
+	public String formatString() {
+		return toString();
+	}
+	
 	/**
 	 * Factory for creating immutable rdf literals
 	 * @author michaelrogger
@@ -174,4 +179,5 @@ public class RDFLiteral extends RDFValue {
 			return new RDFNumericLiteral(number);
 		}
 	}
+
 }

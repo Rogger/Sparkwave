@@ -118,4 +118,10 @@ public class TripleCondition {
 		
 		return buffer.toString();
 	}
+	
+	public StringBuffer formatString(){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(conditionTriple.formatString());
+		return buffer;
+	}
 }

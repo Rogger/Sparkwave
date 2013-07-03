@@ -21,4 +21,10 @@ import java.io.Serializable;
 public abstract class RDFValue implements Serializable{
 
 	private static final long serialVersionUID = -1475028196092911565L;
+	
+	/**
+	 * Format the string to correspond the pattern format
+	 * @return
+	 */
+	abstract public String formatString();
 }

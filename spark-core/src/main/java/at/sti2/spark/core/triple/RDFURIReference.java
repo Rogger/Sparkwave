@@ -76,6 +76,11 @@ public final class RDFURIReference extends RDFValue {
 		return iri.toString();
 	}
 	
+	@Override
+	public String formatString(){
+		return "<"+iri.toString()+">";
+	}
+	
 	public static class Factory{
 		
 		public static RDFURIReference createURIReference(final String iri){

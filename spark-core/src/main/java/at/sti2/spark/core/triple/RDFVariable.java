@@ -51,4 +51,9 @@ public class RDFVariable extends RDFValue{
 	public String toString(){
 		return "?"+variableId;
 	}
+
+	@Override
+	public String formatString() {
+		return toString();
+	}
 }

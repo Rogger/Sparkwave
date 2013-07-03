@@ -18,22 +18,33 @@ package at.sti2.sparkwave;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 
 import at.sti2.spark.core.stream.Triple;
+import at.sti2.spark.grammar.SparkParserException;
+import at.sti2.spark.grammar.SparkParserResult;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Pattern;
 import at.sti2.sparkwave.cla.CommandLineArguments;
 import at.sti2.sparkwave.configuration.ConfigurationModel;
 import at.sti2.sparkwave.configuration.SparkwaveConfigLoader;
+import at.sti2.sparkwave.rest.RestServer;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
@@ -47,11 +58,29 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class SparkwaveKernel{
 	
-	private static Logger logger = Logger.getLogger(SparkwaveKernel.class);
+	private static final Logger logger = Logger.getLogger(SparkwaveKernel.class);
 	private String configFileName = "config.xml";
 	
+	// Keeping track of queues, networks, processor threads
+	private List<BlockingQueue<Triple>> queues = new CopyOnWriteArrayList<BlockingQueue<Triple>>();
+	
+	// no direct instantiation
+	private SparkwaveKernel(){}
+	
+	private static SparkwaveKernel sparkwaveKernel;
+	
+	/**
+	 * Get instance
+	 */
+	public static SparkwaveKernel getInstance(){
+		if(sparkwaveKernel == null){
+			sparkwaveKernel = new SparkwaveKernel();
+		}
+		return sparkwaveKernel;
+	}
+	
 	public static void main(String args[]){
-		new SparkwaveKernel().init(args);
+		getInstance().init(args);
 	}
 	
 	private void init(String args[]){
@@ -117,7 +146,8 @@ public class SparkwaveKernel{
 		
 		// kick off bootstrap
 		bootstrap(sparkwaveConfig, patternFiles);
-
+		
+		new RestServer(this).startServer();
 	}
 	
 	/**
@@ -125,12 +155,10 @@ public class SparkwaveKernel{
 	 */
 	private void bootstrap(ConfigurationModel sparkwaveConfig, List<File> patternFiles){
 		
-		//Instantiate Queues
-		List<BlockingQueue<Triple>> queues = new ArrayList<BlockingQueue<Triple>>();
-		
 		//Instantiate ExecutorService for SparkwaveProcessor
-		ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("Processor-%d").build();
-		ExecutorService processorExecutor = Executors.newCachedThreadPool(tf);
+//		ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("Processor-%d").build();
+//		ExecutorService processorExecutor = Executors.newCachedThreadPool(tf);
+
 		
 		int patternFilesSize = patternFiles.size();
 		for(int i = 0; i < patternFilesSize; i++){
@@ -139,32 +167,72 @@ public class SparkwaveKernel{
 			
 			//Build triple pattern representation
 			logger.info("Parsing pattern file ("+(i+1)+" of "+patternFilesSize+"): "+patternFile+"...");
-			SparkPatternParser patternParser = new SparkPatternParser(patternFile);
-			Pattern pattern = null;
+			SparkPatternParser patternParser = new SparkPatternParser();
+			SparkParserResult parserResult = null;
 			try {
-				pattern = patternParser.parse();
+				parserResult = patternParser.parse(patternFile);
 			} catch (IOException e) {
-				logger.error("Could not open pattern file "+patternFile);
+				logger.error("Could not open pattern file "+patternFile+" "+e.getMessage());
+			} catch (SparkParserException e) {
+				logger.error("Could not parse the file "+patternFile+" "+e.getMessage());
 			}
+			Pattern pattern = parserResult.getPattern();
+			
 			logger.info("Parsed pattern:\n"+pattern);
 			
 			if(pattern!=null){
 				
-				//Create SparkwaveNetwork
-				SparkwaveNetwork sparkwaveNetwork = new SparkwaveNetwork(pattern);
-				sparkwaveNetwork.init();
+				addProcessorThread(pattern);
 				
-				//Every pattern gets its own queue
-				BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
-				queues.add(queue);
+//				processorExecutor.
+//				processorExecutor.shutdownNow();
 				
-				//Create SparkwaveProcessorThread
-				ProcessorThread sparkwaveProcessor = new ProcessorThread(sparkwaveNetwork, queue);
-				processorExecutor.execute(sparkwaveProcessor);
+				//TODO √generate pattern id (random? hash? int++?) for pattern, use name
+				//TODO √Associate: processor and thread, method to find corresponding sparkwave processor for name. HashMap<Name,<List<Processor,Thread>?
+				//TODO √1) remove queue for pattern 2) shutdown processorThread
 				
+				//TODO √Add GrizzlyServer and access SparkwaveKernel.
+				//TODO getPatterns method
+				//TODO Test to remove,add patterns!!
+				
+				/* pattern class
+				 * 
+				 * variables:
+				 * filename
+				 * 
+				 * method:
+				 * getContent()
+				 * 	
+				*/
+				
+				/* this class
+					
+					variables:
+					map<pattern,thread>
+					list of patterns
+					
+					methods:
+				 * 	addProcessorThread(Pattern)
+				 * 	removeProcessorThread(Pattern)
+				 * 	getLoadedPatterns()
+				 * 	getLoadedPattern(name)
+				 * 
+				 */
 			}
-			
 		}
+		
+//		for(Thread t : threads){
+//			try {
+//				Thread.sleep(3000);
+//				logger.info("interrupting "+t);
+//				t.interrupt();
+//				t.join();
+//				logger.info("joined "+t);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
 		
 		ThreadFactory threadFactoyServerSocket = new ThreadFactoryBuilder().setNameFormat("ServerSocket-%d").build();
 		ExecutorService serverSocketExecutor = Executors.newSingleThreadExecutor(threadFactoyServerSocket);
@@ -172,4 +240,82 @@ public class SparkwaveKernel{
 		//One Server for all SparkwaveNetworks, acts as multiplexer
 		serverSocketExecutor.execute(new ServerSocketThread(sparkwaveConfig, queues));
 	}
+	
+	
+	Map<Pattern,Thread> patternThreadMap = new HashMap<Pattern,Thread>();
+	HashMap<Pattern,Queue<Triple>> patternQueueMap = new HashMap<Pattern,Queue<Triple>>();
+	Map<Long, Pattern> idPatternMap = new HashMap<Long, Pattern>();
+	
+	
+	/**
+	 * Starts all relevant threads for a pattern and keeps track of them
+	 * @param pattern
+	 */
+	public void addProcessorThread(Pattern pattern){
+		
+		//Create SparkwaveNetwork
+		SparkwaveNetwork sparkwaveNetwork = new SparkwaveNetwork(pattern);
+		sparkwaveNetwork.init();
+		
+		//Every pattern gets its own queue
+		BlockingQueue<Triple> queue = new ArrayBlockingQueue<Triple>(10);
+		queues.add(queue);
+		
+		//Create SparkwaveProcessorThread
+		ProcessorThread sparkwaveProcessor = new ProcessorThread(sparkwaveNetwork, queue);
+		Thread thread = new Thread(sparkwaveProcessor);
+		thread.setName("Processor-"+thread.getName());
+		thread.start();
+		
+		patternThreadMap.put(pattern, thread);
+		patternQueueMap.put(pattern, queue);
+		idPatternMap.put(pattern.getId(), pattern);
+		
+	}
+	
+	/**
+	 * Terminates all threads corresponding to a pattern
+	 * @param patternId of the pattern
+	 */
+	public boolean removeProcessorThread(long patternId){
+		
+		Pattern pattern = idPatternMap.remove(patternId);
+		if(pattern == null) return false;
+		
+		Thread thread = patternThreadMap.remove(pattern);
+		if(thread == null) return false;
+		
+		logger.debug("Interrupting "+thread);
+		thread.interrupt();
+		
+		Queue<Triple> queue = patternQueueMap.remove(pattern);
+		if(queue != null){
+			logger.debug("Removing queue "+queue+" from queues");
+			//synchronized because it might happen that StreamParserThread is iterating over queues
+			synchronized(queues){
+				queues.remove(queue);
+			}
+		}
+		
+		return true;
+		
+	}
+	
+	/**
+	 * Returns a collection of all loaded patterns
+	 * @return collection of patterns
+	 */
+	public @Nonnull Collection<Pattern> getLoadedPatterns(){
+		return idPatternMap.values();
+	}
+	
+	/**
+	 * Get loaded pattern
+	 * @param id of the pattern
+	 * @return the pattern or NULL
+	 */
+	public @Nullable Pattern getLoadedPattern(long id){
+		return idPatternMap.get(id);
+	}
+	
 }

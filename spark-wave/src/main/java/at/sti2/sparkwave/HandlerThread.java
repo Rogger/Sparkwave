@@ -42,7 +42,7 @@ public class HandlerThread extends Thread {
 	public HandlerThread(Pattern patternGraph, OutputBuffer outputBuffer){
 		this.outputBuffer = outputBuffer;
 		this.triplePatternGraph = patternGraph;
-		setName("Handler");
+		setName("Handler-"+getName());
 	}
 	
 	public void run() {

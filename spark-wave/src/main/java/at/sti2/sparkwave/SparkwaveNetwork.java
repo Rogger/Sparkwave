@@ -56,7 +56,7 @@ public class SparkwaveNetwork{
 	private long lastTimestamp = 0l;
 	
 	public SparkwaveNetwork(Pattern pattern) {
-		this.pattern = pattern;	
+		this.pattern = pattern;
 	}
 	
 	/**
@@ -238,6 +238,10 @@ public class SparkwaveNetwork{
 	public void activateNetwork(Triple streamedTriple){
 		lastTimestamp = streamedTriple.getTimestamp();
 		epsilonNetwork.activate(streamedTriple);
+	}
+	
+	public Pattern getPattern(){
+		return pattern;
 	}
 	
 }

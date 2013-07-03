@@ -41,6 +41,8 @@
 
 			<xsl:attribute name="name"><xsl:value-of
 				select="supportOnt:name/text()" /></xsl:attribute>
+			<xsl:attribute name="id"><xsl:value-of
+				select="supportOnt:id/text()" /></xsl:attribute>
 			<xsl:attribute name="date"><xsl:value-of
 				select="supportOnt:date/text()" /></xsl:attribute>
 			<xsl:attribute name="ref_uri"><xsl:value-of select="@rdf:about" /></xsl:attribute>

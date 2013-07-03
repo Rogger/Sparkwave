@@ -104,6 +104,8 @@ public class ServerSocketThread implements Runnable{
 	            Socket sock = server.accept();
 	            logger.info("Connected: " + sock);
 	            
+	            //TODO Not every connection should cause a rebuild of the plugin chain. Should work with arbitrary many connections and failure resistent. re-use plugin threads and parser threads.
+	            
 	            InputStream socketStreamIn = sock.getInputStream();
 	            
 	            // PreProcessing Plugins to be loaded
@@ -121,11 +123,7 @@ public class ServerSocketThread implements Runnable{
 	            	
 	            	final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	            	
-	            	// XML -> XMLRDF
-//	            	XSLTransformer xsltTransformer = new XSLTransformer(xslt, socketStreamIn, pipeOut1);
-	            	// XMLRDF -> N3
-//	            	RDFFormatTransformer xmlrdfToNT = new RDFFormatTransformer(pipeIn1, baos,"RDF/XML-ABBREV","N-TRIPLE");
-
+	            	// plugin configuration
 	            	PPPluginConfig pluginConfig1 = configuration.getPPPluginsConfig().get(0);
 	            	PreProcess plugin1 = instantiateAndConfigurePlugin(pluginConfig1, socketStreamIn, pipeOut1);
 	            	

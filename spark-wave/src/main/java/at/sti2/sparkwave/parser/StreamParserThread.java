@@ -67,12 +67,15 @@ public class StreamParserThread implements Runnable {
 					long currentTimeMillis = System.currentTimeMillis();
 					triple.setTimestamp(currentTimeMillis);
 					
-					// put triple in all queues
-					for(BlockingQueue<Triple> queue : queues){
-						queue.put(triple);
+					//synchronized because it might happen that SparkwaveKernel thread removes a queue from queues
+					synchronized(queues){
+						// put triple in all queues
+						for(BlockingQueue<Triple> queue : queues){
+							queue.put(triple);
+						}					
 					}
-					
-				} else {
+				}
+				else {
 					run = false;
 				}
 			}

@@ -16,7 +16,7 @@
 			<outputDirectory>/</outputDirectory>
 			<directory>assembly/include</directory>
 			<includes>
-				<include>*</include>
+				<include>**</include>
 			</includes>
 		</fileSet>
 	</fileSets>

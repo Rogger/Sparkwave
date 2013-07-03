@@ -19,7 +19,6 @@ HANDLERS{
 		"class" = "at.sti2.spark.handler.SupportHandler"
 		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.svc/event"
 		"twominfilter" = "true"
-		"xsltLocation" = "support/xslt/fromRDFToEvent.xslt"
 	}
 	
 	HANDLER {
@@ -32,6 +31,7 @@ CONSTRUCT {
 	support:EventX rdf:type support:Event .
 	support:EventX rdf:type support:PETPATDetection .
 	support:EventX support:name "PETPATDetection" .
+	support:EventX support:id "ID()"^^<http://www.w3.org/2001/XMLSchema#long> .
 	support:EventX support:generated-by support:StreamProcessor .
 	support:EventX support:location ?location1 .
 	support:EventX support:location ?location2 .

@@ -26,48 +26,60 @@ import at.sti2.spark.epsilon.network.run.Token;
 /**
  * 
  * @author michaelrogger
- *
+ * 
  */
-public class ProcessorThread implements Runnable{
-	
+public class ProcessorThread implements Runnable {
+
 	static Logger logger = Logger.getLogger(ProcessorThread.class);
 
 	private SparkwaveNetwork sparkwaveNetwork = null;
 	private BlockingQueue<Triple> queue = null;
-	
-	public ProcessorThread(SparkwaveNetwork sparkwaveNetwork, BlockingQueue<Triple> queue){
+
+	private boolean isTerminated = false;
+
+	public ProcessorThread(SparkwaveNetwork sparkwaveNetwork,
+			BlockingQueue<Triple> queue) {
 		this.sparkwaveNetwork = sparkwaveNetwork;
 		this.queue = queue;
 	}
-	
+
 	/**
-	 * The thread takes triples from the queue and runs them through the Sparkwave network instance
+	 * The thread takes triples from the queue and runs them through the
+	 * Sparkwave network instance
 	 */
-	public void run(){
-		
+	public void run() {
+
 		long tripleCounter = 0;
-		
-		try{
-			while (true) {
+		Triple triple = null;
+
+		while (!isTerminated) {
+			try {
 				// get triple from queue
-				Triple triple = queue.take();
-				logger.info(triple);
-				sparkwaveNetwork.activateNetwork(triple);
-				
-//				if(queue.isEmpty()){
-//					logger.info("Pattern has been matched "+ sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
-//				}
-				
-				// GC
-				tripleCounter++;
-				if (tripleCounter % 2 == 0)
-					runGC();
+				triple = queue.take();
+				if (triple != null) {
+					// logger.info(triple);
+					sparkwaveNetwork.activateNetwork(triple);
+
+					tripleCounter++;
+					if (tripleCounter % 2 == 0)
+						runGC();
+				}
+			} catch (InterruptedException iex) {
+				logger.debug("Thread " + Thread.currentThread().toString()
+						+ " interrupted!");
+				setTerminated(true);
+				logger.debug("Clearing queue before stopping thread!");
+				queue.clear();
 			}
-		}catch(InterruptedException iex){
-			iex.printStackTrace();
+
+			// if(queue.isEmpty()){
+			// logger.info("Pattern has been matched "+
+			// sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
+			// }
+
 		}
 	}
-	
+
 	public void runGC() {
 
 		/************************************************
@@ -80,7 +92,7 @@ public class ProcessorThread implements Runnable{
 			Triple processedTriple = ptIter.next();
 
 			for (Token token : sparkwaveNetwork.getEpsilonNetwork()
- 					.getTokenNodesByStreamedTriple(processedTriple))
+					.getTokenNodesByStreamedTriple(processedTriple))
 				token.removeTokenFromNode();
 
 			// Remove the list of tokens for given streamed triple
@@ -91,5 +103,25 @@ public class ProcessorThread implements Runnable{
 			ptIter.remove();
 		}
 
+	}
+
+	public void handleTerminationEvent() {
+
+	}
+
+	public void setTerminated(boolean isTerminated) {
+		this.isTerminated = isTerminated;
+	}
+
+	public boolean isTerminated() {
+		return isTerminated;
+	}
+
+	public BlockingQueue<Triple> getQueue() {
+		return queue;
+	}
+
+	public SparkwaveNetwork getSparkwaveNetwork() {
+		return sparkwaveNetwork;
 	}
 }

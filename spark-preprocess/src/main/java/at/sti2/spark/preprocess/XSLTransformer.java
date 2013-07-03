@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.xml.transform.ErrorListener;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -73,16 +73,15 @@ public class XSLTransformer implements PreProcess,Runnable{
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 //			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			transformer.setErrorListener(errorListener);
 			transformer.transform(xmlSource, result);
 			
 			logger.debug("XSLTransformer output:\n "+baos.toString());
 
 			
-		} catch (TransformerConfigurationException e) {
-			logger.error(e);
-		} catch (TransformerException e) {
-			logger.error(e);
-		} finally{			
+		} catch ( Exception e) {
+			// do nothing, error listener should handle it		
+		}finally{
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(out);
 		}
@@ -93,5 +92,26 @@ public class XSLTransformer implements PreProcess,Runnable{
 	public void run() {
 		process();
 	}
+	
+	ErrorListener errorListener = new ErrorListener() {
+		
+		@Override
+		public void warning(TransformerException exception)
+				throws TransformerException {
+			logger.warn(exception.getMessage());
+		}
+		
+		@Override
+		public void fatalError(TransformerException exception)
+				throws TransformerException {
+			logger.error(exception.getMessage());
+		}
+		
+		@Override
+		public void error(TransformerException exception)
+				throws TransformerException {
+			logger.error(exception.getMessage());
+		}
+	};
 
 }

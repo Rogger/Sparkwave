@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.io.output.TeeOutputStream;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXParseException;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -70,6 +71,8 @@ public class RDFFormatTransformer implements PreProcess,Runnable {
 		
 		logger.debug("RDFFormatTransformer output:\n"+baos.toString());
 		
+		}catch(Exception e){
+			logger.error(e.getMessage());
 		}finally{
 			IOUtils.closeQuietly(in);
 			IOUtils.closeQuietly(out);

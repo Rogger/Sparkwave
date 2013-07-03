@@ -1,5 +1,6 @@
 package at.sti2.spark.handler;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Hashtable;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
 import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.grammar.SparkParserResult;
 import at.sti2.spark.grammar.SparkPatternParser;
 import at.sti2.spark.grammar.pattern.Handler;
 import at.sti2.spark.grammar.pattern.Pattern;
@@ -33,14 +35,16 @@ public class InfoObjectSubmissionTest {
 		
 		Assume.assumeTrue(checkServerAvailability(host,port));			
 		
-		String patternFileName = "target/test-classes/support_pattern2.tpg";
-		SparkPatternParser parser = new SparkPatternParser(patternFileName);
-		Pattern patternGraph = null;
+		File patternFileName = new File("target/test-classes/support_pattern2.tpg");
+		SparkPatternParser parser = new SparkPatternParser();
+		SparkParserResult parserResult = null;
 		try {
-			patternGraph = parser.parse();
+			parserResult = parser.parse(patternFileName);
 		} catch (IOException e) {
 			logger.error("Could not open pattern file "+patternFileName);
 		}
+		
+		Pattern patternGraph = parserResult.getPattern();
 		
 		handlerProperties = new Handler(patternGraph);
 		handlerProperties.addKeyValue("baseurl",url);

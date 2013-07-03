@@ -156,5 +156,4 @@ public class SupportHandler implements SparkwaveHandler {
 			httpclient.getConnectionManager().shutdown();
 		}
 	}
-	
 }

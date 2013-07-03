@@ -1,3 +1,16 @@
+v0.5
+====
+REST management interface, allows at runtime of Sparkwave to load, unload and get patterns.
+Implemented ID() function for pattern construct part: returns the unix timestamp which can be used as unique identifier
+Logging to console and file (sparkwave.log) is enabled
+
+REST interface:
+The following URL's are available:
+	http://localhost:9998/patterns/		GET(all patterns),POST(new pattern)
+	http://localhost:9998/patterns/{id}	GET(specific pattern),DELETE(specific pattern)
+Note: Content-Type must be application/json (in the request header).
+
+
 v0.4.3
 ======
 Pre-Processing plugin infrastructure

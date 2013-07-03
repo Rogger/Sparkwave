@@ -53,10 +53,18 @@ public class Construct{
 		StringBuffer buffer = new StringBuffer();
 
 		for (TripleCondition condition : conditions){
-			buffer.append(condition.getConditionTriple()).append(" .\n");
+			buffer.append(condition).append(" .\n");
 		}
 		
 		return buffer.toString();
+	}
+	
+	public StringBuffer formatString(){
+		StringBuffer sb = new StringBuffer();
+		for (TripleCondition condition : conditions){
+			sb.append(condition.formatString()).append(" .\n");
+		}
+		return sb;
 	}
 
 }

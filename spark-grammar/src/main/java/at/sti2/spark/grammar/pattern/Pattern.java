@@ -18,6 +18,7 @@ package at.sti2.spark.grammar.pattern;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -28,6 +29,8 @@ import java.util.List;
  */
 public class Pattern {
 
+	private long id = 0;
+	
 	private GraphPattern whereClause = null;
 	private Construct construct = null;
 	private List <Prefix> prefixes = null;
@@ -41,6 +44,9 @@ public class Pattern {
 		prefixes = new ArrayList <Prefix> ();
 		construct = new Construct();
 		handlers = new ArrayList <Handler>();
+		
+		//use unix time stamp as id
+		id = System.currentTimeMillis();
 	}
 	
 	public GraphPattern getWhereClause(){
@@ -111,7 +117,15 @@ public class Pattern {
 		this.construct = construct;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
 	public String toString(){
+		return formatString().toString();
+	}
+
+	public StringBuffer formatString(){
 		
 		StringBuffer buffer = new StringBuffer();
 		
@@ -140,7 +154,7 @@ public class Pattern {
 		buffer.append("\n");
 
 		buffer.append("CONSTRUCT {\n");
-		buffer.append(construct.toString());
+		buffer.append(construct.formatString());
 		buffer.append("}\n");
 
 		buffer.append("\n");
@@ -148,10 +162,23 @@ public class Pattern {
 		buffer.append(whereClause);
 		buffer.append("}\n");
 		
-		return buffer.toString();
+		return buffer;
 	}
 
 	public void setPrefixes(List<Prefix> prefixes) {
 		this.prefixes = prefixes;
+	}
+	
+	/**
+	 * This method checks minimal requirements to be a valid pattern: ID and WHERECLAUSE 
+	 * @return true if requirements fulfilled, false otherwise
+	 */
+	public boolean verifyPattern(){
+		
+		// A pattern must have an id, whereClause
+		if(id == 0) return false;
+		if(whereClause==null) return false;
+		
+		return true;
 	}
 }

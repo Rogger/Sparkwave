@@ -43,39 +43,47 @@ public class SparkPatternParser {
 	
 	protected static Logger logger = Logger.getLogger(SparkPatternParser.class);
 	
-	private String patternFilePath = null;
+
+//	public Entry<Pattern, String> parse(String patternFilePath) throws IOException, SparkParserException{
+//		CharStream input = new ANTLRFileStream(patternFilePath);
+//		return parse(input);
+//	}
 	
-	public SparkPatternParser(String patternFilePath) {
-		this.patternFilePath = patternFilePath;
-	}
-	
-	public SparkPatternParser(File patternFile){
-		this.patternFilePath = patternFile.getPath();
+	/**
+	 * Reads a file and parses the Sparkwave pattern language
+	 * @param patternFile path to pattern file
+	 * @return the pattern and (possible) parser warnings
+	 * @throws IOException is thrown if I/O throws errors
+	 * @throws SparkParserException is thrown if errors occur during parsing
+	 */
+	public SparkParserResult parse(File patternFile) throws IOException, SparkParserException{
+		String patternFilePath = patternFile.getPath();
+		// open file
+		CharStream input = new ANTLRFileStream(patternFilePath);
+		return parse(input);
 	}
 	
 	/**
-	 * Parse the pattern
-	 * @return Pattern
-	 * @throws IOException I/O problems with the pattern file
+	 * Reads from input stream and parses the Sparkwave pattern language
+	 * @param input the input CharStream
+	 * @return the pattern and (possible) parser warnings
+	 * @throws SparkParserException is thrown if errors occur during parsing
 	 */
-	public Pattern parse() throws IOException{
+	public SparkParserResult parse(CharStream input) throws SparkParserException{
 		
 		Pattern triplePatternGraph = new Pattern();
-		
-		// open file
-		CharStream input = new ANTLRFileStream(patternFilePath);
+		final StringBuffer parserWarnings = new StringBuffer();
 		
 		//Lexer Error Reporter
 		IErrorReporter lexerErrorReporter = new IErrorReporter() {
-			
 			protected Logger logger = Logger.getLogger(getClass());
-			
 			@Override
 			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
 				if(e instanceof NoViableAltException){
 					// ignore
 				}else{
 					logger.warn(e);
+					parserWarnings.append(e).append("\n");
 				}
 			}
 		};
@@ -87,12 +95,11 @@ public class SparkPatternParser {
 		
 		//Parser Error Reporter
 		IErrorReporter parserErrorReporter = new IErrorReporter() {
-			
 			protected Logger logger = Logger.getLogger(getClass());
-			
 			@Override
 			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
 				logger.warn(hdr+"\t"+msg);
+				parserWarnings.append(hdr).append("\t").append(msg).append("\n");
 			}
 		};
 		
@@ -105,6 +112,7 @@ public class SparkPatternParser {
 			logger.debug( ((Tree)query.tree).toStringTree());
 		} catch (RecognitionException e) {
 			logger.error(e);
+			throw new SparkParserException("SparkParser exception ", parserWarnings.toString(), e);
 		}
 		
 		CommonTreeNodeStream nodes = new CommonTreeNodeStream((Tree)query.tree);
@@ -113,8 +121,14 @@ public class SparkPatternParser {
 		Tree rootTree = (Tree)nodes.nextElement();
 		parseQuery( new TreeWrapper(rootTree) , triplePatternGraph);
 		
+		if(triplePatternGraph == null || !triplePatternGraph.verifyPattern()){
+			String strErr = "pattern not complete";
+			logger.error(strErr);
+			throw new SparkParserException(strErr,parserWarnings.toString());
+		}
 		
-		return triplePatternGraph;
+		SparkParserResult parserResult = new SparkParserResult(triplePatternGraph, parserWarnings.toString());
+		return parserResult;
 	}
 	
 	/**
@@ -731,7 +745,7 @@ public class SparkPatternParser {
 				rdfValue = new RDFVariable(varName);
 				
 			}else if(childToken.equals("IRI")){
-				//TODO
+				rdfValue = parseRDFURIReference(treeNode);
 				
 			}else if(childToken.equals("PREFIX_NAME")){
 				String prefixName = treeNode.getChild(0).toString();

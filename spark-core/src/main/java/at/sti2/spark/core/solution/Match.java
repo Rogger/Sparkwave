@@ -104,7 +104,13 @@ public class Match {
 					RDFURIReference datatypeURI = rdfLiteral.getDatatypeURI();
 					if(datatypeURI != null)
 						buffer.append("^^<"+datatypeURI+">");
-				}else {
+				} else if("ID()".equals(rdfLiteral.getValue())){
+					long unixTimestamp = System.currentTimeMillis();
+					buffer.append("\""+unixTimestamp+"\"");
+					RDFURIReference datatypeURI = rdfLiteral.getDatatypeURI();
+					if(datatypeURI != null)
+						buffer.append("^^<"+datatypeURI+">");
+				} else {
 					buffer.append((rdfLiteral).toString());
 				}
 				

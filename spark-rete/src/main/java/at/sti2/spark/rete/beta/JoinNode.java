@@ -97,11 +97,11 @@ public class JoinNode extends RETENode {
 					
 					Set<Token> tokensFromIndex = null;
 					if (arg2Field == RDFTriple.Field.SUBJECT) {
-						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
+						tokensFromIndex = test.getIndexStructure().getElementsFromSubjectIndex(testTokenValue);
 					} else if (arg2Field == RDFTriple.Field.PREDICATE) {
-						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
+						tokensFromIndex = test.getIndexStructure().getElementsFromPredicateIndex(testTokenValue);
 					} else if (arg2Field == RDFTriple.Field.OBJECT) {
-						tokensFromIndex = test.getBetaMemory().getIndexStructure().getElementsFromObjectIndex(testTokenValue);
+						tokensFromIndex = test.getIndexStructure().getElementsFromObjectIndex(testTokenValue);
 					}
 					
 					

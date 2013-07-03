@@ -4,7 +4,7 @@
 
 	<groupId>at.sti2.sparkwave</groupId>
 	<artifactId>spark-project</artifactId>
-	<version>0.4.4-SNAPSHOT</version>
+	<version>0.5</version>
 	<packaging>pom</packaging>
 	<name>spark-project</name>
 

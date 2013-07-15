@@ -9,7 +9,7 @@
   <parent>
     <groupId>at.sti2.sparkwave</groupId>
     <artifactId>spark-project</artifactId>
-    <version>0.5</version>
+    <version>0.5.1-SNAPSHOT</version>
     <relativePath>../spark-project</relativePath>
   </parent>
   

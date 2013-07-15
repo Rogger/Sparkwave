@@ -4,7 +4,7 @@
 
 	<groupId>at.sti2.sparkwave</groupId>
 	<artifactId>spark-project</artifactId>
-	<version>0.5</version>
+	<version>0.5.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>spark-project</name>
 
@@ -50,7 +50,6 @@
 		<connection>scm:git:git@github.com:Rogger/Sparkwave.git</connection>
 		<url>scm:git:git@github.com:Rogger/Sparkwave.git</url>
 		<developerConnection>scm:git:git@github.com:Rogger/Sparkwave.git</developerConnection>
-		<tag>v0.4.1</tag>
 	</scm>
 
 	<dependencies>

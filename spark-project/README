@@ -10,3 +10,21 @@ Build:
 2) mvn clean install package -Dmaven.test.skip=true
 3) The assembled distribution including examples to run can be found in the folder spark-distribution/target/
 
+
+RELEASE
+=======
+
+1) maven release and git merge:
+git checkout develop
+cd spark-project
+mvn release:prepare
+
+git checkout master
+git merge develop
+
+2) tagging
+git tag <tag name> -m "<message>"
+git push --tags
+
+Optional, update maven pom versions:
+mvn release:update-versions -DautoVersionSubmodules=true

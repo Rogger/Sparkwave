@@ -5,17 +5,18 @@ import java.net.URI;
 
 import javax.ws.rs.core.UriBuilder;
 
-import org.apache.log4j.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.sparkwave.SparkwaveKernel;
 import at.sti2.sparkwave.rest.resources.SparkwaveKernelBinder;
 
 public class RestServer {
 	
-	private static final Logger logger = Logger.getLogger(RestServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestServer.class);
 	
 	private SparkwaveKernel sparkwaveKernel;
 	
@@ -39,9 +40,9 @@ public class RestServer {
 			httpServer.stop();
 			
 		} catch (RuntimeException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 	

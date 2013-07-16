@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -36,7 +37,7 @@ public class WeatherTest {
 	private RETENetwork reteNetwork = null;
 	private List <RDFTriple> triples = null;
 	
-	static Logger logger = Logger.getLogger(WeatherTest.class);
+	static Logger logger = LoggerFactory.getLogger(WeatherTest.class);
 
 //	@Before
 	public void init() throws Exception {

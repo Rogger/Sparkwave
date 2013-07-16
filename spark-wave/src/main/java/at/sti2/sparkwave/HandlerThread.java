@@ -18,7 +18,8 @@ package at.sti2.sparkwave;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
@@ -34,7 +35,7 @@ import at.sti2.spark.handler.SparkwaveHandlerException;
  */
 public class HandlerThread extends Thread {
 
-	static Logger logger = Logger.getLogger(HandlerThread.class);
+	static Logger logger = LoggerFactory.getLogger(HandlerThread.class);
 	
 	private OutputBuffer outputBuffer = null;
 	private Pattern triplePatternGraph = null;
@@ -70,9 +71,9 @@ public class HandlerThread extends Thread {
 			} catch (InstantiationException e) {
 				logger.error("Could not instantiate class " + handlerClass);
 			} catch (IllegalAccessException e) {
-				logger.error(e);
+				logger.error(e.getMessage());
 			} catch (SparkwaveHandlerException e) {
-				logger.error(e);
+				logger.error(e.getMessage());
 			}
 		}
 
@@ -89,7 +90,7 @@ public class HandlerThread extends Thread {
 				logger.debug("Clearing output queue before stopping thread!");
 				outputBuffer.clear();
 			} catch (SparkwaveHandlerException e) {
-				logger.error(e);
+				logger.error(e.getMessage());
 			}
 		}
 

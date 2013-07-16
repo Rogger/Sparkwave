@@ -15,7 +15,8 @@
  */
 package at.sti2.spark.rete.alpha;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -24,7 +25,7 @@ import at.sti2.spark.rete.WorkingMemoryElement;
 
 public class ConstantObjectTestAlphaNode extends ValueTestAlphaNode {
 
-	static Logger log = Logger.getLogger(ConstantObjectTestAlphaNode.class);
+	static Logger log = LoggerFactory.getLogger(ConstantObjectTestAlphaNode.class);
 	
 	public ConstantObjectTestAlphaNode(RDFValue testValue) {
 		super(testValue);

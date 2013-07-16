@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.solution.OutputBuffer;
@@ -33,7 +34,7 @@ import at.sti2.spark.rete.node.RETENode;
 
 public class ProductionNode extends RETENode {
 	
-	static Logger logger = Logger.getLogger(ProductionNode.class);
+	static Logger logger = LoggerFactory.getLogger(ProductionNode.class);
 
 	private List <Token> items = null;
 	

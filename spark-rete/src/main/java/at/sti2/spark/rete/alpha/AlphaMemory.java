@@ -19,7 +19,8 @@ package at.sti2.spark.rete.alpha;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.triple.RDFTriple.Field;
@@ -29,7 +30,7 @@ import at.sti2.spark.rete.node.RETENode;
 
 public class AlphaMemory {
 	
-	static Logger logger = Logger.getLogger(AlphaMemory.class);
+	static Logger logger = LoggerFactory.getLogger(AlphaMemory.class);
 	
 	final IndexStructure<WorkingMemoryElement> indexStructure;
 	

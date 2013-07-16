@@ -20,7 +20,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.epsilon.network.ClassNode;
 import at.sti2.spark.epsilon.network.PropertyNode;
@@ -45,7 +46,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
  */
 public class NetworkBuilder {
 
-	static Logger logger = Logger.getLogger(NetworkBuilder.class);
+	static Logger logger = LoggerFactory.getLogger(NetworkBuilder.class);
 	
 	private static String NS_OWL  = "http://www.w3.org/2002/07/owl#";
 	private static String NS_XSD  = "http://www.w3.org/2001/XMLSchema#";
@@ -83,7 +84,7 @@ public class NetworkBuilder {
 			}
 		    
 		} catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 
 		return epsilonNetwork;

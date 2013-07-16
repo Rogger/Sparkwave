@@ -19,7 +19,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -44,7 +45,7 @@ import at.sti2.sparkwave.input.NTripleStreamReader;
  */
 public class SparkwaveNetwork{
 	
-	static Logger logger = Logger.getLogger(SparkwaveNetwork.class);
+	private static Logger logger = LoggerFactory.getLogger(SparkwaveNetwork.class);
 	
 	private RETENetwork reteNetwork = null;
 	private EpsilonNetwork epsilonNetwork = null;

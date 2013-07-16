@@ -28,7 +28,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.TripleCondition;
@@ -42,7 +43,7 @@ import at.sti2.spark.grammar.pattern.Handler;
  */
 public class RestHandler implements SparkwaveHandler {
 	
-	private static Logger logger = Logger.getLogger(RestHandler.class);
+	private static Logger logger = LoggerFactory.getLogger(RestHandler.class);
 	private Handler handlerProperties = null;
 	
 	@Override
@@ -83,11 +84,11 @@ public class RestHandler implements SparkwaveHandler {
 				}
 			}
 		} catch (UnsupportedEncodingException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} catch (ClientProtocolException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 	

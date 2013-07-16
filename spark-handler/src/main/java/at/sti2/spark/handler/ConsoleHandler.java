@@ -2,7 +2,8 @@ package at.sti2.spark.handler;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.TripleCondition;
@@ -16,7 +17,7 @@ import at.sti2.spark.grammar.pattern.Handler;
  */
 public class ConsoleHandler implements SparkwaveHandler {
 
-	private static Logger log = Logger.getLogger(ConsoleHandler.class);
+	private static Logger log = LoggerFactory.getLogger(ConsoleHandler.class);
 	
 	private long noMatches = 0;
 	

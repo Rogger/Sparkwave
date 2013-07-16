@@ -27,11 +27,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SparkStreamer {
 	
-	static Logger logger = Logger.getLogger(SparkStreamer.class);
+	static Logger logger = LoggerFactory.getLogger(SparkStreamer.class);
 
 	private String triplesFileName = null;
 	
@@ -133,7 +134,7 @@ public class SparkStreamer {
 	        
 	        
 		} catch (IOException e) {
-            logger.error(e);
+            logger.error(e.getMessage());
 		} finally {
 			IOUtils.closeQuietly(streamWriter);
 			lineIterator.close();

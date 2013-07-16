@@ -23,7 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.TripleCondition;
@@ -31,7 +32,7 @@ import at.sti2.spark.grammar.pattern.Handler;
 
 public class FileHandler implements SparkwaveHandler {
 
-	protected static Logger logger = Logger.getLogger(FileHandler.class);
+	protected static Logger logger = LoggerFactory.getLogger(FileHandler.class);
 	private Handler handlerProperties = null;
 	
 	//file logger

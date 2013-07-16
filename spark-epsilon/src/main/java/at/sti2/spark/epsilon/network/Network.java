@@ -18,11 +18,12 @@ package at.sti2.spark.epsilon.network;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Network {
 
-	static Logger logger = Logger.getLogger(Network.class);
+	static Logger logger = LoggerFactory.getLogger(Network.class);
 	
 	private List <ClassNode> classNodes = null;
 	private List <PropertyNode> propertyNodes = null;

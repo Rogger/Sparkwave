@@ -34,7 +34,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.commons.configuration.ConfigurationException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.grammar.SparkParserException;
@@ -58,7 +59,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class SparkwaveKernel{
 	
-	private static final Logger logger = Logger.getLogger(SparkwaveKernel.class);
+	private static final Logger logger = LoggerFactory.getLogger(SparkwaveKernel.class);
 	private String configFileName = "config.xml";
 	
 	// Keeping track of queues, networks, processor threads
@@ -125,11 +126,11 @@ public class SparkwaveKernel{
 		SparkwaveConfigLoader sparkConfigLoader = new SparkwaveConfigLoader();
 		ConfigurationModel sparkwaveConfig = null;
 		try {
-			logger.info("Reading Sparkwave configuration from "+configFileName+"...");
+			logger.info("Reading Sparkwave configuration from {} ...", configFileName);
 			sparkwaveConfig = sparkConfigLoader.load(configFileName);
-			logger.info("Loaded configuration: port="+sparkwaveConfig.getPort()+", Number of pre-processing plugins="+ sparkwaveConfig.getPPPluginsConfig().size());
+			logger.info("Loaded configuration: port={}, Number of pre-processing plugins={}", sparkwaveConfig.getPort(), sparkwaveConfig.getPPPluginsConfig().size());
 		} catch (ConfigurationException e) {
-			logger.error("Could not load config file, please check existance of "+configFileName);
+			logger.error("Could not load config file, please check existance of {}",configFileName);
 			System.exit(1);
 		}
 		
@@ -137,7 +138,7 @@ public class SparkwaveKernel{
 		for(String patternPath : commandLineArguments.getPatterns()){
 			File patternFile = new File(patternPath);
 			if (!patternFile.exists()){
-				logger.error("Cannot load pattern file "+patternFile+" !");
+				logger.error("Cannot load pattern file {} !", patternFile);
 				System.exit(1);
 			}else{
 				patternFiles.add(patternFile);				
@@ -285,12 +286,12 @@ public class SparkwaveKernel{
 		Thread thread = patternThreadMap.remove(pattern);
 		if(thread == null) return false;
 		
-		logger.debug("Interrupting "+thread);
+		logger.debug("Interrupting {}", thread);
 		thread.interrupt();
 		
 		Queue<Triple> queue = patternQueueMap.remove(pattern);
 		if(queue != null){
-			logger.debug("Removing queue "+queue+" from queues");
+			logger.debug("Removing queue {} from queues", queue);
 			//synchronized because it might happen that StreamParserThread is iterating over queues
 			synchronized(queues){
 				queues.remove(queue);

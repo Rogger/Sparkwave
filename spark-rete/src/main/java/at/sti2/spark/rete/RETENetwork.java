@@ -19,7 +19,8 @@ package at.sti2.spark.rete;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFNumericLiteral;
@@ -51,7 +52,7 @@ public class RETENetwork {
 	private BetaMemory betaMemory = null;
 	private List<Pattern> triplePatternGraphs = null;
 
-	static Logger logger = Logger.getLogger(RETENetwork.class);
+	static Logger logger = LoggerFactory.getLogger(RETENetwork.class);
 
 	public RETENetwork() {
 

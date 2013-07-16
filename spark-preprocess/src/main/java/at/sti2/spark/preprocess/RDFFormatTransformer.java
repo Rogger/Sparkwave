@@ -7,7 +7,8 @@ import java.io.OutputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.io.output.TeeOutputStream;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -22,7 +23,7 @@ import com.hp.hpl.jena.rdf.model.RDFWriter;
  */
 public class RDFFormatTransformer implements PreProcess,Runnable {
 	
-	private Logger logger = Logger.getLogger(RDFFormatTransformer.class);
+	private Logger logger = LoggerFactory.getLogger(RDFFormatTransformer.class);
 	
 	InputStream in;
 	OutputStream out;

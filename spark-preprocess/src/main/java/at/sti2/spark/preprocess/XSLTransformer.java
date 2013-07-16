@@ -17,11 +17,12 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XSLTransformer implements PreProcess,Runnable{
 	
-	private Logger logger = Logger.getLogger(XSLTransformer.class);
+	private Logger logger = LoggerFactory.getLogger(XSLTransformer.class);
 	
 	Source xslt = null;
 	InputStream in = null;

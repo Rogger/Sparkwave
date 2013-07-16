@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -20,7 +21,7 @@ import at.sti2.spark.grammar.pattern.Pattern;
 
 public class SupportHandlerTest {
 	
-	static Logger logger = Logger.getLogger(SupportHandlerTest.class);
+	static Logger logger = LoggerFactory.getLogger(SupportHandlerTest.class);
 
 	private Match match = null;
 	private List<Handler> handlerProperties = null;

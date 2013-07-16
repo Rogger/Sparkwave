@@ -39,7 +39,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -61,7 +62,7 @@ public class ImpactoriumHandler implements SparkwaveHandler {
 	 */
 	private long twoMinutesPause = 0l;
 
-	static Logger logger = Logger.getLogger(ImpactoriumHandler.class);
+	static Logger logger = LoggerFactory.getLogger(ImpactoriumHandler.class);
 	Handler handlerProperties = null;
 	
 	@Override
@@ -137,11 +138,11 @@ public class ImpactoriumHandler implements SparkwaveHandler {
 				}
 			}
 		} catch (UnsupportedEncodingException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} catch (ClientProtocolException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 	

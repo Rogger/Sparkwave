@@ -21,10 +21,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -45,7 +46,7 @@ public class SparkWaveFirstBSBMTest {
 	private SparkwaveNetwork sparkWeaveNetwork = null;
 	private File ontologyFile = null;
 	
-	static Logger logger = Logger.getLogger(SparkWaveFirstBSBMTest.class);
+	static Logger logger = LoggerFactory.getLogger(SparkWaveFirstBSBMTest.class);
 	
 	@Before
 	public void init() throws Exception {

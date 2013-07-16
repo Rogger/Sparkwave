@@ -7,15 +7,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.sparkwave.parser.StreamParserThread;
 
 public class StreamParserTest {
 	
-	static Logger logger = Logger.getLogger(StreamParserTest.class);
+	static Logger logger = LoggerFactory.getLogger(StreamParserTest.class);
 
 	@Test
 	public void test() throws InterruptedException {
@@ -37,7 +38,7 @@ public class StreamParserTest {
 		Triple triple;
 		int i = 0;
 		while((triple=queue.poll()) != null){
-			logger.info(triple);
+			logger.info(triple.toString());
 			i++;
 		}
 		

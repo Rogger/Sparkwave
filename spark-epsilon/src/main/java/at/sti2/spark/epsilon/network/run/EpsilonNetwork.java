@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.Network;
@@ -29,7 +30,7 @@ import at.sti2.spark.rete.alpha.AlphaNode;
 
 public class EpsilonNetwork {
 	
-	static Logger logger = Logger.getLogger(EpsilonNetwork.class);
+	static Logger logger = LoggerFactory.getLogger(EpsilonNetwork.class);
 	
 	// The hashtable which serves as a lookup to pickup the node which is processing a triple
 	private NodeSelector nodeSelector = null;

@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
-import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.grammar.pattern.GraphPattern;
 import at.sti2.spark.grammar.pattern.GroupGraphPattern;
@@ -19,7 +20,7 @@ import at.sti2.spark.grammar.pattern.expression.FilterOperator;
 
 public class SparkLexerParserTest {
 	
-	static protected Logger logger = Logger.getLogger(SparkLexerParserTest.class);
+	static protected Logger logger = LoggerFactory.getLogger(SparkLexerParserTest.class);
 	
 	@Test
 	public void testPatternSelect() throws Exception{

@@ -16,7 +16,8 @@
 
 package at.sti2.spark.rete.beta;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.stream.Triple;
@@ -27,7 +28,7 @@ import at.sti2.spark.rete.node.RETENode;
 
 public class BetaMemory extends RETENode {
 	
-	static Logger logger = Logger.getLogger(BetaMemory.class);
+	static Logger logger = LoggerFactory.getLogger(BetaMemory.class);
 
 	private boolean rootNode = false;
 	

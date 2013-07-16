@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Hashtable;
 
-import org.apache.log4j.Logger;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.core.triple.RDFURIReference;
@@ -20,7 +21,7 @@ import at.sti2.spark.grammar.pattern.Pattern;
 
 public class InfoObjectSubmissionTest {
 	
-	static Logger logger = Logger.getLogger(InfoObjectSubmissionTest.class);
+	static Logger logger = LoggerFactory.getLogger(InfoObjectSubmissionTest.class);
 
 	private Match match = null;
 	private Handler handlerProperties = null;

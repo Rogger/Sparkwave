@@ -12,7 +12,8 @@ import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.Tree;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFNumericLiteral;
@@ -41,7 +42,7 @@ import at.sti2.spark.grammar.util.Entry;
  */
 public class SparkPatternParser {
 	
-	protected static Logger logger = Logger.getLogger(SparkPatternParser.class);
+	protected static Logger logger = LoggerFactory.getLogger(SparkPatternParser.class);
 	
 
 //	public Entry<Pattern, String> parse(String patternFilePath) throws IOException, SparkParserException{
@@ -76,13 +77,13 @@ public class SparkPatternParser {
 		
 		//Lexer Error Reporter
 		IErrorReporter lexerErrorReporter = new IErrorReporter() {
-			protected Logger logger = Logger.getLogger(getClass());
+			protected Logger logger = LoggerFactory.getLogger(getClass());
 			@Override
 			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
 				if(e instanceof NoViableAltException){
 					// ignore
 				}else{
-					logger.warn(e);
+					logger.warn(e.getMessage());
 					parserWarnings.append(e).append("\n");
 				}
 			}
@@ -95,7 +96,7 @@ public class SparkPatternParser {
 		
 		//Parser Error Reporter
 		IErrorReporter parserErrorReporter = new IErrorReporter() {
-			protected Logger logger = Logger.getLogger(getClass());
+			protected Logger logger = LoggerFactory.getLogger(getClass());
 			@Override
 			public void reportError(String[] tokenNames, RecognitionException e, String hdr, String msg) {
 				logger.warn(hdr+"\t"+msg);
@@ -111,7 +112,7 @@ public class SparkPatternParser {
 			query = parser.query();
 			logger.debug( ((Tree)query.tree).toStringTree());
 		} catch (RecognitionException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 			throw new SparkParserException("SparkParser exception ", parserWarnings.toString(), e);
 		}
 		
@@ -565,7 +566,7 @@ public class SparkPatternParser {
 		
 		if(treeNode!=null){
 			TreeWrapper bracketted = treeNode.getChild(0);
-			logger.debug(bracketted);
+			logger.debug(bracketted.toString());
 			
 			if(bracketted!=null && bracketted.toString().equals("BRACKETTED_EXPRESSION")){
 				FilterExpression parseExpression = parseBrackettedExpression(bracketted,patternGraph);
@@ -589,7 +590,7 @@ public class SparkPatternParser {
 			
 			// operation
 			if(operation!=null){
-				logger.debug(operation);
+				logger.debug(operation.toString());
 				String operatorValue = operation.toString();
 				
 				FilterOperator operator = null;
@@ -634,7 +635,7 @@ public class SparkPatternParser {
 	private RDFValue parseRelationalExpression(TreeWrapper treeNode) {
 		// expression
 		if (treeNode != null) {
-			logger.debug(treeNode);
+			logger.debug(treeNode.toString());
 			String expressionValue = treeNode.toString();
 
 			if (expressionValue.equals("VAR")) {
@@ -654,7 +655,7 @@ public class SparkPatternParser {
 	
 	private RDFNumericLiteral parseNumericLiteral(TreeWrapper treeNode){
 		if(treeNode != null){
-			logger.debug(treeNode);
+			logger.debug(treeNode.toString());
 			String literalType = treeNode.toString();
 			if(literalType.equals("DECIMAL_LITERAL")){
 				String numericValue = treeNode.getChild(0).toString();
@@ -722,7 +723,7 @@ public class SparkPatternParser {
 			}
 		}
 		
-		logger.debug(triple);
+		logger.debug(triple.toString());
 		
 		return tripleCondition;
 	}

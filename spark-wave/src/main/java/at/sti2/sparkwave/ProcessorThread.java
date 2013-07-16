@@ -18,7 +18,8 @@ package at.sti2.sparkwave;
 import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.epsilon.network.run.Token;
@@ -30,7 +31,7 @@ import at.sti2.spark.epsilon.network.run.Token;
  */
 public class ProcessorThread implements Runnable {
 
-	static Logger logger = Logger.getLogger(ProcessorThread.class);
+	static Logger logger = LoggerFactory.getLogger(ProcessorThread.class);
 
 	private SparkwaveNetwork sparkwaveNetwork = null;
 	private BlockingQueue<Triple> queue = null;

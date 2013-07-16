@@ -29,7 +29,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.preprocess.PreProcess;
@@ -47,7 +48,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class ServerSocketThread implements Runnable{
 	
-	static Logger logger = Logger.getLogger(ServerSocketThread.class);
+	static Logger logger = LoggerFactory.getLogger(ServerSocketThread.class);
 
 	private ThreadFactory tf = new ThreadFactoryBuilder().setNameFormat("PreProcess-%d").build();
 	private ExecutorService sparkwaveParserExecutor = Executors.newCachedThreadPool(tf); 
@@ -152,7 +153,7 @@ public class ServerSocketThread implements Runnable{
 	        }
 	        
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		} finally {
 			
 		}

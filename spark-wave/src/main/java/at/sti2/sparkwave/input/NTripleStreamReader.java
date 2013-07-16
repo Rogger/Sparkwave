@@ -23,7 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.triple.RDFLiteral;
 import at.sti2.spark.core.triple.RDFTriple;
@@ -32,7 +33,7 @@ import at.sti2.spark.core.triple.RDFValue;
 
 public class NTripleStreamReader {
 	
-	static Logger logger = Logger.getLogger(NTripleStreamReader.class);
+	static Logger logger = LoggerFactory.getLogger(NTripleStreamReader.class);
 
 	private File inputFile = null;
 	

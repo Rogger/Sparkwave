@@ -20,8 +20,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.antlr.runtime.ANTLRStringStream;
-import org.apache.log4j.Logger;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.grammar.SparkParserResult;
 import at.sti2.spark.grammar.SparkPatternParser;
@@ -37,7 +38,7 @@ import com.hp.hpl.jena.sparql.lib.org.json.JSONException;
 @Produces(MediaType.APPLICATION_JSON)
 public class PatternsResource {
 	
-	private static final Logger logger = Logger.getLogger(PatternsResource.class);
+	private static final Logger logger = LoggerFactory.getLogger(PatternsResource.class);
 	
 	@Context
 	private SparkwaveKernel sparkwaveKernel;
@@ -83,7 +84,7 @@ public class PatternsResource {
 		}
 		String patternContent = jsonPattern.getString("content");
 		
-		logger.debug(jsonPattern);
+		logger.debug(jsonPattern.toString());
 		
 		//parse pattern
 		SparkPatternParser parser = new SparkPatternParser();

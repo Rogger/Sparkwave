@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFLiteral;
@@ -36,7 +37,7 @@ import com.google.common.base.Stopwatch;
 
 public class StreamParserThread implements Runnable {
 
-	static Logger logger = Logger.getLogger(StreamParserThread.class);
+	static Logger logger = LoggerFactory.getLogger(StreamParserThread.class);
 
 	private List<BlockingQueue<Triple>> queues;
 	private boolean run = true;
@@ -96,7 +97,7 @@ public class StreamParserThread implements Runnable {
 //			logger.info("Pattern has been matched "+ sparkwaveNetwork.getReteNetwork().getNumMatches()+ " times.");
 
 		} catch (InterruptedException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 		}
 	}
 	
@@ -191,10 +192,10 @@ public class StreamParserThread implements Runnable {
 				return new Triple(rdfTriple,0, false, 0l);
 			}
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 			run = false;
 		} catch (InterruptedException e) {
-			logger.error(e);
+			logger.error(e.getMessage());
 			run = false;
 		} catch (EndOfStreamException e) {
 			run = false;

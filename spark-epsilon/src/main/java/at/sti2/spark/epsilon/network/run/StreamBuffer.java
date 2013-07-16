@@ -18,7 +18,8 @@ package at.sti2.spark.epsilon.network.run;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import at.sti2.spark.core.stream.Triple;
 
@@ -30,7 +31,7 @@ import at.sti2.spark.core.stream.Triple;
  */
 public class StreamBuffer {
 	
-	static Logger logger = Logger.getLogger(StreamBuffer.class);
+	static Logger logger = LoggerFactory.getLogger(StreamBuffer.class);
 
 	private LinkedBlockingQueue<Triple> streamTripleQueue = null;
 	

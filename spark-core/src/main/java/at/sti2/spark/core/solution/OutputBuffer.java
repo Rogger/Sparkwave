@@ -43,4 +43,11 @@ public class OutputBuffer {
 		}
 		return matches.poll();
 	}
+	
+	/**
+	 * Clear the internal queue
+	 */
+	public void clear(){
+		matches.clear();
+	}
 }

@@ -298,7 +298,6 @@ public class SparkwaveKernel{
 		}
 		
 		return true;
-		
 	}
 	
 	/**

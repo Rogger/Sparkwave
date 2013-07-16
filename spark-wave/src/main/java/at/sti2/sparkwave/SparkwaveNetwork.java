@@ -49,6 +49,8 @@ public class SparkwaveNetwork{
 	private RETENetwork reteNetwork = null;
 	private EpsilonNetwork epsilonNetwork = null;
 	
+	private HandlerThread handlerThread;
+	
 	//Input artifacts
 	private Pattern pattern = null;
 	
@@ -134,11 +136,10 @@ public class SparkwaveNetwork{
 		if (pattern.getConstruct().getConditions().size() > 0){
 			List<ProductionNode> productionNodes = reteNetwork.getProductionNodes();
 			for (ProductionNode productionNode : productionNodes){
-				HandlerThread outputThread = new HandlerThread(pattern, productionNode.getOutputBuffer());
-				outputThread.start();
-			}
-			
-			logger.info("Sparkwave output thread started...");
+				handlerThread = new HandlerThread(pattern, productionNode.getOutputBuffer());
+				handlerThread.start();
+				logger.info("Sparkwave output thread started...");
+			}			
 		}
 		
 	}
@@ -242,6 +243,10 @@ public class SparkwaveNetwork{
 	
 	public Pattern getPattern(){
 		return pattern;
+	}
+	
+	public HandlerThread getHandlerThread(){
+		return handlerThread;
 	}
 	
 }

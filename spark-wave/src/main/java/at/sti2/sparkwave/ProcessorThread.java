@@ -68,8 +68,15 @@ public class ProcessorThread implements Runnable {
 				logger.debug("Thread " + Thread.currentThread().toString()
 						+ " interrupted!");
 				setTerminated(true);
+				
 				logger.debug("Clearing queue before stopping thread!");
 				queue.clear();
+				
+				HandlerThread handlerThread = sparkwaveNetwork.getHandlerThread();
+				if(handlerThread!=null){
+					logger.debug("Interrupting the handler thread: "+handlerThread);
+					handlerThread.interrupt();
+				}
 			}
 
 			// if(queue.isEmpty()){

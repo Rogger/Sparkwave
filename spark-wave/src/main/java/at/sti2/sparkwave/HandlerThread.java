@@ -39,6 +39,8 @@ public class HandlerThread extends Thread {
 	private OutputBuffer outputBuffer = null;
 	private Pattern triplePatternGraph = null;
 	
+	private boolean isTerminated = false;
+	
 	public HandlerThread(Pattern patternGraph, OutputBuffer outputBuffer){
 		this.outputBuffer = outputBuffer;
 		this.triplePatternGraph = patternGraph;
@@ -74,7 +76,7 @@ public class HandlerThread extends Thread {
 			}
 		}
 
-		while (true) {
+		while (!isTerminated) {
 			try {
 				match = outputBuffer.get();
 				for (SparkwaveHandler handlerInstance : handlerInstances) {
@@ -82,12 +84,19 @@ public class HandlerThread extends Thread {
 				}
 				// System.out.println( formatMatch(match));
 			} catch (InterruptedException e) {
-				logger.error(e);
+				logger.debug("Thread " + Thread.currentThread().toString() + " interrupted!");
+				setTerminated(true);
+				logger.debug("Clearing output queue before stopping thread!");
+				outputBuffer.clear();
 			} catch (SparkwaveHandlerException e) {
 				logger.error(e);
 			}
 		}
 
+	}
+	
+	void setTerminated(boolean isTerminated){
+		this.isTerminated = isTerminated;
 	}
 	
 }

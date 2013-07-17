@@ -40,7 +40,7 @@ public class RestServer {
 		HttpServer httpServer;
 		try {
 			httpServer = GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
-			logger.info(String.format("WADL available at %sapplication.wadl", BASE_URI));
+//			logger.info(String.format("WADL available at %sapplication.wadl", BASE_URI));
 			logger.info(String.format("Try out %spatterns", BASE_URI));
 			System.in.read();
 			httpServer.stop();

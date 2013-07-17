@@ -128,6 +128,7 @@ public class PatternsResource {
 	 * @throws JSONException
 	 */
 	@GET @Path("/{patternid}")
+	@Produces(MediaType.APPLICATION_XML)
 	public JsonObject getPattern(@PathParam("patternid") long patternId) throws JSONException{
 		logger.info("Processing GET request for patternId {}", patternId);
 		Pattern pattern = sparkwaveKernel.getLoadedPattern(patternId);

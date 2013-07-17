@@ -1,3 +1,7 @@
+v0.5.1
+======
+Bugfix: The handler thread was not shutdown correctly, when unloading a pattern.
+
 v0.5
 ====
 REST management interface, allows at runtime of Sparkwave to load, unload and get patterns.

@@ -10,6 +10,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import at.sti2.sparkwave.SparkwaveKernel;
 import at.sti2.sparkwave.rest.resources.SparkwaveKernelBinder;
@@ -25,6 +26,11 @@ public class RestServer {
 	}
 	
 	public void startServer(){
+		
+		//Redirecting JUL to SLF4J
+		SLF4JBridgeHandler.removeHandlersForRootLogger();
+		SLF4JBridgeHandler.install();
+		
 		logger.info("Starting REST management interface...");
 		ResourceConfig rc = new ResourceConfig().
 				register(new SparkwaveKernelBinder(sparkwaveKernel)).

@@ -52,6 +52,8 @@ public class PatternsResource {
 	 */
 	@GET
 	public JsonArray getPatterns(){
+		logger.info("Processing GET request");
+		
 		JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
 		Collection<Pattern> patterns = sparkwaveKernel.getLoadedPatterns();
@@ -127,7 +129,7 @@ public class PatternsResource {
 	 */
 	@GET @Path("/{patternid}")
 	public JsonObject getPattern(@PathParam("patternid") long patternId) throws JSONException{
-		logger.info("Processing GET request for patternId " +patternId);
+		logger.info("Processing GET request for patternId {}", patternId);
 		Pattern pattern = sparkwaveKernel.getLoadedPattern(patternId);
 		if(pattern==null){
 			logger.error("Pattern "+patternId+" not found");
@@ -144,7 +146,7 @@ public class PatternsResource {
 	 */
 	@DELETE @Path("/{patternid}")
 	public Response deletePattern(@PathParam("patternid") long patternId){
-		logger.info("Processing DELETE request for patternId " +patternId);
+		logger.info("Processing DELETE request for patternId {}", patternId);
 		boolean isRemoved = sparkwaveKernel.removeProcessorThread(patternId);
 		if(isRemoved){
 			return Response.ok().build();

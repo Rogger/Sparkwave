@@ -20,6 +20,11 @@
 			</includes>
 		</fileSet>
 	</fileSets>
+	<files>
+	    <file>
+	        <source>../CHANGELOG</source>
+	    </file>
+	</files>
 	
 	<moduleSets>
 		<moduleSet>

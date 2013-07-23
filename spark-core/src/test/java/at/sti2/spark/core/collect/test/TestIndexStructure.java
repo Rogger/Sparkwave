@@ -1,27 +1,14 @@
 package at.sti2.spark.core.collect.test;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.junit.Test;
 
-import junit.framework.TestCase;
-
 import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.collect.Removable;
-import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
 import at.sti2.spark.core.triple.RDFURIReference;
-import at.sti2.spark.core.triple.RDFValue;
-
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.LinkedHashMultimap;
 
 public class TestIndexStructure {
 	

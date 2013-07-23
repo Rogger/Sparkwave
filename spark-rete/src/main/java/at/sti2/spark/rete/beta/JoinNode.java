@@ -20,22 +20,18 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Vector;
 
-import at.sti2.spark.core.collect.IndexStructure;
 import at.sti2.spark.core.stream.Triple;
 import at.sti2.spark.core.triple.RDFTriple;
-import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.core.triple.RDFTriple.Field;
 import at.sti2.spark.core.triple.RDFValue;
+import at.sti2.spark.core.triple.TripleCondition;
 import at.sti2.spark.rete.Token;
 import at.sti2.spark.rete.WorkingMemoryElement;
 import at.sti2.spark.rete.alpha.AlphaMemory;
 import at.sti2.spark.rete.node.RETENode;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.google.common.collect.Sets.SetView;
 
 public class JoinNode extends RETENode {
 

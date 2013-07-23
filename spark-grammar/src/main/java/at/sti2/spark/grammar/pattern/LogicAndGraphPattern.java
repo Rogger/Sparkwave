@@ -16,8 +16,6 @@
 
 package at.sti2.spark.grammar.pattern;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

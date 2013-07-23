@@ -17,7 +17,6 @@
 package at.sti2.spark.rete;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import at.sti2.spark.core.collect.Removable;

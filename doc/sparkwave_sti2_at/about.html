@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Sparkwave - About</title>
+		<meta name="description" content="">
+		<meta name="author" content="Srdjan Komazec">
+		<meta name="author" content="Michael Rogger">
+		<!-- Le styles -->
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<style type="text/css">
+			body {
+				padding-top: 60px;
+				padding-bottom: 40px;
+			}
+
+		</style>
+		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		
+		<!-- Le fav and touch icons -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72"
+		href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114"
+		href="images/apple-touch-icon-114x114.png">
+	</head>
+	
+	<body>
+		
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+					<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> </a><a class="brand" href="index.html">Sparkwave</a>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<li>
+								<a href="index.html">Home</a>
+							</li>
+							<li class="active">
+								<a href="about.html">About</a>
+							</li>
+							<li>
+								<a href="gettingstarted.html">Getting Started</a>
+							</li>
+							<li>
+								<a href="contact.html">Contact</a>
+							</li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			
+				<a href="https://github.com/rogger/Sparkwave/"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+					
+					<!-- Description -->
+					<section id="description">
+						<div class="page-header">
+							<h1>Description</h1>
+						</div>
+							Sparkwave is a solution for continuous pattern matching over RDF data streams.
+							It is based on the Rete algorithm, which allows efficient and truly continuous
+							processing of streamed data. Sparkwave leverages RDF schema information
+							associated to data streams to compute entailments, so that implicit knowledge is
+							taken into account for pattern matching. In addition, it supports time-based
+							sliding window to cope with the streaming nature of processed data.
+					</section>
+					
+					<!-- Publications -->
+					<section id="publications">
+						<div class="page-header">
+							<h1>Publications</h1>
+						</div>
+						<p>
+							For details about Sparkwave we encourage you to read the publications.
+						</p>
+						<ul>
+							<li>
+								<p>Srdjan Komazec, Davide Cerri, and Dieter Fensel. 2012. Sparkwave: continuous schema-enhanced pattern matching over RDF data streams. In Proceedings of the 6th ACM International Conference on Distributed Event-Based Systems (DEBS '12). ACM, New York, NY, USA, 58-68. DOI=10.1145/2335484.2335491
+									<br><a href="http://dl.acm.org/citation.cfm?doid=2335484.2335491">http://dl.acm.org/citation.cfm?doid=2335484.2335491</a>
+								</p>
+							</li>
+							<li>
+								<p>Rogger, M., Fensel, A., Gustavi, T., Horndahl, A., Mårtenson, C. Semantic Data Management: Sensor-based Port Security Use Case. In Proceedings of European Intelligence and Security Informatics Conference (EISIC), August 12-14, 2013, Uppsala, Sweden, IEEE Computer Society Press (2013).
+								</p>
+							</li>
+						</ul>
+					</section>
+					
+					<!-- Performance -->
+					<section id="performance">
+						<div class="page-header">
+							<h1>Performance</h1>
+						</div>
+						<p>
+							In order to evaluate the performance of Sparkwave, we
+							defined some tests reusing part of the dataset from the Berlin
+							SPARQL Benchmark (BSBM). The BSBM defines a suite of benchmarks to
+							compare the performance of RDF stores and, in general, of storage
+							systems that expose SPARQL endpoints. The benchmark is built
+							around an e-commerce use case in which a set of products is
+							offered by different vendors, and consumers have posted reviews
+							about the products.
+						</p>
+						<p>
+							The BSBM is not intended for measuring stream processing
+							systems and by itself does not provide data streams, so we had to
+							adapt it to our needs. In particular, we reused the data
+							describing product types and offers. The BSBM generates a
+							single-rooted hierarchy of product types, whose depth and number
+							of classes are determined by a scaling factor; each product is
+							then assigned to a product type at the leaf level of the
+							hierarchy. The hierarchy of product types constitutes for us the
+							schema. The BSBM also generates a number of offers related to
+							products, which for us constitute the data stream.
+						</p>
+						<p>
+							Given these schema and stream from the BSBM, we defined
+							three graph patterns:
+						</p>
+						<ul>
+							<li>
+								In <em>pattern 1</em> we look for offers for products of
+								a given type; for non-leaf types, inference needs to take place
+								on the hierarchy of product types. There are no static instances.
+							</li>
+							<li>
+								Additionally to the conditions set in pattern 1, in <em>pattern
+								2</em> we only want offers for which the vendor is from a given
+								country. The binding between vendors and countries is given
+								through static instances.
+							</li>
+							<li>
+								Additionally to the conditions set in pattern 2, in <em>pattern
+								3</em> we only want offers for products for which the producer is
+								from a given country. The binding between producers and countries
+								is given through static instances.
+							</li>
+						</ul>
+						<pre class="prettyprint linenums" style="margin-bottom: 9px;">
+	-- Pattern 1: ------------------------------------------------------------------------
+	
+	REGISTER QUERY BSBSOfferDetection AS
+	PREFIX bsbm-voc:&lt;http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/&gt;
+	PREFIX bsbm-inst:&lt;http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/&gt;
+	PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+	PREFIX dc:&lt;http://purl.org/dc/elements/1.1/&gt;
+	SELECT ?offer ?product ?vendor ?price ?from ?to ?delivery ?webpage
+		   ?publisher ?date
+	FROM STREAM &lt;http://bsbm.org/stream&gt;
+	FROM &lt;http://members.sti2.at/~srdjank/ProductTypeHierarchy.rdf&gt;
+	WHERE {
+		?offer rdf:type bsbm-voc:Offer.
+		?offer bsbm-voc:product ?product.
+		?offer bsbm-voc:vendor ?vendor.
+		?offer bsbm-voc:price ?price.
+		?offer bsbm-voc:validFrom ?from.
+		?offer bsbm-voc:validTo ?to.
+		?offer bsbm-voc:deliveryDays ?delivery.
+		?offer bsbm-voc:offerWebpage ?webpage.
+		?offer dc:publisher ?publisher.
+		?offer dc:date ?date.
+		?product rdf:type bsbm-inst:TargetProductType
+	}
+	
+	-- Pattern 2: additionally to pattern 1, in WHERE clause: ------------------------------
+		?vendor bsbm-voc:country http://downlode.org/rdf/iso-3166/countries#GB
+	
+	-- Pattern 3: additionally to pattern 1, in WHERE clause: ------------------------------
+		?vendor bsbm-voc:country http://downlode.org/rdf/iso-3166/countries#GB
+		?product bsbm-voc:producer ?producer
+		?producer bsbm-voc:country http://downlode.org/rdf/iso-3166/countries#DE
+			  </pre>
+						<h2> Memory consumption <small>over time window size</small></h2>
+						<img src="figures/optimized-memory.png" alt="Memory consumption"
+						width="50%" height="50%" />
+						<h2> Throughput <small>over time window size</small></h2>
+						<img src="figures/optimized-throughput-tw.png"
+						alt="Throughput over time window" width="50%" height="50%" />
+						<h2> Throughput <small>over background knowledge size</small></h2>
+						<img src="figures/optimized-throughput-bk.png"
+						alt="Throughput over background knowledge" width="50%"
+						height="50%" />
+					</section>
+			
+			<footer>
+				<p>
+					&copy; <a href="http://www.sti-innsbruck.at">STI Innsbruck 2012</a>
+				</p>
+			</footer>
+			
+		</div>
+		<!-- /container -->
+		<!-- Le javascript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap-transition.js"></script>
+		<script src="js/bootstrap-alert.js"></script>
+		<script src="js/bootstrap-modal.js"></script>
+		<script src="js/bootstrap-dropdown.js"></script>
+		<script src="js/bootstrap-scrollspy.js"></script>
+		<script src="js/bootstrap-tab.js"></script>
+		<script src="js/bootstrap-tooltip.js"></script>
+		<script src="js/bootstrap-popover.js"></script>
+		<script src="js/bootstrap-button.js"></script>
+		<script src="js/bootstrap-collapse.js"></script>
+		<script src="js/bootstrap-carousel.js"></script>
+		<script src="js/bootstrap-typeahead.js"></script>
+	</body>
+</html>

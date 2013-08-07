@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sparkwave - Get Started</title>
+    <meta name="description" content="">
+    <meta name="author" content="Srdjan Komazec">
+    <meta name="author" content="Michael Rogger">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">Sparkwave</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li class="active"><a href="documentation.html">Documentation</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+    
+     	<a href="https://github.com/rogger/Sparkwave/"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+			<section id="build">
+				<div class="page-header">
+					<h1>Download binary</h1>
+				</div>
+					Sparkwave is available as compiled binary. Please note that the binary will be compiled by us for releases, to have the latests features and bug fixes included, please build Sparkwave from source.
+					<br/>
+					<br/>
+					<a class="btn" href="releases/Sparkwave_0.3.1.tar.bz2">Download Sparkwave &raquo;</a>
+					<small><a href="https://github.com/skomazec/Sparkweave/tree/v0.3.1">0.3.1</a></small>
+			</section>
+			</br>
+
+			<section id="build">
+				<div class="page-header">
+					<h1>Build from source</h1>
+				</div>
+					Sparkwave is available as open-source project on <a href="https://github.com/skomazec/Sparkweave">Github</a> and licensed under <a href="https://github.com/skomazec/Sparkweave/blob/master/LICENSE">GPL</a> license. To compile and run the software the following requirements need to be fulfilled:
+					<br>
+					<strong>Prerequisite:</strong>
+					<ul>
+						<li>Git 1.7.x+</li>
+						<li>Java Development Kit 6+</li>
+						<li>Maven 3.x+</li>
+					</ul>
+					<br>In the following all steps required to compile, run and test the software are described:<br>
+				<ol>
+					<li>
+						<strong>Get the source code:</strong> The source code can be retrieved from the Github repository using git. After cloning the repository change to the created directory “Sparkweave”.
+						<pre>$ git clone https://github.com/skomazec/Sparkweave.git<br>$ cd Sparkweave</pre>
+					</li>
+					<li>
+						<strong>Compile:</strong> Switch to the folder “spark-dist” and execute the maven command as listed. Maven installs all dependencies, compiles the source code and packages Sparkwave into a single jar file.
+						<pre>$ cd spark-dist<br>$ mvn clean install package -Dmaven.test.skip=true</pre>
+					</li>
+					<li>
+						<strong>Run:</strong> Sparkwave can be started with the script “spark.sh”, it is mandatory to supply a port and a pattern file. Obligatory input arguments are the epsilon ontology and the static instances. In the following an example is listed that starts Sparkwave with port 8080 using the pattern “pattern-PT1-TW100.tpg” and epsilon ontology “epsilon-PT1-DS329.owl”. The static instances are not loaded, therefore as argument “null” is given.
+						<pre>$ sh spark.sh 8080 $PWD/tests/pattern-PT1-TW100.tpg $PWD/tests/epsilon-PT1-DS329.owl null</pre>
+					</li>
+					<li>
+						<strong>Test:</strong> Sparkwave accepts streams of N3 triples. The script “spark-stream.sh” reads a file and sents the stream to localhost with the specified port. In the listed example “offers-trunc100.nt” is streamed to localhost with port 8080.
+						<pre>$ sh spark-streamer.sh 8080 $PWD/tests/offers-trunc100.nt </pre>
+					</li>
+				</ol>
+			</section>
+			</br>
+			
+			<section id="pattern_language">
+				<div class="page-header">
+					<h1>Pattern language</h1>
+				</div>
+				Sparkwave patterns are specified in a language which closely follows the SPARQL language syntax. As presented in the Listing the only significant deviation is in the terms of addition of handlers section in the prologue of a query. Handlers are defining a way to respond to a pattern match, i.e., a handler is triggered when Sparkwave identifies a match. Writing a handler is as easy as implementing a Java interface. The Sparkwave pattern specification presented is not complete in the sense that it lacks definitions of following terms: PNAME_NS, IRI_REF, string, INTEGER, var, and rdfLiteral, which definitions can be found at <a href="http://code.google.com/p/sparkle-g/source/browse/branches/2.0/src/main/antlr3/com/sparkleg/Sparql.g">(Eric Prud'hommeaux, 2008)</a>. 
+				</br>
+				</br>
+				<pre class="prettyprint linenums" style="margin-bottom: 9px;">
+query= prologue, (selectQuery | constructQuery);
+prologue= prefixes,handlersClause ;
+prefixes= {‘PREFIX’, PNAME_NS, IRI_REF} ;
+handlersClause = ‘HANDLERS’, ‘{‘, {handlerClause}, ’}’ ;
+handlerClause= ‘HANDLER’handlerGroup ;
+handlerGroup= ‘{‘,{keyValuePair}, ’}’ ;
+keyValuePair= string, ‘=’, string ;
+constructQuery= ‘CONSTRUCT,’constructTemplate,whereClause ;
+constructTemplate= ‘{‘,{constructTriples}, ’}’ ;
+constructTriples= triple, {‘.’, triple},[‘.’] ;
+whereClause= ‘WHERE’,groupGraphPattern ;
+groupGraphPattern= ‘{‘, groupGraphPatternSub, ‘}’ ;
+groupGraphPatternSub= triplesBlock,{groupGraphPatternSubDetail} | {groupGraphPatternSubDetail} ;
+groupGraphPatternSubDetail = graphPatternNotTriples,[‘.’], {triplesBlock} ;
+graphPatternNotTriples= timewindow | filter ;
+timewindow= ‘TIMEWINDOW’, ‘(’, INTEGER, ‘)’ ;
+filter= ‘FILTER’, constraint ;
+triplesBlock= triple, {‘.’, triple},[‘.’];
+triple= varOrTerm,varOrTerm,varOrTerm;
+varOrTerm= var | graphTerm ;
+graphTerm= IRI_REF | rdfLiteral ;</pre>
+			</section>
+			</br>
+			
+			<section id="pattern_language">
+				<div class="page-header">
+					<h1>Handler</h1>
+				</div>
+				 A single Sparkwave pattern can configure a number of handlers dedicated to further process pattern matches. A handler configuration is declared in a HANDLERS section of a pattern, where each handler is represented with a HANLDER entry (see Listing). Each handler, if needed, expects a list of configuration parameters in the form of key-pair values through which a handler is configured. Configuration parameters are specific for a specific handler type but one parameter is shared across all handlers - "class" parameter. The parameter instructs Sparkwave engine which Java class (implementing the interface at.sti2.spark.handler.SparkwaveHandler) to instantiate for a specific handler. The interface is given in the Listing.
+				</br>
+				</br>
+				<pre class="prettyprint linenums" style="margin-bottom: 9px;">
+package at.sti2.spark.handler;
+
+import at.sti2.spark.core.solution.Match;
+import at.sti2.spark.grammar.pattern.Handler;
+
+public interface SparkweaveHandler {
+	
+public void init(HandlerinvokerProperties) throws SparkweaveHandlerException;
+public void invoke(Match match) throws SparkweaveHandlerException;
+}</pre>
+			</section>
+      <footer>
+        <p>&copy; <a href="http://www.sti-innsbruck.at">STI Innsbruck 2012</a></p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>

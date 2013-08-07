@@ -44,6 +44,7 @@
             <ul class="nav">
               <li><a href="index.html">Home</a></li>
               <li><a href="about.html">About</a></li>
+			  <li><a href="publications.html">Publications</a></li>
               <li class="active"><a href="gettingstarted.html">Getting Started</a></li>
               <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -158,11 +159,13 @@ package at.sti2.spark.handler;
 import at.sti2.spark.core.solution.Match;
 import at.sti2.spark.grammar.pattern.Handler;
 
-public interface SparkweaveHandler {
+public interface SparkwaveHandler {
 	
-public void init(HandlerinvokerProperties) throws SparkweaveHandlerException;
-public void invoke(Match match) throws SparkweaveHandlerException;
-}</pre>
+	public void init(Handler invokerProperties) throws SparkwaveHandlerException;
+	
+	public void invoke(Match match) throws SparkwaveHandlerException;
+}
+</pre>
 			</section>
       <footer>
         <p>&copy; <a href="http://www.sti-innsbruck.at">STI Innsbruck 2012</a></p>

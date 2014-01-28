@@ -41,8 +41,26 @@
 
 	<repositories>
 		<repository>
-			<id>Jena Repository</id>
-			<url>http://openjena.org/repo</url>
+			<id>sti2-archiva-external</id>
+			<url>http://maven.sti2.at/archiva/repository/external</url>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sti2-archiva-snapshots</id>
+			<url>http://maven.sti2.at/archiva/repository/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>warn</checksumPolicy>
+			</snapshots>
 		</repository>
 	</repositories>
 

@@ -2,10 +2,10 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX support: <http://www.foi.se/support/wp4demo#>
 
 #Location of the epsilon ontology file
-EPSILON_ONTOLOGY = "support/pattern/support_schema.owl"
+EPSILON_ONTOLOGY = "target/test-classes/support/support_schema.owl"
 
 #Location of the static instances file
-STATIC_INSTANCES = "support/pattern/instances.nt"
+STATIC_INSTANCES = "target/test-classes/support/instances.nt"
 
 
 HANDLERS{
@@ -19,7 +19,7 @@ HANDLERS{
 		"class" = "at.sti2.spark.handler.SupportHandler"
 		"url" = "http://www.support-project.eu/SupportPlatform/SupportPlatformEventService.svc/event"
 		"twominfilter" = "true"
-		"xsltLocation" = "support/xslt/fromRDFtoEvent.xslt"
+		"xsltLocation" = "target/classes/support/fromRDFtoEvent.xslt"
 	}
 	
 	HANDLER {

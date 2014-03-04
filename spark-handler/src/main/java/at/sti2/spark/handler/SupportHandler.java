@@ -58,7 +58,8 @@ public class SupportHandler implements SparkwaveHandler {
 	public void invoke(Match match) throws SparkwaveHandlerException{
 		
 		boolean twominfilter = false;
-		String xsltLocation = "target/classes/support/fromRDFToEvent.xslt";
+//		String xsltLocation = "target/classes/support/fromRDFToEvent.xslt";
+		String xsltLocation = "";
 		
 		String value = handlerProperties.getValue("twominfilter");
 		if(value == null || (value != null && value.equals("true"))){
